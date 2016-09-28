@@ -2035,7 +2035,7 @@
     instruction need not be typed.)
 
       To enter the instruction:  LDA $0FFF,Y
-      you would type:            LDA$FFF[RETURN]Y
+      you would type:            LDA$FFF[RETURN],Y
 
     In the example above, the "$" selects "ABSOLUTE" address mode. Because
     more then two hex digits were entered, 16-bit address mode is selected.

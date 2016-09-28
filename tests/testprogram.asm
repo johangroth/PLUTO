@@ -15,13 +15,13 @@ l1	sta $0400,x
 	dex
 	bne l1
 
-;check page is $55
+; check page is filled with $55
 l2	lda $0400,x
 	cmp #$55
 	bne l3 		; no, decoding failed at offset x
 	dex		; yepp, still $55
 	beq l2		; try next memory position
-	bra again
+	bra again	; put $55 on out port of the VIA
 
 ; if not, indicate this with another pattern.
 l3	lda #$aa

@@ -1,5 +1,5 @@
 PEP-Version: 2.42
-Active Prog-Express mode: Program
+Active Prog-Express mode: HexEditor
 Connected Programmers: 1
 
 ;**************************************
@@ -21,7 +21,7 @@ Connected Programmers: 1
     Memory used: True
     Buffer first used byte: 32768
     Real time clock option: NoChanges
-    Real time clock date time: 20/09/2016 21:27:44
+    Real time clock date time: 26/09/2016 18:39:09
     Real time clock calibration: 0
 
  ; Serial number settings:
@@ -37,7 +37,7 @@ Connected Programmers: 1
     Number format: AsciiText
 
  ; Copies:
-    Copies: 1119
+    Copies: 1118
 
  ; Process jobs:
     Show jobs: True
@@ -91,9 +91,20 @@ Connected Programmers: 1
 ;**************************************
  Mode: Read
 ;**************************************
+ ; Source chip settings:
+    Source chip variant id: 79
+    Source chip name: Atmel AT28C256-15PU
+
+ ; File dialog:
+    FileName: /home/jgroth/C64/PLUTO/SyMonIII/symoniii-eeprom.bin
 
  ; Chip option settings:
     Split option: All
+    Chip memory number: 0
+    Memory used: True
+    Real time clock option: NoChanges
+    Real time clock date time: 26/09/2016 18:39:09
+    Real time clock calibration: 0
 
  ; Serial number settings:
     Serial number mode: Off
@@ -112,7 +123,7 @@ Connected Programmers: 1
 
  ; Process jobs:
     Show jobs: True
-    Process job (0): True
+    Process job (0): False
     Process job (1): True
     Process job (2): True
     Process job (3): True
@@ -189,15 +200,16 @@ Connected Programmers: 1
 ;**************************************
  ; Destination chip settings:
     Hex-Editor chip variant id: 79
-    Hex-Editor chip name: Atmel AT28C256-15PU
+    Hex-Editor chip name: AT28C256
 
  ; Open Files:
+    Hex-Editor file: /home/jgroth/C64/PLUTO/SyMonIII/symoniii-eeprom.bin
  ; Chip option settings:
     Split option: All
     Chip memory number: 0
     Memory used: True
     Real time clock option: NoChanges
-    Real time clock date time: 20/09/2016 21:27:40
+    Real time clock date time: 26/09/2016 20:03:25
     Real time clock calibration: 0
 
  ; Serial number settings:
