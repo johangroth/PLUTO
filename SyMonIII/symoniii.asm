@@ -19,6 +19,8 @@
 INBUFF   = $B0      ;14 bytes ($B0-$BD)
 ;
 ;16-bit variables:
+TEMP4	= $A0
+TEMP4H	= TEMP+1
 COMLO   = $BE
 COMHI   = COMLO+1
 DELLO   = $C0
@@ -351,20 +353,18 @@ DECINPUT LDA  #$FF     ;  Allow only valid ASCII DECIMAL digits to be entered:
          RTS           ;Done DECINPUT subroutine, RETURN
 ;
 ;DECINDEX subroutine: decrement 16 bit system variable INDEX,INDEXH
-DECINDEX SEC
-         LDA  INDEX
-         SBC  #$01
-         STA  INDEX
-         LDA  INDEXH
-         SBC  #$00
-         STA  INDEXH
+DECINDEX LDA  INDEX
+	 BNE  DECDONE
+	 DEC  INDEXH
+DECDONE:
+	 DEC  INDEX
          RTS           ;Done DECINDEX subroutine, RETURN
 ;
 ;DOLLAR subroutine: Send "$" to terminal
 ;CROUT subroutines: Send CR,LF to terminal (1 or 2 times)
 DOLLAR   PHA           ;Save ACCUMULATOR on STACK
-         LDA  #$24     ;Send "$" to terminal
-         BNE  SENDIT   ;GOTO SENDIT
+         LDA  #'$'     ;Send "$" to terminal
+         BRA  SENDIT   ;GOTO SENDIT
 ;Send CR,LF to terminal 2 times
 CR2      JSR  CROUT    ;Send CR,LF to terminal
 ;Send CR,LF to terminal 1 time
@@ -643,13 +643,10 @@ HMULTAB  .text $00, $00, $00, $00, $01 ;BCD weight of least significant HEX digi
          .text $02, $68, $43, $54, $56 ;BCD weight of most significant HEX digit
 ;
 ;INCINDEX subroutine: increment 16 bit system variable INDEX,INDEXH
-INCINDEX CLC
-         LDA  INDEX
-         ADC  #$01
-         STA  INDEX
-         LDA  INDEXH
-         ADC  #$00
-         STA  INDEXH
+INCINDEX INC  INDEX
+	 BNE  INCDONE
+	 INC  INDEXH
+INCDONE:	
          RTS           ;Done INCINDEX subroutine, RETURN
 ;
 ;MEMDMP subroutine: Send a formatted ASCII or HEX memory dump to terminal
@@ -1794,9 +1791,7 @@ DSUB1    PHA           ;Save ACCUMULATOR on STACK: ASCII HEX high digit of a byt
 ;         STA  PROHI
 LISTER	 JSR  ASMPROHILO
          JSR  LIST     ;Call disassembler
-;         LDA  #$FF     ;Point to monitor prompt strings
-;         STA  PROLO
-	 JSR  MONPROHILO
+	 JSR  MONPROHILO ;Point to monitor prompt strings
          RTS           ;Done LISTER command, RETURN
 ;
 ;[CNTL-U] USER command: call user program at $0400 as a subroutine
@@ -1810,9 +1805,7 @@ USER     LDA  #$00     ;Make command address pointer = $0400
 ;[CNTL-W] WIPE command: clear (write: $00) RAM memory from $0000 through $7FFF then coldstart SyMon
 WIPE     LDA  #$15     ;Send "Wipe RAM?" to terminal
          JSR  PROMPT
-;         LDA  #$FE     ;Point to prompt strings located at $FE00
-;         STA  PROHI
-	 JSR  ASMPROHILO
+	 JSR  ASMPROHILO	;Point INDEX to strings 
          LDA  #$01     ;Send CR,LF,"ESC key exits, any other to proceed" to terminal
          JSR  PROMPT
          JSR  CHIN     ;Request a keystroke from terminal
@@ -1830,7 +1823,7 @@ WIPELOOP STA  ($00,X)  ;Write $00 to current address
          INC  $01
          BPL  WIPELOOP ;LOOP back to WIPELOOP IF address pointer < $8000
          STA  $01      ; ELSE, clear address pointer
-         JMP  COLDSTRT ;Done WIPE command, GOTO COLDSTART
+;;;      JMP  COLDSTRT ; Done WIPE command, GOTO COLDSTART
 ;
 ;
 ;*********************************
@@ -1848,29 +1841,20 @@ COLDSTRT CLD           ;Put 6502 in binary arithmatic mode
          LDA  #$FF     ;Initialize system variables as follows:
          STA  DELLO    ; delay time low byte
          STA  DELHI    ;  high byte
-	 LDA  #>MONPROMPT
-         STA  PROHI    ; prompt string buffer address pointer high byte
-         LDA  #<MONPROMPT
-         STA  PROLO    ; prompt string buffer address pointer low byte
-	 LDA  #$00
-         STA  ACCUM    ; ACCUMULATOR preset/result value
-         STA  XREG     ; X-REGISTER preset/result value
-         STA  YREG     ; Y-REGISTER preset/result value
-         STA  PREG     ; PROCESSOR STATUS REGISTER preset/result value
-         STA  OUTCNT   ; keystroke buffer 'read from' counter
-         STA  INCNT    ; keystroke buffer 'written to' counter
+	 JSR  MONPROHILO	;prompt string buffer address pointer high and low byte
+         STZ  ACCUM    ; ACCUMULATOR preset/result value
+         STZ  XREG     ; X-REGISTER preset/result value
+         STZ  YREG     ; Y-REGISTER preset/result value
+         STZ  PREG     ; PROCESSOR STATUS REGISTER preset/result value
+         STZ  OUTCNT   ; keystroke buffer 'read from' counter
+         STZ  INCNT    ; keystroke buffer 'written to' counter
          LDA  #$7F
          STA  SREG     ; USER program/application STACK POINTER preset/result value
-                       ;<-FOR OPTIONAL LCD MODULE SUPPORT:*************************************************************
-                       ; (See "commented-out" LCD interface routines located toward the end of this file)
-WARMST   NOP           ;<----------REPLACE THESE NOPS WITH
-         NOP           ;<----------'JSR LCDPRMT' FOR LCD MODULE
-         NOP           ;<----------SUPPORT (16 CH. BY 2 LINE MINIMUM)
          LDX  #$01     ;Set delay time
          JSR  SET      ; do short delay
          JSR  CR2      ;Send 2 CR,LF to terminal
 ;Send BIOS logon messages to terminal
-         LDA  #$03     ;Send "S/O/S BIOS/monitor (c)1990 B.Phelps" to terminal
+         LDA  #$03     ;Send big PLUTO + "S/O/S BIOS/monitor (c)1990 B.Phelps" to terminal
          JSR  PROMPT
          JSR  CROUT    ;Send CR,LF to terminal
 	 JSR  MONPROHILO
@@ -1928,7 +1912,8 @@ DOCOM    JMP  (COMLO)  ;Go process command then RETURN
 ;List of monitor command processor addresses. These are indexed by ASCII keystroke values
 ; which have been filtered (lower case Alpha. converted to upper case) then multiplied by 2
 ;        command:     keystroke: Keystroke value:  Monitor command function:
-MONTAB   .word  RET      ;[BREAK]              $00  ([BREAK] keystroke is trapped by IRQ service routine)
+MONTAB:
+	 .word  RET      ;[BREAK]              $00  ([BREAK] keystroke is trapped by IRQ service routine)
          .word  ASSEM    ;[CNTL-A]             $01  Call Sub-Assembler utility
          .word  ERR      ;[CNTL-B]             $02
          .word  ERR      ;[CNTL-C]             $03
@@ -3241,99 +3226,121 @@ DJTAB    .word  AARG
 ;
 ;END OF ASSEMBLER
 ;
-;
-;LCD interface for 2x16 character module (un-commentize the following for LCD module support)*************************
-;LCDINIT  LDA  #$38
-;         STA  LCDCOM
-;         STA  LCDCOM
-;         STA  LCDCOM
-;         LDA  #$06
-;         JSR  LCDWCOM
-;         LDA  #$0E
-;         JSR  LCDWCOM
-;         LDA  #$01
-;         JSR  LCDWCOM
-;         LDA  #$80
-;         JSR  LCDWCOM
-;         RTS
-;LCDWCOM  JSR  LCDBUSY
-;         STA  LCDCOM
-;         RTS
-;LCDCOUT  JSR  LCDBUSY
-;         STA  LCDDATA
-;         RTS
-;LCDBUSY  PHA
-;LCDLOOP  LDA  LCDCOM
-;         AND  #$80
-;         BNE  LCDLOOP
-;         PLA
-;         RTS
-;LCDPRMT  LDX  #$00
-;LCDMORE  LDA  LCDTEXT,X
-;         JSR  LCDCOUT
-;         INX
-;         CPX  #$38 ;TOTAL LCD DATA BUFFER
-;         BNE  LCDMORE
-;         RTS
-;         JSR  LCDINIT
-;         JSR  LCDPRMT
-;         NOP  ;REPLACE THESE NOPS WITH
-;         NOP  ;JMP $400 FOR "USER" VERSION
-;         NOP  ;OF SyMon III
-;         RTS
-;LCDTEXT  .DB  "S/O/S SyMon III "
-;         .DB  "                "
-;         .DB  "        "
-;         .DB  "version 06.07.07"
-;         .DB  $00
-;
 ;QUERY command:
-         ; * =  $FC00
 ;NOTE: prompt string pointers here
-QUERY    JSR  COUT
-         LDA  #<QUERYSTRINGS
-         STA  INDEX
-         LDA  #>QUERYSTRINGS
-         STA  INDEXH
-         JMP  VQUERY
-;QUERY string :
-QUERYSTRINGS
-         .text  "$E138 CHIN    "
-         .text  "$E15A COUT",$0D,$0A
-         .text  "$E157 COUT2   "
-         .text  "$E18B CROUT",$0D,$0A
-         .text  "$E188 CR2     "
-         .text  "$E5A0 SPC2",$0D,$0A
-         .text  "$E59D SPC4    "
-         .text  "$E3F0 PRASC",$0D,$0A
-         .text  "$E183 DOLLAR  "
-         .text  "$E3FD PRBYTE",$0D,$0A
-         .text  "$E40E PRINDX  "
-         .text  "$E41B PROMPT",$0D,$0A
-         .text  "$E10D BEEP    "
-         .text  "$E198 DELAY1",$0D,$0A
-         .text  "$E19D DELAY2  "
-         .text  "$E578 SET",$0D,$0A
-         .text  "$E57A TIMER   "
-         .text  "$E44D RDLINE",$0D,$0A
-         .text  "$E115 BN2ASC  "
-         .text  "$E000 ASC2BN",$0D,$0A
-         .text  "$E1B9 HEXIN   "
-         .text  "$E4C6 SAVREGS",$0D,$0A
-         .text  "$E4B0 RESREGS "
-         .text  "$xxxx LCDINIT",$0D,$0A
-         .text  "$xxxx LCDOUT  "
-         .text  "$E357 INCINDEX",$0D,$0A
-         .text  "$E5D5 DECIN   "
-         .text  "$E97A PROMPT2",$0D,$0A
-         .text  "$E1B3 HEXIN2  "
-         .text  "$E1B7 HEXIN4",$0D,$0A
-         .text  "$EB55 NMON    "
-         .text  "$EAF4 COLDSTRT",$0D,$0A
-         .text  "6551:$7F70 "
-         .text  "LCD:$9000 "
-         .text  "8255:$A000"
-         .byte  $00
+QUERY:
+	JSR SAVREGS
+	JSR CROUT
+	LDA #<NEWQUERYADRS
+	STA TEMP2
+	LDA #>NEWQUERYADRS
+	STA TEMP2H
+	LDA #<NEWQUERYSTRS
+	STA TEMP3
+	LDA #>NEWQUERYSTRS
+	STA TEMP3H
+
+;;; PRINT THE HEX ADDRESS TO SUBROUTINE
+NEWQUERYAGAIN:	
+	JSR DOLLAR
+	LDY #0
+	LDA (TEMP2),Y
+	STA INDEX
+	INY
+	LDA (TEMP2),Y
+	STA INDEXH
+	JSR PRINDX
+	LDX #2
+INC:
+	INC TEMP2
+	BNE NQDONE
+	INC TEMP2H
+NQDONE:
+	DEX
+	BNE INC
+
+;;; PRINT THE NAME OF THE LABEL TO THE SUBROUTINE
+	LDA TEMP3
+	STA INDEX
+	LDA TEMP3H
+	STA INDEXH
+	JSR PROMPT2		; INDEX WILL POINT TO THE TERMINATING 0 OF THE STRING
+	JSR INCINDEX		; INCREASE INDEX TO POINT TO NEXT STRING
+	LDA (INDEX),Y		; Y HAS BEEN SET TO 0 BY PROMPT2 SO (INDEX),Y WILL POINT TO NEXT STRING OR TERMINATING 0
+	BEQ NEWQUERYDONE	; TWO ZEROES IN A ROW MEANS WE ARE DONE
+	LDA INDEX		; SAVE INDEX IN TEMP3
+	STA TEMP3
+	LDA INDEXH
+	STA TEMP3H
+	BRA NEWQUERYAGAIN	; NEXT QUERY STRING
+	
+NEWQUERYDONE:	
+	JSR RESREGS
+	RTS
+	
+NEWQUERYADRS:	
+	.word CHIN
+	.word COUT
+	.WORD COUT2
+	.WORD CROUT
+	.WORD CR2
+	.WORD SPC2
+	.WORD SPC4
+	.WORD PRASC
+	.WORD DOLLAR
+	.WORD PRBYTE
+	.WORD BEEP
+	.WORD DELAY1
+	.WORD DELAY2
+	.WORD SET
+	.WORD TIMER
+	.WORD RDLINE
+	.WORD BN2ASC
+	.WORD ASC2BN
+	.WORD HEXIN
+	.WORD SAVREGS
+	.WORD RESREGS
+	.WORD INCINDEX
+	.WORD DECIN
+	.WORD PROMPT2
+	.WORD HEXIN2
+	.WORD HEXIN4
+	.WORD NMON
+	.WORD COLDSTRT
+	.WORD SIODAT
+	.WORD 0
+	
+NEWQUERYSTRS:
+	.text  " CHIN    ",0
+        .text  " COUT",$0D,$0A,0
+        .text  " COUT2   ",0
+        .text  " CROUT",$0D,$0A,0
+        .text  " CR2     ",0
+        .text  " SPC2",$0D,$0A,0
+        .text  " SPC4    ",0
+        .text  " PRASC",$0D,$0A,0
+        .text  " DOLLAR  ",0
+        .text  " PRBYTE",$0D,$0A,0
+        .text  " BEEP    ",0
+        .text  " DELAY1",$0D,$0A,0
+        .text  " DELAY2  ",0
+        .text  " SET",$0D,$0A,0
+        .text  " TIMER   ",0
+        .text  " RDLINE",$0D,$0A,0
+        .text  " BN2ASC  ",0
+        .text  " ASC2BN",$0D,$0A,0
+        .text  " HEXIN   ",0
+        .text  " SAVREGS",$0D,$0A,0
+        .text  " RESREGS ",0
+        .text  " INCINDEX",$0D,$0A,0
+        .text  " DECIN   ",0
+        .text  " PROMPT2",$0D,$0A,0
+        .text  " HEXIN2  ",0
+        .text  " HEXIN4",$0D,$0A,0
+        .text  " NMON    ",0
+        .text  " COLDSTRT",$0D,$0A,0
+        .text  " 6551 ",0
+        .byte  $00
 ;
 ;STORLF subroutine: This is a patch that is part of the "Z" (text editor) command;
 ; it stores a [LINEFEED] after [RETURN] when [RETURN] is struck.
