@@ -378,7 +378,7 @@ SENDIT   JSR  COUT
          RTS           ;Done CROUT or DOLLAR subroutine, RETURN
 ;
 ;DELAY1 subroutine: short delay loop, duratiion is (1 * DELLO)
-;DELAY2 subroutine: medium delay loop, duratiion is (DELHI * DELLO)
+;DELAY2 subroutine: medium delay loop, duration is (DELHI * DELLO)
 DELAY1   LDX  #$01     ;Preset delay multiplier to 1
          JMP  ITER
 DELAY2   LDX  DELHI    ;Read delay multiplier variable
