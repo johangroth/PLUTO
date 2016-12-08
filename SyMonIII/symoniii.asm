@@ -314,9 +314,10 @@ ASOK     ADC  #$30     ;ADD $30
 ;BSOUT subroutine: send [BACKSPACE] to terminal
 BSOUT    LDA  #$08     ;Send [BACKSPACE] to terminal
          JMP  COUT     ; then done BSOUT subroutine, RETURN
+
 ;
 ;CHIN subroutine: Wait for a keystroke, return with keystroke in ACCUMULATOR
-CHIN     STX  TEMP     ;Save X REGISTER
+CHIN	 STX  TEMP     ;Save X REGISTER
 CHINLOOP CLI           ;Enable external IRQ response
          LDA  INCNT    ;(Keystroke buffer input counter)
          CMP  OUTCNT   ;(Keystroke buffer output counter)
@@ -3472,7 +3473,7 @@ MONPROMPT
          .text "DEC: "                ;$08
          .byte $00
          .byte $0D, $0A               ;$09
-         .text "Download:"
+         .text "Begin XMODEM/CRC downnload "
          .byte $00
          .text "Xreg:$"               ;$0A
          .byte $00
@@ -3485,7 +3486,7 @@ MONPROMPT
          .text "Yreg:$"               ;$0E
          .byte $00
          .byte $0D, $0A               ;$0F
-         .text "Upload "
+         .text "Begin XMODEM/CRC upload "
          .byte $00
          .text "Stack pointer:$"      ;$10
          .byte $00
