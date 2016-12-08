@@ -19,8 +19,6 @@
 INBUFF   = $B0      ;14 bytes ($B0-$BD)
 ;
 ;16-bit variables:
-TEMP4	= $A0
-TEMP4H	= TEMP+1
 COMLO   = $BE
 COMHI   = COMLO+1
 DELLO   = $C0
@@ -89,11 +87,15 @@ SIOSTAT  = SIODAT+1 ;ACIA status REGISTER
 SIOCOM   = SIODAT+2 ;ACIA command REGISTER
 SIOCON   = SIODAT+3 ;ACIA control REGISTER
 ;
-;LCD module address:
-LCDCOM   = $9000    ;LCD command register <--Put your LCD module base address here (optional, see: COLDSTRT)*********
-LCDDATA  = LCDCOM+1
+
+	;; ***************
+	;; * XMODEM 6502 *
+	;; ***************
+	.include "xmodem.asm"
+	
 ;
-         * =  $E000    ;Target address range $E000 through $FFFF will be used
+        * =  $E000    ;Target address range $E000 through $FFFF will be used
+
 ;
 ;
 ;***************
@@ -1499,82 +1501,83 @@ ADUMP    JSR  SETUP    ;Request HEX address input from terminal
 ; a [RETURN], [LINEFEED] followed by the next address and file data.
 ; After the entire file has been uploaded, an asterisk (*) is sent to indicate
 ; the end of the file. This command is used in conjunction with the DOWNLOAD command.
-UPLOAD   JSR  MONPROHILO
-	 LDA  #$0F     ;Send CR,LF, "Upload " to terminal
-         JSR  PROMPT
-	 JSR  MONPROHILO
-         LDA  #$11     ;Send "address: " to terminal
-         JSR  PROMPT
-         LDA  #$04     ;Request upload start address input from terminal
-         JSR  HEXIN
-         TXA           ;GOTO XITUPLD IF no digits were entered
-         BEQ  XITUPLD
-         LDA  INDEX    ; ELSE, save start address on STACK
-         PHA
-         LDA  INDEXH
-         PHA
-         JSR  CROUT    ;Send CR,LF to terminal
-	 JSR  MONPROHILO
-         LDA  #$12     ;Send "Length: " to terminal
-         JSR  PROMPT
-         LDA  #$04     ;Request upload length input from terminal
-         JSR  HEXIN
-         TXA           ;GOTO DOUPLD IF any digits were entered
-         BNE  DOUPLD
-         PLA           ; ELSE, pull start address from STACK, discard
-         PLA
-XITUPLD  RTS           ;Done UPLOAD command, RETURN
-DOUPLD   PLA           ;Restore start address from STACK
-         TAX           ; High byte
-         PLA
-         TAY           ; Low byte
-         CLC
-         ADC  INDEX    ;Add start address to length: find end address
-         STA  TEMP2
-         TXA
-         ADC  INDEXH
-         STA  TEMP2H   ;TEMP2 = end address pointer
-         TXA
-         STA  INDEXH   ;INDEX = start address pointer
-         TYA
-         STA  INDEX
-UREADY   LDA  #$13     ;Send CR,LF, "10 Seconds" to terminal
-         JSR  PROMPT
-         LDX  #$38     ;Perform a 10 second delay
-         JSR  SET      ; ($38 for MPU clock frequency = 1.8432 MHz)
-UNXTLIN  JSR  CROUT    ;Send CR,LF to terminal
-         LDX  #$00     ;Initialize line byte counter
-         JSR  DOLLAR   ;Send "$" to terminal
-         JSR  PRINDX   ;Display current address pointer
-         JSR  SPC      ;Send [SPACE] to terminal
-UNXTBYT  LDY  #$00
-         LDA  (INDEX),Y
-         STX  IDX      ;Save line byte counter
-         JSR  BN2ASC   ;Convert byte to 2 ASCII HEX digits
-         JSR  COUT     ;Send digits to terminal
-         TYA
-         JSR  COUT
-         JSR  SPC      ;Send [SPACE] to terminal
-         LDX  IDX      ;Restore line byte counter
-         INX           ;Increment line byte counter
-         JSR  INCINDEX ;Increment address pointer
-         LDA  INDEXH   ;GOTO UCHEKEY IF INDEX <> TEMP2:
-         CMP  TEMP2H   ;  (current address <> end address)
-         BNE  UCHEKEY
-         LDA  INDEX
-         CMP  TEMP2
-         BNE  UCHEKEY
-DUNUPLD  LDA  #$2A     ; ELSE, send "*" to terminal: indicate end of file
-         JSR  COUT
-         RTS           ;Done UPLOAD command, RETURN
-UCHEKEY  LDA  INCNT    ;GOTO KEYHIT IF a key was struck
-         CMP  OUTCNT
-         BNE  KEYHIT
-         CPX  #$10     ; ELSE,
-         BNE  UNXTBYT  ;  LOOP back to UNXTBYT IF line byte counter <> $10: continue current line
-         JMP  UNXTLIN  ;   ELSE, LOOP back to UNXTLIN: start a new line
-KEYHIT   STA  OUTCNT   ;Remove keystroke from keystroke input buffer
-         JMP  DUNUPLD  ;GOTO DUNUPLD: abort UPLOAD command because a key was struck
+;; UPLOAD   JSR  MONPROHILO
+;; 	 LDA  #$0F     ;Send CR,LF, "Upload " to terminal
+;;          JSR  PROMPT
+;; 	 JSR  MONPROHILO
+;;          LDA  #$11     ;Send "address: " to terminal
+;;          JSR  PROMPT
+;;          LDA  #$04     ;Request upload start address input from terminal
+;;          JSR  HEXIN
+;;          TXA           ;GOTO XITUPLD IF no digits were entered
+;;          BEQ  XITUPLD
+;;          LDA  INDEX    ; ELSE, save start address on STACK
+;;          PHA
+;;          LDA  INDEXH
+;;          PHA
+;;          JSR  CROUT    ;Send CR,LF to terminal
+;; 	 JSR  MONPROHILO
+;;          LDA  #$12     ;Send "Length: " to terminal
+;;          JSR  PROMPT
+;;          LDA  #$04     ;Request upload length input from terminal
+;;          JSR  HEXIN
+;;          TXA           ;GOTO DOUPLD IF any digits were entered
+;;          BNE  DOUPLD
+;;          PLA           ; ELSE, pull start address from STACK, discard
+;;          PLA
+;; XITUPLD  RTS           ;Done UPLOAD command, RETURN
+;; DOUPLD   PLA           ;Restore start address from STACK
+;;          TAX           ; High byte
+;;          PLA
+;;          TAY           ; Low byte
+;;          CLC
+;;          ADC  INDEX    ;Add start address to length: find end address
+;;          STA  TEMP2
+;;          TXA
+;;          ADC  INDEXH
+;;          STA  TEMP2H   ;TEMP2 = end address pointer
+;;          TXA
+;;          STA  INDEXH   ;INDEX = start address pointer
+;;          TYA
+;;          STA  INDEX
+;; UREADY   LDA  #$13     ;Send CR,LF, "10 Seconds" to terminal
+;;          JSR  PROMPT
+;;          LDX  #$38     ;Perform a 10 second delay
+;;          JSR  SET      ; ($38 for MPU clock frequency = 1.8432 MHz)
+;; UNXTLIN  JSR  CROUT    ;Send CR,LF to terminal
+;;          LDX  #$00     ;Initialize line byte counter
+;;          JSR  DOLLAR   ;Send "$" to terminal
+;;          JSR  PRINDX   ;Display current address pointer
+;;          JSR  SPC      ;Send [SPACE] to terminal
+;; UNXTBYT  LDY  #$00
+;;          LDA  (INDEX),Y
+;;          STX  IDX      ;Save line byte counter
+;;          JSR  BN2ASC   ;Convert byte to 2 ASCII HEX digits
+;;          JSR  COUT     ;Send digits to terminal
+;;          TYA
+;;          JSR  COUT
+;;          JSR  SPC      ;Send [SPACE] to terminal
+;;          LDX  IDX      ;Restore line byte counter
+;;          INX           ;Increment line byte counter
+;;          JSR  INCINDEX ;Increment address pointer
+;;          LDA  INDEXH   ;GOTO UCHEKEY IF INDEX <> TEMP2:
+;;          CMP  TEMP2H   ;  (current address <> end address)
+;;          BNE  UCHEKEY
+;;          LDA  INDEX
+;;          CMP  TEMP2
+;;          BNE  UCHEKEY
+;; DUNUPLD  LDA  #$2A     ; ELSE, send "*" to terminal: indicate end of file
+;;          JSR  COUT
+;;          RTS           ;Done UPLOAD command, RETURN
+;; UCHEKEY  LDA  INCNT    ;GOTO KEYHIT IF a key was struck
+;;          CMP  OUTCNT
+;;          BNE  KEYHIT
+;;          CPX  #$10     ; ELSE,
+;;          BNE  UNXTBYT  ;  LOOP back to UNXTBYT IF line byte counter <> $10: continue current line
+;;          JMP  UNXTLIN  ;   ELSE, LOOP back to UNXTLIN: start a new line
+;; KEYHIT   STA  OUTCNT   ;Remove keystroke from keystroke input buffer
+;;          JMP  DUNUPLD  ;GOTO DUNUPLD: abort UPLOAD command because a key was struck
+	
 ;
 ;[V] VIEW TEXT command: Send bytes to terminal beginning at a specified address.
 ; Address is incremented then the process continues until a value of $00 is encountered
@@ -1588,7 +1591,7 @@ PROMPT2  LDY  #$00     ;Read from current view memory address
          BEQ  VIEWEXIT ;GOTO VIEWEXIT IF byte read = 0
          JSR  COUT     ; ELSE, send character/byte read to terminal
          JSR  INCINDEX ;Increment view memory address pointer
-         JMP  PROMPT2  ;LOOP back to PROMPT2
+         BRA  PROMPT2  ;LOOP back to PROMPT2
 VIEWEXIT RTS           ;Done VIEWTXT command, RETURN
 ;
 ;[W] WATCH command: Continuously read then display contents of a specified address, loop until keystroke
@@ -1709,59 +1712,64 @@ RUNMACRO LDA  #$00     ;Make keystroke buffer written-to pointer = $00
          LDA  #$FF     ;Make keystroke buffer read-from pointer = $FF
          STA  INCNT
 RET      RTS           ;Done RUNMACRO command, RETURN
-;
-;[CNTL-D] DOWNLOAD command: Receive a formatted ASCII HEX file from terminal,
-; convert file from ASCII HEX to binary, store binary values in memory.
-; The first character in the file MUST be a dollar sign ($), followed by FOUR
-; ASCII HEX digits. These 4 digits represent the address at which to begin
-; storing the downloaded/converted file data. What follows is the ASCII HEX
-; representations of the binary file data, each byte being represented by TWO
-; ASCII HEX digits (leading zeros MUST be included). IF a dollar sign ($) is
-; again received, a new FOUR digit ASCII HEX address is expected, followed by
-; more ASCII HEX file data.
-; The last character in the file MUST be an asterisk (*). This indicates
-; the end of the file and terminates the DOWNLOAD command.
-; The ONLY printable ASCII characters allowed are: $*0123456789ABCDEF
-; (note only upper-case ABCDEF)
-; The ONLY ASCII control codes allowed are: [SPACE][RETURN][LINEFEED]
-; All other ASCII input may cause errors.
-; The monitor [U] UPLOAD command produces formatted ASCII HEX file output to terminal
-DOWNLOAD LDA  #$09     ;Send "Download:" to terminal
-         JSR  PROMPT
-         LDA  #$E0     ;Point to $E0xx (ROM area) in case of garbage input:
-         STA  INDEXH   ; write $E0 to download destination address pointer high byte
-DLOOP    JSR  CHIN     ;Request a keystroke from terminal
-         CMP  #$20     ; LOOP back to DLOOP IF character = [SPACE]: ignore character
-         BEQ  DLOOP
-         CMP  #$0D     ; ELSE, LOOP back to DLOOP IF character = [RETURN]: ignore character
-         BEQ  DLOOP
-         CMP  #$0A     ; ELSE, LOOP back to DLOOP IF character = [LINEFEED]: ignore character
-         BEQ  DLOOP
-         CMP  #$2A     ; ELSE, GOTO DBR1 IF chatacter <> "*": End Of File
-         BNE  DBR1
-         JMP  NMON     ; ELSE, done DOWNLOAD, GOTO NMON
-;
-DBR1     CMP  #$24     ;GOTO DNEWADR IF character = "$"
-         BEQ  DNEWADR
-         JSR  DSUB1    ; ELSE, this is a high digit, go get low digit then convert ASCII HEX digits to binary
-         LDY  #$00     ;Store byte at address pointed to by destination address pointer
-         STA  (INDEX),Y
-         JSR  INCINDEX ;Increment destination address pointer
-         JMP  DLOOP    ;LOOP back to DLOOP
-;
-DNEWADR  JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary
-         STA  INDEXH   ;Write value to destination address pointer high byte
-         JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary
-         STA  INDEX    ;Write value to destination address pointer low byte
-         JMP  DLOOP    ;LOOP back to DLOOP
-;
-DSUB2    JSR  CHIN     ;Request a keystroke from terminal, result in ACCUMULATOR
-DSUB1    PHA           ;Save ACCUMULATOR on STACK: ASCII HEX high digit of a byte
-         JSR  CHIN     ;Request a keystroke from terminal: ASCII HEX low digit
-         TAY           ;Copy low digit to Y REGISTER
-         PLA           ;Pull ACCUMULATOR from STACK: high digit
-         JSR  ASC2BN   ;Convert high/low ASCII HEX digits to a binary value, result in ACCUMULATOR
-         RTS           ;Done DSUB1 or DSUB2 subroutine, RETURN
+;;;
+;;;[CNTL-D] DOWNLOAD command: Receive a formatted ASCII HEX file from terminal,
+;;; convert file from ASCII HEX to binary, store binary values in memory.
+;;; The first character in the file MUST be a dollar sign ($), followed by FOUR
+;;; ASCII HEX digits. These 4 digits represent the address at which to begin
+;;; storing the downloaded/converted file data. What follows is the ASCII HEX
+;;; representations of the binary file data, each byte being represented by TWO
+;;; ASCII HEX digits (leading zeros MUST be included). IF a dollar sign ($) is
+;;; again received, a new FOUR digit ASCII HEX address is expected, followed by
+;;; more ASCII HEX file data.
+;;; The last character in the file MUST be an asterisk (*). This indicates
+;;; the end of the file and terminates the DOWNLOAD command.
+;;; The ONLY printable ASCII characters allowed are: $*0123456789ABCDEF
+;;; (note only upper-case ABCDEF)
+;;; The ONLY ASCII control codes allowed are: [SPACE][RETURN][LINEFEED]
+;;; All other ASCII input may cause errors.
+;;; The monitor [U] UPLOAD command produces formatted ASCII HEX file output to terminal
+;;; 
+;;; ******************************************************
+;;; this routine will be replaced with calls to xmodem.asm
+	
+;; DOWNLOAD LDA  #$09     ;Send "Download:" to terminal
+;;          JSR  PROMPT
+;;          LDA  #$E0     ;Point to $E0xx (ROM area) in case of garbage input:
+;;          STA  INDEXH   ; write $E0 to download destination address pointer high byte
+;; DLOOP    JSR  CHIN     ;Request a keystroke from terminal
+;;          CMP  #$20     ; LOOP back to DLOOP IF character = [SPACE]: ignore character
+;;          BEQ  DLOOP
+;;          CMP  #$0D     ; ELSE, LOOP back to DLOOP IF character = [RETURN]: ignore character
+;;          BEQ  DLOOP
+;;          CMP  #$0A     ; ELSE, LOOP back to DLOOP IF character = [LINEFEED]: ignore character
+;;          BEQ  DLOOP
+;;          CMP  #$2A     ; ELSE, GOTO DBR1 IF chatacter <> "*": End Of File
+;;          BNE  DBR1
+;;          JMP  NMON     ; ELSE, done DOWNLOAD, GOTO NMON
+;; ;
+;; DBR1     CMP  #$24     ;GOTO DNEWADR IF character = "$"
+;;          BEQ  DNEWADR
+;;          JSR  DSUB1    ; ELSE, this is a high digit, go get low digit then convert ASCII HEX digits to binary
+;;          LDY  #$00     ;Store byte at address pointed to by destination address pointer
+;;          STA  (INDEX),Y
+;;          JSR  INCINDEX ;Increment destination address pointer
+;;          JMP  DLOOP    ;LOOP back to DLOOP
+;; ;
+;; DNEWADR  JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary
+;;          STA  INDEXH   ;Write value to destination address pointer high byte
+;;          JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary
+;;          STA  INDEX    ;Write value to destination address pointer low byte
+;;          JMP  DLOOP    ;LOOP back to DLOOP
+;; ;
+;; DSUB2    JSR  CHIN     ;Request a keystroke from terminal, result in ACCUMULATOR
+;; DSUB1    PHA           ;Save ACCUMULATOR on STACK: ASCII HEX high digit of a byte
+;;          JSR  CHIN     ;Request a keystroke from terminal: ASCII HEX low digit
+;;          TAY           ;Copy low digit to Y REGISTER
+;;          PLA           ;Pull ACCUMULATOR from STACK: high digit
+;;          JSR  ASC2BN   ;Convert high/low ASCII HEX digits to a binary value, result in ACCUMULATOR
+;;          RTS           ;Done DSUB1 or DSUB2 subroutine, RETURN
+	
 ;
 ;[CNTL-L] LISTER command: call disassembler
 LISTER	 JSR  ASMPROHILO ;Point to assembler/disassembler prompt strings
@@ -1997,9 +2005,9 @@ INTERUPT STA  AINTSAV  ;Save ACCUMULATOR
          STX  XINTSAV  ;Save X-REGISTER
          STY  YINTSAV  ;Save Y-REGISTER
          LDA  SIOSTAT  ;Read 6551 ACIA status register
-         AND  #$88     ;Isolate bits 7: Interrupt has occured and 3: receive data register full
+         AND  #$88     ;Isolate bits. bit 7: Interrupt has occured and bit 3: receive data register full
          EOR  #$88     ;Invert state of both bits
-         BNE  BRKINSTR ;GOTO BRKINSTR IF bit 7 OR bit 3 = 1: no valid data in receive data register
+         BNE  BRKINSTR ;GOTO BRKINSTR IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
          LDA  SIODAT   ; ELSE, read 6551 ACIA receive data register
          BEQ  BREAKEY  ;GOTO BREAKEY IF received byte = $00
          LDX  INCNT    ; ELSE, Store keystroke in keystroke buffer address
@@ -3405,7 +3413,7 @@ CMDPROMPTS
          .byte $00
 ;
 ;Monitor prompt strings:
-         ; * =  $FF00
+
          ;String:                   String number:
 MONPROMPT
          .byte $00
