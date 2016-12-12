@@ -91,6 +91,8 @@ SIOCON   = SIODAT+3 ;ACIA control REGISTER
 	;; ***************
 	;; * XMODEM 6502 *
 	;; ***************
+	;; 
+	
 	.include "xmodem.asm"
 	
 ;
@@ -1733,7 +1735,6 @@ RET      RTS           ;Done RUNMACRO command, RETURN
 ;;; 
 ;;; ******************************************************
 ;;; this routine will be replaced with calls to xmodem.asm
-	
 ;; DOWNLOAD LDA  #$09     ;Send "Download:" to terminal
 ;;          JSR  PROMPT
 ;;          LDA  #$E0     ;Point to $E0xx (ROM area) in case of garbage input:

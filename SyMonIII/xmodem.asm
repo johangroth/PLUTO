@@ -165,8 +165,8 @@ DOUPLOAD:
 Wait4CRC:
 	lda	#$ff		; 3 seconds
 	sta	retry2		;
-	jsr	GetByte		;
-	bcc	Wait4CRC	; wait for something to come in...
+	jsr	ChIn		; wait for something to come in...
+	;; bcc	Wait4CRC
 	cmp	#"C"		; is it the "C" to start a CRC xfer?
 	beq	SetstAddr	; yes
 	cmp	#ESC		; is it a cancel? <Esc> Key
@@ -253,8 +253,8 @@ SendBlk:
 	bne	SendBlk		; no, get next
 	lda	#$FF		; yes, set 3 second delay 
 	sta	retry2		; and
-	jsr	GetByte		; Wait for Ack/Nack
-	bcc	Seterror	; No chr received after 3 seconds, resend
+	jsr	ChIn		; Wait for Ack/Nack
+	;; bcc	Seterror	; No chr received after 3 seconds, resend
 	cmp	#ACK		; Chr received... is it:
 	beq	LdBuffer	; ACK, send next block
 	cmp	#NAK		; 
@@ -293,15 +293,7 @@ StartCrc:
 	lda	#$00
         sta	crc
 	sta	crch		; init CRC value	
-	jsr	GetByte		; wait for input
-        bcs	GotByte		; byte received, process it
-	bcc	StartCrc	; resend "C"
-
-StartBlk:
-	lda	#$FF		; 
-	sta	retry2		; set loop counter for ~3 sec delay
-	jsr	GetByte		; get first byte of block
-	bcc	StartBlk	; timed out, keep waiting...
+	jsr	chin		; wait for input
 
 GotByte:
 	cmp	#ESC		; quitting?
@@ -316,16 +308,19 @@ GotByte1:
 	bne	BadCrc		; Not SOH or EOT, so flush buffer & send NAK	
 	jmp	RDoneNow	; EOT - all done!
 
+
+StartBlk:
+	jsr	chin		; get first byte of block
+
 BegBlk:
 	ldx	#$00
 
 GetBlk:
-	lda	#$ff		; 3 sec window to receive characters
-	sta 	retry2		;
+
 
 GetBlk1:
-	jsr	GetByte		; get next character
-	bcc	BadCrc		; chr rcv error, flush and send NAK
+	jsr	chin		; get next character
+
 
 GetBlk2:
 	sta	Rbuff,x		; good char, save it in the rcv buffer
@@ -439,26 +434,13 @@ RDoneNow:
 ;
 ;
 ;
-GetByte:
-	lda	#$00		; wait for chr input and cycle timing loop
-		sta	retry		; set low value of timing loop
-StartCrcLp:
-	jsr	CHIN		; get chr from input buffer 
-	bcs	GetByte1	; got one, so exit
-	dec	retry		; no character received, so dec counter
-	bne	StartCrcLp	;
-	dec	retry2		; dec hi byte of counter
-	bne	StartCrcLp	; look for character again
-	clc			; if loop times out, CLC, else SEC and return
-GetByte1:
-	rts			; with character in accumulator
 	
 ;
 Flush:
 	lda	#$70		; flush receive buffer
 	sta	retry2		; flush until empty for ~1 sec.
 Flush1:
-	jsr	GetByte		; read the port
+	jsr	chin		; read the port
 	bcs	Flush		; if chr recvd, wait for another
 	rts			; else done
 ;
@@ -483,7 +465,7 @@ Print_Err:
 		
 ErrMsg:
 	.text 	"Transfer Error!"
-		.BYTE  	CR, LF
+	.BYTE  	CR, LF
         .byte   0
 	
 ; PRINT Good Transfer message
