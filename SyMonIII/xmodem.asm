@@ -290,9 +290,8 @@ StartCrc:
 	jsr	COUT		; send it
 	lda	#$FF	
 	sta	retry2		; set loop counter for ~3 sec delay
-	lda	#$00
-        sta	crc
-	sta	crch		; init CRC value	
+        stz	crc
+	stz	crch		; init CRC value	
 	jsr	chin		; wait for input
 
 GotByte:
@@ -412,9 +411,7 @@ RDoneNow:
 ;  Two routines are used to communicate with the I/O device.
 ;
 ; "CHIN in SyMonIII" routine will scan the input buffer for a character.  It will
-; return without waiting with the Carry flag CLEAR if no character is
-; present or return with the Carry flag SET and the character in the "A"
-; register if one was present.
+; return the character in the "A" register if one was present.
 ;
 ; "COUT in SyMonIII" routine will write one byte to the output port.  Its alright
 ; if this routine waits for the port to be ready.  its assumed that the 
