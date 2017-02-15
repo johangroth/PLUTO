@@ -16,84 +16,102 @@
 ;***************************************************
 ;
 ;14 byte buffer
-INBUFF   = $B0      ;14 bytes ($B0-$BD)
+	INBUFF   = $B0      ;14 bytes ($B0-$BD)
 ;
 ;16-bit variables:
-COMLO   = $BE
-COMHI   = COMLO+1
-DELLO   = $C0
-DELHI   = DELLO+1
-PROLO   = $C2
-PROHI   = PROLO+1
-BUFADR  = $C4
-BUFADRH = BUFADR+1
-TEMP2   = $C6
-TEMP2H  = TEMP2+1
-INDEX   = $C8
-INDEXH  = INDEX+1
-TEMP3   = $CA
-TEMP3H  = TEMP3+1
+	COMLO   = $BE
+	COMHI   = COMLO+1
+	DELLO   = $C0
+	DELHI   = DELLO+1
+	PROLO   = $C2
+	PROHI   = PROLO+1
+	BUFADR  = $C4
+	BUFADRH = BUFADR+1
+	TEMP2   = $C6
+	TEMP2H  = TEMP2+1
+	INDEX   = $C8
+	INDEXH  = INDEX+1
+	TEMP3   = $CA
+	TEMP3H  = TEMP3+1
 ;
 ;8-bit variables and constants:
-TEMP     = $CC
-BUFIDX   = $CD
-BUFLEN   = $CE
-BSPIND   = $CF
-IDX      = $D0
-IDY      = $D1
-SCNT     = $D2
-OPLO     = $D3
-OPHI     = $D4
-STEMP    = $D5
-RT1      = $D6
-RT2      = $D7
-SETIM    = $D8
-LOKOUT   = $D9
-ACCUM    = $DA
-XREG     = $DB
-YREG     = $DC
-SREG     = $DD
-PREG     = $DE
-POINTER  = $DF
-HPHANTOM = $00E0    ; HPHANTOM MUST be located (in target memory) immediatly below the HEX0AND1 variable
-HEX0AND1 = $E1
-HEX2AND3 = $E2
-HEX4AND5 = $E3
-HEX6AND7 = $E4
-DPHANTOM = $00E4    ; DPHANTOM MUST be located (in target memory) immediatly below the DEC0AND1 variable
-DEC0AND1 = $E5
-DEC2AND3 = $E6
-DEC4AND5 = $E7
-DEC6AND7 = $E8
-DEC8AND9 = $E9
-INQTY    = $EA
-INCNT    = $EB
-OUTCNT   = $EC
-AINTSAV  = $ED
-XINTSAV  = $EE
-YINTSAV  = $EF
+	TEMP     = $CC
+	BUFIDX   = $CD
+	BUFLEN   = $CE
+	BSPIND   = $CF
+	IDX      = $D0
+	IDY      = $D1
+	SCNT     = $D2
+	OPLO     = $D3
+	OPHI     = $D4
+	STEMP    = $D5
+	RT1      = $D6
+	RT2      = $D7
+	SETIM    = $D8
+	LOKOUT   = $D9
+	ACCUM    = $DA
+	XREG     = $DB
+	YREG     = $DC
+	SREG     = $DD
+	PREG     = $DE
+	POINTER  = $DF
+	HPHANTOM = $00E0    ; HPHANTOM MUST be located (in target memory) immediatly below the HEX0AND1 variable
+	HEX0AND1 = $E1
+	HEX2AND3 = $E2
+	HEX4AND5 = $E3
+	HEX6AND7 = $E4
+	DPHANTOM = $00E4    ; DPHANTOM MUST be located (in target memory) immediatly below the DEC0AND1 variable
+	DEC0AND1 = $E5
+	DEC2AND3 = $E6
+	DEC4AND5 = $E7
+	DEC6AND7 = $E8
+	DEC8AND9 = $E9
+	INQTY    = $EA
+	INCNT    = $EB
+	OUTCNT   = $EC
+	AINTSAV  = $ED
+	XINTSAV  = $EE
+	YINTSAV  = $EF
 ;
 ;16 byte buffer
-SRCHBUFF = $00F0    ;16 bytes ($F0-$FF) (notice that this variable MUST be expressed as a 16 bit address
+	SRCHBUFF = $00F0    ;16 bytes ($F0-$FF) (notice that this variable MUST be expressed as a 16 bit address
 ;                        even though it references a zero-page address)
 ;
 ;Keystroke input buffer address:
-KEYBUFF  = $0200    ;256 bytes: ($200-$2FF) keystrokes (data from ACIA) are stored here
+	KEYBUFF  = $0200    ;256 bytes: ($200-$2FF) keystrokes (data from ACIA) are stored here
                        ; by SyMon's IRQ service routine.
 ;
 ;ACIA device address:
-SIODAT   = $7F70    ;ACIA data register   <--put your 6551 ACIA base address here (REQUIRED!)************************
-SIOSTAT  = SIODAT+1 ;ACIA status REGISTER
-SIOCOM   = SIODAT+2 ;ACIA command REGISTER
-SIOCON   = SIODAT+3 ;ACIA control REGISTER
+	SIODAT   = $7F70    ;ACIA data register   <--put your 6551 ACIA base address here (REQUIRED!)************************
+	SIOSTAT  = SIODAT+1 ;ACIA status REGISTER
+	SIOCOM   = SIODAT+2 ;ACIA command REGISTER
+	SIOCON   = SIODAT+3 ;ACIA control REGISTER
 ;
 
+;;; VIA device address:
+	VIARB	= $7F60		;Write Output Register B, Read Input Register B
+	VIARA	= VIARB+1	;Write Output Register A, Read Input Register A
+	VIADDRB = VIARB+2	;Data Direction Register B
+	VIADDRA = VIARB+3	;Data Direction Register A
+	VIAT1CL = VIARB+4	;Write T1 Low-Order Latches, Read T1 Low-Order Counter
+	VIAT1CH = VIARB+5	;T1 High-Order Counter
+	VIAT1LL = VIARB+6	;T1 Low-Order Latches
+	VIAT1LH = VIARB+7	;T1 High-Order Latches
+	VIAT2CL = VIARB+8	;Write T2 Low-Order Latches, Read T2 Low-Order Counter
+	VIAT2CH = VIARB+9	;T2 High-Order Counter
+	VIASR   = VIARB+$A	;Shift Register
+	VIAACR  = VIARB+$B	;Auxiliary Control Register
+	VIAPCR  = VIARB+$C	;Peripheral Control Register
+	VIAIFR  = VIARB+$D	;Interrupt Flag Register 
+	VIAIER  = VIARB+$E	;Interrupt Enable Register
+	VIARANH = VIARB+$F	;Same as Reg A except no "Handshake"
+	
 	;; ***************
 	;; * XMODEM 6502 *
 	;; ***************
 	;; 
 	
-	.include "xmodem.asm"
+ 	.include "xmodem.asm"
 	
 ;
         * =  $E000    ;Target address range $E000 through $FFFF will be used
@@ -107,7 +125,7 @@ SIOCON   = SIODAT+3 ;ACIA control REGISTER
 ;ASC2BN subroutine: Convert 2 ASCII HEX digits to a binary (byte) value.
 ; Enter: ACCUMULATOR = high digit, Y-REGISTER = low digit
 ; Returns: ACCUMULATOR = binary value
-ASC2BN:
+ASC2BN 	.proc
 	PHA           ;Save high digit on STACK
         TYA           ;Copy low digit to ACCUMULATOR
         JSR  BINARY   ;Convert digit to binary nybble: result in low nybble
@@ -128,9 +146,10 @@ BINARY:
         SBC  #$07     ; ELSE, subtract $07 from result
 BNOK:
 	RTS           ;Done BINARY subroutine, RETURN
+	.pend
 ;
 ;ASCTODEC subroutine: convert ASCII DECIMAL digits to BCD
-ASCTODEC:		;Initialize (zero) BCD digit input buffer:
+ASCTODEC .proc		;Initialize (zero) BCD digit input buffer:
         STZ  DEC0AND1 ; two most significant BCD digits
         STZ  DEC2AND3
         STZ  DEC4AND5
@@ -153,8 +172,10 @@ ATODLOOP:
         BNE  ATODLOOP ;GOTO ATODLOOP IF buffer index <> 0: there is room to process another digit
 A2DDONE:
 	RTS           ; ELSE, done ASCTODEC, RETURN
+	.pend
+	
 ;Read indexed ASCII DECIMAL digit from text buffer then convert digit to 4 bit BCD
-A2DSUB:
+A2DSUB	.proc
 	TXA           ;GOTO A2DCONV IF digit buffer index <> 0: there are more digits to process
         BNE  A2DCONV
         PLA           ; ELSE, pull return address from STACK
@@ -166,6 +187,7 @@ A2DCONV:
         SBC  #$30
         DEX           ;Decrement ASCII digit buffer index
         RTS           ;A2DSUB done, RETURN
+	.pend
 ;
 ;BCDOUT subroutine: convert 10 BCD digits to ASCII DECIMAL digits then send result to terminal.
 ;Leading zeros are supressed in the displayed result.
@@ -923,19 +945,19 @@ NOTESC:
         BEQ  FULTST
         CMP  #$30     ; ELSE, filter enabled, GOTO INERR IF keystroke value < $30: value < ASCII "0"
         BCC  INERR
-        CMP  #$47     ; ELSE, GOTO INERR IF keystroke = OR > $47: value = OR > ASCII "G" ("F" + 1)
+        CMP  #$47     ; ELSE, GOTO INERR IF keystroke >= $47: value >= ASCII "G" ("F" + 1)
         BCS  INERR
-        CMP  #$41     ; ELSE, GOTO DECONLY IF keystroke = OR > $41: value = OR > ASCII "A"
+        CMP  #$41     ; ELSE, GOTO DECONLY IF keystroke >= $41: value >= ASCII "A"
         BCS  DECONLY
         BCC  DECTEST  ; ELSE, GOTO DECTEST: keystroke < $41: value < ASCII "A"
 DECONLY:
-	CPX  #$FF     ;GOTO FULTST IF LOKOUT variable <> $FF: ASCII DECIMAL digit filter disabled
+	CPX  #$FF     ;GOTO FULTST IF LOKOUT variable != $FF: ASCII DECIMAL digit filter disabled
         BNE  FULTST
 DECTEST:
 	CMP  #$3A     ; ELSE, DECIMAL filter enabled, GOTO INERR IF keystroke = OR > $3A:
-        BCS  INERR    ;   value = OR > ASCII ":" ("9" + 1)
+        BCS  INERR    ;   value >= ASCII ":" ("9" + 1)
 FULTST:
-	LDY  BUFIDX   ; ELSE, GOTO STRCH IF BUFIDX <> BUFLEN: buffer is not full
+	LDY  BUFIDX   ; ELSE, GOTO STRCH IF BUFIDX != BUFLEN: buffer is not full
         CPY  BUFLEN
         BCC  STRCH
 INERR:
@@ -969,10 +991,8 @@ RESREGS:
         STA  RT1      ;Save RTS RETURN address high byte to memory
         PLA           ;Pull RTS RETURN address low byte from STACK
         STA  RT2      ;Save RTS RETURN address low byte to memory
-        PLA           ;Pull saved X REGISTER from STACK
-        TAX           ;Restore X REGISTER
-        PLA           ;Pull saved Y REGISTER from STACK
-        TAY           ;Restore Y REGISTER
+        PLX           ;Pull saved X REGISTER from STACK
+        PLY           ;Pull saved Y REGISTER from STACK
         PLA           ;Pull saved ACCUMULATOR from STACK
         STA  STEMP    ;Save ACCUMULATOR to memory
         LDA  RT2      ;Read RTS RETURN address low byte from memory
@@ -992,10 +1012,8 @@ SAVREGS:
         STA  RT2      ;Save RTS RETURN address low byte to memory
         LDA  STEMP    ;Restore ACCUMULATOR from memory
         PHA           ;Push ACCUMULATOR onto STACK
-        TYA           ;Push Y REGISTER onto STACK
-        PHA
-        TXA           ;Push X REGISTER onto STACK
-        PHA
+        PHY           ;Push Y REGISTER onto STACK
+        PHX           ;Push X REGISTER onto STACK
         LDA  RT2      ;Read RTS RETURN address low byte from memory
         PHA           ;Push RTS RETURN address low byte onto STACK
         LDA  RT1      ;Read RTS RETURN address high byte from memory
@@ -1133,11 +1151,11 @@ SPC:
         PLA           ;Restore ACCUMULATOR
         RTS           ;Done SPC(n) subroutine, RETURN
 ;
-;STXTSTR subroutine: request 1 - 16 character text string from terminal, followed by [RETURN].
+;GET_UP_TO_16_CHR_STRING subroutine: request 1 - 16 character text string from terminal, followed by [RETURN].
 ; [ESCAPE] aborts, [BACKSPACE] erases last keystroke. String will be stored in
 ; 16 byte buffer beginning at address SRCHBUFF. Y REGISTER holds number of characters in buffer
 ; This is used by monitor text/byte string search commands
-STXTSTR:
+GET_UP_TO_16_CHR_STRING:
 	LDY  #$00     ;Initialize index/byte counter
 STLOOP:
 	JSR  CHIN     ;Request keystroke input from terminal
@@ -1147,7 +1165,7 @@ STLOOP:
         BNE  STBR2
         LDY  #$00     ; ELSE, indicate that there are no keystrokes to process
 STBR1:
-	RTS           ;Done STXTSTR subroutine, RETURN
+	RTS           ;Done GET_UP_TO_16_CHR_STRING subroutine, RETURN
 STBR2:
 	CMP  #$08     ;GOTO STBR3 IF keystroke <> [BACKSPACE]
         BNE  STBR3
@@ -1162,7 +1180,7 @@ STBR3:
         INY           ;Increment index/byte counter
         CPY  #$10     ;LOOP back to STLOOP IF index/byte counter < $10
         BNE  STLOOP
-        RTS           ; ELSE, done STXTSTR subroutine, RETURN
+        RTS           ; ELSE, done GET_UP_TO_16_CHR_STRING subroutine, RETURN
 ;
 ;DECIN subroutine: request 1 - 10 DECIMAL digit input from terminal, followed by [RETURN].
 ; [ESCAPE] aborts, [BACKSPACE] erases last keystroke.
@@ -1396,9 +1414,9 @@ DONEDEC:
 ;[K] LOCATE BYTE STRING command: search memory for an entered byte string.
 ;Memory range scanned is $0300 through $FFFF (specified in SENGINE subroutine)
 ; (SRCHTXT [L] command uses this, enters at SRCHRDY)
-;SRCHBYT  LDA  #$FE     ;Point to prompt strings located at $FE00
+;LOCATE_BYTE_STRING  LDA  #$FE     ;Point to prompt strings located at $FE00
 ;         STA  PROHI
-SRCHBYT:
+LOCATE_BYTE_STRING:
 	JSR  ASMPROHILO
         LDA  #$07     ;Send CR,LF, "Find " to terminal
         JSR  PROMPT
@@ -1412,20 +1430,18 @@ SRCHRDY:
         JSR  PROMPT
         JSR  SENGINE  ;Perform search for string in memory
 SBDONE:
-	JMP  NMON     ;Done SRCHBYT or SRCHTXT command, GOTO NMON: return to monitor
+	JMP  NMON     ;Done LOCATE_BYTE_STRING or SRCHTXT command, GOTO NMON: return to monitor
 ;
 ;[L] LOCATE TEXT STRING command: search memory for an entered text string.
 ;Memory range scanned is $0300 through $FFFF (specified in SENGINE subroutine)
-;SRCHTXT  LDA  #$FE     ;Point to prompt strings located at $FE00
-;         STA  PROHI
-SRCHTXT:
-	JSR  ASMPROHILO
+LOCATE_TEXT_STRING:
+	JSR  ASMPROHILO		;Point to prompt strings located at $FE00
         LDA  #$07     ;Send CR,LF, "Find " to terminal
         JSR  PROMPT
         LDA  #$08     ;Send "text: " to terminal
         JSR  PROMPT
-        JSR  STXTSTR  ;Request text string input from terminal
-        JMP  SRCHRDY  ;GOTO SRCHRDY (part of SRCHBYT command)
+        JSR  GET_UP_TO_16_CHR_STRING  ;Request text string input from terminal
+        JMP  SRCHRDY  ;GOTO SRCHRDY (part of LOCATE_BYTE_STRING command)
 ;
 ;The following command processor (MOVER) is derivative of published material:
 ; (pp. 197-203)
@@ -1925,63 +1941,14 @@ RUNMACRO:
 RET:
 	RTS           ;Done RUNMACRO command, RETURN
 ;;;
-;;;[CNTL-D] DOWNLOAD command: Receive a formatted ASCII HEX file from terminal,
-;;; convert file from ASCII HEX to binary, store binary values in memory.
-;;; The first character in the file MUST be a dollar sign ($), followed by FOUR
-;;; ASCII HEX digits. These 4 digits represent the address at which to begin
-;;; storing the downloaded/converted file data. What follows is the ASCII HEX
-;;; representations of the binary file data, each byte being represented by TWO
-;;; ASCII HEX digits (leading zeros MUST be included). IF a dollar sign ($) is
-;;; again received, a new FOUR digit ASCII HEX address is expected, followed by
-;;; more ASCII HEX file data.
-;;; The last character in the file MUST be an asterisk (*). This indicates
-;;; the end of the file and terminates the DOWNLOAD command.
-;;; The ONLY printable ASCII characters allowed are: $*0123456789ABCDEF
-;;; (note only upper-case ABCDEF)
-;;; The ONLY ASCII control codes allowed are: [SPACE][RETURN][LINEFEED]
-;;; All other ASCII input may cause errors.
-;;; The monitor [U] UPLOAD command produces formatted ASCII HEX file output to terminal
+;;;[CNTL-D] DOWNLOAD command: x-modem transfer. 
+;;; The monitor [U] UPLOAD command uploads a file with the x-modem protocol to terminal
 ;;; 
 ;;; ******************************************************
-;;; this routine will be replaced with calls to xmodem.asm
-;; DOWNLOAD LDA  #$09     ;Send "Download:" to terminal
-;;          JSR  PROMPT
-;;          LDA  #$E0     ;Point to $E0xx (ROM area) in case of garbage input:
-;;          STA  INDEXH   ; write $E0 to download destination address pointer high byte
-;; DLOOP    JSR  CHIN     ;Request a keystroke from terminal
-;;          CMP  #$20     ; LOOP back to DLOOP IF character = [SPACE]: ignore character
-;;          BEQ  DLOOP
-;;          CMP  #$0D     ; ELSE, LOOP back to DLOOP IF character = [RETURN]: ignore character
-;;          BEQ  DLOOP
-;;          CMP  #$0A     ; ELSE, LOOP back to DLOOP IF character = [LINEFEED]: ignore character
-;;          BEQ  DLOOP
-;;          CMP  #$2A     ; ELSE, GOTO DBR1 IF chatacter <> "*": End Of File
-;;          BNE  DBR1
-;;          JMP  NMON     ; ELSE, done DOWNLOAD, GOTO NMON
-;; ;
-;; DBR1     CMP  #$24     ;GOTO DNEWADR IF character = "$"
-;;          BEQ  DNEWADR
-;;          JSR  DSUB1    ; ELSE, this is a high digit, go get low digit then convert ASCII HEX digits to binary
-;;          LDY  #$00     ;Store byte at address pointed to by destination address pointer
-;;          STA  (INDEX),Y
-;;          JSR  INCINDEX ;Increment destination address pointer
-;;          JMP  DLOOP    ;LOOP back to DLOOP
-;; ;
-;; DNEWADR  JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary
-;;          STA  INDEXH   ;Write value to destination address pointer high byte
-;;          JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary
-;;          STA  INDEX    ;Write value to destination address pointer low byte
-;;          JMP  DLOOP    ;LOOP back to DLOOP
-;; ;
-;; DSUB2    JSR  CHIN     ;Request a keystroke from terminal, result in ACCUMULATOR
-;; DSUB1    PHA           ;Save ACCUMULATOR on STACK: ASCII HEX high digit of a byte
-;;          JSR  CHIN     ;Request a keystroke from terminal: ASCII HEX low digit
-;;          TAY           ;Copy low digit to Y REGISTER
-;;          PLA           ;Pull ACCUMULATOR from STACK: high digit
-;;          JSR  ASC2BN   ;Convert high/low ASCII HEX digits to a binary value, result in ACCUMULATOR
-;;          RTS           ;Done DSUB1 or DSUB2 subroutine, RETURN
+;;; this routine has been replaced by the X-MODEM protocol.
+;;; See xmodem.asm for details.
+
 	
-;
 ;[CNTL-L] LISTER command: call disassembler
 LISTER:
 	JSR  ASMPROHILO ;Point to assembler/disassembler prompt strings
@@ -2032,17 +1999,28 @@ WIPELOOP:
 ;* this.
 ;*********************************
 ;
-COLDSTRT:
+COLDSTART:
 	CLD           ;Put 6502 in binary arithmatic mode
         LDX  #$FF     ;Initialize STACK POINTER
         TXS
+;;; Initialise ACIA
         LDA  #$1F     ;Initialize serial port (terminal I/O) 6551/65c51 ACIA
         STA  SIOCON   ; (19.2K BAUD,no parity,8 data bits,1 stop bit,
         LDA  #$09     ;  receiver IRQ output enabled)
         STA  SIOCOM
-        LDA  #$FF     ;Initialize system variables as follows:
+;;; End init ACIA
+	
+;;; Initialise VIA
+	LDA  #$FF
+	STA  VIADDRA		;Set PA pins to be output
+	STA  VIADDRB		;Set PB pins to be output
+	STA  VIAIER		;Enable interrupts for everything
+;;; End init VIA
+
+;;; Initialise SyMonIII
+;;; Initialise system variables as follows:
         STA  DELLO    ; delay time low byte
-        STA  DELHI    ;  high byte
+        STA  DELHI    ; high byte
 	JSR  MONPROHILO	;prompt string buffer address pointer high and low byte
         STZ  ACCUM    ; ACCUMULATOR preset/result value
         STZ  XREG     ; X-REGISTER preset/result value
@@ -2052,21 +2030,21 @@ COLDSTRT:
         STZ  INCNT    ; keystroke buffer 'written to' counter
         LDA  #$7F
         STA  SREG     ; USER program/application STACK POINTER preset/result value
-        LDX  #$01     ;Set delay time
+        LDX  #$01     ; Set delay time
         JSR  SET      ; do short delay
-        JSR  CR2      ;Send 2 CR,LF to terminal
-;Send BIOS logon messages to terminal
-        LDA  #$03     ;Send big PLUTO + "S/O/S BIOS/monitor (c)1990 B.Phelps" to terminal
+        JSR  CR2      ; Send 2 CR,LF to terminal
+;;; Send BIOS logon messages to terminal
+        LDA  #$03     ; Send big PLUTO + "S/O/S BIOS/monitor (c)1990 B.Phelps" to terminal
         JSR  PROMPT
-        JSR  CROUT    ;Send CR,LF to terminal
+        JSR  CROUT    ; Send CR,LF to terminal
 	JSR  MONPROHILO
-        LDA  #$01     ;Send "Version mm.dd.yy" to terminal
+        LDA  #$01     ; Send "Version mm.dd.yy" to terminal
         JSR  PROMPT
-        JSR  CROUT    ;Send CR,LF to terminal
-        LDA  #$02     ;Send "[ctrl-a] runs sub-assembler" to terminal
+        JSR  CROUT    ; Send CR,LF to terminal
+        LDA  #$02     ; Send "[ctrl-a] runs sub-assembler" to terminal
         JSR  PROMPT
-        JSR  CR2      ;Send 2 CR,LF to terminal
-        LDA  #$0B     ;Send "SyMon III" to terminal
+        JSR  CR2      ; Send 2 CR,LF to terminal
+        LDA  #$0B     ; Send "SyMon III" to terminal
         JSR  PROMPT
 ;
 ;
@@ -2086,7 +2064,7 @@ NMON:
 	LDX  #$FF     ;Initialize STACK POINTER
         TXS
         JSR  MONPROHILO ;Restore monitor prompt string buffer address pointer
-                         ; in case a monitor command, user or an application changed it
+                        ; in case a monitor command, user or an application changed it
         JSR  CR2	;Send 2 CR,LF to terminal
 	LDA  #'M'	;Send "M" to terminal
         JSR  COUT
@@ -2135,12 +2113,12 @@ MONTAB:
         .word  ERR      ;[CTRL-O]             $0F
         .word  ERR      ;[CTRL-P]             $10
         .word  ERR      ;[CTRL-Q]             $11
-        .word  COLDSTRT ;[CTRL-R]             $12  Restart same as power-up or RESET
+        .word  COLDSTART ;[CTRL-R]             $12  Restart same as power-up or RESET
         .word  ERR      ;[CTRL-S]             $13
         .word  ERR      ;[CTRL-T]             $14
         .word  USER     ;[CTRL-U]             $15  Begin program code execution at address $0400
         .word  ERR      ;[CTRL-V]             $16
-        .word  WIPE     ;[CTRL-W]             $17  Clear memory ($0000-$7FFF) then restart same as power-up or COLDSTRT
+        .word  WIPE     ;[CTRL-W]             $17  Clear memory ($0000-$7FFF) then restart same as power-up or COLDSTART
         .word  ERR      ;[CTRL-X]             $18
         .word  ERR      ;[CTRL-Y]             $19
         .word  ERR      ;[CTRL-Z]             $1A
@@ -2192,8 +2170,8 @@ MONTAB:
         .word  HEXTODEC ; H                   $48  Convert an entered HEX value to a BCD value, display result
         .word  INPUT    ; I                   $49  Write next keystroke to ACCUMULATOR preset/result
         .word  DECTOHEX ; J                   $4A  Convert an entered decimal value to a HEX value, display result
-        .word  SRCHBYT  ; K                   $4B  Search memory for a specified byte string
-        .word  SRCHTXT  ; L                   $4C  Search memory for a specified text string
+        .word  LOCATE_BYTE_STRING  ; K                   $4B  Search memory for a specified byte string
+        .word  LOCATE_TEXT_STRING  ; L                   $4C  Search memory for a specified text string
         .word  MOVER    ; M                   $4D  Copy a specified memory range to a specified target address
         .word  ERR      ; N                   $4E  (Reserved: NEXT/NOTHING command)
         .word  OUTPUT   ; O                   $4F  Send value (verbatim) in ACCUMULATOR preset/result to terminal
@@ -3681,7 +3659,7 @@ NEWQUERYADRS:
 	.WORD HEXIN2
 	.WORD HEXIN4
 	.WORD NMON
-	.WORD COLDSTRT
+	.WORD COLDSTART
 	.WORD SIODAT
 	.WORD 0
 	
@@ -3715,7 +3693,7 @@ NEWQUERYSTRS:
         .text  " HEXIN2  ",0
         .text  " HEXIN4",$0D,$0A,0
         .text  " NMON    ",0
-        .text  " COLDSTRT",$0D,$0A,0
+        .text  " COLDSTART",$0D,$0A,0
         .text  " 6551 ",0
         .byte  $00
 ;
@@ -3749,7 +3727,7 @@ MONPROHILO:
 	RTS
 ;
 ;
-;Prompt strings for [F]MFILL, [M]MOVER, [K]SRCHBYT, [L]SRCHTXT, [CNTL-W]WIPE commands and SUB-ASSEMBLER:
+;Prompt strings for [F]MFILL, [M]MOVER, [K]LOCATE_BYTE_STRING, [L]LOCATE_TEXT_STRING, [CNTL-W]WIPE commands and SUB-ASSEMBLER:
 ;String:                   String number:
 CMDPROMPTS:	
         .byte $00
@@ -3898,8 +3876,8 @@ MONPROMPT:
 ;
 ;6502 Vectors:
          * =  $FFFA
-         .word $0300    ;NMI
-         .word COLDSTRT ;RESET
-         .word INTERUPT ;IRQ
+         .word $0300    	;NMI
+         .word COLDSTART	;RESET
+         .word INTERUPT 	;IRQ
 
          .end
