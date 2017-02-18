@@ -317,7 +317,6 @@ BegBlk:
 GetBlk:
 	jsr	chin		; get next character
 
-
 GetBlk2:
 	sta	Rbuff,x		; good char, save it in the rcv buffer
 	inx			; inc buffer pointer	
