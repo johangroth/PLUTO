@@ -315,9 +315,6 @@ BegBlk:
 	ldx	#$00
 
 GetBlk:
-
-
-GetBlk1:
 	jsr	chin		; get next character
 
 

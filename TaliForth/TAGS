@@ -1,0 +1,968 @@
+
+macros.asm,111
+.macro 21,935
+.macro 33,1341
+.macro 44,1654
+.macro 57,2131
+.macro 72,2576
+.macro 89,3089
+.macro 97,3303
+
+Tali-Forth.asm,24408
+.org 18,734
+.alias 25,954
+.alias 26,1022
+.alias 27,1082
+.alias 28,1142
+.alias 29,1208
+.alias 30,1265
+.alias 31,1321
+.alias 34,1395
+.alias 35,1439
+.alias 36,1488
+.alias 47,1900
+.alias 48,1967
+.alias 49,2037
+.alias 50,2087
+.alias 64,2804
+.alias 65,2860
+.alias 78,3460
+.alias 79,3525
+.alias 81,3647
+.alias 82,3717
+.alias 83,3786
+.alias 84,3862
+.alias 85,3940
+.alias 86,4000
+.alias 87,4057
+.alias 88,4113
+.alias 89,4186
+.alias 90,4252
+.alias 91,4329
+.alias 92,4395
+.alias 93,4466
+.alias 94,4542
+.alias 95,4607
+.alias 96,4673
+.alias 97,4719
+.alias 98,4765
+.alias 107,5167
+.alias 115,5576
+.alias 116,5639
+.alias 117,5686
+.alias 118,5750
+.alias 122,5909
+.alias 123,5964
+k_irqv:k_irqv129,6270
+COLD:COLD130,6278
+.scope 177,7704
+_loop:_loop180,7738
+_done:_done211,8667
+f_toupper:f_toupper249,10179
+_done:_done257,10422
+.scend 258,10477
+f_strtoupper:f_strtoupper264,10762
+_loop:_loop272,11019
+.scend 279,11178
+f_cmplword:f_cmplword303,11950
+f_cmpljsr:f_cmpljsr306,12048
+f_cmpljmp:f_cmpljmp309,12133
+_common:_common312,12268
+_wordonly:_wordonly336,13067
+f_compexe:f_compexe371,14028
+_parseword:_parseword372,14040
+_parseerror:_parseerror441,16613
+_found:_found454,17084
+_execute:_execute476,17825
+_doneexec:_doneexec495,18585
+_compile:_compile513,19257
+_doneline:_doneline531,19918
+f_byte2hexasc:f_byte2hexasc537,20176
+f_nib2asc:f_nib2asc559,20798
+f_putchr:f_putchr574,21323
+_c1:_c1582,21510
+_c2:_c2589,21670
+_err:_err596,21831
+f_wrtzerostr:f_wrtzerostr604,22214
+f_prtzerostr:f_prtzerostr608,22321
+_common:_common610,22395
+_linefeed:_linefeed627,22765
+_done:_done632,22926
+f_getchr:f_getchr640,23267
+_c1:_c1648,23453
+_c2:_c2655,23647
+_err:_err662,23807
+f_cmp16:f_cmp16679,24606
+_equal:_equal691,25079
+_overflow:_overflow696,25261
+_notequal:_notequal699,25385
+_done:_done701,25452
+.scend 702,25473
+fc_docon:fc_docon712,25892
+fc_dovar:fc_dovar741,27033
+fc_dodoes:fc_dodoes767,27906
+error:error804,29473
+l_bye:l_bye829,30432
+a_bye:a_bye835,30612
+z_bye:z_bye836,30632
+l_cold:l_cold841,30828
+a_cold:a_cold847,30993
+z_cold:z_cold849,31020
+l_plit:l_plit857,31434
+a_plit:a_plit863,31608
+z_plit:z_plit892,32346
+l_lit:l_lit898,32612
+a_lit:a_lit904,32789
+z_lit:z_lit913,33015
+l_abort:l_abort919,33284
+a_abort:a_abort925,33450
+z_abort:z_abort933,33677
+l_quit:l_quit939,33989
+a_quit:a_quit945,34157
+_getline:_getline967,34972
+_prtok:_prtok1013,36571
+_clrstack:_clrstack1017,36724
+z_quit:z_quit1028,37094
+l_abortq:l_abortq1038,37533
+a_abortq:a_abortq1044,37716
+z_abortq:z_abortq1053,38038
+l_pabortq:l_pabortq1059,38266
+a_pabortq:a_pabortq1066,38458
+_done:_done1076,38885
+z_pabortq:z_pabortq1083,39075
+l_dump:l_dump1088,39263
+.scope 1093,39428
+a_dump:a_dump1094,39436
+_loop:_loop1098,39551
+_nextchar:_nextchar1109,39851
+_counter:_counter1114,39969
+_done:_done1124,40169
+z_dump:z_dump1129,40250
+l_see:l_see1136,40607
+a_see:a_see1142,40770
+_toupper:_toupper1161,41351
+_found:_found1178,42009
+_no_im:_no_im1212,43050
+_no_nc:_no_nc1219,43247
+_no_co:_no_co1224,43394
+z_see:z_see1290,45434
+l_dots:l_dots1295,45610
+.scope 1300,45767
+a_dots:a_dots1301,45775
+_notzero:_notzero1313,46147
+_loop:_loop1317,46268
+_done:_done1337,46746
+_finished:_finished1343,46904
+z_dots:z_dots1344,46915
+l_word:l_word1354,47552
+a_word:a_word1361,47726
+_iloop:_iloop1365,47861
+_foundchr:_foundchr1373,48138
+_makecaddr:_makecaddr1378,48268
+_loop:_loop1405,49213
+_done:_done1417,49495
+z_word:z_word1421,49595
+l_prsnm:l_prsnm1431,50123
+.scope 1436,50289
+a_prsnm:a_prsnm1437,50297
+_loop:_loop1440,50396
+_foundchr:_foundchr1448,50629
+_nochrs:_nochrs1462,51002
+_done:_done1479,51560
+z_prsnm:z_prsnm1480,51568
+l_parse:l_parse1490,52114
+.scope 1495,52283
+a_parse:a_parse1496,52306
+_loop:_loop1516,52997
+_found:_found1528,53397
+_eol:_eol1534,53710
+_finished:_finished1555,54359
+z_parse:z_parse1556,54371
+l_accept:l_accept1562,54647
+a_accept:a_accept1568,54820
+_loop:_loop1578,55123
+_del:_del1592,55599
+_chkprt:_chkprt1604,56021
+_gotzero:_gotzero1624,56608
+_done:_done1626,56666
+z_accept:z_accept1644,57162
+l_find:l_find1656,57816
+a_find:a_find1662,57985
+l_findint:l_findint1676,58411
+_sloop:_sloop1685,58753
+_cmploop:_cmploop1731,60872
+_found:_found1738,61096
+_imm:_imm1757,61720
+_nomatch:_nomatch1764,61926
+_alldone:_alldone1781,62511
+_finished:_finished1784,62617
+z_find:z_find1785,62628
+l_dashtrl:l_dashtrl1791,62919
+.scope 1796,63093
+a_dashtrl:a_dashtrl1797,63101
+_loop:_loop1813,63661
+_done:_done1824,64032
+_gotzero:_gotzero1829,64224
+z_dashtrl:z_dashtrl1830,64241
+l_slstr:l_slstr1838,64629
+a_slstr:a_slstr1844,64808
+_done:_done1863,65416
+z_slstr:z_slstr1867,65500
+l_backslash:l_backslash1872,65697
+a_backslash:a_backslash1878,65915
+z_backslash:z_backslash1884,66095
+l_paren:l_paren1888,66259
+a_paren:a_paren1894,66443
+z_paren:z_paren1909,66845
+l_dotpar:l_dotpar1916,67182
+a_dotpar:a_dotpar1922,67358
+_done:_done1939,67884
+z_dotpar:z_dotpar1940,67891
+l_squote:l_squote1947,68263
+a_squote:a_squote1953,68494
+_savestring:_savestring2028,70961
+_compile:_compile2066,72441
+_done:_done2078,72947
+z_squote:z_squote2079,72964
+l_dotq:l_dotq2088,73401
+a_dotq:a_dotq2094,73607
+z_dotq:z_dotq2100,73785
+l_bell:l_bell2105,73955
+a_bell:a_bell2111,74130
+z_bell:z_bell2114,74186
+l_regular:l_regular2120,74400
+a_regular:a_regular2126,74578
+z_regular:z_regular2135,74819
+l_bold:l_bold2140,75010
+a_bold:a_bold2146,75185
+z_bold:z_bold2155,75426
+l_page:l_page2161,75687
+a_page:a_page2167,75853
+z_page:z_page2181,76230
+l_atxy:l_atxy2188,76578
+a_atxy:a_atxy2194,76748
+z_atxy:z_atxy2212,77306
+l_spaces:l_spaces2217,77450
+a_spaces:a_spaces2224,77628
+_done:_done2237,77937
+z_spaces:z_spaces2240,77994
+l_space:l_space2245,78138
+a_space:a_space2251,78306
+z_space:z_space2254,78363
+l_cr:l_cr2260,78572
+a_cr:a_cr2266,78730
+z_cr:z_cr2269,78805
+l_bl:l_bl2273,78972
+a_bl:a_bl2279,79128
+z_bl:z_bl2285,79291
+l_gtnum:l_gtnum2292,79712
+a_gtnum:a_gtnum2298,79883
+_loop:_loop2309,80328
+_accumulate:_accumulate2343,81671
+_quit:_quit2406,83792
+z_gtnum:z_gtnum2414,84072
+l_number:l_number2420,84366
+a_number:a_number2426,84541
+_stack:_stack2464,85805
+_done:_done2507,87371
+_pos:_pos2543,88545
+_flag:_flag2552,88883
+_fail:_fail2561,89218
+_quit:_quit2576,89817
+z_number:z_number2577,89834
+l_digit:l_digit2584,90159
+a_digit:a_digit2590,90342
+_checkbase:_checkbase2611,91118
+_notdigit:_notdigit2617,91283
+_success:_success2623,91467
+_done:_done2629,91677
+z_digit:z_digit2630,91684
+l_binary:l_binary2634,91806
+a_binary:a_binary2640,91983
+z_binary:z_binary2643,92034
+l_hex:l_hex2648,92192
+a_hex:a_hex2654,92356
+z_hex:z_hex2657,92407
+l_decimal:l_decimal2661,92557
+a_decimal:a_decimal2667,92728
+z_decimal:z_decimal2670,92779
+l_source:l_source2675,92997
+a_source:a_source2681,93175
+z_source:z_source2697,93663
+l_plstore:l_plstore2701,93803
+a_plstore:a_plstore2707,93975
+_done:_done2725,94529
+z_plstore:z_plstore2730,94646
+l_constant:l_constant2738,95004
+a_constant:a_constant2744,95202
+z_constant:z_constant2767,95924
+l_value:l_value2774,96273
+a_value:a_value2781,96451
+z_value:z_value2782,96523
+l_to:l_to2791,96924
+a_to:a_to2798,97089
+z_to:z_to2802,97200
+l_2var:l_2var2808,97453
+a_2var:a_2var2814,97619
+z_2var:z_2var2827,98105
+l_var:l_var2833,98356
+a_var:a_var2839,98523
+z_var:z_var2852,99006
+l_pdoes:l_pdoes2858,99348
+a_pdoes:a_pdoes2865,99527
+z_pdoes:z_pdoes2920,101857
+l_does:l_does2927,102171
+a_does:a_does2933,102346
+z_does:z_does2942,102631
+l_create:l_create2949,102971
+a_create:a_create2955,103144
+_loop:_loop3065,107481
+z_create:z_create3106,108826
+l_natcomp:l_natcomp3112,109035
+a_natcomp:a_natcomp3118,109222
+z_natcomp:z_natcomp3124,109405
+l_conly:l_conly3131,109710
+a_conly:a_conly3138,109900
+z_conly:z_conly3144,110083
+l_immed:l_immed3151,110427
+a_immed:a_immed3157,110606
+z_immed:z_immed3163,110789
+l_postpo:l_postpo3173,111392
+.scope 3178,111570
+a_postpo:a_postpo3179,111578
+_findit:_findit3196,112056
+f_postpo_int:f_postpo_int3213,112708
+.scope 3222,113176
+_imm_flag:_imm_flag3248,113893
+_finished:_finished3253,114052
+pp_found:pp_found3266,114420
+_immediate:_immediate3295,115561
+_done:_done3299,115735
+z_postpo:z_postpo3300,115743
+l_lbrack:l_lbrack3305,115964
+a_lbrack:a_lbrack3311,116139
+z_lbrack:z_lbrack3314,116194
+l_rbrack:l_rbrack3320,116481
+a_rbrack:a_rbrack3326,116659
+z_rbrack:z_rbrack3330,116739
+l_semic:l_semic3337,117111
+a_semic:a_semic3343,117339
+z_semic:z_semic3371,118281
+l_colon:l_colon3378,118572
+a_colon:a_colon3384,118749
+z_colon:z_colon3417,119844
+l_cmpc:l_cmpc3426,120334
+a_cmpc:a_cmpc3432,120523
+_dojump:_dojump3512,123458
+_done:_done3535,124099
+z_cmpc:z_cmpc3536,124107
+l_state:l_state3543,124402
+a_state:a_state3549,124579
+z_state:z_state3555,124744
+l_eval:l_eval3561,125004
+a_eval:a_eval3567,125175
+z_eval:z_eval3616,126452
+l_exe:l_exe3621,126633
+a_exe:a_exe3627,126806
+_done:_done3647,127463
+z_exe:z_exe3655,127853
+l_gtname:l_gtname3662,128190
+a_gtname:a_gtname3668,128367
+z_gtname:z_gtname3699,129407
+l_gtbody:l_gtbody3707,129812
+a_gtbody:a_gtbody3713,129992
+z_gtbody:z_gtbody3739,130967
+l_btick:l_btick3746,131366
+a_btick:a_btick3753,131579
+z_btick:z_btick3754,131606
+l_tick:l_tick3760,131869
+a_tick:a_tick3766,132032
+_gotword:_gotword3782,132458
+_found:_found3796,132936
+z_tick:z_tick3802,133166
+l_defer:l_defer3809,133511
+a_defer:a_defer3816,133681
+_done:_done3822,133899
+z_defer:z_defer3828,134111
+e_defer:e_defer3831,134199
+l_deferstore:l_deferstore3838,134514
+a_deferstore:a_deferstore3845,134700
+z_deferstore:z_deferstore3848,134777
+l_deferfetch:l_deferfetch3854,135032
+a_deferfetch:a_deferfetch3861,135224
+z_deferfetch:z_deferfetch3864,135301
+l_comma:l_comma3870,135538
+a_comma:a_comma3876,135714
+_done:_done3888,136028
+z_comma:z_comma3891,136069
+l_allot:l_allot3899,136447
+a_allot:a_allot3905,136623
+_neg:_neg3940,137696
+_done:_done3964,138514
+z_allot:z_allot3967,138555
+l_aligned:l_aligned3973,138798
+a_aligned:a_aligned3979,138980
+z_aligned:z_aligned3980,139030
+l_align:l_align3985,139284
+a_align:a_align3991,139461
+z_align:z_align3992,139511
+l_move:l_move3999,139926
+a_move:a_move4005,140102
+_cmplsb:_cmplsb4018,140555
+_tocmoveg:_tocmoveg4026,140887
+_equal:_equal4028,140952
+z_move:z_move4034,141091
+l_cmovegt:l_cmovegt4041,141440
+.scope 4046,141616
+a_cmovegt:a_cmovegt4047,141624
+cmovegint:cmovegint4052,141762
+_partial:_partial4083,142809
+_fullpage:_fullpage4089,142948
+_outerloop:_outerloop4093,143096
+_innerloop:_innerloop4096,143188
+_done:_done4105,143382
+_abort:_abort4107,143442
+z_cmovegt:z_cmovegt4113,143576
+l_cmove:l_cmove4120,143924
+.scope 4125,144096
+a_cmove:a_cmove4126,144104
+cmoveint:cmoveint4131,144241
+_page:_page4151,144928
+_dopartial:_dopartial4162,145149
+_partial:_partial4165,145230
+_done:_done4172,145365
+_abort:_abort4174,145425
+z_cmove:z_cmove4180,145547
+.scend 4181,145567
+l_cfetch:l_cfetch4185,145755
+a_cfetch:a_cfetch4191,145929
+z_cfetch:z_cfetch4195,146035
+l_cstore:l_cstore4201,146343
+a_cstore:a_cstore4207,146514
+z_cstore:z_cstore4214,146645
+l_ccom:l_ccom4218,146816
+a_ccom:a_ccom4224,146990
+z_ccom:z_ccom4237,147309
+l_chars:l_chars4244,147606
+a_chars:a_chars4250,147777
+z_chars:z_chars4251,147827
+l_charpl:l_charpl4256,148060
+a_charpl:a_charpl4263,148237
+_done:_done4266,148339
+z_charpl:z_charpl4267,148346
+l_cells:l_cells4274,148645
+a_cells:a_cells4280,148812
+z_cells:z_cells4283,148890
+l_cellpl:l_cellpl4288,149152
+a_cellpl:a_cellpl4294,149321
+z_cellpl:z_cellpl4306,149763
+l_fill:l_fill4312,150102
+a_fill:a_fill4318,150278
+_page:_page4336,150831
+_fragment:_fragment4344,151062
+_done:_done4351,151256
+z_fill:z_fill4353,151282
+l_erase:l_erase4360,151582
+a_erase:a_erase4367,151755
+z_erase:z_erase4374,151920
+l_marker:l_marker4380,152192
+a_marker:a_marker4386,152368
+_done:_done4448,154218
+z_marker:z_marker4449,154226
+l_unused:l_unused4456,154563
+a_unused:a_unused4462,154736
+z_unused:z_unused4474,154981
+l_pad:l_pad4480,155314
+a_pad:a_pad4486,155482
+z_pad:z_pad4498,155768
+l_here:l_here4503,155950
+a_here:a_here4509,156111
+z_here:z_here4516,156276
+l_base:l_base4521,156522
+a_base:a_base4527,156686
+z_base:z_base4533,156841
+l_key:l_key4538,157088
+a_key:a_key4544,157248
+z_key:z_key4551,157437
+l_2upper:l_2upper4556,157690
+a_2upper:a_2upper4562,157865
+z_2upper:z_2upper4567,158003
+l_bchar:l_bchar4572,158178
+a_bchar:a_bchar4578,158360
+z_bchar:z_bchar4598,158946
+l_char:l_char4603,159150
+a_char:a_char4609,159321
+z_char:z_char4628,159887
+l_emit:l_emit4636,160301
+a_emit:a_emit4642,160470
+z_emit:z_emit4648,160599
+l_type:l_type4654,160817
+a_type:a_type4660,160983
+_done:_done4685,161673
+z_type:z_type4691,161785
+l_gtin:l_gtin4697,162021
+a_gtin:a_gtin4703,162189
+z_gtin:z_gtin4710,162396
+l_count:l_count4716,162635
+a_count:a_count4722,162807
+z_count:z_count4737,163249
+l_0lt:l_0lt4742,163424
+a_0lt:a_0lt4748,163591
+_store:_store4758,163866
+z_0lt:z_0lt4761,163915
+l_0equ:l_0equ4766,164100
+a_0equ:a_0equ4772,164264
+_store:_store4783,164574
+z_0equ:z_0equ4786,164624
+l_grthan:l_grthan4791,164795
+a_grthan:a_grthan4797,164977
+_false:_false4807,165216
+_done:_done4809,165274
+z_grthan:z_grthan4814,165363
+l_equal:l_equal4818,165496
+a_equal:a_equal4824,165665
+_false:_false4836,165951
+_done:_done4838,166009
+z_equal:z_equal4843,166099
+l_lessthan:l_lessthan4847,166231
+a_lessthan:a_lessthan4853,166405
+_false:_false4863,166644
+_done:_done4865,166702
+z_lessthan:z_lessthan4870,166791
+l_zero:l_zero4875,166965
+a_zero:a_zero4881,167128
+z_zero:z_zero4886,167217
+l_one:l_one4890,167383
+a_one:a_one4897,167554
+z_one:z_one4903,167696
+l_two:l_two4908,167869
+a_two:a_two4914,168032
+z_two:z_two4920,168188
+l_ddotr:l_ddotr4925,168436
+a_ddotr:a_ddotr4931,168608
+z_ddotr:z_ddotr4945,169108
+l_ddot:l_ddot4951,169328
+a_ddot:a_ddot4957,169494
+z_ddot:z_ddot4967,169842
+l_dotr:l_dotr4973,170089
+a_dotr:a_dotr4979,170253
+z_dotr:z_dotr4994,170786
+l_dot:l_dot5000,171021
+a_dot:a_dot5006,171176
+z_dot:z_dot5017,171564
+l_uddot:l_uddot5022,171838
+a_uddot:a_uddot5029,172012
+z_uddot:z_uddot5035,172203
+l_udotr:l_udotr5041,172444
+a_udotr:a_udotr5047,172613
+z_udotr:z_udotr5058,172992
+l_udot:l_udot5064,173233
+a_udot:a_udot5070,173399
+z_udot:z_udot5078,173567
+l_numgt:l_numgt5084,173813
+a_numgt:a_numgt5090,173986
+z_numgt:z_numgt5117,174903
+l_sign:l_sign5124,175229
+a_sign:a_sign5130,175400
+_minus:_minus5138,175597
+_done:_done5143,175802
+z_sign:z_sign5144,175809
+l_hold:l_hold5151,176125
+a_hold:a_hold5157,176294
+z_hold:z_hold5181,177321
+l_nums:l_nums5188,177677
+a_nums:a_nums5194,177844
+_loop:_loop5195,177861
+z_nums:z_nums5204,178125
+l_num:l_num5214,178699
+a_num:a_num5220,178863
+z_num:z_num5240,179625
+l_ltnum:l_ltnum5249,180135
+a_ltnum:a_ltnum5255,180302
+z_ltnum:z_ltnum5265,180545
+l_dminus:l_dminus5271,180756
+a_dminus:a_dminus5277,180929
+z_dminus:z_dminus5301,181518
+l_dplus:l_dplus5307,181712
+a_dplus:a_dplus5313,181885
+z_dplus:z_dplus5337,182473
+l_dtos:l_dtos5343,182687
+a_dtos:a_dtos5349,182857
+z_dtos:z_dtos5352,182898
+l_stod:l_stod5357,183069
+a_stod:a_stod5363,183237
+_pos:_pos5374,183485
+_done:_done5376,183597
+z_stod:z_stod5377,183605
+l_rshift:l_rshift5383,183853
+a_rshift:a_rshift5389,184036
+_done:_done5401,184390
+z_rshift:z_rshift5404,184431
+l_lshift:l_lshift5410,184674
+a_lshift:a_lshift5416,184853
+_done:_done5428,185207
+z_lshift:z_lshift5431,185248
+l_min:l_min5440,185661
+a_min:a_min5446,185831
+_noov:_noov5457,186260
+_keepnos:_keepnos5466,186518
+z_min:z_min5469,186560
+l_max:l_max5478,186974
+a_max:a_max5484,187138
+_noov:_noov5495,187602
+_keepnos:_keepnos5504,187830
+z_max:z_max5507,187888
+l_dnegate:l_dnegate5512,188045
+a_dnegate:a_dnegate5518,188218
+z_dnegate:z_dnegate5539,188779
+l_negate:l_negate5544,188928
+a_negate:a_negate5550,189109
+z_negate:z_negate5561,189393
+l_invert:l_invert5566,189538
+a_invert:a_invert5572,189711
+z_invert:z_invert5588,190059
+.scend 5589,190079
+l_xor:l_xor5592,190186
+a_xor:a_xor5598,190350
+z_xor:z_xor5609,190574
+l_or:l_or5612,190692
+a_or:a_or5618,190847
+z_or:z_or5629,191071
+l_and:l_and5632,191192
+a_and:a_and5638,191355
+z_and:z_and5649,191586
+l_mplus:l_mplus5654,191795
+a_mplus:a_mplus5660,191964
+_done:_done5681,192533
+z_mplus:z_mplus5684,192574
+l_slashmod:l_slashmod5692,192932
+a_slashmod:a_slashmod5698,193155
+z_slashmod:z_slashmod5706,193490
+l_mod:l_mod5713,193775
+a_mod:a_mod5719,193948
+z_mod:z_mod5723,194085
+l_fmmod:l_fmmod5733,194624
+a_fmmod:a_fmmod5739,194793
+_checkd:_checkd5750,195202
+_multi:_multi5762,195566
+_done:_done5774,195924
+z_fmmod:z_fmmod5775,195932
+l_smrem:l_smrem5783,196324
+a_smrem:a_smrem5789,196496
+_done:_done5825,197570
+z_smrem:z_smrem5826,197578
+l_udmod:l_udmod5835,198019
+a_udmod:a_udmod5841,198191
+z_udmod:z_udmod5851,198536
+l_ummod:l_ummod5859,198997
+a_ummod:a_ummod5865,199169
+_notzero:_notzero5876,199505
+_loop:_loop5880,199594
+_done:_done5915,200587
+z_ummod:z_ummod5920,200731
+l_mstar:l_mstar5928,201132
+a_mstar:a_mstar5934,201301
+_done:_done5952,201852
+z_mstar:z_mstar5953,201859
+l_umstar:l_umstar5963,202398
+.scope 5968,202563
+a_umstar:a_umstar5969,202571
+_outerloop:_outerloop5994,203430
+_innerloop:_innerloop5997,203519
+_noadd:_noadd6005,203754
+_zero:_zero6021,204286
+_done:_done6023,204364
+z_umstar:z_umstar6024,204372
+.scend 6025,204392
+l_ssmod:l_ssmod6032,204782
+a_ssmod:a_ssmod6038,205003
+z_ssmod:z_ssmod6048,205428
+l_starslash:l_starslash6056,205822
+a_starslash:a_starslash6062,206037
+z_starslash:z_starslash6067,206183
+l_slash:l_slash6075,206516
+a_slash:a_slash6081,206698
+z_slash:z_slash6091,207077
+l_star:l_star6097,207343
+a_star:a_star6103,207505
+z_star:z_star6107,207575
+l_minus:l_minus6110,207702
+a_minus:a_minus6116,207865
+z_minus:z_minus6128,208100
+l_plus:l_plus6132,208257
+a_plus:a_plus6138,208420
+z_plus:z_plus6150,208655
+l_dabs:l_dabs6154,208822
+a_dabs:a_dabs6160,208992
+_done:_done6183,209569
+z_dabs:z_dabs6184,209577
+l_abs:l_abs6189,209750
+a_abs:a_abs6195,209916
+_done:_done6208,210267
+z_abs:z_abs6209,210275
+l_recurse:l_recurse6217,210678
+a_recurse:a_recurse6223,210858
+z_recurse:z_recurse6249,211643
+l_leave:l_leave6258,212136
+a_leave:a_leave6264,212317
+z_leave:z_leave6273,212593
+l_pploop:l_pploop6281,213044
+a_pploop:a_pploop6287,213225
+_hack:_hack6307,213913
+z_pploop:z_pploop6313,214209
+l_ploop:l_ploop6323,214742
+a_ploop:a_ploop6330,214921
+z_ploop:z_ploop6396,216988
+l_loop:l_loop6402,217313
+a_loop:a_loop6409,217489
+z_loop:z_loop6415,217664
+l_unloop:l_unloop6421,217938
+a_unloop:a_unloop6427,218116
+z_unloop:z_unloop6439,218453
+l_exit:l_exit6448,218783
+a_exit:a_exit6455,218960
+z_exit:z_exit6457,218981
+l_j:l_j6468,219526
+a_j:a_j6475,219692
+z_j:z_j6498,220302
+l_i:l_i6505,220648
+a_i:a_i6511,220805
+z_i:z_i6534,221440
+l_pqdo:l_pqdo6541,221793
+a_pqdo:a_pqdo6548,221961
+_do_do:_do_do6570,222798
+z_pqdo:z_pqdo6572,222921
+l_pdo:l_pdo6585,223770
+a_pdo:a_pdo6591,223941
+z_pdo:z_pdo6622,225141
+l_qdo:l_qdo6627,225355
+a_qdo:a_qdo6634,225523
+z_qdo:z_qdo6640,225749
+l_do:l_do6648,226224
+a_do:a_do6655,226389
+do_common:do_common6659,226562
+_do_cmpl:_do_cmpl6700,227923
+z_do:z_do6718,228513
+l_then:l_then6724,228844
+a_then:a_then6731,229016
+z_then:z_then6748,229516
+l_again:l_again6756,229926
+a_again:a_again6762,230104
+z_again:z_again6786,230790
+l_begin:l_begin6793,231105
+a_begin:a_begin6799,231279
+z_begin:z_begin6807,231509
+l_p0branch:l_p0branch6813,231865
+a_p0branch:a_p0branch6819,232048
+_zero:_zero6849,233043
+_done:_done6867,233758
+z_p0branch:z_p0branch6873,233965
+l_0branch:l_0branch6882,234403
+a_0branch:a_0branch6888,234591
+z_0branch:z_0branch6892,234709
+l_pbranch:l_pbranch6897,234901
+a_pbranch:a_pbranch6903,235083
+_done:_done6927,235951
+z_pbranch:z_pbranch6933,236150
+l_branch:l_branch6939,236431
+a_branch:a_branch6945,236615
+z_branch:z_branch6949,236731
+l_true:l_true6954,236904
+a_true:a_true6960,237069
+z_true:z_true6966,237183
+l_false:l_false6970,237350
+a_false:a_false6976,237517
+z_false:z_false6981,237606
+l_1plus:l_1plus6985,237785
+a_1plus:a_1plus6991,237956
+_done:_done6996,238130
+z_1plus:z_1plus6997,238137
+l_1minus:l_1minus7002,238331
+a_1minus:a_1minus7008,238511
+z_1minus:z_1minus7013,238606
+l_depth:l_depth7020,238911
+a_depth:a_depth7026,239086
+z_depth:z_depth7041,239522
+l_pick:l_pick7049,239961
+a_pick:a_pick7056,240132
+z_pick:z_pick7069,240497
+l_mrot:l_mrot7075,240669
+a_mrot:a_mrot7082,240839
+z_mrot:z_mrot7100,241250
+l_rot:l_rot7106,241423
+a_rot:a_rot7112,241583
+z_rot:z_rot7130,241996
+l_tuck:l_tuck7134,242198
+a_tuck:a_tuck7140,242360
+z_tuck:z_tuck7161,242899
+l_nip:l_nip7165,243033
+a_nip:a_nip7171,243195
+z_nip:z_nip7179,243361
+l_2swap:l_2swap7183,243535
+a_2swap:a_2swap7189,243707
+z_2swap:z_2swap7223,244562
+l_swap:l_swap7227,244693
+a_swap:a_swap7233,244864
+z_swap:z_swap7251,245369
+l_2dup:l_2dup7256,245543
+a_2dup:a_2dup7262,245708
+z_2dup:z_2dup7278,246105
+l_qdup:l_qdup7281,246229
+a_qdup:a_qdup7287,246399
+_done:_done7297,246610
+z_qdup:z_qdup7298,246617
+l_dup:l_dup7303,246780
+a_dup:a_dup7309,246940
+z_dup:z_dup7317,247106
+l_2over:l_2over7321,247301
+a_2over:a_2over7327,247474
+z_2over:z_2over7343,247894
+l_over:l_over7347,248026
+a_over:a_over7353,248191
+z_over:z_over7361,248357
+l_rfetch:l_rfetch7369,248830
+a_rfetch:a_rfetch7375,248996
+z_rfetch:z_rfetch7402,249727
+l_fromr:l_fromr7407,250006
+a_fromr:a_fromr7413,250180
+z_fromr:z_fromr7434,250748
+l_tor:l_tor7441,251124
+a_tor:a_tor7447,251299
+z_tor:z_tor7468,251833
+l_2gr:l_2gr7473,252041
+a_2gr:a_2gr7479,252213
+z_2gr:z_2gr7508,252948
+l_tworfetch:l_tworfetch7514,253219
+a_tworfetch:a_tworfetch7521,253396
+z_tworfetch:z_tworfetch7545,254167
+l_2rg:l_2rg7550,254376
+a_2rg:a_2rg7556,254546
+z_2rg:z_2rg7586,255357
+l_quest:l_quest7591,255553
+a_quest:a_quest7598,255720
+z_quest:z_quest7600,255774
+l_fetch:l_fetch7606,256001
+a_fetch:a_fetch7612,256173
+z_fetch:z_fetch7628,256615
+l_store:l_store7632,256770
+a_store:a_store7638,256945
+z_store:z_store7655,257304
+l_2drop:l_2drop7659,257431
+a_2drop:a_2drop7665,257627
+z_2drop:z_2drop7670,257709
+l_drop:l_drop7674,257857
+a_drop:a_drop7680,258044
+z_drop:z_drop7683,258085
+l_words:l_words7690,258495
+a_words:a_words7696,258665
+_loop:_loop7702,258824
+_nextword:_nextword7724,259450
+z_words:z_words7737,259855
+fhltbl:fhltbl7751,260557
+fh_if:fh_if7771,261584
+.byte 7772,261595
+fh_else:fh_else7773,261663
+.byte 7774,261674
+fh_until:fh_until7775,261754
+.byte 7776,261765
+fh_while:fh_while7777,261829
+.byte 7778,261840
+fh_rpt:fh_rpt7779,261916
+.byte 7780,261927
+fh_is:fh_is7781,262000
+.byte 7782,262007
+fh_actionof:fh_actionof7783,262095
+.byte 7784,262109
+strtbl:strtbl7794,262763
+fs_title:fs_title7803,263322
+fs_version:fs_version7804,263372
+fs_disclaim:fs_disclaim7805,263425
+fs_typebye:fs_typebye7806,263495
+fs_prompt:fs_prompt7807,263540
+fs_compile:fs_compile7808,263569
+fs_xt:fs_xt7811,263649
+fs_f_IM:fs_f_IM7812,263679
+fs_f_CO:fs_f_CO7813,263715
+fs_f_NC:fs_f_NC7814,263754
+fs_dic_link:fs_dic_link7815,263795
+fs_datadump:fs_datadump7816,263830
+fse_error:fse_error7820,264004
+fse_stack:fse_stack7821,264041
+fse_channel:fse_channel7822,264091
+fse_divzero:fse_divzero7823,264142
+fse_noname:fse_noname7824,264184
+fse_syntax:fse_syntax7825,264225
+fse_componly:fse_componly7826,264263
+fse_intonly:fse_intonly7827,264321
+fse_empty:fse_empty7828,264368
+fse_radix:fse_radix7829,264402
+fse_defer:fse_defer7830,264450
+alphastr:alphastr7835,264705
+
+Tali-Kernel.asm,1213
+.alias 26,1117
+.alias 34,1588
+.alias 35,1614
+.alias 44,1943
+.alias 45,1995
+.alias 46,2051
+.alias 47,2106
+.alias 48,2162
+.alias 51,2238
+.alias 52,2289
+.alias 53,2350
+.alias 54,2426
+.alias 55,2486
+.alias 56,2546
+.alias 57,2615
+.alias 58,2684
+.alias 59,2755
+.alias 60,2826
+.alias 61,2895
+.alias 62,2964
+.alias 63,3024
+.alias 64,3085
+.alias 65,3147
+.alias 66,3205
+.alias 67,3265
+.alias 74,3602
+.alias 75,3677
+.alias 76,3741
+.alias 77,3818
+.alias 78,3882
+.alias 79,3948
+.alias 80,4014
+k_resetv:k_resetv87,4308
+_ContPost65c02:_ContPost65c0290,4361
+_ContPostRAM:_ContPostRAM93,4429
+k_init65c02:k_init65c02108,4884
+k_initRAM:k_initRAM127,5449
+k_initIO:k_initIO151,6087
+_loop:_loop161,6374
+_IOTable:_IOTable186,7021
+k_nmiv:k_nmiv225,8757
+k_panic:k_panic226,8765
+k_getchr:k_getchr231,8940
+k_wrtchr:k_wrtchr258,10040
+k_wrtstr:k_wrtstr279,10855
+k_prtstr:k_prtstr283,10940
+_done:_done296,11403
+_leave:_leave301,11529
+k_getchrVIAa:k_getchrVIAa310,11734
+k_getchrVIAb:k_getchrVIAb314,11773
+k_wrtchrVIAa:k_wrtchrVIAa318,11812
+k_wrtchrVIAb:k_wrtchrVIAb322,11851
+ks_welcome:ks_welcome333,12146
+ks_author:ks_author334,12213
+ks_version:ks_version335,12280
+
+Tali-Main-B001.asm,149
+.org 17,820
+FORTH:FORTH21,926
+.require 22,934
+.require 26,1051
+.require 30,1183
+.advance 34,1306
+.word 36,1374
+.word 37,1404
+.word 38,1435
