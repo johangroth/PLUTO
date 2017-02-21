@@ -1,0 +1,1488 @@
+
+basic_ide_routines.asm,830
+ide_register0 43,1503
+ide_register1 44,1564
+ide_register2 45,1586
+ide_register3 46,1608
+ide_register4 47,1630
+ide_register5 48,1652
+ide_register6 49,1674
+ide_register7 50,1696
+ide_high_byte 51,1718
+ide_read_sector_cmd 53,1741
+ide_write_sector_cmd 54,1767
+sector_buffer_ptr 56,1795
+ide_lba0 58,1820
+ide_lba1 59,1865
+ide_lba2 60,1890
+ide_lba3 61,1914
+ide_status 63,1970
+ide_id_drive_cmd 64,1987
+tmp 66,2011
+ide_init_status 70,2102
+ide_read_sector 77,2234
+ide_write_sector 100,2887
+ide_get_id 123,3661
+ide_wait_busy_ready 144,4146
+ide_dlp	159,4595
+done 166,4711
+ide_time_out	175,5086
+ide_test_error 182,5232
+ok 192,5508
+ide_wait_buffer 198,5641
+ide_blp	205,5727
+done 211,5786
+ide_to2	217,5926
+ide_read_buffer 224,6062
+ide_write_buffer 246,6537
+ide_setup_lba 269,7032
+master_slave_select 289,7596
+
+macros.asm,123
+wrtline 21,930
+prtline 33,1330
+newline 44,1639
+load_addrn 57,2112
+fprint 72,2555
+testprta 89,3065
+teststack 97,3278
+
+symoniii.asm,10853
+ASC2BN 128,3769
+BINARY:BINARY141,4321
+BNOK:BNOK147,4537
+ASCTODEC 152,4657
+ATODLOOP:ATODLOOP161,5151
+A2DDONE:A2DDONE173,5774
+A2DSUB	178,5920
+A2DCONV:A2DCONV184,6162
+BCDOUT:BCDOUT200,6823
+BCDOUTL:BCDOUTL203,6988
+BCDOUTDN:BCDOUTDN220,7760
+BCDTOASC:BCDTOASC224,7933
+NONZERO:NONZERO228,8134
+BTADONE:BTADONE233,8396
+BCDTOHEX:BCDTOHEX254,9313
+BCDLOOP:BCDLOOP261,9683
+MULTPLI:MULTPLI283,10651
+DMLTLOOP:DMLTLOOP286,10779
+DDOADD:DDOADD292,11046
+OVERFLOW:OVERFLOW309,11743
+DMULTAB:DMULTAB314,11917
+BEEP:BEEP326,12402
+BN2ASC:BN2ASC335,12762
+ASCII:ASCII350,13416
+ASOK:ASOK355,13555
+BSOUT:BSOUT360,13698
+CHIN:CHIN366,13889
+CHINLOOP:CHINLOOP368,13927
+CHREG:CHREG380,14520
+COUT3:COUT3387,14828
+COUT2:COUT2388,14870
+COUT:COUT389,14912
+COUTL:COUTL390,14959
+DECINPUT:DECINPUT400,15503
+DECINDEX:DECINDEX410,16029
+DECDONE:DECDONE414,16078
+DOLLAR:DOLLAR420,16257
+CR2:CR2425,16418
+CROUT:CROUT428,16493
+SENDIT:SENDIT433,16651
+DELAY1:DELAY1440,16919
+DELAY2:DELAY2443,16990
+ITER:ITER445,17045
+WAIT:WAIT447,17096
+GLINE:GLINE455,17431
+GLINEL:GLINEL458,17502
+HEXIN2:HEXIN2469,17942
+HEXIN4:HEXIN4472,18070
+HEXIN:HEXIN474,18149
+IN2:IN2495,19146
+JUST3:JUST3499,19364
+SHFT3:SHFT3507,19649
+IN3:IN3509,19730
+JUST4:JUST4519,20256
+X2:X2529,20614
+X3:X3531,20692
+IN4:IN4535,20853
+SHIFT:SHIFT545,21386
+JUSTBYTE:JUSTBYTE548,21468
+HEXINPUT:HEXINPUT557,21821
+ASCTOHEX:ASCTOHEX565,22245
+ASCLOOP:ASCLOOP571,22530
+HINDONE:HINDONE591,23759
+HEXOUT:HEXOUT601,24164
+HEXOUTL:HEXOUTL604,24329
+HEXOUTDN:HEXOUTDN621,25093
+HEXTOASC:HEXTOASC626,25268
+HNONZERO:HNONZERO630,25470
+HEXDIGIT:HEXDIGIT639,25901
+SENDIGIT:SENDIGIT643,26060
+HTADONE:HTADONE645,26119
+HEXTOBCD:HEXTOBCD666,27032
+DECLOOP:DECLOOP674,27423
+MULTIPLY:MULTIPLY698,28410
+HMLTLOOP:HMLTLOOP702,28602
+HDOADD:HDOADD709,28935
+HMULTAB:HMULTAB729,29598
+INCINDEX:INCINDEX740,30059
+INCDONE:INCDONE744,30108
+MEMDMP:MEMDMP748,30250
+NEWADR:NEWADR761,30818
+DLINE:DLINE763,30921
+GETBYT:GETBYT770,31192
+DUMPH:DUMPH777,31516
+DUMPA:DUMPA779,31567
+ENDUMP:ENDUMP795,32177
+XITDMP:XITDMP800,32337
+DMPGR:DMPGR803,32453
+MDLOOP:MDLOOP812,32721
+PRASC:PRASC824,33166
+PERIOD:PERIOD829,33309
+ASCOUT:ASCOUT831,33367
+PRBYTE:PRBYTE835,33558
+PRINDX:PRINDX846,34080
+PROMPT:PROMPT859,34516
+FIND:FIND863,34693
+NEXT:NEXT866,34796
+ZERO:ZERO871,34983
+STRINGL:STRINGL876,35143
+QUITP:QUITP884,35523
+READ:READ890,35716
+RDCHAR:RDCHAR897,35958
+AOK:AOK904,36278
+RDLINE:RDLINE924,37186
+RDLOOP:RDLOOP929,37429
+NOTESC:NOTESC939,37980
+DECONLY:DECONLY953,38675
+DECTEST:DECTEST956,38795
+FULTST:FULTST959,38942
+INERR:INERR963,39063
+STRCH:STRCH966,39175
+EXITRD:EXITRD971,39380
+BACK:BACK975,39528
+BSERROR:BSERROR983,39866
+RESREGS:RESREGS989,40103
+SAVREGS:SAVREGS1007,41110
+SBYTSTR:SBYTSTR1028,42310
+SBLOOP:SBLOOP1030,42365
+DONESB:DONESB1042,42902
+SENGINE:SENGINE1049,43257
+SENGBR2:SENGBR21057,43610
+SENGBR3:SENGBR31059,43700
+SENGBR1:SENGBR11069,44254
+DUNSENG:DUNSENG1097,45388
+SINCPTR:SINCPTR1103,45670
+DUNSINC:DUNSINC1114,46148
+SET:SET1119,46353
+TIMER:TIMER1121,46413
+TIMERL:TIMERL1125,46564
+SETUP:SETUP1133,46953
+SPC4:SPC41143,47369
+SPC2:SPC21145,47418
+SPC:SPC1147,47467
+GET_UP_TO_16_CHR_STRING:GET_UP_TO_16_CHR_STRING1158,48015
+STLOOP:STLOOP1160,48086
+STBR1:STBR11167,48389
+STBR2:STBR21169,48460
+STBR3:STBR31177,48784
+DECIN:DECIN1205,50309
+ERR:ERR1217,50767
+ARG:ARG1224,51085
+NCAREG:NCAREG1232,51435
+BYTE:BYTE1236,51550
+CHANGE:CHANGE1242,51817
+CHANGEL:CHANGEL1246,51973
+CHOK:CHOK1261,52599
+PRNXT:PRNXT1263,52645
+XITWR:XITWR1268,52878
+MDUMP:MDUMP1272,53018
+EXAMINE:EXAMINE1278,53285
+MFILL:MFILL1284,53559
+USERFILL:USERFILL1312,54943
+PGFILL:PGFILL1316,55152
+FILEFT:FILEFT1323,55535
+FILAST:FILAST1327,55750
+QUITFILL:QUITFILL1332,55993
+DONEFILL:DONEFILL1334,56079
+GO:GO1338,56210
+CNTLUGO:CNTLUGO1345,56497
+HEXTODEC:HEXTODEC1375,57675
+HTDDONE:HTDDONE1387,58259
+INPUT:INPUT1391,58395
+DECTOHEX:DECTOHEX1398,58690
+DONEDEC:DONEDEC1411,59262
+LOCATE_BYTE_STRING:LOCATE_BYTE_STRING1419,59624
+SRCHRDY:SRCHRDY1426,59869
+SBDONE:SBDONE1432,60088
+LOCATE_TEXT_STRING:LOCATE_TEXT_STRING1437,60341
+MOVER:MOVER1453,61047
+MVPGE:MVPGE1497,63511
+MVREST:MVREST1507,64123
+REST:REST1510,64294
+QUITMV:QUITMV1516,64613
+RIGHT:RIGHT1519,64787
+RT:RT1530,65355
+MVPAG:MVPAG1536,65635
+RDEC:RDEC1539,65798
+RMOV:RMOV1542,65915
+OUTPUT:OUTPUT1557,66698
+PRG:PRG1562,66915
+NCPREG:NCPREG1570,67299
+PRSTAT:PRSTAT1574,67429
+NXTREG:NXTREG1577,67525
+XR:XR1588,67907
+YR:YR1592,67986
+SR:SR1596,68065
+PR:PR1600,68147
+XITR:XITR1604,68234
+ARONEG:ARONEG1611,68473
+BIT7:BIT71618,68626
+MNSTR:MNSTR1620,68712
+MNCHAR:MNCHAR1622,68773
+PRBIT:PRBIT1634,69304
+LS7:LS71653,69764
+LS6:LS61655,69793
+LS5:LS51657,69832
+LS4:LS41659,69864
+LS2:LS21662,69982
+LS1:LS11664,70015
+BITSET:BITSET1669,70145
+RDONE:RDONE1671,70197
+REGARA:REGARA1674,70298
+SRG:SRG1680,70461
+NCSREG:NCSREG1688,70837
+ADUMP:ADUMP1692,70978
+VIEWTXT:VIEWTXT1788,75415
+VQUERY:VQUERY1793,75656
+PROMPT2:PROMPT21795,75703
+VIEWEXIT:VIEWEXIT1802,76015
+WATCH:WATCH1806,76177
+WATCHL:WATCHL1808,76240
+XRG:XRG1823,76848
+NCXREG:NCXREG1831,77196
+YRG:YRG1835,77312
+NCYREG:NCYREG1843,77660
+EDITOR:EDITOR1847,77792
+EDJMP1:EDJMP11855,78133
+EDJMP2:EDJMP21860,78292
+ENOTRET:ENOTRET1872,78918
+EDBKSPC:EDBKSPC1880,79250
+EDDOBKS:EDDOBKS1889,79612
+EDITDUN:EDITDUN1893,79770
+EDVWXIT:EDVWXIT1897,79923
+SWAIT:SWAIT1901,80031
+EXPIRE:EXPIRE1908,80363
+TIME:TIME1911,80478
+INIMACRO:INIMACRO1919,80853
+RUNMACRO:RUNMACRO1936,81767
+RET:RET1941,81948
+LISTER:LISTER1953,82343
+USER:USER1960,82627
+WIPE:WIPE1969,82997
+DOWIPE:DOWIPE1979,83405
+WIPELOOP:WIPELOOP1985,83592
+COLDSTART:COLDSTART2002,84085
+MONITOR:MONITOR2056,86110
+NMON:NMON2063,86398
+CMON:CMON2073,86767
+DOCOM:DOCOM2086,87561
+MONTAB:MONTAB2097,87976
+INTERUPT:INTERUPT2201,94769
+ENDIRQ:ENDIRQ2214,95539
+BRKINSTR:BRKINSTR2220,95743
+BREAKEY:BREAKEY2245,96854
+ASSEM:ASSEM2263,97315
+NEWLIN:NEWLIN2270,97644
+NLIN:NLIN2272,97691
+REENTR:REENTR2278,97901
+ENTER:ENTER2280,97963
+ANOTESC:ANOTESC2285,98193
+NOTSPC:NOTSPC2293,98540
+NEM:NEM2296,98617
+TOOHI:TOOHI2301,98783
+NOTLESS:NOTLESS2304,98879
+RDLOOP2:RDLOOP22310,99215
+SKIP3:SKIP32333,100213
+SKIP2:SKIP22335,100267
+SKIP1:SKIP12337,100321
+DIRECTV:DIRECTV2347,100766
+DIRTST:DIRTST2351,100969
+DIROK:DIROK2359,101382
+DODIR:DODIR2370,101792
+AARG:AARG2376,101947
+APROMPT:APROMPT2379,102078
+ABYTE:ABYTE2385,102405
+BYLOOP:BYLOOP2389,102526
+BYOK:BYOK2395,102794
+AGO:AGO2402,103075
+KEYCONV:KEYCONV2411,103443
+LIST:LIST2422,103963
+LSTNEW:LSTNEW2434,104476
+DISLOOP:DISLOOP2437,104590
+MORLOOP:MORLOOP2441,104771
+MORDIS:MORDIS2450,105162
+REORIG:REORIG2457,105439
+APRG:APRG2469,105895
+AQUERY:AQUERY2475,106198
+APRSTAT:APRSTAT2490,106723
+ASRG:ASRG2497,107005
+TEXT:TEXT2503,107260
+RECODE:RECODE2509,107498
+WORD:WORD2519,107982
+WDLOOP:WDLOOP2523,108102
+WDOK:WDOK2537,108583
+AXRG:AXRG2558,109378
+AYRG:AYRG2566,109724
+DISLINE:DISLINE2573,110022
+CHEXIN2:CHEXIN22596,111080
+AHEXIN2:AHEXIN22598,111147
+H2LOOP:H2LOOP2601,111209
+H2OK:H2OK2607,111465
+SHEXIN4:SHEXIN42615,111753
+AHEXIN4:AHEXIN42617,111805
+H4LOOP:H4LOOP2624,111964
+H4OK:H4OK2630,112220
+BITSEL:BITSEL2646,112761
+NOTZ2S:NOTZ2S2652,113013
+Z2SOK:Z2SOK2655,113106
+ERRBS:ERRBS2664,113395
+INCNDX:INCNDX2670,113661
+RDNDX:RDNDX2672,113719
+PRMNEM:PRMNEM2679,114002
+PRML:PRML2684,114231
+GETNXT:GETNXT2694,114781
+TWOBYT:TWOBYT2700,115071
+TRIBYT:TRIBYT2708,115401
+PR1:PR12717,115835
+PR2:PR22723,116034
+SRMB2:SRMB22732,116424
+SRMB:SRMB2737,116605
+SRM:SRM2741,116752
+LSPRD:LSPRD2755,117398
+SPCRD:SPCRD2758,117541
+CLKRD:CLKRD2760,117591
+SAVLST:SAVLST2772,118122
+COMX:COMX2780,118292
+COMY:COMY2787,118423
+RBR:RBR2794,118552
+LBR:LBR2799,118635
+MSPC:MSPC2805,118768
+SLOOP:SLOOP2809,118926
+BROFFSET:BROFFSET2819,119461
+WITCHWAY:WITCHWAY2832,120153
+EXCEPTN2:EXCEPTN22841,120564
+BRANCHOK:BRANCHOK2844,120654
+BRFORWD:BRFORWD2850,120881
+NORMLFWD:NORMLFWD2856,121093
+EXCEPTN1:EXCEPTN12859,121185
+TOOFAR:TOOFAR2862,121279
+SIN:SIN2872,121561
+ACCC:ACCC2878,121791
+DABS:DABS2884,122031
+ZEROABS:ZEROABS2890,122292
+IME:IME2895,122514
+DIND:DIND2902,122803
+ZPDIND:ZPDIND2909,123111
+ZPIND:ZPIND2915,123349
+DZX:DZX2922,123668
+DZY:DZY2927,123914
+DAX:DAX2932,124152
+DAY:DAY2938,124417
+THX:THX2944,124694
+THY:THY2952,125058
+INDABSX:INDABSX2961,125442
+DRMB:DRMB2970,125864
+SRBIT:SRBIT2972,125951
+DSMB:DSMB2980,126353
+DBBR:DBBR2987,126712
+SRBIT2:SRBIT22989,126800
+DBBS:DBBS2997,127258
+RELATIVE:RELATIVE3006,127747
+BBREL:BBREL3008,127809
+RELLOOP:RELLOOP3018,128169
+SUBTRACT:SUBTRACT3023,128414
+CSTOR2:CSTOR23043,129121
+LSTOR2:LSTOR23045,129187
+STOR2:STOR23047,129249
+CSTOR3:CSTOR33053,129497
+LSTOR3:LSTOR33055,129563
+STOR3:STOR33057,129625
+STOR:STOR3065,129973
+LDACC:LDACC3072,130210
+NOTIMED:NOTIMED3078,130548
+STAIN:STAIN3080,130602
+BFIXBR1:BFIXBR13094,131308
+NOIND:NOIND3104,131731
+INDX:INDX3113,132118
+NOTIND:NOTIND3119,132372
+LDAABS:LDAABS3126,132615
+LDIX:LDIX3138,133128
+NOTIXY:NOTIXY3143,133337
+BITS:BITS3148,133486
+SHRO:SHRO3155,133820
+NOTA:NOTA3163,134174
+NEVERA:NEVERA3165,134225
+LDAZX:LDAZX3168,134352
+SHROZP:SHROZP3175,134649
+SHROAB:SHROAB3179,134787
+SRAB:SRAB3188,135136
+LDXY:LDXY3192,135272
+LDNIM:LDNIM3199,135609
+LDZP:LDZP3211,136195
+LDAB:LDAB3216,136342
+LDABS:LDABS3229,136896
+STXY:STXY3234,137044
+STZP:STZP3248,137771
+STAB:STAB3253,137918
+TSRB:TSRB3259,138077
+CPXY:CPXY3265,138250
+XYNOIM:XYNOIM3272,138588
+TSRBIN:TSRBIN3274,138641
+CPXYAB:CPXYAB3279,138860
+JUMPS:JUMPS3283,138998
+INDJ:INDJ3291,139374
+NOABINX:NOABINX3302,139894
+JSUB:JSUB3307,140085
+RMBM:RMBM3312,140323
+SMBM:SMBM3315,140429
+BITPOST:BITPOST3319,140564
+STOZ:STOZ3327,140938
+REL:REL3333,141169
+IMP:IMP3346,141754
+STACC:STACC3350,141913
+BBRM:BBRM3354,142030
+BBSM:BBSM3357,142133
+BBRS:BBRS3361,142288
+MPTAB:MPTAB3388,143615
+HPTAB:HPTAB3408,145065
+HTAB:HTAB3428,146434
+DMTAB:DMTAB3451,147140
+MTAB:MTAB3453,147161
+JTAB:JTAB3524,148621
+OPTAB:OPTAB3537,149122
+OCTAB:OCTAB3545,149501
+DIRTAB:DIRTAB3557,150224
+DJTAB:DJTAB3561,150281
+QUERY:QUERY3582,150666
+NEWQUERYAGAIN:NEWQUERYAGAIN3595,150864
+INC:INC3605,150978
+NQDONE:NQDONE3609,151018
+NEWQUERYDONE:NEWQUERYDONE3628,151535
+NEWQUERYADRS:NEWQUERYADRS3632,151570
+NEWQUERYSTRS:NEWQUERYSTRS3666,152014
+STORLF:STORLF3702,153160
+ASMPROHILO:ASMPROHILO3711,153516
+MONPROHILO:MONPROHILO3720,153619
+CMDPROMPTS:CMDPROMPTS3732,153892
+MONPROMPT:MONPROMPT3791,155564
+
+Tali-Forth.asm,24000
+FORTH:FORTH18,729
+AscCC 25,943
+AscBS 26,1007
+AscLF 27,1063
+AscCR 28,1119
+AscESC 29,1181
+AscSP 30,1234
+AscDEL 31,1286
+IM 34,1356
+NC 35,1396
+CO 36,1441
+RamStart 47,1847
+RamSize 48,1910
+RamEnd 49,1976
+PadOffset 50,2017
+SPMAX 64,2729
+SP0 65,2781
+DP 78,3375
+CP 79,3436
+STATE 81,3554
+BASE 82,3620
+CIBA 83,3684
+CIBN 84,3756
+INP 85,3830
+OUTPORT 86,3886
+INPORT 87,3939
+TBLLOC 88,3991
+IP 89,4060
+WRKWRD 90,4122
+TMPADR 91,4195
+TMPADR1 92,4257
+TMPADR2 93,4324
+TMPCNT 94,4396
+TMPX 95,4457
+FLAG 96,4519
+FLAG2 97,4561
+OUTP 98,4603
+RP0 107,4999
+TIB 115,5399
+SYSPAD 116,5457
+CP0 117,5498
+DP0 118,5557
+PADSIZE 122,5711
+TIBSIZE 123,5761
+k_irqv:k_irqv129,6062
+COLD:COLD130,6070
+_loop:_loop180,7501
+_done:_done211,8418
+f_toupper:f_toupper249,9919
+_done:_done257,10164
+f_strtoupper:f_strtoupper264,10502
+_loop:_loop272,10758
+f_cmplword:f_cmplword303,11684
+f_cmpljsr:f_cmpljsr306,11792
+f_cmpljmp:f_cmpljmp309,11886
+_common:_common312,12020
+_wordonly:_wordonly336,12790
+f_compexe:f_compexe371,13749
+_parseword:_parseword372,13760
+_parseerror:_parseerror441,16300
+_found:_found454,16767
+_execute:_execute476,17502
+_doneexec:_doneexec495,18243
+_compile:_compile513,18883
+_doneline:_doneline531,19524
+f_byte2hexasc:f_byte2hexasc537,19783
+f_nib2asc:f_nib2asc559,20392
+f_putchr:f_putchr574,20910
+_c1:_c1582,21096
+_c2:_c2589,21256
+_err:_err596,21417
+f_prtzerostr:f_prtzerostr608,21890
+_common:_common610,21963
+_linefeed:_linefeed627,22317
+_done:_done632,22477
+f_getchr:f_getchr640,22817
+_c1:_c1648,23002
+_c2:_c2655,23196
+_err:_err662,23356
+f_cmp16:f_cmp16679,24153
+_equal:_equal691,24622
+_overflow:_overflow696,24803
+_notequal:_notequal699,24927
+_done:_done701,24993
+fc_docon:fc_docon712,25431
+fc_dovar:fc_dovar741,26567
+fc_dodoes:fc_dodoes767,27441
+error:error804,29005
+l_bye:l_bye829,29961
+a_bye:a_bye835,30140
+z_bye:z_bye836,30160
+l_cold:l_cold841,30356
+a_cold:a_cold847,30519
+z_cold:z_cold849,30545
+l_plit:l_plit857,30958
+a_plit:a_plit863,31130
+z_plit:z_plit892,31868
+l_lit:l_lit898,32135
+a_lit:a_lit904,32311
+z_lit:z_lit913,32535
+l_abort:l_abort919,32804
+a_abort:a_abort925,32969
+z_abort:z_abort933,33196
+l_quit:l_quit939,33506
+a_quit:a_quit945,33671
+_getline:_getline967,34482
+_prtok:_prtok1013,36065
+_clrstack:_clrstack1017,36218
+z_quit:z_quit1028,36586
+l_abortq:l_abortq1038,37025
+a_abortq:a_abortq1044,37205
+z_abortq:z_abortq1053,37525
+l_pabortq:l_pabortq1059,37755
+a_pabortq:a_pabortq1066,37945
+_done:_done1076,38370
+z_pabortq:z_pabortq1083,38559
+l_dump:l_dump1088,38748
+a_dump:a_dump1094,38918
+_loop:_loop1098,39032
+_nextchar:_nextchar1109,39331
+_counter:_counter1114,39448
+_done:_done1124,39648
+z_dump:z_dump1129,39729
+l_see:l_see1136,40085
+a_see:a_see1142,40246
+_toupper:_toupper1161,40824
+_found:_found1178,41472
+_no_im:_no_im1212,42501
+_no_nc:_no_nc1219,42689
+_no_co:_no_co1224,42835
+z_see:z_see1290,44830
+l_dots:l_dots1295,45008
+a_dots:a_dots1301,45169
+_notzero:_notzero1313,45537
+_loop:_loop1317,45657
+_done:_done1337,46098
+_finished:_finished1343,46255
+z_dots:z_dots1344,46266
+l_word:l_word1354,46901
+a_word:a_word1361,47073
+_iloop:_iloop1365,47207
+_foundchr:_foundchr1373,47481
+_makecaddr:_makecaddr1378,47610
+_loop:_loop1405,48552
+_done:_done1417,48833
+z_word:z_word1421,48931
+l_prsnm:l_prsnm1431,49458
+a_prsnm:a_prsnm1437,49630
+_loop:_loop1440,49729
+_foundchr:_foundchr1448,49959
+_nochrs:_nochrs1462,50318
+_done:_done1479,50870
+z_prsnm:z_prsnm1480,50877
+l_parse:l_parse1490,51419
+a_parse:a_parse1496,51592
+_loop:_loop1516,52280
+_found:_found1528,52678
+_eol:_eol1534,52991
+_finished:_finished1555,53637
+z_parse:z_parse1556,53648
+l_accept:l_accept1562,53925
+a_accept:a_accept1568,54096
+_loop:_loop1578,54384
+_del:_del1592,54857
+_chkprt:_chkprt1604,55279
+_gotzero:_gotzero1624,55866
+_done:_done1626,55924
+z_accept:z_accept1644,56406
+l_find:l_find1656,57059
+a_find:a_find1662,57225
+l_findint:l_findint1676,57650
+_sloop:_sloop1685,57966
+_cmploop:_cmploop1731,60073
+_found:_found1738,60296
+_imm:_imm1757,60900
+_nomatch:_nomatch1764,61089
+_alldone:_alldone1781,61653
+_finished:_finished1784,61743
+z_find:z_find1785,61754
+l_dashtrl:l_dashtrl1791,62046
+a_dashtrl:a_dashtrl1797,62224
+_loop:_loop1813,62779
+_done:_done1824,63134
+_gotzero:_gotzero1829,63324
+z_dashtrl:z_dashtrl1830,63334
+l_slstr:l_slstr1838,63723
+a_slstr:a_slstr1844,63900
+_done:_done1863,64485
+z_slstr:z_slstr1867,64566
+l_backslash:l_backslash1872,64762
+a_backslash:a_backslash1878,64976
+z_backslash:z_backslash1884,65138
+l_paren:l_paren1888,65303
+a_paren:a_paren1894,65485
+z_paren:z_paren1909,65881
+l_dotpar:l_dotpar1916,66218
+a_dotpar:a_dotpar1922,66392
+_done:_done1939,66899
+z_dotpar:z_dotpar1940,66906
+l_squote:l_squote1947,67277
+a_squote:a_squote1953,67507
+_savestring:_savestring2028,69903
+_compile:_compile2066,71379
+_done:_done2078,71863
+z_squote:z_squote2079,71870
+l_dotq:l_dotq2088,72306
+a_dotq:a_dotq2094,72509
+z_dotq:z_dotq2100,72686
+l_bell:l_bell2105,72857
+a_bell:a_bell2111,73029
+z_bell:z_bell2114,73084
+l_regular:l_regular2120,73300
+a_regular:a_regular2126,73476
+z_regular:z_regular2135,73719
+l_bold:l_bold2140,73912
+a_bold:a_bold2146,74085
+z_bold:z_bold2155,74328
+l_page:l_page2161,74589
+a_page:a_page2167,74753
+z_page:z_page2181,75130
+l_atxy:l_atxy2188,75479
+a_atxy:a_atxy2194,75647
+z_atxy:z_atxy2212,76205
+l_spaces:l_spaces2217,76350
+a_spaces:a_spaces2224,76526
+_done:_done2237,76834
+z_spaces:z_spaces2240,76875
+l_space:l_space2245,77019
+a_space:a_space2251,77186
+z_space:z_space2254,77243
+l_cr:l_cr2260,77449
+a_cr:a_cr2266,77606
+z_cr:z_cr2269,77680
+l_bl:l_bl2273,77846
+a_bl:a_bl2279,78000
+z_bl:z_bl2285,78162
+l_gtnum:l_gtnum2292,78580
+a_gtnum:a_gtnum2298,78747
+_loop:_loop2309,79187
+_accumulate:_accumulate2343,80512
+_quit:_quit2406,82588
+z_gtnum:z_gtnum2414,82866
+l_number:l_number2420,83161
+a_number:a_number2426,83334
+_stack:_stack2464,84594
+_done:_done2507,86148
+_pos:_pos2543,87312
+_flag:_flag2552,87646
+_fail:_fail2561,87978
+_quit:_quit2576,88574
+z_number:z_number2577,88581
+l_digit:l_digit2584,88907
+a_digit:a_digit2590,89088
+_checkbase:_checkbase2611,89848
+_notdigit:_notdigit2617,90012
+_success:_success2623,90178
+_done:_done2629,90386
+z_digit:z_digit2630,90393
+l_binary:l_binary2634,90517
+a_binary:a_binary2640,90692
+z_binary:z_binary2643,90743
+l_hex:l_hex2648,90901
+a_hex:a_hex2654,91064
+z_hex:z_hex2657,91115
+l_decimal:l_decimal2661,91264
+a_decimal:a_decimal2667,91434
+z_decimal:z_decimal2670,91485
+l_source:l_source2675,91702
+a_source:a_source2681,91878
+z_source:z_source2697,92339
+l_plstore:l_plstore2701,92481
+a_plstore:a_plstore2707,92651
+_done:_done2725,93200
+z_plstore:z_plstore2730,93301
+l_constant:l_constant2738,93659
+a_constant:a_constant2744,93855
+z_constant:z_constant2767,94576
+l_value:l_value2774,94926
+a_value:a_value2781,95102
+z_value:z_value2782,95174
+l_to:l_to2791,95568
+a_to:a_to2798,95731
+z_to:z_to2802,95836
+l_2var:l_2var2808,96091
+a_2var:a_2var2814,96256
+z_2var:z_2var2827,96739
+l_var:l_var2833,96990
+a_var:a_var2839,97156
+z_var:z_var2852,97636
+l_pdoes:l_pdoes2858,97975
+a_pdoes:a_pdoes2865,98152
+z_pdoes:z_pdoes2920,100465
+l_does:l_does2927,100779
+a_does:a_does2933,100952
+z_does:z_does2942,101236
+l_create:l_create2949,101575
+a_create:a_create2955,101746
+_loop:_loop3065,106054
+z_create:z_create3106,107381
+l_natcomp:l_natcomp3112,107591
+a_natcomp:a_natcomp3118,107776
+z_natcomp:z_natcomp3124,107959
+l_conly:l_conly3131,108264
+a_conly:a_conly3138,108453
+z_conly:z_conly3144,108636
+l_immed:l_immed3151,108981
+a_immed:a_immed3157,109159
+z_immed:z_immed3163,109342
+l_postpo:l_postpo3173,109940
+a_postpo:a_postpo3179,110123
+_findit:_findit3196,110599
+f_postpo_int:f_postpo_int3213,111252
+_imm_flag:_imm_flag3248,112430
+_finished:_finished3253,112588
+pp_found:pp_found3266,112953
+_immediate:_immediate3295,114050
+_done:_done3299,114224
+z_postpo:z_postpo3300,114231
+l_lbrack:l_lbrack3305,114453
+a_lbrack:a_lbrack3311,114626
+z_lbrack:z_lbrack3314,114681
+l_rbrack:l_rbrack3320,114967
+a_rbrack:a_rbrack3326,115144
+z_rbrack:z_rbrack3330,115224
+l_semic:l_semic3337,115594
+a_semic:a_semic3343,115821
+z_semic:z_semic3371,116730
+l_colon:l_colon3378,117021
+a_colon:a_colon3384,117196
+z_colon:z_colon3417,118283
+l_cmpc:l_cmpc3426,118772
+a_cmpc:a_cmpc3432,118958
+_dojump:_dojump3512,121816
+_done:_done3535,122431
+z_cmpc:z_cmpc3536,122438
+l_state:l_state3543,122732
+a_state:a_state3549,122906
+z_state:z_state3555,123054
+l_eval:l_eval3561,123314
+a_eval:a_eval3567,123483
+z_eval:z_eval3616,124738
+l_exe:l_exe3621,124920
+a_exe:a_exe3627,125091
+_done:_done3647,125744
+z_exe:z_exe3655,126118
+l_gtname:l_gtname3662,126457
+a_gtname:a_gtname3668,126632
+z_gtname:z_gtname3699,127664
+l_gtbody:l_gtbody3707,128071
+a_gtbody:a_gtbody3713,128250
+z_gtbody:z_gtbody3739,129222
+l_btick:l_btick3746,129621
+a_btick:a_btick3753,129833
+z_btick:z_btick3754,129860
+l_tick:l_tick3760,130124
+a_tick:a_tick3766,130285
+_gotword:_gotword3782,130696
+_found:_found3796,131170
+z_tick:z_tick3802,131398
+l_defer:l_defer3809,131743
+a_defer:a_defer3816,131911
+_done:_done3822,132129
+z_defer:z_defer3828,132338
+e_defer:e_defer3831,132425
+l_deferstore:l_deferstore3838,132740
+a_deferstore:a_deferstore3845,132924
+z_deferstore:z_deferstore3848,133001
+l_deferfetch:l_deferfetch3854,133257
+a_deferfetch:a_deferfetch3861,133447
+z_deferfetch:z_deferfetch3864,133524
+l_comma:l_comma3870,133763
+a_comma:a_comma3876,133937
+_done:_done3888,134251
+z_comma:z_comma3891,134292
+l_allot:l_allot3899,134670
+a_allot:a_allot3905,134844
+_neg:_neg3940,135916
+_done:_done3964,136734
+z_allot:z_allot3967,136775
+l_aligned:l_aligned3973,137017
+a_aligned:a_aligned3979,137197
+z_aligned:z_aligned3980,137246
+l_align:l_align3985,137497
+a_align:a_align3991,137673
+z_align:z_align3992,137722
+l_move:l_move3999,138129
+a_move:a_move4005,138302
+_cmplsb:_cmplsb4018,138754
+_tocmoveg:_tocmoveg4026,139085
+_equal:_equal4028,139149
+z_move:z_move4034,139288
+l_cmovegt:l_cmovegt4041,139637
+a_cmovegt:a_cmovegt4047,139817
+cmovegint:cmovegint4052,139952
+_partial:_partial4083,140964
+_fullpage:_fullpage4089,141103
+_outerloop:_outerloop4093,141248
+_innerloop:_innerloop4096,141339
+_done:_done4105,141532
+_abort:_abort4107,141591
+z_cmovegt:z_cmovegt4113,141724
+l_cmove:l_cmove4120,142072
+a_cmove:a_cmove4126,142249
+cmoveint:cmoveint4131,142384
+_page:_page4151,143042
+_dopartial:_dopartial4162,143261
+_partial:_partial4165,143342
+_done:_done4172,143477
+_abort:_abort4174,143536
+z_cmove:z_cmove4180,143656
+l_cfetch:l_cfetch4185,143864
+a_cfetch:a_cfetch4191,144037
+z_cfetch:z_cfetch4195,144142
+l_cstore:l_cstore4201,144449
+a_cstore:a_cstore4207,144620
+z_cstore:z_cstore4214,144751
+l_ccom:l_ccom4218,144922
+a_ccom:a_ccom4224,145094
+z_ccom:z_ccom4237,145413
+l_chars:l_chars4244,145711
+a_chars:a_chars4250,145881
+z_chars:z_chars4251,145930
+l_charpl:l_charpl4256,146162
+a_charpl:a_charpl4263,146336
+_done:_done4266,146438
+z_charpl:z_charpl4267,146445
+l_cells:l_cells4274,146744
+a_cells:a_cells4280,146910
+z_cells:z_cells4283,146987
+l_cellpl:l_cellpl4288,147247
+a_cellpl:a_cellpl4294,147415
+z_cellpl:z_cellpl4306,147854
+l_fill:l_fill4312,148192
+a_fill:a_fill4318,148366
+_page:_page4336,148891
+_fragment:_fragment4344,149122
+_done:_done4351,149298
+z_fill:z_fill4353,149324
+l_erase:l_erase4360,149624
+a_erase:a_erase4367,149795
+z_erase:z_erase4374,149959
+l_marker:l_marker4380,150232
+a_marker:a_marker4386,150406
+_done:_done4448,152247
+z_marker:z_marker4449,152254
+l_unused:l_unused4456,152590
+a_unused:a_unused4462,152762
+z_unused:z_unused4474,153007
+l_pad:l_pad4480,153338
+a_pad:a_pad4486,153504
+z_pad:z_pad4498,153790
+l_here:l_here4503,153973
+a_here:a_here4509,154133
+z_here:z_here4516,154298
+l_base:l_base4521,154543
+a_base:a_base4527,154706
+z_base:z_base4533,154860
+l_key:l_key4538,155106
+a_key:a_key4544,155265
+z_key:z_key4551,155453
+l_2upper:l_2upper4556,155704
+a_2upper:a_2upper4562,155877
+z_2upper:z_2upper4567,156012
+l_bchar:l_bchar4572,156189
+a_bchar:a_bchar4578,156368
+z_bchar:z_bchar4598,156947
+l_char:l_char4603,157151
+a_char:a_char4609,157320
+z_char:z_char4628,157879
+l_emit:l_emit4636,158292
+a_emit:a_emit4642,158459
+z_emit:z_emit4648,158583
+l_type:l_type4654,158801
+a_type:a_type4660,158965
+_done:_done4685,159652
+z_type:z_type4691,159763
+l_gtin:l_gtin4697,160001
+a_gtin:a_gtin4703,160167
+z_gtin:z_gtin4710,160374
+l_count:l_count4716,160613
+a_count:a_count4722,160783
+z_count:z_count4737,161222
+l_0lt:l_0lt4742,161398
+a_0lt:a_0lt4748,161562
+_store:_store4758,161836
+z_0lt:z_0lt4761,161885
+l_0equ:l_0equ4766,162071
+a_0equ:a_0equ4772,162233
+_store:_store4783,162524
+z_0equ:z_0equ4786,162573
+l_grthan:l_grthan4791,162744
+a_grthan:a_grthan4797,162924
+_false:_false4807,163161
+_done:_done4809,163218
+z_grthan:z_grthan4814,163307
+l_equal:l_equal4818,163441
+a_equal:a_equal4824,163608
+_false:_false4836,163890
+_done:_done4838,163947
+z_equal:z_equal4843,164036
+l_lessthan:l_lessthan4847,164169
+a_lessthan:a_lessthan4853,164341
+_false:_false4863,164578
+_done:_done4865,164635
+z_lessthan:z_lessthan4870,164724
+l_zero:l_zero4875,164900
+a_zero:a_zero4881,165062
+z_zero:z_zero4886,165151
+l_one:l_one4890,165317
+a_one:a_one4897,165486
+z_one:z_one4903,165628
+l_two:l_two4908,165803
+a_two:a_two4914,165965
+z_two:z_two4920,166120
+l_ddotr:l_ddotr4925,166367
+a_ddotr:a_ddotr4931,166537
+z_ddotr:z_ddotr4945,167033
+l_ddot:l_ddot4951,167254
+a_ddot:a_ddot4957,167418
+z_ddot:z_ddot4967,167764
+l_dotr:l_dotr4973,168010
+a_dotr:a_dotr4979,168172
+z_dotr:z_dotr4994,168702
+l_dot:l_dot5000,168937
+a_dot:a_dot5006,169091
+z_dot:z_dot5017,169474
+l_uddot:l_uddot5022,169747
+a_uddot:a_uddot5029,169918
+z_uddot:z_uddot5035,170109
+l_udotr:l_udotr5041,170351
+a_udotr:a_udotr5047,170518
+z_udotr:z_udotr5058,170895
+l_udot:l_udot5064,171137
+a_udot:a_udot5070,171301
+z_udot:z_udot5078,171469
+l_numgt:l_numgt5084,171714
+a_numgt:a_numgt5090,171885
+z_numgt:z_numgt5117,172795
+l_sign:l_sign5124,173121
+a_sign:a_sign5130,173290
+_minus:_minus5138,173469
+_done:_done5143,173671
+z_sign:z_sign5144,173678
+l_hold:l_hold5151,173995
+a_hold:a_hold5157,174162
+z_hold:z_hold5181,175184
+l_nums:l_nums5188,175542
+a_nums:a_nums5194,175707
+_loop:_loop5195,175715
+z_nums:z_nums5204,175979
+l_num:l_num5214,176552
+a_num:a_num5220,176714
+z_num:z_num5240,177469
+l_ltnum:l_ltnum5249,177977
+a_ltnum:a_ltnum5255,178142
+z_ltnum:z_ltnum5265,178382
+l_dminus:l_dminus5271,178593
+a_dminus:a_dminus5277,178764
+z_dminus:z_dminus5301,179334
+l_dplus:l_dplus5307,179529
+a_dplus:a_dplus5313,179700
+z_dplus:z_dplus5337,180270
+l_dtos:l_dtos5343,180485
+a_dtos:a_dtos5349,180653
+z_dtos:z_dtos5352,180694
+l_stod:l_stod5357,180866
+a_stod:a_stod5363,181032
+_pos:_pos5374,181279
+_done:_done5376,181390
+z_stod:z_stod5377,181397
+l_rshift:l_rshift5383,181645
+a_rshift:a_rshift5389,181826
+_done:_done5401,182178
+z_rshift:z_rshift5404,182219
+l_lshift:l_lshift5410,182463
+a_lshift:a_lshift5416,182640
+_done:_done5428,182992
+z_lshift:z_lshift5431,183033
+l_min:l_min5440,183445
+a_min:a_min5446,183613
+_noov:_noov5457,184041
+_keepnos:_keepnos5466,184298
+z_min:z_min5469,184339
+l_max:l_max5478,184750
+a_max:a_max5484,184912
+_noov:_noov5495,185374
+_keepnos:_keepnos5504,185601
+z_max:z_max5507,185642
+l_dnegate:l_dnegate5512,185800
+a_dnegate:a_dnegate5518,185971
+z_dnegate:z_dnegate5539,186531
+l_negate:l_negate5544,186681
+a_negate:a_negate5550,186860
+z_negate:z_negate5561,187144
+l_invert:l_invert5566,187289
+a_invert:a_invert5572,187461
+z_invert:z_invert5588,187799
+l_xor:l_xor5592,187927
+a_xor:a_xor5598,188090
+z_xor:z_xor5609,188305
+l_or:l_or5612,188423
+a_or:a_or5618,188577
+z_or:z_or5629,188792
+l_and:l_and5632,188911
+a_and:a_and5638,189071
+z_and:z_and5649,189286
+l_mplus:l_mplus5654,189495
+a_mplus:a_mplus5660,189662
+_done:_done5681,190230
+z_mplus:z_mplus5684,190271
+l_slashmod:l_slashmod5692,190628
+a_slashmod:a_slashmod5698,190850
+z_slashmod:z_slashmod5706,191182
+l_mod:l_mod5713,191466
+a_mod:a_mod5719,191638
+z_mod:z_mod5723,191773
+l_fmmod:l_fmmod5733,192311
+a_fmmod:a_fmmod5739,192478
+_checkd:_checkd5750,192883
+_multi:_multi5762,193246
+_done:_done5774,193602
+z_fmmod:z_fmmod5775,193609
+l_smrem:l_smrem5783,193997
+a_smrem:a_smrem5789,194167
+_done:_done5825,195237
+z_smrem:z_smrem5826,195244
+l_udmod:l_udmod5835,195685
+a_udmod:a_udmod5841,195855
+z_udmod:z_udmod5851,196199
+l_ummod:l_ummod5859,196658
+a_ummod:a_ummod5865,196828
+_notzero:_notzero5876,197159
+_loop:_loop5880,197247
+_done:_done5915,198217
+z_ummod:z_ummod5920,198360
+l_mstar:l_mstar5928,198760
+a_mstar:a_mstar5934,198927
+_done:_done5952,199476
+z_mstar:z_mstar5953,199483
+l_umstar:l_umstar5963,200021
+a_umstar:a_umstar5969,200191
+_outerloop:_outerloop5994,201027
+_innerloop:_innerloop5997,201115
+_noadd:_noadd6005,201350
+_zero:_zero6021,201880
+_done:_done6023,201958
+z_umstar:z_umstar6024,201965
+l_ssmod:l_ssmod6032,202374
+a_ssmod:a_ssmod6038,202593
+z_ssmod:z_ssmod6048,203013
+l_starslash:l_starslash6056,203408
+a_starslash:a_starslash6062,203622
+z_starslash:z_starslash6067,203761
+l_slash:l_slash6075,204092
+a_slash:a_slash6081,204272
+z_slash:z_slash6091,204647
+l_star:l_star6097,204915
+a_star:a_star6103,205076
+z_star:z_star6107,205146
+l_minus:l_minus6110,205273
+a_minus:a_minus6116,205434
+z_minus:z_minus6128,205669
+l_plus:l_plus6132,205825
+a_plus:a_plus6138,205986
+z_plus:z_plus6150,206221
+l_dabs:l_dabs6154,206386
+a_dabs:a_dabs6160,206554
+_done:_done6183,207129
+z_dabs:z_dabs6184,207136
+l_abs:l_abs6189,207309
+a_abs:a_abs6195,207473
+_done:_done6208,207822
+z_abs:z_abs6209,207829
+l_recurse:l_recurse6217,208233
+a_recurse:a_recurse6223,208411
+z_recurse:z_recurse6249,209193
+l_leave:l_leave6258,209687
+a_leave:a_leave6264,209866
+z_leave:z_leave6273,210141
+l_pploop:l_pploop6281,210593
+a_pploop:a_pploop6287,210772
+_hack:_hack6307,211459
+z_pploop:z_pploop6313,211752
+l_ploop:l_ploop6323,212285
+a_ploop:a_ploop6330,212462
+z_ploop:z_ploop6396,214510
+l_loop:l_loop6402,214836
+a_loop:a_loop6409,215009
+z_loop:z_loop6415,215183
+l_unloop:l_unloop6421,215457
+a_unloop:a_unloop6427,215633
+z_unloop:z_unloop6439,215968
+l_exit:l_exit6448,216300
+a_exit:a_exit6455,216475
+z_exit:z_exit6457,216496
+l_j:l_j6468,217042
+a_j:a_j6475,217206
+z_j:z_j6498,217816
+l_i:l_i6505,218161
+a_i:a_i6511,218316
+z_i:z_i6534,218935
+l_pqdo:l_pqdo6541,219288
+a_pqdo:a_pqdo6548,219454
+_do_do:_do_do6570,220273
+z_pqdo:z_pqdo6572,220395
+l_pdo:l_pdo6585,221239
+a_pdo:a_pdo6591,221408
+z_pdo:z_pdo6622,222595
+l_qdo:l_qdo6627,222810
+a_qdo:a_qdo6634,222976
+z_qdo:z_qdo6640,223201
+l_do:l_do6648,223676
+a_do:a_do6655,223839
+do_common:do_common6659,224011
+_do_cmpl:_do_cmpl6700,225346
+z_do:z_do6718,225923
+l_then:l_then6724,226255
+a_then:a_then6731,226425
+z_then:z_then6748,226924
+l_again:l_again6756,227333
+a_again:a_again6762,227509
+z_again:z_again6786,228166
+l_begin:l_begin6793,228480
+a_begin:a_begin6799,228652
+z_begin:z_begin6807,228864
+l_p0branch:l_p0branch6813,229218
+a_p0branch:a_p0branch6819,229399
+_zero:_zero6849,230387
+_done:_done6867,231083
+z_p0branch:z_p0branch6873,231280
+l_0branch:l_0branch6882,231716
+a_0branch:a_0branch6888,231903
+z_0branch:z_0branch6892,232021
+l_pbranch:l_pbranch6897,232215
+a_pbranch:a_pbranch6903,232395
+_done:_done6927,233244
+z_pbranch:z_pbranch6933,233441
+l_branch:l_branch6939,233722
+a_branch:a_branch6945,233904
+z_branch:z_branch6949,234020
+l_true:l_true6954,234192
+a_true:a_true6960,234356
+z_true:z_true6966,234470
+l_false:l_false6970,234635
+a_false:a_false6976,234801
+z_false:z_false6981,234890
+l_1plus:l_1plus6985,235068
+a_1plus:a_1plus6991,235237
+_done:_done6996,235409
+z_1plus:z_1plus6997,235416
+l_1minus:l_1minus7002,235611
+a_1minus:a_1minus7008,235789
+z_1minus:z_1minus7013,235884
+l_depth:l_depth7020,236188
+a_depth:a_depth7026,236362
+z_depth:z_depth7041,236793
+l_pick:l_pick7049,237226
+a_pick:a_pick7056,237395
+z_pick:z_pick7069,237758
+l_mrot:l_mrot7075,237932
+a_mrot:a_mrot7082,238100
+z_mrot:z_mrot7100,238511
+l_rot:l_rot7106,238686
+a_rot:a_rot7112,238845
+z_rot:z_rot7130,239256
+l_tuck:l_tuck7134,239457
+a_tuck:a_tuck7140,239618
+z_tuck:z_tuck7161,240137
+l_nip:l_nip7165,240269
+a_nip:a_nip7171,240429
+z_nip:z_nip7179,240595
+l_2swap:l_2swap7183,240767
+a_2swap:a_2swap7189,240936
+z_2swap:z_2swap7223,241787
+l_swap:l_swap7227,241919
+a_swap:a_swap7233,242088
+z_swap:z_swap7251,242576
+l_2dup:l_2dup7256,242750
+a_2dup:a_2dup7262,242913
+z_2dup:z_2dup7278,243292
+l_qdup:l_qdup7281,243415
+a_qdup:a_qdup7287,243583
+_done:_done7297,243794
+z_qdup:z_qdup7298,243801
+l_dup:l_dup7303,243964
+a_dup:a_dup7309,244123
+z_dup:z_dup7317,244289
+l_2over:l_2over7321,244482
+a_2over:a_2over7327,244652
+z_2over:z_2over7343,245071
+l_over:l_over7347,245204
+a_over:a_over7353,245368
+z_over:z_over7361,245534
+l_rfetch:l_rfetch7369,246005
+a_rfetch:a_rfetch7375,246170
+z_rfetch:z_rfetch7402,246897
+l_fromr:l_fromr7407,247174
+a_fromr:a_fromr7413,247347
+z_fromr:z_fromr7434,247889
+l_tor:l_tor7441,248263
+a_tor:a_tor7447,248436
+z_tor:z_tor7468,248968
+l_2gr:l_2gr7473,249178
+a_2gr:a_2gr7479,249348
+z_2gr:z_2gr7508,250080
+l_tworfetch:l_tworfetch7514,250351
+a_tworfetch:a_tworfetch7521,250526
+z_tworfetch:z_tworfetch7545,251294
+l_2rg:l_2rg7550,251504
+a_2rg:a_2rg7556,251672
+z_2rg:z_2rg7586,252461
+l_quest:l_quest7591,252658
+a_quest:a_quest7598,252823
+z_quest:z_quest7600,252877
+l_fetch:l_fetch7606,253105
+a_fetch:a_fetch7612,253276
+z_fetch:z_fetch7628,253693
+l_store:l_store7632,253848
+a_store:a_store7638,254021
+z_store:z_store7655,254349
+l_2drop:l_2drop7659,254477
+a_2drop:a_2drop7665,254672
+z_2drop:z_2drop7670,254753
+l_drop:l_drop7674,254899
+a_drop:a_drop7680,255085
+z_drop:z_drop7683,255126
+l_words:l_words7690,255521
+a_words:a_words7696,255688
+_loop:_loop7702,255847
+_nextword:_nextword7724,256432
+z_words:z_words7737,256833
+fhltbl:fhltbl7751,257532
+fh_if:fh_if7771,258554
+.text 7772,258561
+fh_else:fh_else7773,258629
+.text 7774,258638
+fh_until:fh_until7775,258718
+.text 7776,258728
+fh_while:fh_while7777,258792
+.text 7778,258802
+fh_rpt:fh_rpt7779,258878
+.text 7780,258886
+fh_is:fh_is7781,258959
+.text 7782,258966
+fh_actionof:fh_actionof7783,259054
+.text 7784,259067
+strtbl:strtbl7794,259721
+fs_title:fs_title7803,260279
+fs_version:fs_version7804,260329
+fs_disclaim:fs_disclaim7805,260382
+fs_typebye:fs_typebye7806,260452
+fs_prompt:fs_prompt7807,260496
+fs_compile:fs_compile7808,260525
+fs_xt:fs_xt7811,260605
+fs_f_IM:fs_f_IM7812,260635
+fs_f_CO:fs_f_CO7813,260671
+fs_f_NC:fs_f_NC7814,260710
+fs_dic_link:fs_dic_link7815,260751
+fs_datadump:fs_datadump7816,260786
+fse_error:fse_error7820,260959
+fse_stack:fse_stack7821,260996
+fse_channel:fse_channel7822,261046
+fse_divzero:fse_divzero7823,261097
+fse_noname:fse_noname7824,261139
+fse_syntax:fse_syntax7825,261180
+fse_componly:fse_componly7826,261218
+fse_intonly:fse_intonly7827,261276
+fse_empty:fse_empty7828,261323
+fse_radix:fse_radix7829,261357
+fse_defer:fse_defer7830,261405
+alphastr:alphastr7835,261658
+
+Tali-Kernel.asm,1235
+k_ramend 26,1117
+py65_putc 34,1583
+py65_getc 35,1603
+ACIAbase 44,1921
+ACIAcr 45,1968
+ACIAst 46,2017
+ACIAtx 47,2065
+ACIArx 48,2114
+VIAbase 51,2183
+VIAorb 52,2228
+VIAora 53,2282
+VIAddrb 54,2351
+VIAddra 55,2405
+VIArt1l 56,2459
+VIArt1h 57,2522
+VIAat1l 58,2585
+VIAat1h 59,2650
+VIArt2l 60,2715
+VIArt2h 61,2778
+VIAser 62,2841
+VIAacr 63,2894
+VIApcr 64,2948
+VIAifr 65,3003
+VIAier 66,3054
+VIAorah 67,3107
+k_com1_l 74,3438
+k_com1_h 75,3508
+k_com2_l 76,3567
+k_com2_h 77,3639
+k_str_l 78,3698
+k_str_h 79,3759
+zp0 80,3820
+k_resetv:k_resetv87,4098
+ContPost65c02:ContPost65c0290,4151
+ContPostRAM:ContPostRAM93,4218
+k_init65c02:k_init65c02108,4644
+k_initRAM:k_initRAM127,5208
+k_initIO:k_initIO151,5839
+_loop:_loop161,6120
+_IOTable:_IOTable186,6767
+k_nmiv:k_nmiv225,8497
+k_panic:k_panic226,8505
+k_getchr:k_getchr231,8680
+k_wrtchr:k_wrtchr258,9768
+k_wrtstr:k_wrtstr279,10565
+k_prtstr:k_prtstr283,10650
+_done:_done296,11113
+_leave:_leave301,11232
+k_getchrVIAa:k_getchrVIAa310,11425
+k_getchrVIAb:k_getchrVIAb314,11464
+k_wrtchrVIAa:k_wrtchrVIAa318,11503
+k_wrtchrVIAb:k_wrtchrVIAb322,11542
+ks_welcome:ks_welcome333,11831
+ks_author:ks_author334,11898
+ks_version:ks_version335,11965
+
+Tali-Main-B001.asm,98
+.include 22,921
+.include 26,1037
+.include 30,1169
+.word 36,1354
+.word 37,1383
+.word 38,1414
+
+xmodem.asm,1607
+lastblk	48,2024
+blkno	49,2062
+errcnt	50,2092
+bflag	51,2139
+crc	53,2168
+crch	54,2215
+ptr	56,2245
+ptrh	57,2294
+eofp	59,2323
+eofph	60,2378
+retry	62,2407
+retry2	63,2438
+Rbuff	70,2514
+SOH	89,3188
+EOT	90,3214
+ACK	91,3247
+NAK	92,3285
+CAN	93,3322
+CR	94,3373
+LF	95,3402
+ESC	96,3425
+UPLOAD:UPLOAD114,3881
+XModemSend:XModemSend115,3890
+EXITUPLOAD:EXITUPLOAD141,4604
+DOUPLOAD:DOUPLOAD144,4622
+Wait4CRC:Wait4CRC165,5008
+SetstAddr:SetstAddr176,5316
+LdBuffer:LdBuffer189,5743
+LdBuff0:LdBuff0194,5864
+LdBuff1:LdBuff1203,6060
+LdBuff2:LdBuff2207,6125
+LdBuff3:LdBuff3217,6327
+LdBuff4:LdBuff4225,6521
+LdBuff5:LdBuff5230,6592
+SCalcCRC:SCalcCRC235,6677
+Resend:Resend243,6828
+SendBlk:SendBlk248,6882
+Seterror:Seterror265,7386
+PrtAbort:PrtAbort271,7538
+Done:Done275,7641
+DOWNLOAD:DOWNLOAD280,7700
+XModemRcv:XModemRcv281,7711
+StartCrc:StartCrc288,7861
+GotByte:GotByte297,8063
+GotByte1:GotByte1303,8223
+StartBlk:StartBlk311,8387
+BegBlk:BegBlk314,8435
+GetBlk:GetBlk317,8454
+GetBlk2:GetBlk2320,8495
+GoodBlk1:GoodBlk1334,9000
+GoodBlk2:GoodBlk2344,9325
+BadCrc:BadCrc354,9589
+GoodCrc:GoodCrc360,9735
+CopyBlk:CopyBlk375,10204
+CopyBlk3:CopyBlk3378,10246
+CopyBlk4:CopyBlk4385,10464
+IncBlk:IncBlk390,10578
+RDoneNow:RDoneNow396,10690
+Flush:Flush432,11721
+Flush1:Flush1435,11807
+PrintMsg:PrintMsg440,11908
+Msg:Msg446,11976
+Print_Err:Print_Err452,12092
+ErrMsg:ErrMsg459,12174
+Print_Good:Print_Good465,12274
+GoodMsg:GoodMsg472,12362
+CalcCRC:CalcCRC487,12579
+CalcCRC1:CalcCRC1493,12682
+crclo:crclo515,13388
+crchi:crchi535,14597
