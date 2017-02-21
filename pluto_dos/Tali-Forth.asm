@@ -1075,10 +1075,7 @@ a_pabortq:      ; we started out with a flag on the Data Stack, but the first pa
 
 _done:          ; ABORT not called, drop the top three top entries on the Data
                 ; stack
-                txa
-                clc
-                adc #$06
-                tax
+		jmp clear_the_stack
 
 z_pabortq:      rts
 .endweak
@@ -4026,10 +4023,7 @@ _cmplsb:        ; MSB were equal, so do the whole thing over
 _tocmoveg:      jmp cmovegint   ; JSR/RTS, skip check for zero
 
 _equal:         ; drop three entries from Data Stack
-                txa
-                clc
-                adc #$06
-                tax
+		jmp clear_the_stack
 
 z_move:         rts
 .endweak
@@ -6553,10 +6547,7 @@ a_pqdo:         ; see if TOS and NOS are equal
 
                 ; we're equal, so dump everything and jump beyond the loop
                 ; first, dump six entries off of the Data Stack
-                txa
-                clc
-                adc #$06
-                tax
+		jsr clear_the_stack
 
                 ; second, abort the whole loop. We don't have the
                 ; limit/start parameters on the Return Stack yet, just the
