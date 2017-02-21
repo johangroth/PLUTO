@@ -82,10 +82,12 @@
                        ; by SyMon's IRQ service routine.
 ;
 ;ACIA device address:
-	SIODAT   = $7F70    ;ACIA data register   <--put your 6551 ACIA base address here (REQUIRED!)************************
-	SIOSTAT  = SIODAT+1 ;ACIA status REGISTER
-	SIOCOM   = SIODAT+2 ;ACIA command REGISTER
-	SIOCON   = SIODAT+3 ;ACIA control REGISTER
+	SIODAT   = $7F70    	;ACIA data register   <--put your 6551 ACIA base address here
+				;(REQUIRED!)
+
+	SIOSTAT  = SIODAT+1 	;ACIA status REGISTER
+	SIOCOM   = SIODAT+2 	;ACIA command REGISTER
+	SIOCON   = SIODAT+3 	;ACIA control REGISTER
 ;
 
 ;;; VIA device address:
@@ -2037,6 +2039,10 @@ COLDSTART:
 	STA  VIADDRB		;Set PB pins to be output
 	STA  VIAIER		;Enable interrupts for everything
 ;;; End init VIA
+
+;;; Initialise IDE
+	JSR IDE_INIT_DEVICES
+;;; End init IDE
 
 ;;; Initialise SyMonIII
 ;;; Initialise system variables as follows:

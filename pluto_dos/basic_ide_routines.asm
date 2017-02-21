@@ -65,6 +65,15 @@ ide_id_drive_cmd = $ec
 
 tmp = $70
 
+;;; --------------------------------------------------------------------------
+;;; Initialise ide
+ide_init_devices .proc
+	lda #$00
+	sta sector_buffer_ptr
+	lda #$04
+	sta sector_buffer_ptr+1
+	.pend
+
 ;-----------------------------------------------------------------------------
 
 ide_init_status .proc
