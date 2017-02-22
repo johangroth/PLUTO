@@ -14,6 +14,7 @@
 
 ; -----------------------------------------------------------------------------
 ; Developed with the Ophis assembler and py65mon simulator
+; Converted to 64tass by Johan Groth
 ; -----------------------------------------------------------------------------
 FORTH:
 
@@ -603,11 +604,11 @@ _err:           lda #$08        ; string code for unknown channel
 .weak
 f_wrtzerostr:   ; version without a final linefeed
                 ldy #$00
-                bra common
+                bra f_prtzerostr._common
 
 f_prtzerostr:   ; version with a final linefeed
                 ldy #$FF
-common:	        phy
+_common:	        phy
 
                 asl
                 tay
@@ -4164,14 +4165,6 @@ _done:          plx             ; drops through to _abort
 z_cmove:        rts
 .endweak
 
-clear_the_stack	.proc
-		txa
-                clc
-                adc #$06
-        	tax
-		rts
-		.pend
-
 ; -----------------------------------------------------------------------------
 ; C-FETCH (addr -- char )
 ; Get a character (byte) from the address given and push it to the stack
@@ -4208,7 +4201,8 @@ z_cstore:       rts
 ; -----------------------------------------------------------------------------
 ; C-COMMA ( char -- ) ("C,")
 ; Store one byte (char) in the dictionary
-l_ccom:         bra a_ccom
+l_ccom .proc
+        bra a_ccom
                 .byte NC+$02
                 .word l_cstore  ; link to CSTORE (C!)
                 .word z_ccom
@@ -4228,7 +4222,9 @@ a_ccom:         lda 1,x         ; we ignore the MSB completely
                 inx
 
 z_ccom:         rts
-.endweak
+	.endweak
+	.pend
+
 ; -----------------------------------------------------------------------------
 ; CHARS ( n -- n )
 ; Return how many address units n chars are. Since this is an 8 bit machine,
@@ -7606,7 +7602,7 @@ a_fetch:        lda 1,x        ; LSB
 
                 lda (TMPADR)    ; LSB of address in memory
                 pha
-                inc TMPADR
+                inc TMPADR	;
                 bne +
                 inc TMPADR+1
 
@@ -7726,6 +7722,16 @@ _nextword:      ldy #$03        ; link starts at offset 3
 
 z_words:        rts
 .endweak
+
+clear_the_stack	.proc
+		txa
+                clc
+                adc #$06
+        	tax
+		rts
+		.pend
+
+
 ; =============================================================================
 ; HIGH-LEVEL COMMANDS
 ; =============================================================================
