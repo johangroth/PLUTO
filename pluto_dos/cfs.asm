@@ -132,7 +132,248 @@
 ; If there aren't 4094 data sectors at the end of partition, all sectors not part of this partition
 ; must be marked as used.
 
-;CFS Directory sectors
-;A directory sector holds 16 file entrys and a pointer to @Next directory sector.
-;Filesize range is from 0 to 4294967295 bytes, for relative files max. 16711425 bytes.
-;"Empty entry / Directory separator" type
+; The attributes field:
+; All entries have an 1 byte attribute field (AT) at the same position, which specifies flags and filetype.
+; +============+========+============+==========+===========+=============+==========+===+===+
+; | Byte / Bit |   7    |     6      |    5     |     4     |      3      |    2     | 1 | 0 |
+; +============+========+============+==========+===========+=============+==========+===+===+
+; | Byte 0     | CLOSED | DELETEABLE | READABLE | WRITEABLE | EXECUTEABLE | FILETYPE         |
+; +------------+--------+------------+----------+-----------+-------------+------------------+
+; Behaviour of flags:
+; If CLOSED=0 then this file cannot be accessed, because it wasn't closed (yet).
+; If DELETEABLE=0 then this file cannot be deleted.
+; If READABLE=0 then this file cannot be opened for reading. (might be still loadable)
+; If WRITEABLE=0 then this file is readonly.
+; If EXECUTEABLE=0 then this file cannot be loaded. (file is skipped for load)
+
+; Packed Creation / Modification time bytes / bits:
+; +============+============+===+===============+============+===+===+===+===+
+; | Byte / Bit |     7      | 6 |       5       |     4      | 3 | 2 | 1 | 0 |
+; +============+============+===+===============+============+===+===+===+===+
+; | Byte 0     | Month HIGH     | Second (0-59)                              |
+; +------------+----------------+--------------------------------------------+
+; | Byte 1     | Month LOW      | Minute (0-59)                              |
+; +------------+----------------+--------------------------------------------+
+; | Byte 2     | Hour HIGH      | Year (0-63)                                |
+; +------------+----------------+---------------+----------------------------+
+; | Byte 3     | Hour LOW                       | Day (1-31)                 |
+; +------------+--------------------------------+----------------------------+
+; Month (1-12), Hour (0-23). Year begins from 1980, so 2001 is 21.
+
+; CFS Directory sectors
+; A directory sector holds 16 file entrys and a pointer to @Next directory sector.
+; Filesize range is from 0 to 4294967295 bytes, for relative files max. 16711425 bytes.
+; "Empty entry / Directory separator" type
+;                                        A "DEL" entry (FILETYPE=%000):
+; +========+======================================+=====+=====+=====+===============+===+===+===+
+; | OFFSET |                  0                   |  1  |  2  |  3  |       4       | 5 | 6 | 7 |
+; +========+======================================+=====+=====+=====+===============+===+===+===+
+; | $0000  | Filename padded with $00 if shorter.                                               |
+; +--------+                                                                                    |
+; | $0008  |                                                                                    |
+; +--------+--------------------------------------+-----+-----+-----+---------------------------+
+; | $0010  | $00                                  | $00 | $00 | $00 | @reserved                 |
+; +--------+--------------------------------------+-----+-----+-----+---------------------------+
+; | $0018  | AT                                   | $44 | $45 | $4C | Creation time             |
+; +--------+--------------------------------------+-----+-----+-----+---------------------------+
+
+; "Normal file" type
+;                                        A normal file entry (FILETYPE=%001):
+; +========+=======+========+========+========+=======+======+=======+=======+
+; | OFFSET |   0   |    1   |    2   |    3   |   4   |  5   |   6   |   7   |
+; +========+=======+========+========+========+=======+======+=======+=======+
+; | $0000  |                                                                 |
+; +--------+ Filename padded with $00 if shorter.                            |
+; | $0008  |                                                                 |
+; +--------+----------------------------------+------------------------------+
+; | $0010  | Filesize                         |     @Data tree               |
+; +--------+-------+--------------------------+------------------------------+
+; | $0018  | AT    | File type padded with $00| Modification time            |
+; +--------+-------+--------------------------+------------------------------+
+; Filetype "D"/"DEL" is not valid, because it's an alias of "DEL", and it's handled elsewere.
+; Filetype "S" is not valid, because it's an alias of "SEQ".
+; Filetype "P" is not valid, because it's an alias of "PRG".
+; Filetype "U" is not valid, because it's an alias of "USR".
+; Filetype "L"/"R"/"REL" is not valid, because it's an alias of "REL", and it's handled elsewere.
+; Filetype "C"/"CBM" is not valid, because it's an alias of "CBM", and it's reserved.
+; Filetype "B"/"DIR" is not valid, because it's an alias of "DIR", and it's handled elsewere.
+; Filetype "J"/"LNK" is not valid, because it's an alias of "LNK", and it's handled elsewere.
+; Normal file type includes "SEQ", "PRG", "USR", and user defined filetypes.
+; Behaviour of flags:
+; If EXECUTEABLE=1, it's possible to load this file, otherwise it's skipped when searching (might be still openable!).
+; If READABLE=1, it's possible to open this file, otherwise error happens (might be still loadable!).
+
+; "Relative file" type
+;                                        A "REL" entry (FILETYPE=%010):
+; +========+======================================+=====+=====+=====+===================+===+===+===+
+; | OFFSET |                  0                   |  1  |  2  |  3  |         4         | 5 | 6 | 7 |
+; +========+======================================+=====+=====+=====+===================+===+===+===+
+; | $0000  | Filename padded with $00 if shorter.                                                   |
+; +--------+                                                                                        |
+; | $0008  |                                                                                        |
+; +--------+--------------------------------------------------+-----+-------------------------------+
+; | $0010  | Filesize                                         | RS  | @Data tree                    |
+; +--------+--------------------------------------+-----+-----+-----+-------------------------------+
+; | $0018  | AT                                   | $52 | $45 | $4C | Modification time             |
+; +--------+--------------------------------------+-----+-----+-----+-------------------------------+
+; Traditionally used for random access files in CBM DOS.
+; RS is the record size, from 1 to 255. 0 is invalid.
+; Should appear with filetype "REL" in directory listing.
+
+; "Subdirectory / Directory label" type
+;                                        A subdirectory entry (FILETYPE=%011):
+; +========+=====================================+=====+=====+=====+================+===+===+===+
+; | OFFSET |                  0                  |  1  |  2  |  3  |       4        | 5 | 6 | 7 |
+; +========+=====================================+=====+=====+=====+================+===+===+===+
+; | $0000  | Dirname padded with $00 if shorter.                                                |
+; +--------+                                                                                    |
+; | $0008  |                                                                                    |
+; +--------+-------------------------------------+-----+-----+-----+----------------------------+
+; | $0010  | $00                                 | $00 | $00 | $00 | @Sub directory             |
+; +--------+-------------------------------------+-----+-----+-----+----------------------------+
+; | $0018  | AT                                  | $44 | $49 | $52 | Creation time              |
+; +--------+-------------------------------------+-----+-----+-----+----------------------------+
+;
+; If CLOSED=1 this entry is a regular subdirectory.
+; If CLOSED=0 this is a directory label.
+; The directory label must be always the first entry in the directory. It holds the @Parent directory
+; and @This directory pointer. The name field will show up in directory listing as directory label.
+
+;                                         A directory label entry (FILETYPE=%011):
+; +========+=====================================+=====+=====+=====+================+===+===+===+
+; | OFFSET |                  0                  |  1  |  2  |  3  |       4        | 5 | 6 | 7 |
+; +========+=====================================+=====+=====+=====+================+===+===+===+
+; | $0000  | Dirlabel padded with $00 if shorter.                                               |
+; +--------+                                                                                    |
+; | $0008  |                                                                                    |
+; +--------+-------------------------------------+-----+-----+-----+----------------------------+
+; | $0010  | @This directory                                       | @Parent directory          |
+; +--------+-------------------------------------+-----+-----+-----+----------------------------+
+; | $0018  | AT                                  | $44 | $49 | $52 | Creation time              |
+; +--------+-------------------------------------+-----+-----+-----+----------------------------+
+; The DELETEABLE, EXECUTEABLE, WRITEABLE, READABLE, HIDDEN flags must be the same as for the directory
+; entry for this dir in the parent directory. Name is changeable by user, defaults to it's "DIR"
+; entry's name.
+; Behaviour of flags (for both):
+; If READABLE=0 if's not possible to list this dir.
+; If WRITEABLE=0 if's not possible to create/delete/rename file in dir.
+; If EXECUTEABLE=0 it's not possible to change to this dir.
+
+; "Link" type
+;                                        A "LNK" entry (FILETYPE=%100):
+; +========+======================================+=====+=====+=====+===================+===+===+===+
+; | OFFSET |                  0                   |  1  |  2  |  3  |         4         | 5 | 6 | 7 |
+; +========+======================================+=====+=====+=====+===================+===+===+===+
+; | $0000  | Filename padded with $00 if shorter.                                                   |
+; +--------+                                                                                        |
+; | $0008  |                                                                                        |
+; +--------+--------------------------------------------+-----+-----+-------------------------------+
+; | $0010  | Pathlength                                 | $00 | $00 | @Link sector                  |
+; +--------+--------------------------------------+-----+-----+-----+-------------------------------+
+; | $0018  | AT                                   | $4C | $4E | $4B | Modification time             |
+; +--------+--------------------------------------+-----+-----+-----+-------------------------------+
+; The Pathlength represents the size of the string in the link sector.
+; The link sector holds a string ending with $00. It is a relative path to a file from the current dir.
+; File cannot be longer than 1 sector.
+
+; "Reserved" types
+; FILETYPE=%101,%110,%111 are reserved for future use.
+
+; First byte of @file pointers (at offset $0014) have additional meaning:
+; +============+========+=====+=======+===+===================+===+===+===+
+; | Byte / Bit |   7    |  6  |   5   | 4 |         3         | 2 | 1 | 0 |
+; +============+========+=====+=======+===+===================+===+===+===+
+; | Byte 0     | HIDDEN | LBA | NEXTS |   | HEAD / LBAHIGHEST |   |   |   |
+; +------------+--------+-----+-------+---+-------------------+---+---+---+
+; If HIDDEN=1 this file is hidden, so it won't show up in directory listing.
+; The @Next directory sector pointer is sliced in 16 parts, and the parts are in the NEXTS fields.
+
+; @Next directory sector slicing:
+; +============+===============+===+===============+===+===============+===+===============+===+
+; | Byte / Bit |       7       | 6 |       5       | 4 |       3       | 2 |       1       | 0 |
+; +============+===============+===+===============+===+===============+===+===============+===+
+; | Byte 0     | in 13rd entry     | in 14th entry     | in 15th entry     | in 16th entry     |
+; +------------+-------------------+-------------------+-------------------+-------------------+
+; | Byte 1     | in 9th entry      | in 10th entry     | in 11th entry     | in 12th entry     |
+; +------------+-------------------+-------------------+-------------------+-------------------+
+; | Byte 2     | in 5th entry      | in 6th entry      | in 7th entry      | in 8th entry      |
+; +------------+-------------------+-------------------+-------------------+-------------------+
+; | Byte 3     | in 1st entry      | in 2nd entry      | in 3rd entry      | in 4th entry      |
+; +------------+-------------------+-------------------+-------------------+-------------------+
+;
+; If all 4 bytes of @Next directory sector pointer are zeroes we reached end of directory.
+
+; Deleted directory sector
+
+; It holds the last 15 deleted files, and is usually placed in first data sector of partition.
+; It has the same structure as a normal directory, but is only 1 sector long, so the NEXTS field is
+; now called AGE, and it contain the age of entries instead of next directory sector pointer's slices.
+; Same filenames with same type are eliminated by replacing the first character of an older file's
+; name with a character from "A" to "N". It's directory label is "%DELETED  FILES%", directory label
+; flags: CLOSED=0, DELETEABLE=0, EXECUTEABLE=1, WRITEABLE=0, READABLE=1, HIDDEN=1,
+
+; Root directory
+; It's like any other normal directory, but this is the starting point of directory stucture. It's
+; usually begins in the second data sector (after the deleted directory sector). The root directory
+; label is usually the same as the partition's name, but is changeable. Directory label flags:
+; CLOSED=0, DELETEABLE=0, EXECUTEABLE=1, WRITEABLE=1, READABLE=1, HIDDEN=0,
+; After the label there's usually a "%DELETED  FILES%" directory entry with flags CLOSED=1,
+; DELETEABLE=0, EXECUTEABLE=1, WRITEABLE=0, READABLE=1, HIDDEN=1, it's pointer points to deleted
+; directory sector.
+
+; Data tree sectors
+; Data sector pointers are organised in balanced tree for fast seeking. Here's a table about the numbers
+; of sectors to read to search to a position in file:
+; +============+=================+===================+
+; | Tree depth |    Position     | Sector(s) to read |
+; +============+=================+===================+
+; |          1 | 0 b - 64 Kb     | 1+1               |
+; +------------+-----------------+-------------------+
+; |          2 | 64 Kb - 576 Kb  | 2+1               |
+; +------------+-----------------+-------------------+
+; |          3 | 576 Kb - 4.5 Mb | 3+1               |
+; +------------+-----------------+-------------------+
+; |          4 | 4.5 Mb - 36 Mb  | 4+1               |
+; +------------+-----------------+-------------------+
+; |          5 | 36 Mb - 292 Mb  | 5+1               |
+; +------------+-----------------+-------------------+
+; |          6 | 292 Mb - 2.2 Gb | 6+1               |
+; +------------+-----------------+-------------------+
+; |          7 | 2.2 Gb - 4 Gb   | 7+1               |
+; +------------+-----------------+-------------------+
+
+; Tree sector layout
+; +========+===================+===+===+===+===================+===+===+===+
+; | OFFSET |         0         | 1 | 2 | 3 |         4         | 5 | 6 | 7 |
+; +========+===================+===+===+===+===================+===+===+===+
+; | $0000  | @Data sector #1               | @Data sector #2               |
+; +--------+---------------------------------------------------------------+
+; | ...    | ...etc...                                                     |
+; +--------+---------------------------------------------------------------+
+; | $01F8  | @Data sector #127             | @Data sector #128             |
+; +--------+-------------------------------+-------------------------------+
+; Each node is 1 sector, and holds 8 @Next tree pointers, and 128 @Data sector pointers.
+
+; First byte of pointers have additional meaning:
+; +============+==============+=====+=======+===+===================+===+===+===+
+; | Byte / Bit |      7       |  6  |   5   | 4 |         3         | 2 | 1 | 0 |
+; +============+==============+=====+=======+===+===================+===+===+===+
+; | Byte 0     | reserved (0) | LBA | SLICE     | HEAD / LBAHIGHEST             |
+; +------------+--------------+-----+-----------+-------------------+---+---+---+
+; @Next tree sector pointers 1-8 are sliced and are in 2 bit pieces (SLICE) in @Data sector pointers.
+; (#1 in 1-16, #2 in 17-32 ...) Same slicing method is used as for @Next directory sector.
+
+; The following special @Data sector or @Next tree pointer is used to indicate a hole in file or tree:
+; +============+==============+===+=======+===+===+===+===+===+
+; | Byte / Bit |      7       | 6 |   5   | 4 | 3 | 2 | 1 | 0 |
+; +============+==============+===+=======+===+===+===+===+===+
+; | Byte 0     | reserved (0) | 0 | SLICE |   | 0 | 0 | 0 | 0 |
+; +------------+--------------+---+-------+---+---+---+---+---+
+; | Byte 1     | 0            | 0 | 0     | 0 | 0 | 0 | 0 | 0 |
+; +------------+--------------+---+-------+---+---+---+---+---+
+; | Byte 2     | 0            | 0 | 0     | 0 | 0 | 0 | 0 | 0 |
+; +------------+--------------+---+-------+---+---+---+---+---+
+; | Byte 3     | 0            | 0 | 0     | 0 | 0 | 0 | 0 | 0 |
+; +------------+--------------+---+-------+---+---+---+---+---+
+; Holes are sectors filled with $00, or for relative files $FF at record beginnings and $00
+; everywhere else. This way unused parts of relative/normal files do not eat up disk space.
