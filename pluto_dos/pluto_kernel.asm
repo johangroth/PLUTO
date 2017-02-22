@@ -403,7 +403,7 @@ GLINEL:
 ;Variable SCNT will contain the number of digits entered
 HEXIN2:
 	LDA  #$02     ;Request 2 ASCII HEX digits from terminal: 8 bit value
-         BRA  HEXIN    ;GOTO HEXIN: always branch
+        BRA  HEXIN    ;GOTO HEXIN: always branch
 HEXIN4:
 	LDA  #$04     ;Request 4 ASCII HEX digits from terminal: 16 bit value
 HEXIN:
