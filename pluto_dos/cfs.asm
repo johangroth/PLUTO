@@ -377,3 +377,11 @@
 ; +------------+--------------+---+-------+---+---+---+---+---+
 ; Holes are sectors filled with $00, or for relative files $FF at record beginnings and $00
 ; everywhere else. This way unused parts of relative/normal files do not eat up disk space.
+
+find_boot_sector 	.proc
+			stz ide_lba0
+			stz ide_lba1
+			stz ide_lba2
+			stz ide_lba3
+			jsr ide_read_sector
+			.pend

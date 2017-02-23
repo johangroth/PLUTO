@@ -26,6 +26,12 @@
 .include "basic_ide_routines.asm"
 
 ; =============================================================================
+; CFS 
+.include "cfs.asm"
+
+		jsr find_boot_sector
+
+; =============================================================================
 ; KERNEL
 .include "pluto_kernel.asm"
 
