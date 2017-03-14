@@ -199,7 +199,7 @@ A2DCONV:
 ;DEC4AND5 ($E7)
 ;DEC6AND7 ($E8)
 ;DEC8AND9 ($E9) Two least significant BCD digits
-BCDOUT:
+BCDOUT  .proc
 	LDX  #$00     ;Initialize BCD output buffer index: point to MSB
         LDY  #$00     ;Initialize leading zero flag: no non-zero digits have been processed
 BCDOUTL:
@@ -221,9 +221,11 @@ BCDOUTL:
         JSR  COUT
 BCDOUTDN:
 	RTS           ;Done BCDOUT subroutine, RETURN
+	.pend
+
 ;BCDTOASC subroutine:
 ; convert BCD digit to ASCII DECIMAL digit, send digit to terminal IF it's not a leading zero
-BCDTOASC:
+BCDTOASC	.proc
 	BNE  NONZERO  ;GOTO NONZERO IF BCD digit <> 0
         CPY  #$00     ; ELSE, GOTO BTADONE IF no non-zero digits have been processed
         BEQ  BTADONE  ;  (supress output of leading zeros)
@@ -234,19 +236,21 @@ NONZERO:
         JSR  COUT     ;Send converted digit to terminal
 BTADONE:
 	RTS           ;Done BCDTOASC subroutine, RETURN
+	.pend
 ;
 ;
 ;BEEP subroutine: Send ASCII [BELL] to terminal
-BEEP:
+BEEP	.proc
 	PHA           ;Save ACCUMULATOR on STACK
         LDA  #$07     ;Send ASCII [BELL] to terminal
         JSR  COUT
         PLA           ;Restore ACCUMULATOR from STACK
         RTS           ;Done BEEP subroutine, RETURN
+	.pend
 ;
 ;BN2ASC subroutine: Convert byte in ACCUMULATOR to two ASCII HEX digits.
 ; Returns: ACCUMULATOR = high digit, Y-REGISTER = low digit
-BN2ASC:
+BN2ASC	.proc
 	TAX           ;Copy ACCUMULATOR to X-REGISTER
         AND  #$F0     ;Mask (zero) low nybble
         LSR        ;Move high nybble to low nybble: high nybble now = 0
@@ -261,7 +265,9 @@ BN2ASC:
         TAY           ;Copy low digit to Y-REGISTER
         PLA           ;Pull high digit from STACK to ACCUMULATOR
         RTS           ;Done BN2ASC subroutine, RETURN
-ASCII:
+	.pend
+
+ASCII	.proc
 	CMP  #$0A     ;GOTO ASOK IF nybble < $A
         BCC  ASOK
         CLC           ; ELSE, clear CARRY
@@ -269,11 +275,13 @@ ASCII:
 ASOK:
 	ADC  #$30     ;ADD $30
         RTS           ;Done BN2ASC or ASCII subroutine, RETURN
+	.pend
 ;
 ;BSOUT subroutine: send [BACKSPACE] to terminal
-BSOUT:
+BSOUT	.proc
 	LDA  #$08     ;Send [BACKSPACE] to terminal
         JMP  COUT     ; then done BSOUT subroutine, RETURN
+	.pend
 
 ;;; VIA port a out subroutine
 k_wrtchrVIAa:
@@ -298,7 +306,7 @@ k_getchrVIAb:
 
 ;
 ;CHIN subroutine: Wait for a keystroke, return with keystroke in ACCUMULATOR
-CHIN:
+CHIN	.proc
 	STX  TEMP     ;Save X REGISTER
 CHINLOOP:
 	CLI           ;Enable external IRQ response
@@ -310,6 +318,8 @@ CHINLOOP:
         INC  OUTCNT   ;Remove keystroke from buffer
         LDX  TEMP     ;Restore X REGISTER
         RTS           ;Done CHIN subroutine, RETURN
+	.pend
+
 ;
 ;CHREG subroutine: Display HEX byte value in ACCUMULATOR, request HEX byte input from terminal
 CHREG:
