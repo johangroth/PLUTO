@@ -30,6 +30,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:IDE_interface
+LIBS:65xx
 LIBS:IDE_interface-cache
 EELAYER 25 0
 EELAYER END
@@ -564,19 +565,19 @@ NoConn ~ 4150 7500
 Text Label 4450 9000 2    60   ~ 0
 ~7F0X
 Text Label 4450 9100 2    60   ~ 0
-~7F1X
-Text Label 4450 9200 2    60   ~ 0
 ~7F2X
-Text Label 4450 9300 2    60   ~ 0
-~7F3X
-Text Label 4450 9400 2    60   ~ 0
+Text Label 4450 9200 2    60   ~ 0
 ~7F4X
-Text Label 4450 9500 2    60   ~ 0
-~7F5X
-Text Label 4450 9600 2    60   ~ 0
+Text Label 4450 9300 2    60   ~ 0
 ~7F6X
+Text Label 4450 9400 2    60   ~ 0
+~7F8X
+Text Label 4450 9500 2    60   ~ 0
+~7FAX
+Text Label 4450 9600 2    60   ~ 0
+~7FCX
 Text Label 4450 9700 2    60   ~ 0
-~7F7X
+~7FEX
 Text Label 15750 2700 2    60   ~ 0
 ~IDE:CS1
 Text Label 15750 2800 2    60   ~ 0
@@ -586,19 +587,12 @@ NoConn ~ 3250 7600
 NoConn ~ 3250 7700
 NoConn ~ 3250 7800
 NoConn ~ 3250 7900
-NoConn ~ 3250 8000
 NoConn ~ 4450 7700
 NoConn ~ 4450 7800
 NoConn ~ 4450 7900
 NoConn ~ 4450 8000
 NoConn ~ 4450 8200
 NoConn ~ 4450 8900
-NoConn ~ 4450 9000
-NoConn ~ 4450 9100
-NoConn ~ 4450 9200
-NoConn ~ 4450 9500
-NoConn ~ 4450 9600
-NoConn ~ 4450 9700
 NoConn ~ 3250 9300
 NoConn ~ 3250 9400
 NoConn ~ 3250 9500
@@ -625,7 +619,7 @@ Text Label 1100 2250 0    60   ~ 0
 Text Label 1100 1950 0    60   ~ 0
 CLK2
 Text Label 1100 3100 0    60   ~ 0
-~7F4X
+~7F8X
 Text Label 1100 4100 0    60   ~ 0
 ~MWR
 Text Label 2100 8250 2    60   ~ 0
@@ -681,9 +675,8 @@ Text Label 8225 8650 2    60   ~ 0
 D6
 Text Label 8225 8750 2    60   ~ 0
 D7
-NoConn ~ 6900 8450
 Text Label 6675 8650 0    60   ~ 0
-~7F3X
+~7FAX
 Text Label 6675 8775 0    60   ~ 0
 ~MRD
 Text Label 6675 8875 0    60   ~ 0
@@ -824,9 +817,9 @@ Wire Wire Line
 Wire Wire Line
 	3000 5500 3000 4800
 Wire Wire Line
-	5000 4800 3000 4800
+	3000 4800 5000 4800
 Wire Wire Line
-	5000 700  5000 4800
+	5000 4800 5000 700 
 Wire Wire Line
 	5000 700  2800 700 
 Wire Wire Line
@@ -1206,4 +1199,14 @@ F 3 "" H 7450 9625 50  0000 C CNN
 	1    7450 9625
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	6900 8450 6675 8450
+Text Label 6675 8450 0    60   ~ 0
+A4
+NoConn ~ 4450 9000
+NoConn ~ 4450 9100
+NoConn ~ 4450 9200
+NoConn ~ 4450 9300
+NoConn ~ 4450 9600
+NoConn ~ 4450 9700
 $EndSCHEMATC
