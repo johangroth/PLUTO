@@ -29,26 +29,116 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:65xx
+LIBS:4000-ic
+LIBS:7400-ic
+LIBS:analog-ic
+LIBS:avr-mcu
+LIBS:bluegiga
+LIBS:connector
+LIBS:diode-inc-ic
+LIBS:freescale-ic
+LIBS:ftdi-ic
+LIBS:led
+LIBS:maxim-ic
+LIBS:micrel-ic
+LIBS:microchip-ic
+LIBS:nxp-ic
+LIBS:on-semi-ic
+LIBS:regulator
+LIBS:rohm
+LIBS:sharp-relay
+LIBS:sparkfun
+LIBS:standard
+LIBS:stmicro-mcu
+LIBS:ti-ic
+LIBS:transistor
+LIBS:uln-ic
+LIBS:IDE_interface
+LIBS:74xgxx
+LIBS:ac-dc
+LIBS:actel
+LIBS:allegro
+LIBS:Altera
+LIBS:analog_devices
+LIBS:battery_management
+LIBS:bbd
+LIBS:bosch
+LIBS:brooktre
+LIBS:cmos_ieee
+LIBS:dc-dc
+LIBS:diode
+LIBS:elec-unifil
+LIBS:ESD_Protection
+LIBS:ftdi
+LIBS:gennum
+LIBS:graphic
+LIBS:hc11
+LIBS:intersil
+LIBS:ir
+LIBS:Lattice
+LIBS:leds
+LIBS:LEM
+LIBS:logo
+LIBS:maxim
+LIBS:mechanical
+LIBS:microchip_dspic33dsc
+LIBS:microchip_pic10mcu
+LIBS:microchip_pic12mcu
+LIBS:microchip_pic16mcu
+LIBS:microchip_pic18mcu
+LIBS:microchip_pic24mcu
+LIBS:microchip_pic32mcu
+LIBS:modules
+LIBS:motor_drivers
+LIBS:motors
+LIBS:msp430
+LIBS:nordicsemi
+LIBS:nxp
+LIBS:nxp_armmcu
+LIBS:onsemi
+LIBS:Oscillators
+LIBS:powerint
+LIBS:Power_Management
+LIBS:pspice
+LIBS:references
+LIBS:relays
+LIBS:rfcom
+LIBS:RFSolutions
+LIBS:sensors
+LIBS:silabs
+LIBS:stm8
+LIBS:stm32
+LIBS:supertex
+LIBS:switches
+LIBS:transf
+LIBS:triac_thyristor
+LIBS:ttl_ieee
+LIBS:video
+LIBS:wiznet
+LIBS:Worldsemi
+LIBS:Xicor
+LIBS:zetex
+LIBS:Zilog
 LIBS:pluto-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 7
-Title ""
-Date ""
-Rev ""
-Comp ""
+Sheet 2 6
+Title "CPU, ROM and RAM"
+Date "2017-03-25"
+Rev "0.1"
+Comp "Linux Grotto"
 Comment1 ""
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L WD65C02_ U?
+L WD65C02_ U1
 U 1 1 58D58BE4
 P 2175 2350
-F 0 "U?" H 2175 1200 60  0000 C CNN
+F 0 "U1" H 2175 1200 60  0000 C CNN
 F 1 "WD65C02_" V 2175 2400 60  0000 C CNN
 F 2 "" H 1625 2550 60  0000 C CNN
 F 3 "" H 1625 2550 60  0000 C CNN
@@ -104,7 +194,7 @@ A14
 Text GLabel 3000 2950 2    60   Input ~ 0
 A15
 Text GLabel 3000 3050 2    60   Input ~ 0
-CLKin
+PHI2
 Text GLabel 3000 3150 2    60   Input ~ 0
 CLK
 NoConn ~ 2825 3250
@@ -189,10 +279,10 @@ BE
 Text GLabel 1300 2450 0    60   Input ~ 0
 RDY
 $Comp
-L 28C256 U?
+L 28C256 U2
 U 1 1 58D5901B
 P 5775 2300
-F 0 "U?" H 5975 3300 50  0000 C CNN
+F 0 "U2" H 5975 3300 50  0000 C CNN
 F 1 "28C256" H 6075 1300 50  0000 C CNN
 F 2 "" H 5775 2300 50  0001 C CNN
 F 3 "" H 5775 2300 50  0001 C CNN
@@ -200,10 +290,10 @@ F 3 "" H 5775 2300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L HM62256BLP-7 U?
+L HM62256BLP-7 U3
 U 1 1 58D5907B
 P 8475 2200
-F 0 "U?" H 8175 3100 50  0000 C CNN
+F 0 "U3" H 8175 3100 50  0000 C CNN
 F 1 "HM62256BLP-7" H 8875 1400 50  0000 C CNN
 F 2 "DIP28" H 8475 2200 50  0001 C CIN
 F 3 "" H 8475 2200 50  0001 C CNN

@@ -29,26 +29,116 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:65xx
+LIBS:4000-ic
+LIBS:7400-ic
+LIBS:analog-ic
+LIBS:avr-mcu
+LIBS:bluegiga
+LIBS:connector
+LIBS:diode-inc-ic
+LIBS:freescale-ic
+LIBS:ftdi-ic
+LIBS:led
+LIBS:maxim-ic
+LIBS:micrel-ic
+LIBS:microchip-ic
+LIBS:nxp-ic
+LIBS:on-semi-ic
+LIBS:regulator
+LIBS:rohm
+LIBS:sharp-relay
+LIBS:sparkfun
+LIBS:standard
+LIBS:stmicro-mcu
+LIBS:ti-ic
+LIBS:transistor
+LIBS:uln-ic
+LIBS:IDE_interface
+LIBS:74xgxx
+LIBS:ac-dc
+LIBS:actel
+LIBS:allegro
+LIBS:Altera
+LIBS:analog_devices
+LIBS:battery_management
+LIBS:bbd
+LIBS:bosch
+LIBS:brooktre
+LIBS:cmos_ieee
+LIBS:dc-dc
+LIBS:diode
+LIBS:elec-unifil
+LIBS:ESD_Protection
+LIBS:ftdi
+LIBS:gennum
+LIBS:graphic
+LIBS:hc11
+LIBS:intersil
+LIBS:ir
+LIBS:Lattice
+LIBS:leds
+LIBS:LEM
+LIBS:logo
+LIBS:maxim
+LIBS:mechanical
+LIBS:microchip_dspic33dsc
+LIBS:microchip_pic10mcu
+LIBS:microchip_pic12mcu
+LIBS:microchip_pic16mcu
+LIBS:microchip_pic18mcu
+LIBS:microchip_pic24mcu
+LIBS:microchip_pic32mcu
+LIBS:modules
+LIBS:motor_drivers
+LIBS:motors
+LIBS:msp430
+LIBS:nordicsemi
+LIBS:nxp
+LIBS:nxp_armmcu
+LIBS:onsemi
+LIBS:Oscillators
+LIBS:powerint
+LIBS:Power_Management
+LIBS:pspice
+LIBS:references
+LIBS:relays
+LIBS:rfcom
+LIBS:RFSolutions
+LIBS:sensors
+LIBS:silabs
+LIBS:stm8
+LIBS:stm32
+LIBS:supertex
+LIBS:switches
+LIBS:transf
+LIBS:triac_thyristor
+LIBS:ttl_ieee
+LIBS:video
+LIBS:wiznet
+LIBS:Worldsemi
+LIBS:Xicor
+LIBS:zetex
+LIBS:Zilog
 LIBS:pluto-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 7
-Title ""
-Date ""
-Rev ""
-Comp ""
-Comment1 ""
+Sheet 5 6
+Title "Clock, pullups and decoding logic"
+Date "2017-03-25"
+Rev "0.1"
+Comp "Linux Grotto"
+Comment1 "The decoding logic is a slightly modied version of Daryl Rictor's SBC-2 v2.5"
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L 74HCT00 U?
+L 74HCT00 U8
 U 1 1 58D59B66
 P 5450 2150
-F 0 "U?" H 5450 2200 50  0000 C CNN
+F 0 "U8" H 5450 2200 50  0000 C CNN
 F 1 "74HCT00" H 5450 2050 50  0000 C CNN
 F 2 "" H 5450 2150 50  0001 C CNN
 F 3 "" H 5450 2150 50  0001 C CNN
@@ -56,43 +146,43 @@ F 3 "" H 5450 2150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74HCT00 U?
-U 2 1 58D59B7D
+L 74HCT00 U8
+U 4 1 58D59B7D
 P 8150 2600
-F 0 "U?" H 8150 2650 50  0000 C CNN
+F 0 "U8" H 8150 2650 50  0000 C CNN
 F 1 "74HCT00" H 8150 2500 50  0000 C CNN
 F 2 "" H 8150 2600 50  0001 C CNN
 F 3 "" H 8150 2600 50  0001 C CNN
-	2    8150 2600
+	4    8150 2600
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74HCT00 U?
-U 3 1 58D59C3A
+L 74HCT00 U8
+U 2 1 58D59C3A
 P 6250 1200
-F 0 "U?" H 6250 1250 50  0000 C CNN
+F 0 "U8" H 6250 1250 50  0000 C CNN
 F 1 "74HCT00" H 6250 1100 50  0000 C CNN
 F 2 "" H 6250 1200 50  0001 C CNN
 F 3 "" H 6250 1200 50  0001 C CNN
-	3    6250 1200
+	2    6250 1200
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74HCT00 U?
-U 4 1 58D59CAD
+L 74HCT00 U8
+U 3 1 58D59CAD
 P 7800 1675
-F 0 "U?" H 7800 1725 50  0000 C CNN
+F 0 "U8" H 7800 1725 50  0000 C CNN
 F 1 "74HCT00" H 7800 1575 50  0000 C CNN
 F 2 "" H 7800 1675 50  0001 C CNN
 F 3 "" H 7800 1675 50  0001 C CNN
-	4    7800 1675
+	3    7800 1675
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74LS30 U?
+L 74LS30 U9
 U 1 1 58D59CF0
 P 6950 3075
-F 0 "U?" H 6950 3175 50  0000 C CNN
+F 0 "U9" H 6950 3175 50  0000 C CNN
 F 1 "74LS30" H 6950 2975 50  0000 C CNN
 F 2 "" H 6950 3075 50  0001 C CNN
 F 3 "" H 6950 3075 50  0001 C CNN
@@ -100,10 +190,10 @@ F 3 "" H 6950 3075 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 74LS138 U?
+L 74LS138 U10
 U 1 1 58D59D0F
 P 7925 4575
-F 0 "U?" H 8025 5075 50  0000 C CNN
+F 0 "U10" H 7725 5075 50  0000 C CNN
 F 1 "74LS138" H 8075 4026 50  0000 C CNN
 F 2 "" H 7925 4575 50  0001 C CNN
 F 3 "" H 7925 4575 50  0001 C CNN
@@ -164,17 +254,6 @@ Text GLabel 9125 4950 2    60   Input ~ 0
 ~7FCX
 Text GLabel 9125 5125 2    60   Input ~ 0
 ~7FEX
-$Comp
-L R_Network05 RN?
-U 1 1 58D5E052
-P 2075 1650
-F 0 "RN?" V 1775 1650 50  0000 C CNN
-F 1 "3.3kOhm" V 2375 1650 50  0000 C CNN
-F 2 "Resistors_THT:R_Array_SIP6" V 2450 1650 50  0001 C CNN
-F 3 "" H 2075 1650 50  0001 C CNN
-	1    2075 1650
-	1    0    0    -1  
-$EndComp
 Text GLabel 6700 4900 0    60   Input ~ 0
 GND
 Text GLabel 6700 4725 0    60   Input ~ 0
@@ -331,37 +410,154 @@ Wire Wire Line
 Wire Wire Line
 	6875 4175 6700 4175
 Wire Wire Line
-	2275 1850 2275 2050
+	2275 1675 2275 1875
 Wire Wire Line
-	2275 2050 2600 2050
+	2275 1875 2600 1875
 Wire Wire Line
-	2175 1850 2175 2225
+	2175 1675 2175 2050
 Wire Wire Line
-	2175 2225 2600 2225
+	2175 2050 2600 2050
 Wire Wire Line
-	2075 1850 2075 2375
+	2075 1675 2075 2200
 Wire Wire Line
-	2075 2375 2625 2375
+	2075 2200 2600 2200
 Wire Wire Line
-	1975 1850 1975 2525
+	1975 1675 1975 2350
 Wire Wire Line
-	1975 2525 2600 2525
+	1975 2350 2600 2350
 Wire Wire Line
-	1875 1850 1875 2675
+	1875 1675 1875 2500
 Wire Wire Line
-	1875 2675 2600 2675
-Text GLabel 2600 2050 2    60   Input ~ 0
+	1875 2500 2600 2500
+Text GLabel 2600 1875 2    60   Input ~ 0
 ~IRQ
-Text GLabel 2600 2225 2    60   Input ~ 0
+Text GLabel 2600 2050 2    60   Input ~ 0
 ~NMI
-Text GLabel 2625 2375 2    60   Input ~ 0
+Text GLabel 2600 2200 2    60   Input ~ 0
 BE
-Text GLabel 2600 2525 2    60   Input ~ 0
+Text GLabel 2600 2650 2    60   Input ~ 0
 ~RES
-Text GLabel 2600 2675 2    60   Input ~ 0
+Text GLabel 2600 2500 2    60   Input ~ 0
 RDY
 Wire Wire Line
-	1875 1450 1875 1275
-Text GLabel 1875 1275 0    60   Input ~ 0
-VCC
+	1675 1275 1675 1100
+$Comp
+L R_Network07 RN1
+U 1 1 58D6C524
+P 1975 1475
+F 0 "RN1" V 1575 1475 50  0000 C CNN
+F 1 "3.3 kOhm" V 2375 1475 50  0000 C CNN
+F 2 "Resistors_THT:R_Array_SIP8" V 2450 1475 50  0001 C CNN
+F 3 "" H 1975 1475 50  0001 C CNN
+	1    1975 1475
+	1    0    0    -1  
+$EndComp
+Text GLabel 2600 2350 2    60   Input ~ 0
+~PWR
+Wire Wire Line
+	1775 1675 1775 2825
+Wire Wire Line
+	1775 2650 2600 2650
+$Comp
+L CXO_DIP8 X1
+U 1 1 58D6C921
+P 1875 4650
+F 0 "X1" H 1675 4900 50  0000 L CNN
+F 1 "4 MHz" H 1925 4400 50  0000 L CNN
+F 2 "Oscillators:Oscillator_DIP-8" H 2325 4300 50  0001 C CNN
+F 3 "" H 1775 4650 50  0001 C CNN
+	1    1875 4650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2175 4650 2425 4650
+Text GLabel 2425 4650 2    60   Input ~ 0
+PHI2
+$Comp
+L VCC #PWR19
+U 1 1 58D6CEDE
+P 1875 4350
+F 0 "#PWR19" H 1875 4200 50  0001 C CNN
+F 1 "VCC" H 1875 4500 50  0000 C CNN
+F 2 "" H 1875 4350 50  0001 C CNN
+F 3 "" H 1875 4350 50  0001 C CNN
+	1    1875 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR20
+U 1 1 58D6CF02
+P 1875 4950
+F 0 "#PWR20" H 1875 4700 50  0001 C CNN
+F 1 "GND" H 1875 4800 50  0000 C CNN
+F 2 "" H 1875 4950 50  0001 C CNN
+F 3 "" H 1875 4950 50  0001 C CNN
+	1    1875 4950
+	1    0    0    -1  
+$EndComp
+NoConn ~ 1575 4650
+$Comp
+L Q_NPN_EBC Q1
+U 1 1 58D6D190
+P 1875 3025
+F 0 "Q1" H 1775 2850 50  0000 L CNN
+F 1 "DS1813" H 1550 3200 50  0000 L CNN
+F 2 "" H 2075 3125 50  0001 C CNN
+F 3 "" H 1875 3025 50  0001 C CNN
+	1    1875 3025
+	-1   0    0    1   
+$EndComp
+$Comp
+L VCC #PWR21
+U 1 1 58D6D2F3
+P 2075 3025
+F 0 "#PWR21" H 2075 2875 50  0001 C CNN
+F 1 "VCC" H 2075 3175 50  0000 C CNN
+F 2 "" H 2075 3025 50  0001 C CNN
+F 3 "" H 2075 3025 50  0001 C CNN
+	1    2075 3025
+	1    0    0    -1  
+$EndComp
+$Comp
+L SW_Push SW1
+U 1 1 58D6D3A4
+P 1125 2825
+F 0 "SW1" H 1050 2725 50  0000 L CNN
+F 1 "RESET" H 1125 3000 50  0000 C CNN
+F 2 "" H 1125 3025 50  0001 C CNN
+F 3 "" H 1125 3025 50  0001 C CNN
+	1    1125 2825
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1775 3225 1775 3400
+$Comp
+L GND #PWR18
+U 1 1 58D6D657
+P 1775 3400
+F 0 "#PWR18" H 1775 3150 50  0001 C CNN
+F 1 "GND" H 1775 3250 50  0000 C CNN
+F 2 "" H 1775 3400 50  0001 C CNN
+F 3 "" H 1775 3400 50  0001 C CNN
+	1    1775 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1775 3400 925  3400
+Wire Wire Line
+	925  3400 925  2825
+Wire Wire Line
+	1775 2825 1325 2825
+Connection ~ 1775 2650
+$Comp
+L VCC #PWR17
+U 1 1 58D7E610
+P 1675 1100
+F 0 "#PWR17" H 1675 950 50  0001 C CNN
+F 1 "VCC" H 1675 1250 50  0000 C CNN
+F 2 "" H 1675 1100 50  0001 C CNN
+F 3 "" H 1675 1100 50  0001 C CNN
+	1    1675 1100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
