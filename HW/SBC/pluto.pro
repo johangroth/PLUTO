@@ -1,4 +1,4 @@
-update=Sat 25 Mar 2017 10:35:39 GMT
+update=Sun 26 Mar 2017 17:42:10 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -27,7 +27,7 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
-LibDir=../../../KiCadLibraries/65xx_Library/KiCad;../../../KiCadLibraries/kicad-lib/components;../IDE_interface;../../../KiCadLibraries/kicad-library/library
+LibDir=../../../KiCadLibraries/kicad-lib/components;../IDE_interface;../../../KiCadLibraries/kicad-library/library;../../../KiCadLibraries/kicad-library2/libs
 [eeschema/libraries]
 LibName1=power
 LibName2=device
