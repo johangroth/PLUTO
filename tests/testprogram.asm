@@ -3,8 +3,8 @@
 start 	ldx #$ff
       	txs		; initialise stack pointer
       	lda #$ff	; set VIA ports to output
-      	sta $7f52
-      	sta $7f53
+      	sta $7fc2
+      	sta $7fc3
 
 ; check RAM decoding works as it should
 	ldx #00
@@ -25,8 +25,8 @@ l2	lda $0400,x
 
 ; if not, indicate this with another pattern.
 l3	lda #$aa
-again 	sta $7f50	; output A to the VIA ports
-      	sta $7f51
+again 	sta $7fc0	; output A to the VIA ports
+      	sta $7fc1
       	jmp again	; loop for all eternity
 
       	* = $fffa
