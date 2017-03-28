@@ -1,0 +1,535 @@
+A2DCONV	symoniii.asm	/^A2DCONV:$/
+A2DDONE	symoniii.asm	/^A2DDONE:$/
+A2DSUB	symoniii.asm	/^A2DSUB	.proc$/
+AARG	symoniii.asm	/^AARG:$/
+ABYTE	symoniii.asm	/^ABYTE:$/
+ACCC	symoniii.asm	/^ACCC:$/
+ACK	xmodem.asm	/^ACK		=	$06		; good block acknowledged$/
+ADUMP	symoniii.asm	/^ADUMP:$/
+AGO	symoniii.asm	/^AGO:$/
+AHEXIN2	symoniii.asm	/^AHEXIN2:$/
+AHEXIN4	symoniii.asm	/^AHEXIN4:$/
+ANOTESC	symoniii.asm	/^ANOTESC:$/
+AOK	symoniii.asm	/^AOK:$/
+APRG	symoniii.asm	/^APRG:$/
+APROMPT	symoniii.asm	/^APROMPT:$/
+APRSTAT	symoniii.asm	/^APRSTAT:$/
+AQUERY	symoniii.asm	/^AQUERY:$/
+ARG	symoniii.asm	/^ARG:$/
+ARONEG	symoniii.asm	/^ARONEG:$/
+ASC2BN	symoniii.asm	/^ASC2BN 	.proc$/
+ASCII	symoniii.asm	/^ASCII:$/
+ASCLOOP	symoniii.asm	/^ASCLOOP:$/
+ASCOUT	symoniii.asm	/^ASCOUT:$/
+ASCTODEC	symoniii.asm	/^ASCTODEC .proc		;Initialize (zero) BCD digit input/
+ASCTOHEX	symoniii.asm	/^ASCTOHEX:		;Initialize (zero) HEX digit input buff/
+ASMPROHILO	symoniii.asm	/^ASMPROHILO:	$/
+ASOK	symoniii.asm	/^ASOK:$/
+ASRG	symoniii.asm	/^ASRG:$/
+ASSEM	symoniii.asm	/^ASSEM:$/
+ATODLOOP	symoniii.asm	/^ATODLOOP:$/
+AXRG	symoniii.asm	/^AXRG:$/
+AYRG	symoniii.asm	/^AYRG:$/
+BACK	symoniii.asm	/^BACK:$/
+BBREL	symoniii.asm	/^BBREL:$/
+BBRM	symoniii.asm	/^BBRM:$/
+BBRS	symoniii.asm	/^BBRS:$/
+BBSM	symoniii.asm	/^BBSM:$/
+BCDLOOP	symoniii.asm	/^BCDLOOP:	$/
+BCDOUT	symoniii.asm	/^BCDOUT	.proc$/
+BCDOUTDN	symoniii.asm	/^BCDOUTDN:$/
+BCDOUTL	symoniii.asm	/^BCDOUTL:$/
+BCDTOASC	symoniii.asm	/^BCDTOASC .proc$/
+BCDTOHEX	symoniii.asm	/^BCDTOHEX	.proc		;Initialize (zero) output buffer. /
+BEEP	symoniii.asm	/^BEEP:$/
+BFIXBR1	symoniii.asm	/^BFIXBR1:$/
+BINARY	symoniii.asm	/^BINARY:$/
+BIT7	symoniii.asm	/^BIT7:$/
+BITPOST	symoniii.asm	/^BITPOST:$/
+BITS	symoniii.asm	/^BITS:$/
+BITSEL	symoniii.asm	/^BITSEL:$/
+BITSET	symoniii.asm	/^BITSET:$/
+BN2ASC	symoniii.asm	/^BN2ASC:$/
+BNOK	symoniii.asm	/^BNOK:$/
+BRANCHOK	symoniii.asm	/^BRANCHOK:$/
+BREAKEY	symoniii.asm	/^BREAKEY:$/
+BRFORWD	symoniii.asm	/^BRFORWD:$/
+BRKINSTR	symoniii.asm	/^BRKINSTR:$/
+BROFFSET	symoniii.asm	/^BROFFSET:$/
+BSERROR	symoniii.asm	/^BSERROR:$/
+BSOUT	symoniii.asm	/^BSOUT:$/
+BTADONE	symoniii.asm	/^BTADONE:$/
+BYLOOP	symoniii.asm	/^BYLOOP:$/
+BYOK	symoniii.asm	/^BYOK:$/
+BYTE	symoniii.asm	/^BYTE:$/
+BadCrc	xmodem.asm	/^BadCrc:$/
+BegBlk	xmodem.asm	/^BegBlk:$/
+CAN	xmodem.asm	/^CAN		=	$18		; cancel (not standard, not supported)/
+CHANGE	symoniii.asm	/^CHANGE:$/
+CHANGEL	symoniii.asm	/^CHANGEL:$/
+CHEXIN2	symoniii.asm	/^CHEXIN2:$/
+CHIN	symoniii.asm	/^CHIN:$/
+CHINLOOP	symoniii.asm	/^CHINLOOP:$/
+CHOK	symoniii.asm	/^CHOK:$/
+CHREG	symoniii.asm	/^CHREG:$/
+CLKRD	symoniii.asm	/^CLKRD:$/
+CMDPROMPTS	symoniii.asm	/^CMDPROMPTS:	$/
+CMON	symoniii.asm	/^CMON:$/
+CNTLUGO	symoniii.asm	/^CNTLUGO:$/
+COLDSTART	symoniii.asm	/^COLDSTART:$/
+COMX	symoniii.asm	/^COMX:$/
+COMY	symoniii.asm	/^COMY:$/
+COUT	symoniii.asm	/^COUT:	PHA           ;Save ACCUMULATOR on STACK$/
+COUT2	symoniii.asm	/^COUT2:	JSR  COUT     ;(Send byte 2 times)$/
+COUT3	symoniii.asm	/^COUT3:	JSR  COUT     ;(Send byte 3 times)$/
+COUTL	symoniii.asm	/^COUTL:	LDA  SIOSTAT  ;Read ACIA status register$/
+CPXY	symoniii.asm	/^CPXY:$/
+CPXYAB	symoniii.asm	/^CPXYAB:$/
+CR	xmodem.asm	/^CR		=	$0d		; carriage return$/
+CR2	symoniii.asm	/^CR2:$/
+CROUT	symoniii.asm	/^CROUT:$/
+CSTOR2	symoniii.asm	/^CSTOR2:$/
+CSTOR3	symoniii.asm	/^CSTOR3:$/
+CalcCRC	xmodem.asm	/^CalcCRC:$/
+CalcCRC1	xmodem.asm	/^CalcCRC1:$/
+CopyBlk	xmodem.asm	/^CopyBlk:$/
+CopyBlk3	xmodem.asm	/^CopyBlk3:$/
+CopyBlk4	xmodem.asm	/^CopyBlk4:$/
+DABS	symoniii.asm	/^DABS:$/
+DAX	symoniii.asm	/^DAX:$/
+DAY	symoniii.asm	/^DAY:$/
+DBBR	symoniii.asm	/^DBBR:$/
+DBBS	symoniii.asm	/^DBBS:$/
+DDOADD	symoniii.asm	/^DDOADD:$/
+DECDONE	symoniii.asm	/^DECDONE:	$/
+DECIN	symoniii.asm	/^DECIN:$/
+DECINDEX	symoniii.asm	/^DECINDEX:$/
+DECINPUT	symoniii.asm	/^DECINPUT:$/
+DECLOOP	symoniii.asm	/^DECLOOP:$/
+DECONLY	symoniii.asm	/^DECONLY:$/
+DECTEST	symoniii.asm	/^DECTEST:$/
+DECTOHEX	symoniii.asm	/^DECTOHEX:$/
+DELAY1	symoniii.asm	/^DELAY1:$/
+DELAY2	symoniii.asm	/^DELAY2:$/
+DIND	symoniii.asm	/^DIND:$/
+DIRECTV	symoniii.asm	/^DIRECTV:$/
+DIROK	symoniii.asm	/^DIROK:$/
+DIRTAB	symoniii.asm	/^DIRTAB:$/
+DIRTST	symoniii.asm	/^DIRTST:$/
+DISLINE	symoniii.asm	/^DISLINE:$/
+DISLOOP	symoniii.asm	/^DISLOOP:$/
+DJTAB	symoniii.asm	/^DJTAB:$/
+DLINE	symoniii.asm	/^DLINE:$/
+DMLTLOOP	symoniii.asm	/^DMLTLOOP:$/
+DMPGR	symoniii.asm	/^DMPGR:$/
+DMTAB	symoniii.asm	/^DMTAB:$/
+DMULTAB	symoniii.asm	/^DMULTAB: .text  $00, $00, $00, $01 ;HEX weight of /
+DOCOM	symoniii.asm	/^DOCOM:$/
+DODIR	symoniii.asm	/^DODIR:$/
+DOLLAR	symoniii.asm	/^DOLLAR:$/
+DONEDEC	symoniii.asm	/^DONEDEC:$/
+DONEFILL	symoniii.asm	/^DONEFILL:$/
+DONESB	symoniii.asm	/^DONESB:$/
+DOUPLOAD	xmodem.asm	/^DOUPLOAD:$/
+DOWIPE	symoniii.asm	/^DOWIPE:$/
+DOWNLOAD	xmodem.asm	/^DOWNLOAD:	$/
+DRMB	symoniii.asm	/^DRMB:$/
+DSMB	symoniii.asm	/^DSMB:$/
+DUMPA	symoniii.asm	/^DUMPA:$/
+DUMPH	symoniii.asm	/^DUMPH:$/
+DUNSENG	symoniii.asm	/^DUNSENG:$/
+DUNSINC	symoniii.asm	/^DUNSINC:$/
+DZX	symoniii.asm	/^DZX:$/
+DZY	symoniii.asm	/^DZY:$/
+Done	xmodem.asm	/^Done:$/
+EDBKSPC	symoniii.asm	/^EDBKSPC:$/
+EDDOBKS	symoniii.asm	/^EDDOBKS:$/
+EDITDUN	symoniii.asm	/^EDITDUN:$/
+EDITOR	symoniii.asm	/^EDITOR:$/
+EDJMP1	symoniii.asm	/^EDJMP1:$/
+EDJMP2	symoniii.asm	/^EDJMP2:$/
+EDVWXIT	symoniii.asm	/^EDVWXIT:$/
+ENDIRQ	symoniii.asm	/^ENDIRQ:$/
+ENDUMP	symoniii.asm	/^ENDUMP:$/
+ENOTRET	symoniii.asm	/^ENOTRET:$/
+ENTER	symoniii.asm	/^ENTER:$/
+EOT	xmodem.asm	/^EOT		=	$04		; end of text marker$/
+ERR	symoniii.asm	/^ERR:$/
+ERRBS	symoniii.asm	/^ERRBS:$/
+ESC	xmodem.asm	/^ESC		=	$1b		; ESC to exit$/
+EXAMINE	symoniii.asm	/^EXAMINE:$/
+EXCEPTN1	symoniii.asm	/^EXCEPTN1:$/
+EXCEPTN2	symoniii.asm	/^EXCEPTN2:$/
+EXITRD	symoniii.asm	/^EXITRD:$/
+EXITUPLOAD	xmodem.asm	/^EXITUPLOAD:$/
+EXPIRE	symoniii.asm	/^EXPIRE:$/
+ErrMsg	xmodem.asm	/^ErrMsg:$/
+FILAST	symoniii.asm	/^FILAST:$/
+FILEFT	symoniii.asm	/^FILEFT:$/
+FIND	symoniii.asm	/^FIND:$/
+FULTST	symoniii.asm	/^FULTST:$/
+Flush	xmodem.asm	/^Flush:$/
+Flush1	xmodem.asm	/^Flush1:$/
+GETBYT	symoniii.asm	/^GETBYT:$/
+GETNXT	symoniii.asm	/^GETNXT:$/
+GET_UP_TO_16_CHR_STRING	symoniii.asm	/^GET_UP_TO_16_CHR_STRING:$/
+GLINE	symoniii.asm	/^GLINE:$/
+GLINEL	symoniii.asm	/^GLINEL:$/
+GO	symoniii.asm	/^GO:$/
+GetBlk	xmodem.asm	/^GetBlk:$/
+GetBlk2	xmodem.asm	/^GetBlk2:$/
+GoodBlk1	xmodem.asm	/^GoodBlk1:$/
+GoodBlk2	xmodem.asm	/^GoodBlk2:$/
+GoodCrc	xmodem.asm	/^GoodCrc:$/
+GoodMsg	xmodem.asm	/^GoodMsg:$/
+GotByte	xmodem.asm	/^GotByte:$/
+GotByte1	xmodem.asm	/^GotByte1:$/
+H2LOOP	symoniii.asm	/^H2LOOP:$/
+H2OK	symoniii.asm	/^H2OK:$/
+H4LOOP	symoniii.asm	/^H4LOOP:$/
+H4OK	symoniii.asm	/^H4OK:$/
+HDOADD	symoniii.asm	/^HDOADD:$/
+HEXDIGIT	symoniii.asm	/^HEXDIGIT:$/
+HEXIN	symoniii.asm	/^HEXIN:$/
+HEXIN2	symoniii.asm	/^HEXIN2:$/
+HEXIN4	symoniii.asm	/^HEXIN4:$/
+HEXINPUT	symoniii.asm	/^HEXINPUT:$/
+HEXOUT	symoniii.asm	/^HEXOUT:$/
+HEXOUTDN	symoniii.asm	/^HEXOUTDN:$/
+HEXOUTL	symoniii.asm	/^HEXOUTL:$/
+HEXTOASC	symoniii.asm	/^HEXTOASC:$/
+HEXTOBCD	symoniii.asm	/^HEXTOBCD: 		;Initialize (zero) output buffer. This/
+HEXTODEC	symoniii.asm	/^HEXTODEC:$/
+HINDONE	symoniii.asm	/^HINDONE:$/
+HMLTLOOP	symoniii.asm	/^HMLTLOOP:$/
+HMULTAB	symoniii.asm	/^HMULTAB:$/
+HNONZERO	symoniii.asm	/^HNONZERO:$/
+HPTAB	symoniii.asm	/^HPTAB:$/
+HTAB	symoniii.asm	/^HTAB:$/
+HTADONE	symoniii.asm	/^HTADONE:$/
+HTDDONE	symoniii.asm	/^HTDDONE:$/
+IME	symoniii.asm	/^IME:$/
+IMP	symoniii.asm	/^IMP:$/
+IN2	symoniii.asm	/^IN2:$/
+IN3	symoniii.asm	/^IN3:$/
+IN4	symoniii.asm	/^IN4:$/
+INC	symoniii.asm	/^INC:$/
+INCDONE	symoniii.asm	/^INCDONE:	$/
+INCINDEX	symoniii.asm	/^INCINDEX:$/
+INCNDX	symoniii.asm	/^INCNDX:$/
+INDABSX	symoniii.asm	/^INDABSX:$/
+INDJ	symoniii.asm	/^INDJ:$/
+INDX	symoniii.asm	/^INDX:$/
+INERR	symoniii.asm	/^INERR:$/
+INIMACRO	symoniii.asm	/^INIMACRO:$/
+INPUT	symoniii.asm	/^INPUT:$/
+INTERUPT	symoniii.asm	/^INTERUPT:$/
+ITER	symoniii.asm	/^ITER:$/
+IncBlk	xmodem.asm	/^IncBlk:$/
+JSUB	symoniii.asm	/^JSUB:$/
+JTAB	symoniii.asm	/^JTAB:$/
+JUMPS	symoniii.asm	/^JUMPS:$/
+JUST3	symoniii.asm	/^JUST3:$/
+JUST4	symoniii.asm	/^JUST4:$/
+JUSTBYTE	symoniii.asm	/^JUSTBYTE:$/
+KEYCONV	symoniii.asm	/^KEYCONV:$/
+LBR	symoniii.asm	/^LBR:$/
+LDAABS	symoniii.asm	/^LDAABS:$/
+LDAB	symoniii.asm	/^LDAB:$/
+LDABS	symoniii.asm	/^LDABS:$/
+LDACC	symoniii.asm	/^LDACC:$/
+LDAZX	symoniii.asm	/^LDAZX:$/
+LDIX	symoniii.asm	/^LDIX:$/
+LDNIM	symoniii.asm	/^LDNIM:$/
+LDXY	symoniii.asm	/^LDXY:$/
+LDZP	symoniii.asm	/^LDZP:$/
+LF	xmodem.asm	/^LF		=	$0a		; line feed$/
+LIST	symoniii.asm	/^LIST:$/
+LISTER	symoniii.asm	/^LISTER:$/
+LOCATE_BYTE_STRING	symoniii.asm	/^LOCATE_BYTE_STRING:$/
+LOCATE_TEXT_STRING	symoniii.asm	/^LOCATE_TEXT_STRING:$/
+LS1	symoniii.asm	/^LS1:$/
+LS2	symoniii.asm	/^LS2:$/
+LS4	symoniii.asm	/^LS4:$/
+LS5	symoniii.asm	/^LS5:$/
+LS6	symoniii.asm	/^LS6:$/
+LS7	symoniii.asm	/^LS7:$/
+LSPRD	symoniii.asm	/^LSPRD:$/
+LSTNEW	symoniii.asm	/^LSTNEW:$/
+LSTOR2	symoniii.asm	/^LSTOR2:$/
+LSTOR3	symoniii.asm	/^LSTOR3:$/
+LdBuff0	xmodem.asm	/^LdBuff0:$/
+LdBuff1	xmodem.asm	/^LdBuff1:$/
+LdBuff2	xmodem.asm	/^LdBuff2:$/
+LdBuff3	xmodem.asm	/^LdBuff3:$/
+LdBuff4	xmodem.asm	/^LdBuff4:$/
+LdBuff5	xmodem.asm	/^LdBuff5:$/
+LdBuffer	xmodem.asm	/^LdBuffer:$/
+MDLOOP	symoniii.asm	/^MDLOOP:$/
+MDUMP	symoniii.asm	/^MDUMP:$/
+MEMDMP	symoniii.asm	/^MEMDMP:$/
+MFILL	symoniii.asm	/^MFILL:	$/
+MNCHAR	symoniii.asm	/^MNCHAR:$/
+MNSTR	symoniii.asm	/^MNSTR:$/
+MONITOR	symoniii.asm	/^MONITOR:	$/
+MONPROHILO	symoniii.asm	/^MONPROHILO:	$/
+MONPROMPT	symoniii.asm	/^MONPROMPT:	$/
+MONTAB	symoniii.asm	/^MONTAB:	$/
+MORDIS	symoniii.asm	/^MORDIS:$/
+MORLOOP	symoniii.asm	/^MORLOOP:$/
+MOVER	symoniii.asm	/^MOVER:$/
+MPTAB	symoniii.asm	/^MPTAB:$/
+MSPC	symoniii.asm	/^MSPC:$/
+MTAB	symoniii.asm	/^MTAB:$/
+MULTIPLY	symoniii.asm	/^MULTIPLY:$/
+MULTPLI	symoniii.asm	/^MULTPLI .proc$/
+MVPAG	symoniii.asm	/^MVPAG:$/
+MVPGE	symoniii.asm	/^MVPGE:$/
+MVREST	symoniii.asm	/^MVREST:$/
+Msg	xmodem.asm	/^Msg:$/
+NAK	xmodem.asm	/^NAK		=	$15		; bad block acknowledged$/
+NCAREG	symoniii.asm	/^NCAREG:$/
+NCPREG	symoniii.asm	/^NCPREG:$/
+NCSREG	symoniii.asm	/^NCSREG:$/
+NCXREG	symoniii.asm	/^NCXREG:$/
+NCYREG	symoniii.asm	/^NCYREG:$/
+NEM	symoniii.asm	/^NEM:$/
+NEVERA	symoniii.asm	/^NEVERA:$/
+NEWADR	symoniii.asm	/^NEWADR:$/
+NEWLIN	symoniii.asm	/^NEWLIN:$/
+NEWQUERYADRS	symoniii.asm	/^NEWQUERYADRS:	$/
+NEWQUERYAGAIN	symoniii.asm	/^NEWQUERYAGAIN:	$/
+NEWQUERYDONE	symoniii.asm	/^NEWQUERYDONE:	$/
+NEWQUERYSTRS	symoniii.asm	/^NEWQUERYSTRS:$/
+NEXT	symoniii.asm	/^NEXT:$/
+NLIN	symoniii.asm	/^NLIN:$/
+NMON	symoniii.asm	/^NMON:$/
+NOABINX	symoniii.asm	/^NOABINX:$/
+NOIND	symoniii.asm	/^NOIND:$/
+NONZERO	symoniii.asm	/^NONZERO:$/
+NORMLFWD	symoniii.asm	/^NORMLFWD:$/
+NOTA	symoniii.asm	/^NOTA:$/
+NOTESC	symoniii.asm	/^NOTESC:$/
+NOTIMED	symoniii.asm	/^NOTIMED:$/
+NOTIND	symoniii.asm	/^NOTIND:$/
+NOTIXY	symoniii.asm	/^NOTIXY:$/
+NOTLESS	symoniii.asm	/^NOTLESS:$/
+NOTSPC	symoniii.asm	/^NOTSPC:$/
+NOTZ2S	symoniii.asm	/^NOTZ2S:$/
+NQDONE	symoniii.asm	/^NQDONE:$/
+NXTREG	symoniii.asm	/^NXTREG:$/
+OCTAB	symoniii.asm	/^OCTAB:$/
+OPTAB	symoniii.asm	/^OPTAB:$/
+OUTPUT	symoniii.asm	/^OUTPUT:$/
+OVERFLOW	symoniii.asm	/^OVERFLOW:$/
+PERIOD	symoniii.asm	/^PERIOD:$/
+PGFILL	symoniii.asm	/^PGFILL:$/
+PR	symoniii.asm	/^PR:$/
+PR1	symoniii.asm	/^PR1:$/
+PR2	symoniii.asm	/^PR2:$/
+PRASC	symoniii.asm	/^PRASC:$/
+PRBIT	symoniii.asm	/^PRBIT:$/
+PRBYTE	symoniii.asm	/^PRBYTE:$/
+PRG	symoniii.asm	/^PRG:$/
+PRINDX	symoniii.asm	/^PRINDX:$/
+PRML	symoniii.asm	/^PRML:$/
+PRMNEM	symoniii.asm	/^PRMNEM:$/
+PRNXT	symoniii.asm	/^PRNXT:$/
+PROMPT	symoniii.asm	/^PROMPT:$/
+PROMPT2	symoniii.asm	/^PROMPT2:$/
+PRSTAT	symoniii.asm	/^PRSTAT:$/
+PrintMsg	xmodem.asm	/^PrintMsg:$/
+Print_Err	xmodem.asm	/^Print_Err:$/
+Print_Good	xmodem.asm	/^Print_Good:	$/
+PrtAbort	xmodem.asm	/^PrtAbort:$/
+QUERY	symoniii.asm	/^QUERY:$/
+QUITFILL	symoniii.asm	/^QUITFILL:$/
+QUITMV	symoniii.asm	/^QUITMV:$/
+QUITP	symoniii.asm	/^QUITP:$/
+RBR	symoniii.asm	/^RBR:$/
+RDCHAR	symoniii.asm	/^RDCHAR:$/
+RDEC	symoniii.asm	/^RDEC:$/
+RDLINE	symoniii.asm	/^RDLINE:$/
+RDLOOP	symoniii.asm	/^RDLOOP:$/
+RDLOOP2	symoniii.asm	/^RDLOOP2:$/
+RDNDX	symoniii.asm	/^RDNDX:$/
+RDONE	symoniii.asm	/^RDONE:$/
+RDoneNow	xmodem.asm	/^RDoneNow:$/
+READ	symoniii.asm	/^READ:$/
+RECODE	symoniii.asm	/^RECODE:$/
+REENTR	symoniii.asm	/^REENTR:$/
+REGARA	symoniii.asm	/^REGARA:$/
+REL	symoniii.asm	/^REL:$/
+RELATIVE	symoniii.asm	/^RELATIVE:$/
+RELLOOP	symoniii.asm	/^RELLOOP:$/
+REORIG	symoniii.asm	/^REORIG:$/
+RESREGS	symoniii.asm	/^RESREGS:$/
+REST	symoniii.asm	/^REST:$/
+RET	symoniii.asm	/^RET:$/
+RIGHT	symoniii.asm	/^RIGHT:$/
+RMBM	symoniii.asm	/^RMBM:$/
+RMOV	symoniii.asm	/^RMOV:$/
+RT	symoniii.asm	/^RT:$/
+RUNMACRO	symoniii.asm	/^RUNMACRO:$/
+Rbuff	xmodem.asm	/^Rbuff		=	$0300      	; temp 132 byte receive buffe/
+Resend	xmodem.asm	/^Resend:$/
+SAVLST	symoniii.asm	/^SAVLST:$/
+SAVREGS	symoniii.asm	/^SAVREGS:$/
+SBDONE	symoniii.asm	/^SBDONE:$/
+SBLOOP	symoniii.asm	/^SBLOOP:$/
+SBYTSTR	symoniii.asm	/^SBYTSTR:$/
+SCalcCRC	xmodem.asm	/^SCalcCRC:$/
+SENDIGIT	symoniii.asm	/^SENDIGIT:$/
+SENDIT	symoniii.asm	/^SENDIT:$/
+SENGBR1	symoniii.asm	/^SENGBR1:$/
+SENGBR2	symoniii.asm	/^SENGBR2:$/
+SENGBR3	symoniii.asm	/^SENGBR3:$/
+SENGINE	symoniii.asm	/^SENGINE:$/
+SET	symoniii.asm	/^SET:$/
+SETUP	symoniii.asm	/^SETUP:$/
+SHEXIN4	symoniii.asm	/^SHEXIN4:$/
+SHFT3	symoniii.asm	/^SHFT3:$/
+SHIFT	symoniii.asm	/^SHIFT:$/
+SHRO	symoniii.asm	/^SHRO:$/
+SHROAB	symoniii.asm	/^SHROAB:$/
+SHROZP	symoniii.asm	/^SHROZP:$/
+SIN	symoniii.asm	/^SIN:$/
+SINCPTR	symoniii.asm	/^SINCPTR:$/
+SKIP1	symoniii.asm	/^SKIP1:$/
+SKIP2	symoniii.asm	/^SKIP2:$/
+SKIP3	symoniii.asm	/^SKIP3:$/
+SLOOP	symoniii.asm	/^SLOOP:$/
+SMBM	symoniii.asm	/^SMBM:$/
+SOH	xmodem.asm	/^SOH		=	$01		; start block$/
+SPC	symoniii.asm	/^SPC:$/
+SPC2	symoniii.asm	/^SPC2:$/
+SPC4	symoniii.asm	/^SPC4:$/
+SPCRD	symoniii.asm	/^SPCRD:$/
+SR	symoniii.asm	/^SR:$/
+SRAB	symoniii.asm	/^SRAB:$/
+SRBIT	symoniii.asm	/^SRBIT:$/
+SRBIT2	symoniii.asm	/^SRBIT2:$/
+SRCHRDY	symoniii.asm	/^SRCHRDY:$/
+SRG	symoniii.asm	/^SRG:$/
+SRM	symoniii.asm	/^SRM:$/
+SRMB	symoniii.asm	/^SRMB:$/
+SRMB2	symoniii.asm	/^SRMB2:$/
+STAB	symoniii.asm	/^STAB:$/
+STACC	symoniii.asm	/^STACC:$/
+STAIN	symoniii.asm	/^STAIN:$/
+STBR1	symoniii.asm	/^STBR1:$/
+STBR2	symoniii.asm	/^STBR2:$/
+STBR3	symoniii.asm	/^STBR3:$/
+STLOOP	symoniii.asm	/^STLOOP:$/
+STOR	symoniii.asm	/^STOR:$/
+STOR2	symoniii.asm	/^STOR2:$/
+STOR3	symoniii.asm	/^STOR3:$/
+STORLF	symoniii.asm	/^STORLF:$/
+STOZ	symoniii.asm	/^STOZ:$/
+STRCH	symoniii.asm	/^STRCH:$/
+STRINGL	symoniii.asm	/^STRINGL:$/
+STXY	symoniii.asm	/^STXY:$/
+STZP	symoniii.asm	/^STZP:$/
+SUBTRACT	symoniii.asm	/^SUBTRACT:$/
+SWAIT	symoniii.asm	/^SWAIT:$/
+SendBlk	xmodem.asm	/^SendBlk:$/
+Seterror	xmodem.asm	/^Seterror:$/
+SetstAddr	xmodem.asm	/^SetstAddr:$/
+StartBlk	xmodem.asm	/^StartBlk:$/
+StartCrc	xmodem.asm	/^StartCrc:$/
+TEXT	symoniii.asm	/^TEXT:$/
+THX	symoniii.asm	/^THX:$/
+THY	symoniii.asm	/^THY:$/
+TIME	symoniii.asm	/^TIME:$/
+TIMER	symoniii.asm	/^TIMER:$/
+TIMERL	symoniii.asm	/^TIMERL:$/
+TOOFAR	symoniii.asm	/^TOOFAR:$/
+TOOHI	symoniii.asm	/^TOOHI:$/
+TRIBYT	symoniii.asm	/^TRIBYT:$/
+TSRB	symoniii.asm	/^TSRB:$/
+TSRBIN	symoniii.asm	/^TSRBIN:$/
+TWOBYT	symoniii.asm	/^TWOBYT:$/
+UPLOAD	xmodem.asm	/^UPLOAD:	$/
+USER	symoniii.asm	/^USER:$/
+USERFILL	symoniii.asm	/^USERFILL:$/
+VIEWEXIT	symoniii.asm	/^VIEWEXIT:$/
+VIEWTXT	symoniii.asm	/^VIEWTXT:$/
+VQUERY	symoniii.asm	/^VQUERY:$/
+WAIT	symoniii.asm	/^WAIT:$/
+WATCH	symoniii.asm	/^WATCH:$/
+WATCHL	symoniii.asm	/^WATCHL:$/
+WDLOOP	symoniii.asm	/^WDLOOP:$/
+WDOK	symoniii.asm	/^WDOK:$/
+WIPE	symoniii.asm	/^WIPE:$/
+WIPELOOP	symoniii.asm	/^WIPELOOP:$/
+WITCHWAY	symoniii.asm	/^WITCHWAY:$/
+WORD	symoniii.asm	/^WORD:$/
+Wait4CRC	xmodem.asm	/^Wait4CRC:$/
+X2	symoniii.asm	/^X2:$/
+X3	symoniii.asm	/^X3:$/
+XITDMP	symoniii.asm	/^XITDMP:$/
+XITR	symoniii.asm	/^XITR:$/
+XITWR	symoniii.asm	/^XITWR:$/
+XModemRcv	xmodem.asm	/^XModemRcv:$/
+XModemSend	xmodem.asm	/^XModemSend:$/
+XR	symoniii.asm	/^XR:$/
+XRG	symoniii.asm	/^XRG:$/
+XYNOIM	symoniii.asm	/^XYNOIM:$/
+YR	symoniii.asm	/^YR:$/
+YRG	symoniii.asm	/^YRG:$/
+Z2SOK	symoniii.asm	/^Z2SOK:$/
+ZERO	symoniii.asm	/^ZERO:$/
+ZEROABS	symoniii.asm	/^ZEROABS:$/
+ZPDIND	symoniii.asm	/^ZPDIND:$/
+ZPIND	symoniii.asm	/^ZPIND:$/
+bflag	xmodem.asm	/^bflag		=	$a7		; block flag $/
+blkno	xmodem.asm	/^blkno		=	$a6		; block number $/
+crc	xmodem.asm	/^crc		=	$a8		; CRC lo byte  (two byte variable)$/
+crch	xmodem.asm	/^crch		=	$a9		; CRC hi byte  $/
+crchi	xmodem.asm	/^crchi:$/
+crclo	xmodem.asm	/^crclo:	$/
+done	basic_ide_routines.asm	/^done   	lda ide_register7	;get status in A$/
+done	basic_ide_routines.asm	/^done   	beq ide_to2$/
+eofp	xmodem.asm	/^eofp		=	TEMP2		; end of file address pointer (2 by/
+eofph	xmodem.asm	/^eofph		=	TEMP2H		;  "	"	"	"$/
+errcnt	xmodem.asm	/^errcnt		=	$a7		; error counter 10 is the limit$/
+ide_blp	basic_ide_routines.asm	/^ide_blp	$/
+ide_dlp	basic_ide_routines.asm	/^ide_dlp	$/
+ide_get_id	basic_ide_routines.asm	/^ide_get_id .proc$/
+ide_high_byte	basic_ide_routines.asm	/^ide_high_byte = $7f48$/
+ide_id_drive_cmd	basic_ide_routines.asm	/^ide_id_drive_cmd = $ec$/
+ide_init_status	basic_ide_routines.asm	/^ide_init_status .proc$/
+ide_lba0	basic_ide_routines.asm	/^ide_lba0 = $52			; LBA of desired sector LSB$/
+ide_lba1	basic_ide_routines.asm	/^ide_lba1 = ide_lba0 + 1 $/
+ide_lba2	basic_ide_routines.asm	/^ide_lba2 = ide_lba1 + 1$/
+ide_lba3	basic_ide_routines.asm	/^ide_lba3 = ide_lba2 + 1 	; - LBA of desired sector/
+ide_read_buffer	basic_ide_routines.asm	/^ide_read_buffer .proc$/
+ide_read_sector	basic_ide_routines.asm	/^ide_read_sector .proc$/
+ide_read_sector_cmd	basic_ide_routines.asm	/^ide_read_sector_cmd = $20$/
+ide_register0	basic_ide_routines.asm	/^ide_register0 = $7f40		; PLUTO IN\/OUT addresses fo/
+ide_register1	basic_ide_routines.asm	/^ide_register1 = $7f41$/
+ide_register2	basic_ide_routines.asm	/^ide_register2 = $7f42$/
+ide_register3	basic_ide_routines.asm	/^ide_register3 = $7f43$/
+ide_register4	basic_ide_routines.asm	/^ide_register4 = $7f44$/
+ide_register5	basic_ide_routines.asm	/^ide_register5 = $7f45$/
+ide_register6	basic_ide_routines.asm	/^ide_register6 = $7f46$/
+ide_register7	basic_ide_routines.asm	/^ide_register7 = $7f47$/
+ide_setup_lba	basic_ide_routines.asm	/^ide_setup_lba .proc$/
+ide_status	basic_ide_routines.asm	/^ide_status = $58$/
+ide_test_error	basic_ide_routines.asm	/^ide_test_error .proc$/
+ide_time_out	basic_ide_routines.asm	/^ide_time_out	$/
+ide_to2	basic_ide_routines.asm	/^ide_to2	$/
+ide_wait_buffer	basic_ide_routines.asm	/^ide_wait_buffer .proc$/
+ide_wait_busy_ready	basic_ide_routines.asm	/^ide_wait_busy_ready .proc$/
+ide_write_buffer	basic_ide_routines.asm	/^ide_write_buffer .proc$/
+ide_write_sector	basic_ide_routines.asm	/^ide_write_sector .proc$/
+ide_write_sector_cmd	basic_ide_routines.asm	/^ide_write_sector_cmd = $30$/
+lastblk	xmodem.asm	/^lastblk		=	$a5		; flag for last block$/
+master_slave_select	basic_ide_routines.asm	/^master_slave_select .proc$/
+ok	basic_ide_routines.asm	/^ok    	$/
+ptr	xmodem.asm	/^ptr		=	INDEX		; data pointer (two byte variable)$/
+ptrh	xmodem.asm	/^ptrh		=	INDEXH 		;   "    "$/
+retry	xmodem.asm	/^retry		=	$ae		; retry counter $/
+retry2	xmodem.asm	/^retry2		=	$af		; 2nd counter$/
+sector_buffer_ptr	basic_ide_routines.asm	/^sector_buffer_ptr = $50$/
+tmp	basic_ide_routines.asm	/^tmp = $70$/

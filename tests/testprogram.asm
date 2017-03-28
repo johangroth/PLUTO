@@ -1,22 +1,24 @@
       	* = $8000
+via = $7fc0
+ram = $0400
 
 start 	ldx #$ff
       	txs		; initialise stack pointer
       	lda #$ff	; set VIA ports to output
-      	sta $7fc2
-      	sta $7fc3
+      	sta via+2
+      	sta via+3
 
 ; check RAM decoding works as it should
 	ldx #00
 
 ; fill a page with $55
 	lda #$55
-l1	sta $0400,x
+l1	sta ram,x
 	dex
 	bne l1
 
 ; check page is filled with $55
-l2	lda $0400,x
+l2	lda ram,x
 	cmp #$55
 	bne l3 		; no, decoding failed at offset x
 	dex		; yepp, still $55
@@ -25,8 +27,8 @@ l2	lda $0400,x
 
 ; if not, indicate this with another pattern.
 l3	lda #$aa
-again 	sta $7fc0	; output A to the VIA ports
-      	sta $7fc1
+again 	sta via	; output A to the VIA ports
+      	sta via+1
       	jmp again	; loop for all eternity
 
       	* = $fffa

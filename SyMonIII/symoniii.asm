@@ -82,14 +82,14 @@
                        ; by SyMon's IRQ service routine.
 ;
 ;ACIA device address:
-	SIODAT   = $7F70    ;ACIA data register   <--put your 6551 ACIA base address here (REQUIRED!)************************
+	SIODAT   = $7FE0    ;ACIA data register   <--put your 6551 ACIA base address here (REQUIRED!)************************
 	SIOSTAT  = SIODAT+1 ;ACIA status REGISTER
 	SIOCOM   = SIODAT+2 ;ACIA command REGISTER
 	SIOCON   = SIODAT+3 ;ACIA control REGISTER
 ;
 
 ;;; VIA device address:
-	VIARB	= $7F60		;Write Output Register B, Read Input Register B
+	VIARB	= $7FC0		;Write Output Register B, Read Input Register B
 	VIARA	= VIARB+1	;Write Output Register A, Read Input Register A
 	VIADDRB = VIARB+2	;Data Direction Register B
 	VIADDRA = VIARB+3	;Data Direction Register A
@@ -197,7 +197,7 @@ A2DCONV:
 ;DEC4AND5 ($E7)
 ;DEC6AND7 ($E8)
 ;DEC8AND9 ($E9) Two least significant BCD digits
-BCDOUT:
+BCDOUT	.proc
 	LDX  #$00     ;Initialize BCD output buffer index: point to MSB
         LDY  #$00     ;Initialize leading zero flag: no non-zero digits have been processed
 BCDOUTL:
@@ -219,9 +219,11 @@ BCDOUTL:
         JSR  COUT
 BCDOUTDN:
 	RTS           ;Done BCDOUT subroutine, RETURN
+	.pend
+
 ;BCDTOASC subroutine:
 ; convert BCD digit to ASCII DECIMAL digit, send digit to terminal IF it's not a leading zero
-BCDTOASC:
+BCDTOASC .proc
 	BNE  NONZERO  ;GOTO NONZERO IF BCD digit <> 0
         CPY  #$00     ; ELSE, GOTO BTADONE IF no non-zero digits have been processed
         BEQ  BTADONE  ;  (supress output of leading zeros)
@@ -232,6 +234,8 @@ NONZERO:
         JSR  COUT     ;Send converted digit to terminal
 BTADONE:
 	RTS           ;Done BCDTOASC subroutine, RETURN
+	.pend
+
 ;
 ;BCDTOHEX subroutine: convert a 1-10 digit BCD value to a 1-8 digit HEX value.
 ; Call with 10 digit (5 byte) DECIMAL value in DEC0AND1(MSB) through DEC8AND9(LSB).
@@ -251,7 +255,7 @@ BTADONE:
 ;HEX2AND3
 ;HEX4AND5
 ;HEX6AND7 Two least significant HEX digits
-BCDTOHEX:		;Initialize (zero) output buffer. This is an 8 digit (4 byte) HEX accumulator
+BCDTOHEX	.proc		;Initialize (zero) output buffer. This is an 8 digit (4 byte) HEX accumulator
         STZ  HEX0AND1
         STZ  HEX2AND3
         STZ  HEX4AND5
@@ -279,15 +283,18 @@ BCDLOOP:
         DEY           ;Decrement DECIMAL input buffer byte index
         BNE  BCDLOOP  ;LOOP back to BCDLOOP IF byte index <> 0: there are more bytes to process
         RTS           ; ELSE, done BCDTOHEX subroutine, RETURN
+	.pend
+
 ;Multiply indexed multiplicand by digit in ACCUMULATOR
-MULTPLI:
+MULTPLI .proc
 	JSR  SAVREGS  ;Save A,X,Y REGISTERS on STACK
         TAY           ;Copy digit to Y REGISTER: multiplier loop counter
 DMLTLOOP:
-	CPY  #$00
+	; CPY  #$00   ;Surely, TAY sets the Z-flag so CMP unnecessary.
         BNE  DDOADD   ;GOTO DDOADD IF multiplier loop counter <> 0
         JSR  RESREGS  ; ELSE, pull A,X,Y REGISTERS from STACK
         RTS           ;Done MULTIPLI subroutine, RETURN
+
 ;Add indexed multiplicand to HEX accumulator (output buffer)
 DDOADD:
 	CLC
@@ -310,6 +317,8 @@ OVERFLOW:
 	LDA  #$2A     ;Send "*" to terminal: indicate that an overflow has occured
         JSR  COUT
         JMP  DMLTLOOP ;LOOP back to DMLTLOOP
+	.pend
+
 ;HEX multiplicand table:
 DMULTAB: .text  $00, $00, $00, $01 ;HEX weight of least significant BCD digit
          .text  $00, $00, $00, $0A
