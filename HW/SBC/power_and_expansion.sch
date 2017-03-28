@@ -416,7 +416,29 @@ Wire Wire Line
 Wire Wire Line
 	2425 2275 2425 2500
 Wire Wire Line
-	1900 2500 5625 2500
+	1900 2500 2425 2500
+Wire Wire Line
+	2425 2500 2825 2500
+Wire Wire Line
+	2825 2500 3225 2500
+Wire Wire Line
+	3225 2500 3550 2500
+Wire Wire Line
+	3550 2500 3800 2500
+Wire Wire Line
+	3800 2500 4050 2500
+Wire Wire Line
+	4050 2500 4300 2500
+Wire Wire Line
+	4300 2500 4550 2500
+Wire Wire Line
+	4550 2500 4800 2500
+Wire Wire Line
+	4800 2500 5050 2500
+Wire Wire Line
+	5050 2500 5300 2500
+Wire Wire Line
+	5300 2500 5625 2500
 Wire Wire Line
 	3225 2500 3225 2275
 Connection ~ 2825 2500
@@ -436,7 +458,23 @@ Wire Wire Line
 Wire Wire Line
 	1900 2125 1900 2500
 Wire Wire Line
-	3225 1650 5625 1650
+	3225 1650 3550 1650
+Wire Wire Line
+	3550 1650 3800 1650
+Wire Wire Line
+	3800 1650 4050 1650
+Wire Wire Line
+	4050 1650 4300 1650
+Wire Wire Line
+	4300 1650 4550 1650
+Wire Wire Line
+	4550 1650 4800 1650
+Wire Wire Line
+	4800 1650 5050 1650
+Wire Wire Line
+	5050 1650 5300 1650
+Wire Wire Line
+	5300 1650 5625 1650
 Wire Wire Line
 	3550 1750 3550 1650
 Connection ~ 3550 1650
@@ -491,7 +529,9 @@ $EndComp
 Wire Wire Line
 	3350 3725 3350 3500
 Wire Wire Line
-	3350 3500 3850 3500
+	3350 3500 3600 3500
+Wire Wire Line
+	3600 3500 3850 3500
 Wire Wire Line
 	3850 3500 3850 3725
 Connection ~ 3600 3500
@@ -509,7 +549,9 @@ $EndComp
 Wire Wire Line
 	3350 6125 3350 6325
 Wire Wire Line
-	3350 6325 3850 6325
+	3350 6325 3600 6325
+Wire Wire Line
+	3600 6325 3850 6325
 Wire Wire Line
 	3850 6325 3850 6125
 Connection ~ 3600 6325
@@ -667,7 +709,6 @@ Wire Wire Line
 	4250 5875 3850 5625
 Wire Wire Line
 	4250 6025 3850 5725
-NoConn ~ 3850 5825
 NoConn ~ 3850 5925
 NoConn ~ 3850 6025
 Connection ~ 3225 2500
@@ -690,4 +731,8 @@ F 3 "" H 5625 2500 50  0001 C CNN
 	1    5625 2500
 	1    0    0    -1  
 $EndComp
+Text GLabel 4250 6175 2    60   Input ~ 0
+~7FAX
+Wire Wire Line
+	4250 6175 3850 5825
 $EndSCHEMATC
