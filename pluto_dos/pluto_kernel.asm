@@ -82,7 +82,7 @@
                        ; by SyMon's IRQ service routine.
 ;
 ;ACIA device address:
-	SIODAT   = $7F70    	;ACIA data register   <--put your 6551 ACIA base address here
+	SIODAT   = $7FE0    	;ACIA data register   <--put your 6551 ACIA base address here
 				;(REQUIRED!)
 
 	SIOSTAT  = SIODAT+1 	;ACIA status REGISTER
@@ -91,8 +91,8 @@
 ;
 
 ;;; VIA device address:
-	VIARB	= $7F60		;Write Output Register B, Read Input Register B
-	VIARA	= VIARB+1	;Write Output Register A, Read Input Register A
+	VIARB   = $7FC0	;Write Output Register B, Read Input Register B
+	VIARA   = VIARB+1	;Write Output Register A, Read Input Register A
 	VIADDRB = VIARB+2	;Data Direction Register B
 	VIADDRA = VIARB+3	;Data Direction Register A
 	VIAT1CL = VIARB+4	;Write T1 Low-Order Latches, Read T1 Low-Order Counter
@@ -129,49 +129,49 @@
 ; Returns: ACCUMULATOR = binary value
 ASC2BN 	.proc
 	PHA           ;Save high digit on STACK
-        TYA           ;Copy low digit to ACCUMULATOR
-        JSR  BINARY   ;Convert digit to binary nybble: result in low nybble
-        STA  TEMP     ;Store low nybble
-        PLA           ;Pull high digit from STACK
-        JSR  BINARY   ;Convert digit to binary nybble: result in low nybble
-        ASL        ;Move low nybble to high nybble
-        ASL
-        ASL
-        ASL
-        ORA  TEMP     ;OR high nybble with stored low nybble
-        RTS           ;Done ASC2BN subroutine, RETURN
+                                  TYA           ;Copy low digit to ACCUMULATOR
+                                  JSR  BINARY   ;Convert digit to binary nybble: result in low nybble
+                                  STA  TEMP     ;Store low nybble
+                                  PLA           ;Pull high digit from STACK
+                                  JSR  BINARY   ;Convert digit to binary nybble: result in low nybble
+                                  ASL        ;Move low nybble to high nybble
+                                  ASL
+                                  ASL
+                                  ASL
+                                  ORA  TEMP     ;OR high nybble with stored low nybble
+                                  RTS           ;Done ASC2BN subroutine, RETURN
 BINARY:
 	SEC           ;Clear BORROW
-        SBC  #$30     ;Subtract $30 from ASCII HEX digit
-        CMP  #$0A     ;GOTO BNOK IF result < $0A
-        BCC  BNOK
-        SBC  #$07     ; ELSE, subtract $07 from result
+                                  SBC  #$30     ;Subtract $30 from ASCII HEX digit
+                                  CMP  #$0A     ;GOTO BNOK IF result < $0A
+                                  BCC  BNOK
+                                  SBC  #$07     ; ELSE, subtract $07 from result
 BNOK:
 	RTS           ;Done BINARY subroutine, RETURN
 	.pend
 ;
 ;ASCTODEC subroutine: convert ASCII DECIMAL digits to BCD
-ASCTODEC .proc		;Initialize (zero) BCD digit input buffer:
-        STZ  DEC0AND1 ; two most significant BCD digits
-        STZ  DEC2AND3
-        STZ  DEC4AND5
-        STZ  DEC6AND7
-        STZ  DEC8AND9 ; two least significant BCD digits
-        LDX  BUFIDX   ;Read number of digits entered: ASCII digit buffer index
-        BEQ  A2DDONE  ;GOTO A2DDONE IF BUFIDX = 0: no digits were entered
-        LDY  #$05     ; ELSE, Initialize BCD input buffer index: process up to 5 BCD bytes (10 digits)
+ASCTODEC                          .proc         ;Initialize (zero) BCD digit input buffer:
+                                  STZ  DEC0AND1 ; two most significant BCD digits
+                                  STZ  DEC2AND3
+                                  STZ  DEC4AND5
+                                  STZ  DEC6AND7
+                                  STZ  DEC8AND9 ; two least significant BCD digits
+                                  LDX  BUFIDX   ;Read number of digits entered: ASCII digit buffer index
+                                  BEQ  A2DDONE  ;GOTO A2DDONE IF BUFIDX = 0: no digits were entered
+                                  LDY  #$05     ; ELSE, Initialize BCD input buffer index: process up to 5 BCD bytes (10 digits)
 ATODLOOP:
 	JSR  A2DSUB   ;Read ASCII digit then convert to BCD
-        STA  DPHANTOM,Y ;Write BCD digit to indexed buffer location (index always > 0)
-        JSR  A2DSUB   ;Read ASCII digit then convert to BCD
-        ASL        ;Make this BCD digit the more significant in the BCD byte
-        ASL
-        ASL
-        ASL
-        ORA  DPHANTOM,Y ;OR with the less significant digit
-        STA  DPHANTOM,Y ;Write BCD byte to indexed buffer location (index always > 0)
-        DEY           ;Decrement BCD input buffer index
-        BNE  ATODLOOP ;GOTO ATODLOOP IF buffer index <> 0: there is room to process another digit
+                                  STA  DPHANTOM,Y ;Write BCD digit to indexed buffer location (index always > 0)
+                                  JSR  A2DSUB   ;Read ASCII digit then convert to BCD
+                                  ASL        ;Make this BCD digit the more significant in the BCD byte
+                                  ASL
+                                  ASL
+                                  ASL
+                                  ORA  DPHANTOM,Y ;OR with the less significant digit
+                                  STA  DPHANTOM,Y ;Write BCD byte to indexed buffer location (index always > 0)
+                                  DEY           ;Decrement BCD input buffer index
+                                  BNE  ATODLOOP ;GOTO ATODLOOP IF buffer index <> 0: there is room to process another digit
 A2DDONE:
 	RTS           ; ELSE, done ASCTODEC, RETURN
 	.pend

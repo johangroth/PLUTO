@@ -3,8 +3,7 @@
 ;-------------------------------------------------------------------------------
 ;
 ;-------------------------------------------------------------------------------
-;- Converted to 65C02 assembler by Johan Groth using Daryl Rictor's memory map
-;- for his SBC-2
+;- Converted to 65C02 assembler by Johan Groth
 ;
 ; Note this code uses big-endian words purely so that the ASCII characters from
 ; the GET_ID command appear in the correct sequence. If using this code to
@@ -70,7 +69,7 @@ tmp3 = tmp+3
 
 ;;; --------------------------------------------------------------------------
 ;;; Initialise ide
-ide_init_devices .proc
+ide_init_devices                  .proc
 	lda #$00
 	sta sector_buffer_ptr
 	lda #$04
@@ -79,14 +78,14 @@ ide_init_devices .proc
 
 ;-----------------------------------------------------------------------------
 
-ide_init_status .proc
+ide_init_status                   .proc
 	stz ide_status
 	rts
 	.pend
 
 ;-----------------------------------------------------------------------------
 
-ide_read_sector .proc
+ide_read_sector                   .proc
 
 	jsr ide_setup_lba		;tell ide what drive/sector is required
 	jsr ide_wait_busy_ready		;make sure drive is ready to proceed
@@ -109,7 +108,7 @@ error
 
 ;-----------------------------------------------------------------------------
 
-ide_write_sector .proc
+ide_write_sector                  .proc
 
   	jsr ide_setup_lba		;tell ide what drive/sector is required
   	jsr ide_wait_busy_ready		;make sure drive is ready to proceed
@@ -132,7 +131,7 @@ error
 
 ;-----------------------------------------------------------------------------
 
-ide_get_id .proc
+ide_get_id                        .proc
 
   	lda #%10100000
   	jsr master_slave_select
@@ -153,7 +152,7 @@ error
 master_slave=$81
 delay_counter=$82
 
-ide_wait_busy_ready .proc
+ide_wait_busy_ready               .proc
 
     	lda ide_status		;choose bit 1 or bit 2 to test for previous
     	and #1		      	;access depending on master or slave drive
@@ -191,7 +190,7 @@ ide_time_out
 
 ;----------------------------------------------------------------------------
 
-ide_test_error .proc
+ide_test_error                    .proc
 
     	sec			;carry set = all OK
     	lda ide_register7	;get status in A
@@ -224,7 +223,7 @@ ide_blp
 	bne notdone
     	inc tmp1
 done   	beq ide_to2
-notdone lda ide_register7
+notdone                           lda ide_register7
 	sta tmp2
 	bbr 3,tmp2,ide_wdrq
     	;and #%100			;to fill (or ready to fill)
@@ -238,7 +237,7 @@ ide_to2
 
 ;------------------------------------------------------------------------------
 
-ide_read_buffer .proc
+ide_read_buffer                   .proc
 
 	stz sector_buffer_ptr
 	lda #$7d
@@ -260,7 +259,7 @@ idebufrd
 
 ;-----------------------------------------------------------------------------
 
-ide_write_buffer .proc
+ide_write_buffer                  .proc
 
 	stz sector_buffer_ptr
 	lda #$7d
@@ -283,7 +282,7 @@ idebufwt
 
 ;-----------------------------------------------------------------------------
 
-ide_setup_lba .proc
+ide_setup_lba                     .proc
 
     	lda #1
     	sta ide_register2	;set sector count to 1
@@ -303,7 +302,7 @@ ide_setup_lba .proc
 
 ;----------------------------------------------------------------------------------------
 
-master_slave_select .proc
+master_slave_select               .proc
 
 	lda ide_status
 	bbr 0, ide_status, ide_mast
