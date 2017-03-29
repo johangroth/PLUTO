@@ -40,15 +40,15 @@
 ;
 ;-----------------------------------------------------------------------------
 
-ide_register0 = $7f40		; PLUTO IN/OUT addresses for IDE port
-ide_register1 = $7f41
-ide_register2 = $7f42
-ide_register3 = $7f43
-ide_register4 = $7f44
-ide_register5 = $7f45
-ide_register6 = $7f46
-ide_register7 = $7f47
-ide_high_byte = $7f48
+ide_register0 = $7f80		; PLUTO IN/OUT addresses for IDE port
+ide_register1 = $7f81
+ide_register2 = $7f82
+ide_register3 = $7f83
+ide_register4 = $7f84
+ide_register5 = $7f85
+ide_register6 = $7f86
+ide_register7 = $7f87
+ide_high_byte = $7f88
 
 ide_read_sector_cmd = $20
 ide_write_sector_cmd = $30
@@ -64,6 +64,9 @@ ide_status = $58
 ide_id_drive_cmd = $ec
 
 tmp = $70
+tmp1 = tmp+1
+tmp2 = tmp+2
+tmp3 = tmp+3
 
 ;;; --------------------------------------------------------------------------
 ;;; Initialise ide
@@ -203,26 +206,26 @@ ok
 	.pend
 
 ;-----------------------------------------------------------------------------
-
+; 
 ide_wait_buffer .proc
-d = $72
-e = $74
 
-    	stz d
-	stz e
+    	stz tmp
+	stz tmp1
 
 ide_wdrq
 	ldx #50			;wait 5 seconds approx
 ide_blp
 	dex
 	bne ide_blp
-    	inc d
-	bne done
-    	inc e
+    	inc tmp
+	bne notdone
+    	inc tmp1
 done   	beq ide_to2
-    	lda ide_register7
-    	and #%100			;to fill (or ready to fill)
-    	beq ide_wdrq
+notdone lda ide_register7
+	sta tmp2
+	bbr 3,tmp2,ide_wdrq
+    	;and #%100			;to fill (or ready to fill)
+    	;beq ide_wdrq
     	sec			;carry 1 = ok
     	rts
 ide_to2

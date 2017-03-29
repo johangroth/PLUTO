@@ -22,7 +22,7 @@ ANOTESC	pluto_kernel.asm	/^ANOTESC:$/
 AOK	pluto_kernel.asm	/^AOK:$/
 AQUERY	pluto_kernel.asm	/^AQUERY:$/
 ASC2BN	pluto_kernel.asm	/^ASC2BN 	.proc$/
-ASCII	pluto_kernel.asm	/^ASCII:$/
+ASCII	pluto_kernel.asm	/^ASCII	.proc$/
 ASCOUT	pluto_kernel.asm	/^ASCOUT:$/
 ASCTODEC	pluto_kernel.asm	/^ASCTODEC .proc		;Initialize (zero) BCD digit input/
 ASMPROHILO	pluto_kernel.asm	/^ASMPROHILO:$/
@@ -42,18 +42,18 @@ BBREL	pluto_kernel.asm	/^BBREL:$/
 BBRM	pluto_kernel.asm	/^BBRM:$/
 BBRS	pluto_kernel.asm	/^BBRS:$/
 BBSM	pluto_kernel.asm	/^BBSM:$/
-BCDOUT	pluto_kernel.asm	/^BCDOUT:$/
+BCDOUT	pluto_kernel.asm	/^BCDOUT  .proc$/
 BCDOUTDN	pluto_kernel.asm	/^BCDOUTDN:$/
 BCDOUTL	pluto_kernel.asm	/^BCDOUTL:$/
-BCDTOASC	pluto_kernel.asm	/^BCDTOASC:$/
-BEEP	pluto_kernel.asm	/^BEEP:$/
+BCDTOASC	pluto_kernel.asm	/^BCDTOASC	.proc$/
+BEEP	pluto_kernel.asm	/^BEEP	.proc$/
 BFIXBR1	pluto_kernel.asm	/^BFIXBR1:$/
 BINARY	pluto_kernel.asm	/^BINARY:$/
 BITPOST	pluto_kernel.asm	/^BITPOST:$/
 BITS	pluto_kernel.asm	/^BITS:$/
 BITSEL	pluto_kernel.asm	/^BITSEL:$/
 BITSET	pluto_kernel.asm	/^BITSET:$/
-BN2ASC	pluto_kernel.asm	/^BN2ASC:$/
+BN2ASC	pluto_kernel.asm	/^BN2ASC	.proc$/
 BNOK	pluto_kernel.asm	/^BNOK:$/
 BRANCHOK	pluto_kernel.asm	/^BRANCHOK:$/
 BREAKEY	pluto_kernel.asm	/^BREAKEY:$/
@@ -61,7 +61,7 @@ BRFORWD	pluto_kernel.asm	/^BRFORWD:$/
 BRKINSTR	pluto_kernel.asm	/^BRKINSTR:$/
 BROFFSET	pluto_kernel.asm	/^BROFFSET:$/
 BSERROR	pluto_kernel.asm	/^BSERROR:$/
-BSOUT	pluto_kernel.asm	/^BSOUT:$/
+BSOUT	pluto_kernel.asm	/^BSOUT	.proc$/
 BTADONE	pluto_kernel.asm	/^BTADONE:$/
 BYLOOP	pluto_kernel.asm	/^BYLOOP:$/
 BYOK	pluto_kernel.asm	/^BYOK:$/
@@ -69,7 +69,7 @@ BadCrc	xmodem.asm	/^BadCrc:$/
 BegBlk	xmodem.asm	/^BegBlk:$/
 CAN	xmodem.asm	/^CAN		=	$18		; cancel (not standard, not supported)/
 CHEXIN2	pluto_kernel.asm	/^CHEXIN2:$/
-CHIN	pluto_kernel.asm	/^CHIN:$/
+CHIN	pluto_kernel.asm	/^CHIN	.proc$/
 CHINLOOP	pluto_kernel.asm	/^CHINLOOP:$/
 CHREG	pluto_kernel.asm	/^CHREG:$/
 CIBA	Tali-Forth.asm	/^CIBA =      $98   ; Address of the Current Input B/
@@ -827,12 +827,10 @@ crc	xmodem.asm	/^crc		=	$a8		; CRC lo byte  (two byte variable)$/
 crch	xmodem.asm	/^crch		=	$a9		; CRC hi byte$/
 crchi	xmodem.asm	/^crchi:$/
 crclo	xmodem.asm	/^crclo:$/
-d	basic_ide_routines.asm	/^d = $72$/
 do_common	Tali-Forth.asm	/^do_common:      ; we push HERE to the Data Stack s/
 done	basic_ide_routines.asm	/^done   	lda ide_register7	;get status in A$/
 done	basic_ide_routines.asm	/^done   	beq ide_to2$/
 done	cfs.asm	/^done			rts$/
-e	basic_ide_routines.asm	/^e = $74$/
 e_defer	Tali-Forth.asm	/^e_defer:        lda #$16        ; code for DEFER E/
 eofp	xmodem.asm	/^eofp		=	TEMP2		; end of file address pointer (2 by/
 eofph	xmodem.asm	/^eofph		=	TEMP2H		;  "	"	"	"$/
@@ -889,7 +887,7 @@ fse_radix	Tali-Forth.asm	/^fse_radix:     .text "Digit larger than base",0$/
 fse_stack	Tali-Forth.asm	/^fse_stack:     .text "Stack over- or underflow",0$/
 fse_syntax	Tali-Forth.asm	/^fse_syntax:    .text "Unknown word",0$/
 ide_get_id	basic_ide_routines.asm	/^ide_get_id .proc$/
-ide_high_byte	basic_ide_routines.asm	/^ide_high_byte = $7f48$/
+ide_high_byte	basic_ide_routines.asm	/^ide_high_byte = $7f88$/
 ide_id_drive_cmd	basic_ide_routines.asm	/^ide_id_drive_cmd = $ec$/
 ide_init_devices	basic_ide_routines.asm	/^ide_init_devices .proc$/
 ide_init_status	basic_ide_routines.asm	/^ide_init_status .proc$/
@@ -900,14 +898,14 @@ ide_lba3	basic_ide_routines.asm	/^ide_lba3 = ide_lba2 + 1 	; - LBA of desired se
 ide_read_buffer	basic_ide_routines.asm	/^ide_read_buffer .proc$/
 ide_read_sector	basic_ide_routines.asm	/^ide_read_sector .proc$/
 ide_read_sector_cmd	basic_ide_routines.asm	/^ide_read_sector_cmd = $20$/
-ide_register0	basic_ide_routines.asm	/^ide_register0 = $7f40		; PLUTO IN\/OUT addresses fo/
-ide_register1	basic_ide_routines.asm	/^ide_register1 = $7f41$/
-ide_register2	basic_ide_routines.asm	/^ide_register2 = $7f42$/
-ide_register3	basic_ide_routines.asm	/^ide_register3 = $7f43$/
-ide_register4	basic_ide_routines.asm	/^ide_register4 = $7f44$/
-ide_register5	basic_ide_routines.asm	/^ide_register5 = $7f45$/
-ide_register6	basic_ide_routines.asm	/^ide_register6 = $7f46$/
-ide_register7	basic_ide_routines.asm	/^ide_register7 = $7f47$/
+ide_register0	basic_ide_routines.asm	/^ide_register0 = $7f80		; PLUTO IN\/OUT addresses fo/
+ide_register1	basic_ide_routines.asm	/^ide_register1 = $7f81$/
+ide_register2	basic_ide_routines.asm	/^ide_register2 = $7f82$/
+ide_register3	basic_ide_routines.asm	/^ide_register3 = $7f83$/
+ide_register4	basic_ide_routines.asm	/^ide_register4 = $7f84$/
+ide_register5	basic_ide_routines.asm	/^ide_register5 = $7f85$/
+ide_register6	basic_ide_routines.asm	/^ide_register6 = $7f86$/
+ide_register7	basic_ide_routines.asm	/^ide_register7 = $7f87$/
 ide_setup_lba	basic_ide_routines.asm	/^ide_setup_lba .proc$/
 ide_status	basic_ide_routines.asm	/^ide_status = $58$/
 ide_test_error	basic_ide_routines.asm	/^ide_test_error .proc$/
@@ -1147,6 +1145,7 @@ lastblk	xmodem.asm	/^lastblk		=	$a5		; flag for last block$/
 load_addrn	macros.asm	/^load_addrn .macro$/
 master_slave_select	basic_ide_routines.asm	/^master_slave_select .proc$/
 newline	macros.asm	/^newline .macro$/
+notdone	basic_ide_routines.asm	/^notdone lda ide_register7$/
 pp_found	Tali-Forth.asm	/^pp_found:       ; we start here with (xt f) on the/
 prtline	macros.asm	/^prtline .macro$/
 ptr	xmodem.asm	/^ptr		=	INDEX		; data pointer (two byte variable)$/
@@ -1158,6 +1157,9 @@ strtbl	Tali-Forth.asm	/^strtbl: .word fs_title, fs_version, fs_disclaim, f/
 testprta	macros.asm	/^testprta .macro$/
 teststack	macros.asm	/^teststack .macro$/
 tmp	basic_ide_routines.asm	/^tmp = $70$/
+tmp1	basic_ide_routines.asm	/^tmp1 = tmp+1$/
+tmp2	basic_ide_routines.asm	/^tmp2 = tmp+2$/
+tmp3	basic_ide_routines.asm	/^tmp3 = tmp+3$/
 wrtline	macros.asm	/^wrtline .macro$/
 z_0branch	Tali-Forth.asm	/^z_0branch:      rts$/
 z_0equ	Tali-Forth.asm	/^z_0equ:         rts$/
