@@ -213,7 +213,10 @@ ide_wait_buffer .proc
 	stz tmp1
 
 ide_wdrq
-	ldx #50			;wait 5 seconds approx
+	ldx #50			; wait 5 seconds approx TODO: the coefficient is wrong
+; 50 is not the right value for a 5 sec time out. 
+; TODO: count the amount of cycles it takes to execute the loop and calculate the delay coefficient
+; given the clock speed is 4 MHz
 ide_blp
 	dex
 	bne ide_blp
