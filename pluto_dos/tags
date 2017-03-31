@@ -1,15 +1,7 @@
-.include	Tali-Main-B001.asm	/^.include "Tali-Forth.asm"$/
-.include	Tali-Main-B001.asm	/^.include "basic_ide_routines.asm"$/
-.include	Tali-Main-B001.asm	/^.include "cfs.asm"$/
-.include	Tali-Main-B001.asm	/^.include "pluto_kernel.asm"$/
-.include	Tali-Main-B001.asm	/^.include "macros.asm"$/
-.text	Tali-Forth.asm	/^.text 55, ": IF POSTPONE 0BRANCH HERE 0 , ; IMMEDI/
-.text	Tali-Forth.asm	/^.text 67, ": ELSE POSTPONE BRANCH HERE 0 , HERE RO/
-.text	Tali-Forth.asm	/^.text 51, ": UNTIL POSTPONE 0BRANCH , ; IMMEDIATE /
-.text	Tali-Forth.asm	/^.text 63, ": WHILE POSTPONE 0BRANCH HERE 0 , SWAP /
-.text	Tali-Forth.asm	/^.text 60, ": REPEAT POSTPONE AGAIN HERE SWAP ! ; I/
-.text	Tali-Forth.asm	/^.text 75, ": IS STATE @ IF POSTPONE ['] POSTPONE D/
-.text	Tali-Forth.asm	/^.text 82, ": ACTION-OF STATE @ IF POSTPONE ['] POS/
+.include	main.asm	/^.include "basic_ide_routines.asm"$/
+.include	main.asm	/^.include "cfs.asm"$/
+.include	main.asm	/^.include "pluto_kernel.asm"$/
+.include	main.asm	/^.include "macros.asm"$/
 A2DCONV	pluto_kernel.asm	/^A2DCONV:$/
 A2DDONE	pluto_kernel.asm	/^A2DDONE:$/
 A2DSUB	pluto_kernel.asm	/^A2DSUB	.proc$/
@@ -24,20 +16,12 @@ AQUERY	pluto_kernel.asm	/^AQUERY:$/
 ASC2BN	pluto_kernel.asm	/^ASC2BN 	.proc$/
 ASCII	pluto_kernel.asm	/^ASCII	.proc$/
 ASCOUT	pluto_kernel.asm	/^ASCOUT:$/
-ASCTODEC	pluto_kernel.asm	/^ASCTODEC .proc		;Initialize (zero) BCD digit input/
+ASCTODEC	pluto_kernel.asm	/^ASCTODEC                          .proc         ;I/
 ASMPROHILO	pluto_kernel.asm	/^ASMPROHILO:$/
 ASOK	pluto_kernel.asm	/^ASOK:$/
 ASSEM	pluto_kernel.asm	/^ASSEM:$/
 ATODLOOP	pluto_kernel.asm	/^ATODLOOP:$/
-AscBS	Tali-Forth.asm	/^AscBS =   $08               ; backspace ASCII char/
-AscCC	Tali-Forth.asm	/^AscCC =   $03               ; break (Control-C) AS/
-AscCR	Tali-Forth.asm	/^AscCR =   $0D               ; carriage return ASCI/
-AscDEL	Tali-Forth.asm	/^AscDEL =  $7F               ; DEL ASCII character$/
-AscESC	Tali-Forth.asm	/^AscESC =  $1B               ; Escape ASCII charact/
-AscLF	Tali-Forth.asm	/^AscLF =   $0A               ; line feed ASCII char/
-AscSP	Tali-Forth.asm	/^AscSP =   $20               ; space ASCII characte/
 BACK	pluto_kernel.asm	/^BACK:$/
-BASE	Tali-Forth.asm	/^BASE =      $97   ; Number base, default decimal (/
 BBREL	pluto_kernel.asm	/^BBREL:$/
 BBRM	pluto_kernel.asm	/^BBRM:$/
 BBRS	pluto_kernel.asm	/^BBRS:$/
@@ -72,13 +56,9 @@ CHEXIN2	pluto_kernel.asm	/^CHEXIN2:$/
 CHIN	pluto_kernel.asm	/^CHIN	.proc$/
 CHINLOOP	pluto_kernel.asm	/^CHINLOOP:$/
 CHREG	pluto_kernel.asm	/^CHREG:$/
-CIBA	Tali-Forth.asm	/^CIBA =      $98   ; Address of the Current Input B/
-CIBN	Tali-Forth.asm	/^CIBN =      $9A   ; Number of chars in the Current/
 CLKRD	pluto_kernel.asm	/^CLKRD:$/
 CMDPROMPTS	pluto_kernel.asm	/^CMDPROMPTS:$/
 CMON	pluto_kernel.asm	/^CMON:$/
-CO	Tali-Forth.asm	/^CO =      %00100000         ; Compile Only$/
-COLD	Tali-Forth.asm	/^COLD:   ; Load default values to registers and poi/
 COLDSTART	pluto_kernel.asm	/^COLDSTART:$/
 COMX	pluto_kernel.asm	/^COMX:$/
 COMY	pluto_kernel.asm	/^COMY:$/
@@ -86,8 +66,6 @@ COUT	pluto_kernel.asm	/^COUT:	PHA           ;Save ACCUMULATOR on STACK$/
 COUT2	pluto_kernel.asm	/^COUT2:	JSR  COUT     ;(Send byte 2 times)$/
 COUT3	pluto_kernel.asm	/^COUT3:	JSR  COUT     ;(Send byte 3 times)$/
 COUTL	pluto_kernel.asm	/^COUTL:	LDA  SIOSTAT  ;Read ACIA status register$/
-CP	Tali-Forth.asm	/^CP =        $92   ; Compiler Pointer (next free RA/
-CP0	Tali-Forth.asm	/^CP0 =      $0400    ; Start of free RAM (Compiler /
 CPXY	pluto_kernel.asm	/^CPXY:$/
 CPXYAB	pluto_kernel.asm	/^CPXYAB:$/
 CR	xmodem.asm	/^CR		=	$0d		; carriage return$/
@@ -97,8 +75,6 @@ CSTOR2	pluto_kernel.asm	/^CSTOR2:$/
 CSTOR3	pluto_kernel.asm	/^CSTOR3:$/
 CalcCRC	xmodem.asm	/^CalcCRC:$/
 CalcCRC1	xmodem.asm	/^CalcCRC1:$/
-ContPost65c02	Tali-Kernel.asm	/^ContPost65c02:$/
-ContPostRAM	Tali-Kernel.asm	/^ContPostRAM:$/
 CopyBlk	xmodem.asm	/^CopyBlk:$/
 CopyBlk3	xmodem.asm	/^CopyBlk3:$/
 CopyBlk4	xmodem.asm	/^CopyBlk4:$/
@@ -131,8 +107,6 @@ DONESB	pluto_kernel.asm	/^DONESB:$/
 DOUPLOAD	xmodem.asm	/^DOUPLOAD:$/
 DOWIPE	pluto_kernel.asm	/^DOWIPE:$/
 DOWNLOAD	xmodem.asm	/^DOWNLOAD:$/
-DP	Tali-Forth.asm	/^DP =        $90   ; Dictionary Pointer (last entry/
-DP0	Tali-Forth.asm	/^DP0 =      l_words  ; First entry in the dictionar/
 DRMB	pluto_kernel.asm	/^DRMB:$/
 DSMB	pluto_kernel.asm	/^DSMB:$/
 DUNSENG	pluto_kernel.asm	/^DUNSENG:$/
@@ -154,9 +128,6 @@ ErrMsg	xmodem.asm	/^ErrMsg:$/
 FILAST	pluto_kernel.asm	/^FILAST:$/
 FILEFT	pluto_kernel.asm	/^FILEFT:$/
 FIND	pluto_kernel.asm	/^FIND:$/
-FLAG	Tali-Forth.asm	/^FLAG =      $B1   ; Generic flag (1 byte)$/
-FLAG2	Tali-Forth.asm	/^FLAG2 =     $B2   ; Generic flag (1 byte)$/
-FORTH	Tali-Forth.asm	/^FORTH:$/
 FULTST	pluto_kernel.asm	/^FULTST:$/
 Flush	xmodem.asm	/^Flush:$/
 Flush1	xmodem.asm	/^Flush1:$/
@@ -188,7 +159,6 @@ HNONZERO	pluto_kernel.asm	/^HNONZERO:$/
 HPTAB	pluto_kernel.asm	/^HPTAB:$/
 HTAB	pluto_kernel.asm	/^HTAB:$/
 HTADONE	pluto_kernel.asm	/^HTADONE:$/
-IM	Tali-Forth.asm	/^IM =      %10000000         ; Immediate$/
 IME	pluto_kernel.asm	/^IME:$/
 IMP	pluto_kernel.asm	/^IMP:$/
 IN2	pluto_kernel.asm	/^IN2:$/
@@ -202,10 +172,7 @@ INDABSX	pluto_kernel.asm	/^INDABSX:$/
 INDJ	pluto_kernel.asm	/^INDJ:$/
 INDX	pluto_kernel.asm	/^INDX:$/
 INERR	pluto_kernel.asm	/^INERR:$/
-INP	Tali-Forth.asm	/^INP =       $9C   ; Input Buffer Pointer (>IN; 2 b/
-INPORT	Tali-Forth.asm	/^INPORT =    $A0   ; Input port (default 0, 2 bytes/
 INTERUPT	pluto_kernel.asm	/^INTERUPT:$/
-IP	Tali-Forth.asm	/^IP =        $A4   ; Instruction Pointer, current x/
 ITER	pluto_kernel.asm	/^ITER:$/
 IncBlk	xmodem.asm	/^IncBlk:$/
 JSUB	pluto_kernel.asm	/^JSUB:$/
@@ -261,7 +228,6 @@ MVPGE	pluto_kernel.asm	/^MVPGE:$/
 MVREST	pluto_kernel.asm	/^MVREST:$/
 Msg	xmodem.asm	/^Msg:$/
 NAK	xmodem.asm	/^NAK		=	$15		; bad block acknowledged$/
-NC	Tali-Forth.asm	/^NC =      %01000000         ; Native Compile$/
 NCSREG	pluto_kernel.asm	/^NCSREG:$/
 NEM	pluto_kernel.asm	/^NEM:$/
 NEVERA	pluto_kernel.asm	/^NEVERA:$/
@@ -288,9 +254,6 @@ NOTZ2S	pluto_kernel.asm	/^NOTZ2S:$/
 NQDONE	pluto_kernel.asm	/^NQDONE:$/
 OCTAB	pluto_kernel.asm	/^OCTAB:$/
 OPTAB	pluto_kernel.asm	/^OPTAB:$/
-OUTP	Tali-Forth.asm	/^OUTP =      $B3   ; Output pointer for formated ou/
-OUTPORT	Tali-Forth.asm	/^OUTPORT =   $9E   ; Output port (default 0, 2 byte/
-PADSIZE	Tali-Forth.asm	/^PADSIZE =          $FF     ; Size of the PAD area$/
 PERIOD	pluto_kernel.asm	/^PERIOD:$/
 PGFILL	pluto_kernel.asm	/^PGFILL:$/
 PR1	pluto_kernel.asm	/^PR1:$/
@@ -303,7 +266,6 @@ PRML	pluto_kernel.asm	/^PRML:$/
 PRMNEM	pluto_kernel.asm	/^PRMNEM:$/
 PROMPT	pluto_kernel.asm	/^PROMPT:$/
 PROMPT2	pluto_kernel.asm	/^PROMPT2:$/
-PadOffset	Tali-Forth.asm	/^PadOffset =         $FF     ; Distance between Pad/
 PrintMsg	xmodem.asm	/^PrintMsg:$/
 Print_Err	xmodem.asm	/^Print_Err:$/
 Print_Good	xmodem.asm	/^Print_Good:$/
@@ -334,11 +296,7 @@ REST	pluto_kernel.asm	/^REST:$/
 RIGHT	pluto_kernel.asm	/^RIGHT:$/
 RMBM	pluto_kernel.asm	/^RMBM:$/
 RMOV	pluto_kernel.asm	/^RMOV:$/
-RP0	Tali-Forth.asm	/^RP0  =   $FF   ; bottom of return stack (pointer v/
 RT	pluto_kernel.asm	/^RT:$/
-RamEnd	Tali-Forth.asm	/^RamEnd =            [RamStart + RamSize]$/
-RamSize	Tali-Forth.asm	/^RamSize =           $7FFF   ; default $8000 for 32/
-RamStart	Tali-Forth.asm	/^RamStart =          $0000   ; must include Zero Pa/
 Rbuff	xmodem.asm	/^Rbuff		=	$0300      	; temp 132 byte receive buffe/
 Resend	xmodem.asm	/^Resend:$/
 SAVLST	pluto_kernel.asm	/^SAVLST:$/
@@ -368,12 +326,10 @@ SKIP3	pluto_kernel.asm	/^SKIP3:$/
 SLOOP	pluto_kernel.asm	/^SLOOP:$/
 SMBM	pluto_kernel.asm	/^SMBM:$/
 SOH	xmodem.asm	/^SOH		=	$01		; start block$/
-SP0	Tali-Forth.asm	/^SP0 =       $7F     ; bottom of parameter (data) s/
 SPC	pluto_kernel.asm	/^SPC:$/
 SPC2	pluto_kernel.asm	/^SPC2:$/
 SPC4	pluto_kernel.asm	/^SPC4:$/
 SPCRD	pluto_kernel.asm	/^SPCRD:$/
-SPMAX	Tali-Forth.asm	/^SPMAX =     $00     ; top of parameter (data) stac/
 SRAB	pluto_kernel.asm	/^SRAB:$/
 SRBIT	pluto_kernel.asm	/^SRBIT:$/
 SRBIT2	pluto_kernel.asm	/^SRBIT2:$/
@@ -384,7 +340,6 @@ SRMB2	pluto_kernel.asm	/^SRMB2:$/
 STAB	pluto_kernel.asm	/^STAB:$/
 STACC	pluto_kernel.asm	/^STACC:$/
 STAIN	pluto_kernel.asm	/^STAIN:$/
-STATE	Tali-Forth.asm	/^STATE =     $95   ; Compile state flag, TRUE is co/
 STBR1	pluto_kernel.asm	/^STBR1:$/
 STBR2	pluto_kernel.asm	/^STBR2:$/
 STBR3	pluto_kernel.asm	/^STBR3:$/
@@ -399,24 +354,15 @@ STRINGL	pluto_kernel.asm	/^STRINGL:$/
 STXY	pluto_kernel.asm	/^STXY:$/
 STZP	pluto_kernel.asm	/^STZP:$/
 SUBTRACT	pluto_kernel.asm	/^SUBTRACT:$/
-SYSPAD	Tali-Forth.asm	/^SYSPAD =   $0300    ; System scratch pad$/
 SendBlk	xmodem.asm	/^SendBlk:$/
 Seterror	xmodem.asm	/^Seterror:$/
 SetstAddr	xmodem.asm	/^SetstAddr:$/
 StartBlk	xmodem.asm	/^StartBlk:$/
 StartCrc	xmodem.asm	/^StartCrc:$/
-TBLLOC	Tali-Forth.asm	/^TBLLOC =    $A2   ; Location of table currently be/
 THX	pluto_kernel.asm	/^THX:$/
 THY	pluto_kernel.asm	/^THY:$/
-TIB	Tali-Forth.asm	/^TIB =      $0200    ; Terminal Input Buffer, $400 /
-TIBSIZE	Tali-Forth.asm	/^TIBSIZE =          $00FE   ; Size of the Terminal /
 TIMER	pluto_kernel.asm	/^TIMER:$/
 TIMERL	pluto_kernel.asm	/^TIMERL:$/
-TMPADR	Tali-Forth.asm	/^TMPADR =    $A8   ; Temporary storage for addresse/
-TMPADR1	Tali-Forth.asm	/^TMPADR1 =   $AA   ; Temporary storage for more add/
-TMPADR2	Tali-Forth.asm	/^TMPADR2 =   $AC   ; Temporary storage for even mor/
-TMPCNT	Tali-Forth.asm	/^TMPCNT =    $AE   ; Temporary storage for counters/
-TMPX	Tali-Forth.asm	/^TMPX =      $B0   ; Temporary storage for X Regist/
 TOOFAR	pluto_kernel.asm	/^TOOFAR:$/
 TOOHI	pluto_kernel.asm	/^TOOHI:$/
 TRIBYT	pluto_kernel.asm	/^TRIBYT:$/
@@ -435,7 +381,6 @@ WIPE	pluto_kernel.asm	/^WIPE:$/
 WIPELOOP	pluto_kernel.asm	/^WIPELOOP:$/
 WITCHWAY	pluto_kernel.asm	/^WITCHWAY:$/
 WORD	pluto_kernel.asm	/^WORD:$/
-WRKWRD	Tali-Forth.asm	/^WRKWRD =    $A6   ; WORKWORD: xt (link) of word be/
 Wait4CRC	xmodem.asm	/^Wait4CRC:$/
 X2	pluto_kernel.asm	/^X2:$/
 X3	pluto_kernel.asm	/^X3:$/
@@ -447,456 +392,31 @@ ZERO	pluto_kernel.asm	/^ZERO:$/
 ZEROABS	pluto_kernel.asm	/^ZEROABS:$/
 ZPDIND	pluto_kernel.asm	/^ZPDIND:$/
 ZPIND	pluto_kernel.asm	/^ZPIND:$/
-_IOTable	Tali-Kernel.asm	/^_IOTable:$/
-_accumulate	Tali-Forth.asm	/^_accumulate:    ; Starting here, we show (ud1) as /
-_alldone	Tali-Forth.asm	/^_alldone:       stz 1,x         ; put fail flag ($/
-_c1	Tali-Forth.asm	/^_c1:            dey$/
-_c1	Tali-Forth.asm	/^_c1:            dey             ; if 1 this turns /
-_c2	Tali-Forth.asm	/^_c2:            dey$/
-_c2	Tali-Forth.asm	/^_c2:            dey$/
-_checkbase	Tali-Forth.asm	/^_checkbase:     ; make sure our number is inside t/
-_checkd	Tali-Forth.asm	/^_checkd:        ; if d is negative, add n1 to high/
-_chkprt	Tali-Forth.asm	/^_chkprt:        ; TODO handle CTRL-c, CTRL-a, etc$/
-_clrstack	Tali-Forth.asm	/^_clrstack:      ; drop the address and number of c/
-_cmploop	Tali-Forth.asm	/^_cmploop:       dey             ; we already know /
-_cmplsb	Tali-Forth.asm	/^_cmplsb:        ; MSB were equal, so do the whole /
-_common	Tali-Forth.asm	/^_common:	sta FLAG$/
-_common	Tali-Forth.asm	/^_common:	        phy$/
-_compile	Tali-Forth.asm	/^_compile:       ; Compile. First, see if the Prece/
-_compile	Tali-Forth.asm	/^_compile:       ; This is compiling, so we push th/
-_counter	Tali-Forth.asm	/^_counter:       ; loop counter$/
-_del	Tali-Forth.asm	/^_del:           cpy #$00        ; if we're already/
-_do_cmpl	Tali-Forth.asm	/^_do_cmpl:       dex$/
-_do_do	Tali-Forth.asm	/^_do_do:         inx             ; clear flag from /
-_dojump	Tali-Forth.asm	/^_dojump:        ; Compile as JSR command. Add the /
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:          rts             ; we're good (fina/
-_done	Tali-Forth.asm	/^_done:          rts$/
-_done	Tali-Forth.asm	/^_done:          rts$/
-_done	Tali-Forth.asm	/^_done:          ; ABORT not called, drop the top t/
-_done	Tali-Forth.asm	/^_done:          inx$/
-_done	Tali-Forth.asm	/^_done:          ; add a space for readability$/
-_done	Tali-Forth.asm	/^_done:          ; get rid of u because NOS is c-ad/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:          ; add a final space as delimiter (/
-_done	Tali-Forth.asm	/^_done:          iny             ; Y is offset, we /
-_done	Tali-Forth.asm	/^_done:          ; drop number off stack$/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:          inx$/
-_done	Tali-Forth.asm	/^_done:          ; all chars have been converted, s/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:          inx             ; 2DROP$/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:          ; keep the NOP here as the landing/
-_done	Tali-Forth.asm	/^_done:          ; continue with normal Forth word$/
-_done	Tali-Forth.asm	/^_done:          inx$/
-_done	Tali-Forth.asm	/^_done:          inx$/
-_done	Tali-Forth.asm	/^_done:          plx             ; drops through to/
-_done	Tali-Forth.asm	/^_done:          plx             ; drops through to/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:          ldx TMPX$/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:          ; clear stack$/
-_done	Tali-Forth.asm	/^_done:          sta 3,x$/
-_done	Tali-Forth.asm	/^_done:          sta 3,x$/
-_done	Tali-Forth.asm	/^_done:          sta 3,x$/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:          inx$/
-_done	Tali-Forth.asm	/^_done:          inx$/
-_done	Tali-Forth.asm	/^_done:          inx$/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:          ; drop on from the data stack, swa/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:          ; now we can finally push the addr/
-_done	Tali-Forth.asm	/^_done:          ; now we can finally push the addr/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Forth.asm	/^_done:$/
-_done	Tali-Kernel.asm	/^_done:$/
-_doneexec	Tali-Forth.asm	/^_doneexec:      ; Keep the NOP here as the landing/
-_doneline	Tali-Forth.asm	/^_doneline:      rts$/
-_dopartial	Tali-Forth.asm	/^_dopartial:     ldx TMPCNT      ; length of last p/
-_eol	Tali-Forth.asm	/^_eol:           ; calculate length of string found/
-_equal	Tali-Forth.asm	/^_equal:         ; low bytes are equal, so we compa/
-_equal	Tali-Forth.asm	/^_equal:         ; drop three entries from Data Sta/
-_err	Tali-Forth.asm	/^_err:           lda #$08        ; string code for /
-_err	Tali-Forth.asm	/^_err:           lda #$08        ; string code for /
-_execute	Tali-Forth.asm	/^_execute:       ; We already have saved the xt and/
-_fail	Tali-Forth.asm	/^_fail:          ; not all characters were converte/
-_false	Tali-Forth.asm	/^_false:         lda #$00        ; drop through to /
-_false	Tali-Forth.asm	/^_false:         lda #$00        ; drop through to /
-_false	Tali-Forth.asm	/^_false:         lda #$00        ; drop through to /
-_findit	Tali-Forth.asm	/^_findit:        ; convert to upper case because st/
-_finished	Tali-Forth.asm	/^_finished:$/
-_finished	Tali-Forth.asm	/^_finished:$/
-_finished	Tali-Forth.asm	/^_finished:$/
-_finished	Tali-Forth.asm	/^_finished:      ; repair 65c02 stack for return ju/
-_flag	Tali-Forth.asm	/^_flag:          ; set flag to success. If this is /
-_found	Tali-Forth.asm	/^_found:         ; Found word, stack is now (xt f)./
-_found	Tali-Forth.asm	/^_found:         ; drop the flag we don't care abou/
-_found	Tali-Forth.asm	/^_found:         ; if we have not reached the end o/
-_found	Tali-Forth.asm	/^_found:         ; If we landed here, we've found t/
-_found	Tali-Forth.asm	/^_found:         ; we don't care if word is immedia/
-_foundchr	Tali-Forth.asm	/^_foundchr:      ; save index of where word starts$/
-_foundchr	Tali-Forth.asm	/^_foundchr:      ; save index of where word starts$/
-_fragment	Tali-Forth.asm	/^_fragment:      ; deal with the fragment$/
-_fullpage	Tali-Forth.asm	/^_fullpage:      ; use the MSB of counter as our pa/
-_getline	Tali-Forth.asm	/^_getline:       ; Get one line of input from the u/
-_gotword	Tali-Forth.asm	/^_gotword:       ; see if the word the stack points/
-_gotzero	Tali-Forth.asm	/^_gotzero:       ldy #$00        ; drops through to/
-_gotzero	Tali-Forth.asm	/^_gotzero:$/
-_hack	Tali-Forth.asm	/^_hack:          ; This is why this routine must be/
-_iloop	Tali-Forth.asm	/^_iloop:         cpy CIBN        ; quit if we've re/
-_imm	Tali-Forth.asm	/^_imm:           ; immediate$/
-_imm_flag	Tali-Forth.asm	/^_imm_flag:      ; immediate$/
-_immediate	Tali-Forth.asm	/^_immediate:     ; The word is immediate, so instea/
-_innerloop	Tali-Forth.asm	/^_innerloop:     dey$/
-_innerloop	Tali-Forth.asm	/^_innerloop:     bcc _noadd$/
-_keepnos	Tali-Forth.asm	/^_keepnos:       inx$/
-_keepnos	Tali-Forth.asm	/^_keepnos:       inx$/
-_leave	Tali-Kernel.asm	/^_leave:$/
-_linefeed	Tali-Forth.asm	/^_linefeed:      ; get flag to see if we print a fi/
-_loop	Tali-Forth.asm	/^_loop:  ; make room on the Data Stack$/
-_loop	Tali-Forth.asm	/^_loop:          lda (TMPADR),y$/
-_loop	Tali-Forth.asm	/^_loop:          ; if there are zero bytes left to /
-_loop	Tali-Forth.asm	/^_loop:          ; ironically, we need the stack fo/
-_loop	Tali-Forth.asm	/^_loop:          lda (TMPADR),y$/
-_loop	Tali-Forth.asm	/^_loop:          cpy CIBN        ; quit if we've re/
-_loop	Tali-Forth.asm	/^_loop:          ; see if we have reached the end o/
-_loop	Tali-Forth.asm	/^_loop:          jsr f_getchr$/
-_loop	Tali-Forth.asm	/^_loop:          lda (TMPADR),y$/
-_loop	Tali-Forth.asm	/^_loop:          ; feed each character through DIGI/
-_loop	Tali-Forth.asm	/^_loop:          ; copy name string to dictionary e/
-_loop	Tali-Forth.asm	/^_loop:          jsr l_num       ; convert a single/
-_loop	Tali-Forth.asm	/^_loop:          ; rotate low cell of dividend one /
-_loop	Tali-Forth.asm	/^_loop:          lda #AscSP     ; SPACE$/
-_loop	Tali-Kernel.asm	/^_loop:$/
-_makecaddr	Tali-Forth.asm	/^_makecaddr:     ; Put together a c-addr out of add/
-_minus	Tali-Forth.asm	/^_minus:         lda #$2D        ; char "-"$/
-_multi	Tali-Forth.asm	/^_multi:         ; multiply$/
-_neg	Tali-Forth.asm	/^_neg:           ; if we have a negative value, rel/
-_nextchar	Tali-Forth.asm	/^_nextchar:      ; print next character$/
-_nextword	Tali-Forth.asm	/^_nextword:      ldy #$03        ; link starts at o/
-_no_co	Tali-Forth.asm	/^_no_co:         jsr l_cr$/
-_no_im	Tali-Forth.asm	/^_no_im:         asl$/
-_no_nc	Tali-Forth.asm	/^_no_nc:         asl$/
-_noadd	Tali-Forth.asm	/^_noadd:         ror             ; shift$/
-_nochrs	Tali-Forth.asm	/^_nochrs:        ; Only spaces found. Return beginn/
-_nomatch	Tali-Forth.asm	/^_nomatch:       ; this is not the word we are look/
-_noov	Tali-Forth.asm	/^_noov:          ; if negative, NOS is larger and n/
-_noov	Tali-Forth.asm	/^_noov:          ; if negative, NOS is larger and n/
-_notdigit	Tali-Forth.asm	/^_notdigit:      ; assumes char still in NOS$/
-_notequal	Tali-Forth.asm	/^_notequal:      ora #$01        ; if overflow, we /
-_notzero	Tali-Forth.asm	/^_notzero:       ; we print from the bottom up and /
-_notzero	Tali-Forth.asm	/^_notzero:       ; we loop 17 times$/
-_outerloop	Tali-Forth.asm	/^_outerloop:     dec TMPADR1+1   ; back up to previ/
-_outerloop	Tali-Forth.asm	/^_outerloop:     ldy #$08$/
-_overflow	Tali-Forth.asm	/^_overflow:      ; handle overflow because we use s/
-_page	Tali-Forth.asm	/^_page:          lda (TMPADR1),y$/
-_page	Tali-Forth.asm	/^_page:          sta (TMPADR),y  ; fill one page$/
-_parseerror	Tali-Forth.asm	/^_parseerror:    ; Word not found and it isn't a nu/
-_parseword	Tali-Forth.asm	/^_parseword:     ; PARSE-NAME ("text" -- addr u)$/
-_partial	Tali-Forth.asm	/^_partial:       dey$/
-_partial	Tali-Forth.asm	/^_partial:       lda (TMPADR1),y$/
-_pos	Tali-Forth.asm	/^_pos:           ; should this be a double-cell num/
-_pos	Tali-Forth.asm	/^_pos:           stz 1,x         ; nope, we're posi/
-_prtok	Tali-Forth.asm	/^_prtok:         ; If we're done with the line, pri/
-_quit	Tali-Forth.asm	/^_quit:          ; put counter on the top of the st/
-_quit	Tali-Forth.asm	/^_quit:$/
-_savestring	Tali-Forth.asm	/^_savestring:    lda 3,x$/
-_sloop	Tali-Forth.asm	/^_sloop:         ; from the Length Byte of the head/
-_stack	Tali-Forth.asm	/^_stack:         ; Prepare stack for >NUMBER$/
-_store	Tali-Forth.asm	/^_store:         sta 1,x$/
-_store	Tali-Forth.asm	/^_store:         sta 1,x$/
-_success	Tali-Forth.asm	/^_success:       sta 3,x         ; put number in LS/
-_tocmoveg	Tali-Forth.asm	/^_tocmoveg:      jmp cmovegint   ; JSR\/RTS, skip ch/
-_toupper	Tali-Forth.asm	/^_toupper:       ; convert to upper case because we/
-_wordonly	Tali-Forth.asm	/^_wordonly:      lda (TMPADR1)   ; LSB$/
-_zero	Tali-Forth.asm	/^_zero:          stz 3,x$/
-_zero	Tali-Forth.asm	/^_zero:          ; flag is FALSE (0) so we take the/
-a_0branch	Tali-Forth.asm	/^a_0branch:      ; encode subroutine jump to (0BRAN/
-a_0equ	Tali-Forth.asm	/^a_0equ:         lda 1,x        ; LSB$/
-a_0lt	Tali-Forth.asm	/^a_0lt:          lda 2,x         ; MSB$/
-a_1minus	Tali-Forth.asm	/^a_1minus:       lda 1,x$/
-a_1plus	Tali-Forth.asm	/^a_1plus:        ; TODO make sure we have enough en/
-a_2drop	Tali-Forth.asm	/^a_2drop:        inx$/
-a_2dup	Tali-Forth.asm	/^a_2dup:         dex$/
-a_2gr	Tali-Forth.asm	/^a_2gr:          ; save the return address$/
-a_2over	Tali-Forth.asm	/^a_2over:        ; TODO see if we have enough stuff/
-a_2rg	Tali-Forth.asm	/^a_2rg:          ; make room on stack$/
-a_2swap	Tali-Forth.asm	/^a_2swap:        ; TODO see if we have enough stuff/
-a_2upper	Tali-Forth.asm	/^a_2upper:       lda 1,x$/
-a_2var	Tali-Forth.asm	/^a_2var:         ; We let CREATE and ALLOT do the h/
-a_abort	Tali-Forth.asm	/^a_abort:        ldx #SP0        ; Reset stack poin/
-a_abortq	Tali-Forth.asm	/^a_abortq:       ; parse message and save the addre/
-a_abs	Tali-Forth.asm	/^a_abs:          lda 2,x         ; MSB$/
-a_accept	Tali-Forth.asm	/^a_accept:       ; just quit if we were told to get/
-a_again	Tali-Forth.asm	/^a_again:        ; Add the JMP absolute command ($4/
-a_align	Tali-Forth.asm	/^a_align:                        ; compiles empty$/
-a_aligned	Tali-Forth.asm	/^a_aligned:                      ; compiles empty$/
-a_allot	Tali-Forth.asm	/^a_allot:        ; if we got a zero, forget the who/
-a_and	Tali-Forth.asm	/^a_and:          lda 1,x         ; LSB$/
-a_atxy	Tali-Forth.asm	/^a_atxy:         lda #AscESC$/
-a_backslash	Tali-Forth.asm	/^a_backslash:    ; we simply advance >IN to the end/
-a_base	Tali-Forth.asm	/^a_base:         dex$/
-a_bchar	Tali-Forth.asm	/^a_bchar:        ; get the next character in the st/
-a_begin	Tali-Forth.asm	/^a_begin:        ; same code as HERE, for speed$/
-a_bell	Tali-Forth.asm	/^a_bell:         lda #$07$/
-a_binary	Tali-Forth.asm	/^a_binary:       lda #$02$/
-a_bl	Tali-Forth.asm	/^a_bl:           dex$/
-a_bold	Tali-Forth.asm	/^a_bold:         lda #AscESC$/
-a_branch	Tali-Forth.asm	/^a_branch:       ; encode subroutine jump to (BRANC/
-a_btick	Tali-Forth.asm	/^a_btick:        jsr l_tick$/
-a_bye	Tali-Forth.asm	/^a_bye:          brk$/
-a_ccom	Tali-Forth.asm	/^a_ccom:         lda 1,x         ; we ignore the MS/
-a_cellpl	Tali-Forth.asm	/^a_cellpl:       ; This solution is three bytes lon/
-a_cells	Tali-Forth.asm	/^a_cells:        asl 1,x         ; LSB$/
-a_cfetch	Tali-Forth.asm	/^a_cfetch:       lda (1,x)$/
-a_char	Tali-Forth.asm	/^a_char:         ; get the next character, returns /
-a_charpl	Tali-Forth.asm	/^a_charpl:       inc 1,x         ; LSB$/
-a_chars	Tali-Forth.asm	/^a_chars:                        ; compiles empty$/
-a_cmove	Tali-Forth.asm	/^a_cmove:        ; abort if number of bytes to move/
-a_cmovegt	Tali-Forth.asm	/^a_cmovegt:      ; abort if number of bytes to move/
-a_cmpc	Tali-Forth.asm	/^a_cmpc:         ; put xt on zero page where we can/
-a_cold	Tali-Forth.asm	/^a_cold:         jmp COLD$/
-a_colon	Tali-Forth.asm	/^a_colon:        ; if we're already compiling, comp/
-a_comma	Tali-Forth.asm	/^a_comma:        lda 1,x         ; LSB$/
-a_conly	Tali-Forth.asm	/^a_conly:        ; offset for Length Byte is 2$/
-a_constant	Tali-Forth.asm	/^a_constant:     ; we let CREATE and do the heavy l/
-a_count	Tali-Forth.asm	/^a_count:        lda (1,x)       ; Get number of ch/
-a_cr	Tali-Forth.asm	/^a_cr:           lda #AscLF      ; Line Feed$/
-a_create	Tali-Forth.asm	/^a_create:       ; see if we were given a name. Ide/
-a_cstore	Tali-Forth.asm	/^a_cstore:       lda 3,x$/
-a_dabs	Tali-Forth.asm	/^a_dabs:         lda 2,x         ; MSB of high cell/
-a_dashtrl	Tali-Forth.asm	/^a_dashtrl:      ; if length entry is zero, return /
-a_ddot	Tali-Forth.asm	/^a_ddot:         jsr l_tuck      ; TUCK$/
-a_ddotr	Tali-Forth.asm	/^a_ddotr:        jsr l_tor       ; >R$/
-a_decimal	Tali-Forth.asm	/^a_decimal:      lda #$0A$/
-a_defer	Tali-Forth.asm	/^a_defer:        jsr l_create$/
-a_deferfetch	Tali-Forth.asm	/^a_deferfetch:   jsr l_gtbody    ; >BODY$/
-a_deferstore	Tali-Forth.asm	/^a_deferstore:   jsr l_gtbody    ; >BODY$/
-a_depth	Tali-Forth.asm	/^a_depth:        ; We've got zero entries when X is/
-a_digit	Tali-Forth.asm	/^a_digit:        lda 3,x         ; get char$/
-a_dminus	Tali-Forth.asm	/^a_dminus:       ; TODO see if we have enough words/
-a_dnegate	Tali-Forth.asm	/^a_dnegate:      lda 3,x         ; LSB of low cell$/
-a_do	Tali-Forth.asm	/^a_do:           ; DO and ?DO share most of their c/
-a_does	Tali-Forth.asm	/^a_does:         ; compile a subroutine jump to (DO/
-a_dot	Tali-Forth.asm	/^a_dot:          jsr l_dup       ; DUP$/
-a_dotpar	Tali-Forth.asm	/^a_dotpar:       ; use PARSE to find the end of the/
-a_dotq	Tali-Forth.asm	/^a_dotq:         ; we let S" do the heavy lifting$/
-a_dotr	Tali-Forth.asm	/^a_dotr:         jsr l_tor       ; >R$/
-a_dots	Tali-Forth.asm	/^a_dots:         ; Quick test for the most common c/
-a_dplus	Tali-Forth.asm	/^a_dplus:        ; TODO see if we have enough words/
-a_drop	Tali-Forth.asm	/^a_drop:         inx$/
-a_dtos	Tali-Forth.asm	/^a_dtos:         inx$/
-a_dump	Tali-Forth.asm	/^a_dump:         ; start internal counter for 16 nu/
-a_dup	Tali-Forth.asm	/^a_dup:          dex$/
-a_emit	Tali-Forth.asm	/^a_emit:         lda 1,x         ; get LSB from sta/
-a_equal	Tali-Forth.asm	/^a_equal:        ; compare LSB and MSB in sequence$/
-a_erase	Tali-Forth.asm	/^a_erase:        dex$/
-a_eval	Tali-Forth.asm	/^a_eval:         ; if u is zero, abort$/
-a_exe	Tali-Forth.asm	/^a_exe:          lda 1,x         ; LSB$/
-a_exit	Tali-Forth.asm	/^a_exit:         rts$/
-a_false	Tali-Forth.asm	/^a_false:        dex$/
-a_fetch	Tali-Forth.asm	/^a_fetch:        lda 1,x        ; LSB$/
-a_fill	Tali-Forth.asm	/^a_fill:         ; TODO check if we have enough stu/
-a_find	Tali-Forth.asm	/^a_find:         ; convert antiquated counted strin/
-a_fmmod	Tali-Forth.asm	/^a_fmmod:        ; if sign of n1 is negative, negat/
-a_fromr	Tali-Forth.asm	/^a_fromr:        dex$/
-a_grthan	Tali-Forth.asm	/^a_grthan:       ; compare TOS and NOS$/
-a_gtbody	Tali-Forth.asm	/^a_gtbody:       ; lucky for us, a xt is the same a/
-a_gtin	Tali-Forth.asm	/^a_gtin:         dex$/
-a_gtname	Tali-Forth.asm	/^a_gtname:       ; xt is the same as the start addr/
-a_gtnum	Tali-Forth.asm	/^a_gtnum:        ; TODO check to see if we have eno/
-a_here	Tali-Forth.asm	/^a_here:         dex$/
-a_hex	Tali-Forth.asm	/^a_hex:          lda #$10$/
-a_hold	Tali-Forth.asm	/^a_hold:         ; This is actually pretty sneaky c/
-a_i	Tali-Forth.asm	/^a_i:            dex$/
-a_immed	Tali-Forth.asm	/^a_immed:        ; offset for Length Byte is 2$/
-a_invert	Tali-Forth.asm	/^a_invert:       dex$/
-a_j	Tali-Forth.asm	/^a_j:            dex$/
-a_key	Tali-Forth.asm	/^a_key:          jsr f_getchr    ; returns key foun/
-a_lbrack	Tali-Forth.asm	/^a_lbrack:       stz STATE$/
-a_leave	Tali-Forth.asm	/^a_leave:        ; we dump the limit\/start entries /
-a_lessthan	Tali-Forth.asm	/^a_lessthan:     ; compare TOS and NOS$/
-a_lit	Tali-Forth.asm	/^a_lit:          ldy #$00$/
-a_loop	Tali-Forth.asm	/^a_loop:         ; have the finished word put "01" /
-a_lshift	Tali-Forth.asm	/^a_lshift:       ; max 16 bit shift, so we mask eve/
-a_ltnum	Tali-Forth.asm	/^a_ltnum:        jsr l_pad       ; now ( pad ) on s/
-a_marker	Tali-Forth.asm	/^a_marker:       ; This is a defining word$/
-a_max	Tali-Forth.asm	/^a_max:          ; compare LSB. We do this first to/
-a_min	Tali-Forth.asm	/^a_min:          ; compare LSB. We do this first to/
-a_minus	Tali-Forth.asm	/^a_minus:        sec$/
-a_mod	Tali-Forth.asm	/^a_mod:          jsr l_slashmod  ; Returns ( remain/
-a_move	Tali-Forth.asm	/^a_move:         ; abort if number of bytes to move/
-a_mplus	Tali-Forth.asm	/^a_mplus:        clc$/
-a_mrot	Tali-Forth.asm	/^a_mrot:         lda 2,x         ; MSB first$/
-a_mstar	Tali-Forth.asm	/^a_mstar:        ; figure out the sign$/
-a_natcomp	Tali-Forth.asm	/^a_natcomp:      ; offset for Length Byte is 2$/
-a_negate	Tali-Forth.asm	/^a_negate:       lda 1,x         ; LSB$/
-a_nip	Tali-Forth.asm	/^a_nip:          lda 1,x         ; LSB$/
-a_num	Tali-Forth.asm	/^a_num:          jsr l_base      ; BASE$/
-a_number	Tali-Forth.asm	/^a_number:       ; make sure u is not zero$/
-a_numgt	Tali-Forth.asm	/^a_numgt:        ; We overwrite the values for the /
-a_nums	Tali-Forth.asm	/^a_nums:$/
-a_one	Tali-Forth.asm	/^a_one:          dex$/
-a_or	Tali-Forth.asm	/^a_or:           lda 1,x         ; LSB$/
-a_over	Tali-Forth.asm	/^a_over:         dex$/
-a_p0branch	Tali-Forth.asm	/^a_p0branch:     ; we use the return value on the 6/
-a_pabortq	Tali-Forth.asm	/^a_pabortq:      ; we started out with a flag on th/
-a_pad	Tali-Forth.asm	/^a_pad:          dex$/
-a_page	Tali-Forth.asm	/^a_page:         lda #AscESC$/
-a_paren	Tali-Forth.asm	/^a_paren:        ; use PARSE to find the ")" closin/
-a_parse	Tali-Forth.asm	/^a_parse:        ; save the delimiter char$/
-a_pbranch	Tali-Forth.asm	/^a_pbranch:      ; we use the return value on the 6/
-a_pdo	Tali-Forth.asm	/^a_pdo:          ; first step: create fudge factor /
-a_pdoes	Tali-Forth.asm	/^a_pdoes:        ; Get the address of the machine c/
-a_pick	Tali-Forth.asm	/^a_pick:         lda 1,x         ; we only recogniz/
-a_plit	Tali-Forth.asm	/^a_plit:         ; make room on stack$/
-a_ploop	Tali-Forth.asm	/^a_ploop:        ; compile (+LOOP) -- don't call f_/
-a_plstore	Tali-Forth.asm	/^a_plstore:      ; Move address to TMPADR so we can/
-a_plus	Tali-Forth.asm	/^a_plus:         clc$/
-a_postpo	Tali-Forth.asm	/^a_postpo:       ; PARSE-NAME and FIND get us xt an/
-a_pploop	Tali-Forth.asm	/^a_pploop:       clc$/
-a_pqdo	Tali-Forth.asm	/^a_pqdo:         ; see if TOS and NOS are equal$/
-a_prsnm	Tali-Forth.asm	/^a_prsnm:        ; skip leading spaces. Note PARSE /
-a_qdo	Tali-Forth.asm	/^a_qdo:          ; ?DO shares most of its code with/
-a_qdup	Tali-Forth.asm	/^a_qdup:         lda 1,x$/
-a_quest	Tali-Forth.asm	/^a_quest:        jsr l_fetch$/
-a_quit	Tali-Forth.asm	/^a_quit:         ; Reset the return stack (65c02 st/
-a_rbrack	Tali-Forth.asm	/^a_rbrack:       lda #$FF$/
-a_recurse	Tali-Forth.asm	/^a_recurse:      ; the whole routine amounts to com/
-a_regular	Tali-Forth.asm	/^a_regular:      lda #AscESC$/
-a_rfetch	Tali-Forth.asm	/^a_rfetch:       dex$/
-a_rot	Tali-Forth.asm	/^a_rot:          lda 6,x         ; MSB first$/
-a_rshift	Tali-Forth.asm	/^a_rshift:       ; max 16 bit shift, so we mask eve/
-a_see	Tali-Forth.asm	/^a_see:          ; get word from input$/
-a_semic	Tali-Forth.asm	/^a_semic:        ; The current CP will be the byte /
-a_sign	Tali-Forth.asm	/^a_sign:         lda 2,x         ; check MSB of TOS/
-a_slash	Tali-Forth.asm	/^a_slash:        ; we can't replace >R by INX INX a/
-a_slashmod	Tali-Forth.asm	/^a_slashmod:     ; we can't temporarily hide the fi/
-a_slstr	Tali-Forth.asm	/^a_slstr:        ; if n is zero, just return$/
-a_smrem	Tali-Forth.asm	/^a_smrem:        ; push MSB of high cell of d to st/
-a_source	Tali-Forth.asm	/^a_source:       ; Address of Input Buffer$/
-a_space	Tali-Forth.asm	/^a_space:        lda #AscSP$/
-a_spaces	Tali-Forth.asm	/^a_spaces:       ; don't even start if we got a zer/
-a_squote	Tali-Forth.asm	/^a_squote:       ; use PARSE to find the end of the/
-a_ssmod	Tali-Forth.asm	/^a_ssmod:        ; Instead of >R and R> to temporar/
-a_star	Tali-Forth.asm	/^a_star:         jsr l_umstar$/
-a_starslash	Tali-Forth.asm	/^a_starslash:    jsr l_ssmod     ; *\/MOD$/
-a_state	Tali-Forth.asm	/^a_state:        dex$/
-a_stod	Tali-Forth.asm	/^a_stod:         dex$/
-a_store	Tali-Forth.asm	/^a_store:        jsr l_swap$/
-a_swap	Tali-Forth.asm	/^a_swap:         ; save next entry on stack (NOS)$/
-a_then	Tali-Forth.asm	/^a_then:         ; Put differently, this routine ha/
-a_tick	Tali-Forth.asm	/^a_tick:         jsr l_prsnm$/
-a_to	Tali-Forth.asm	/^a_to:           jsr l_tick      ; '$/
-a_tor	Tali-Forth.asm	/^a_tor:          ; save the return address$/
-a_true	Tali-Forth.asm	/^a_true:         dex$/
-a_tuck	Tali-Forth.asm	/^a_tuck:         dex$/
-a_two	Tali-Forth.asm	/^a_two:          dex$/
-a_tworfetch	Tali-Forth.asm	/^a_tworfetch:    ; make room on the stack$/
-a_type	Tali-Forth.asm	/^a_type:         lda 1,x         ; Skip if we got a/
-a_uddot	Tali-Forth.asm	/^a_uddot:        jsr l_ltnum     ; <#$/
-a_udmod	Tali-Forth.asm	/^a_udmod:        jsr l_tor       ; >R$/
-a_udot	Tali-Forth.asm	/^a_udot:         ; Forth string is 0 UD.$/
-a_udotr	Tali-Forth.asm	/^a_udotr:        jsr l_tor       ; >R$/
-a_ummod	Tali-Forth.asm	/^a_ummod:        ; TODO see if we have enough stuff/
-a_umstar	Tali-Forth.asm	/^a_umstar:       ; clear carry for safety$/
-a_unloop	Tali-Forth.asm	/^a_unloop:       ; drop fudge number (limit\/start) /
-a_unused	Tali-Forth.asm	/^a_unused:       dex$/
-a_value	Tali-Forth.asm	/^a_value:        bra l_constant      ;JSR\/RTS, use /
-a_var	Tali-Forth.asm	/^a_var:          ; We let CREATE and ALLOT do the h/
-a_word	Tali-Forth.asm	/^a_word:         ; skip over leading delimiters - t/
-a_words	Tali-Forth.asm	/^a_words:        ; start with last entry in diction/
-a_xor	Tali-Forth.asm	/^a_xor:          lda 1,x         ; LSB$/
-a_zero	Tali-Forth.asm	/^a_zero:         dex$/
-alphastr	Tali-Forth.asm	/^alphastr:       .text "0123456789ABCDEFGHIJKLMNOPQ/
 bflag	xmodem.asm	/^bflag		=	$a7		; block flag$/
 blkno	xmodem.asm	/^blkno		=	$a6		; block number$/
-clear_the_stack	Tali-Forth.asm	/^clear_the_stack	.proc$/
-cmovegint	Tali-Forth.asm	/^cmovegint:      ; move addresses to where we can w/
-cmoveint	Tali-Forth.asm	/^cmoveint:       ; move addresses to where we can w/
 crc	xmodem.asm	/^crc		=	$a8		; CRC lo byte  (two byte variable)$/
 crch	xmodem.asm	/^crch		=	$a9		; CRC hi byte$/
 crchi	xmodem.asm	/^crchi:$/
 crclo	xmodem.asm	/^crclo:$/
-do_common	Tali-Forth.asm	/^do_common:      ; we push HERE to the Data Stack s/
 done	basic_ide_routines.asm	/^done   	lda ide_register7	;get status in A$/
 done	basic_ide_routines.asm	/^done   	beq ide_to2$/
 done	cfs.asm	/^done			rts$/
-e_defer	Tali-Forth.asm	/^e_defer:        lda #$16        ; code for DEFER E/
 eofp	xmodem.asm	/^eofp		=	TEMP2		; end of file address pointer (2 by/
 eofph	xmodem.asm	/^eofph		=	TEMP2H		;  "	"	"	"$/
 errcnt	xmodem.asm	/^errcnt		=	$a7		; error counter 10 is the limit$/
-error	Tali-Forth.asm	/^error:          ; print a space$/
-f_byte2hexasc	Tali-Forth.asm	/^f_byte2hexasc:$/
-f_cmp16	Tali-Forth.asm	/^f_cmp16:        ; compare LSB. We do this first to/
-f_cmpljmp	Tali-Forth.asm	/^f_cmpljmp:      lda #$4C        ; compile "JMP" op/
-f_cmpljsr	Tali-Forth.asm	/^f_cmpljsr:      lda #$20        ; compile "JSR" op/
-f_cmplword	Tali-Forth.asm	/^f_cmplword:     lda #$00        ; just compile wor/
-f_compexe	Tali-Forth.asm	/^f_compexe:$/
-f_getchr	Tali-Forth.asm	/^f_getchr:       phy$/
-f_nib2asc	Tali-Forth.asm	/^f_nib2asc:$/
-f_postpo_int	Tali-Forth.asm	/^f_postpo_int:   ; This is the internal version of /
-f_prtzerostr	Tali-Forth.asm	/^f_prtzerostr:   ; version with a final linefeed$/
-f_putchr	Tali-Forth.asm	/^f_putchr:       phy$/
-f_strtoupper	Tali-Forth.asm	/^f_strtoupper:   lda 3,x         ; LSB of addr$/
-f_toupper	Tali-Forth.asm	/^f_toupper:$/
-f_wrtzerostr	Tali-Forth.asm	/^f_wrtzerostr:   ; version without a final linefeed/
-fc_docon	Tali-Forth.asm	/^fc_docon:       ; value is stored in the two bytes/
-fc_dodoes	Tali-Forth.asm	/^fc_dodoes:      ; Assumes the address of the CFA o/
-fc_dovar	Tali-Forth.asm	/^fc_dovar:       ; pull return address off of the m/
-fh_actionof	Tali-Forth.asm	/^fh_actionof:$/
-fh_else	Tali-Forth.asm	/^fh_else:$/
-fh_if	Tali-Forth.asm	/^fh_if:$/
-fh_is	Tali-Forth.asm	/^fh_is:$/
-fh_rpt	Tali-Forth.asm	/^fh_rpt:$/
-fh_until	Tali-Forth.asm	/^fh_until:$/
-fh_while	Tali-Forth.asm	/^fh_while:$/
-fhltbl	Tali-Forth.asm	/^fhltbl:$/
 find_boot_sector	cfs.asm	/^find_boot_sector 	.proc$/
 fprint	macros.asm	/^fprint .macro$/
-fs_compile	Tali-Forth.asm	/^fs_compile:    .text " compiled",0$/
-fs_datadump	Tali-Forth.asm	/^fs_datadump:   .text "Data Field dump:",0$/
-fs_dic_link	Tali-Forth.asm	/^fs_dic_link:   .text "links to:",0$/
-fs_disclaim	Tali-Forth.asm	/^fs_disclaim:   .text "Tali Forth comes with absolu/
-fs_f_CO	Tali-Forth.asm	/^fs_f_CO:       .text "compile-only ",0$/
-fs_f_IM	Tali-Forth.asm	/^fs_f_IM:       .text "immediate ",0$/
-fs_f_NC	Tali-Forth.asm	/^fs_f_NC:       .text "native-compile ",0$/
-fs_prompt	Tali-Forth.asm	/^fs_prompt:     .text " ok",0$/
-fs_title	Tali-Forth.asm	/^fs_title:      .text "Tali Forth for the 65c02",0$/
-fs_typebye	Tali-Forth.asm	/^fs_typebye:    .text "Type 'bye' to exit",0$/
-fs_version	Tali-Forth.asm	/^fs_version:    .text "Version BETA (31. Dec 2016)"/
-fs_xt	Tali-Forth.asm	/^fs_xt:         .text "xt: ",0$/
-fse_channel	Tali-Forth.asm	/^fse_channel:   .text "Accessing unknown channel",0/
-fse_componly	Tali-Forth.asm	/^fse_componly:  .text "Interpreting a compile-only /
-fse_defer	Tali-Forth.asm	/^fse_defer:     .text "DEFERed word not defined yet/
-fse_divzero	Tali-Forth.asm	/^fse_divzero:   .text "Division by zero",0$/
-fse_empty	Tali-Forth.asm	/^fse_empty:     .text " (empty)",0$/
-fse_error	Tali-Forth.asm	/^fse_error:     .text ">>>Error<<<",0$/
-fse_intonly	Tali-Forth.asm	/^fse_intonly:   .text "Not in interpret mode",0$/
-fse_noname	Tali-Forth.asm	/^fse_noname:    .text "Parsing failure",0$/
-fse_radix	Tali-Forth.asm	/^fse_radix:     .text "Digit larger than base",0$/
-fse_stack	Tali-Forth.asm	/^fse_stack:     .text "Stack over- or underflow",0$/
-fse_syntax	Tali-Forth.asm	/^fse_syntax:    .text "Unknown word",0$/
-ide_get_id	basic_ide_routines.asm	/^ide_get_id .proc$/
+ide_get_id	basic_ide_routines.asm	/^ide_get_id                        .proc$/
 ide_high_byte	basic_ide_routines.asm	/^ide_high_byte = $7f88$/
 ide_id_drive_cmd	basic_ide_routines.asm	/^ide_id_drive_cmd = $ec$/
-ide_init_devices	basic_ide_routines.asm	/^ide_init_devices .proc$/
-ide_init_status	basic_ide_routines.asm	/^ide_init_status .proc$/
+ide_init_devices	basic_ide_routines.asm	/^ide_init_devices                  .proc$/
+ide_init_status	basic_ide_routines.asm	/^ide_init_status                   .proc$/
 ide_lba0	basic_ide_routines.asm	/^ide_lba0 = $52			; LBA of desired sector LSB$/
 ide_lba1	basic_ide_routines.asm	/^ide_lba1 = ide_lba0 + 1$/
 ide_lba2	basic_ide_routines.asm	/^ide_lba2 = ide_lba1 + 1$/
 ide_lba3	basic_ide_routines.asm	/^ide_lba3 = ide_lba2 + 1 	; - LBA of desired sector/
-ide_read_buffer	basic_ide_routines.asm	/^ide_read_buffer .proc$/
-ide_read_sector	basic_ide_routines.asm	/^ide_read_sector .proc$/
+ide_read_buffer	basic_ide_routines.asm	/^ide_read_buffer                   .proc$/
+ide_read_sector	basic_ide_routines.asm	/^ide_read_sector                   .proc$/
 ide_read_sector_cmd	basic_ide_routines.asm	/^ide_read_sector_cmd = $20$/
 ide_register0	basic_ide_routines.asm	/^ide_register0 = $7f80		; PLUTO IN\/OUT addresses fo/
 ide_register1	basic_ide_routines.asm	/^ide_register1 = $7f81$/
@@ -906,254 +426,29 @@ ide_register4	basic_ide_routines.asm	/^ide_register4 = $7f84$/
 ide_register5	basic_ide_routines.asm	/^ide_register5 = $7f85$/
 ide_register6	basic_ide_routines.asm	/^ide_register6 = $7f86$/
 ide_register7	basic_ide_routines.asm	/^ide_register7 = $7f87$/
-ide_setup_lba	basic_ide_routines.asm	/^ide_setup_lba .proc$/
+ide_setup_lba	basic_ide_routines.asm	/^ide_setup_lba                     .proc$/
 ide_status	basic_ide_routines.asm	/^ide_status = $58$/
-ide_test_error	basic_ide_routines.asm	/^ide_test_error .proc$/
+ide_test_error	basic_ide_routines.asm	/^ide_test_error                    .proc$/
 ide_wait_buffer	basic_ide_routines.asm	/^ide_wait_buffer .proc$/
-ide_wait_busy_ready	basic_ide_routines.asm	/^ide_wait_busy_ready .proc$/
-ide_write_buffer	basic_ide_routines.asm	/^ide_write_buffer .proc$/
-ide_write_sector	basic_ide_routines.asm	/^ide_write_sector .proc$/
+ide_wait_busy_ready	basic_ide_routines.asm	/^ide_wait_busy_ready               .proc$/
+ide_write_buffer	basic_ide_routines.asm	/^ide_write_buffer                  .proc$/
+ide_write_sector	basic_ide_routines.asm	/^ide_write_sector                  .proc$/
 ide_write_sector_cmd	basic_ide_routines.asm	/^ide_write_sector_cmd = $30$/
-k_com1_h	Tali-Kernel.asm	/^k_com1_h = $D1 ; hi byte for general kernel commun/
-k_com1_l	Tali-Kernel.asm	/^k_com1_l = $D0 ; lo byte for general kernel commun/
-k_com2_h	Tali-Kernel.asm	/^k_com2_h = $D3 ; hi byte for general kernel commun/
-k_com2_l	Tali-Kernel.asm	/^k_com2_l = $D2 ; lo byte for general kernel commun/
-k_getchr	Tali-Kernel.asm	/^k_getchr:$/
 k_getchrVIAa	pluto_kernel.asm	/^k_getchrVIAa:$/
-k_getchrVIAa	Tali-Kernel.asm	/^k_getchrVIAa:$/
 k_getchrVIAb	pluto_kernel.asm	/^k_getchrVIAb:$/
-k_getchrVIAb	Tali-Kernel.asm	/^k_getchrVIAb:$/
-k_init65c02	Tali-Kernel.asm	/^k_init65c02:$/
-k_initIO	Tali-Kernel.asm	/^k_initIO:$/
-k_initRAM	Tali-Kernel.asm	/^k_initRAM:$/
-k_irqv	Tali-Forth.asm	/^k_irqv:$/
-k_nmiv	Tali-Kernel.asm	/^k_nmiv:$/
-k_panic	Tali-Kernel.asm	/^k_panic:$/
-k_prtstr	Tali-Kernel.asm	/^k_prtstr:$/
-k_ramend	Tali-Kernel.asm	/^k_ramend = $7FFF   ; End of continuous RAM that st/
-k_resetv	Tali-Kernel.asm	/^k_resetv:$/
-k_str_h	Tali-Kernel.asm	/^k_str_h  = $D5 ; hi byte of string address for pri/
-k_str_l	Tali-Kernel.asm	/^k_str_l  = $D4 ; lo byte of string address for pri/
-k_wrtchr	Tali-Kernel.asm	/^k_wrtchr:$/
 k_wrtchrVIAa	pluto_kernel.asm	/^k_wrtchrVIAa:$/
-k_wrtchrVIAa	Tali-Kernel.asm	/^k_wrtchrVIAa:$/
 k_wrtchrVIAb	pluto_kernel.asm	/^k_wrtchrVIAb:$/
-k_wrtchrVIAb	Tali-Kernel.asm	/^k_wrtchrVIAb:$/
-k_wrtstr	Tali-Kernel.asm	/^k_wrtstr:$/
-ks_author	Tali-Kernel.asm	/^ks_author:  .text "Scot W. Stevenson <scot.stevens/
-ks_version	Tali-Kernel.asm	/^ks_version: .text "Kernel Version Alpha 004 (11. F/
-ks_welcome	Tali-Kernel.asm	/^ks_welcome: .text "Booting Kernel for the Uberquir/
-l_0branch	Tali-Forth.asm	/^l_0branch:      bra a_0branch$/
-l_0equ	Tali-Forth.asm	/^l_0equ:         bra a_0equ$/
-l_0lt	Tali-Forth.asm	/^l_0lt:          bra a_0lt$/
-l_1minus	Tali-Forth.asm	/^l_1minus:       bra a_1minus$/
-l_1plus	Tali-Forth.asm	/^l_1plus:        bra a_1plus$/
-l_2drop	Tali-Forth.asm	/^l_2drop:        bra a_2drop$/
-l_2dup	Tali-Forth.asm	/^l_2dup:         bra a_2dup$/
-l_2gr	Tali-Forth.asm	/^l_2gr:          bra a_2gr$/
-l_2over	Tali-Forth.asm	/^l_2over:        bra a_2over$/
-l_2rg	Tali-Forth.asm	/^l_2rg:          bra a_2rg$/
-l_2swap	Tali-Forth.asm	/^l_2swap:        bra a_2swap$/
-l_2upper	Tali-Forth.asm	/^l_2upper:       bra a_2upper$/
-l_2var	Tali-Forth.asm	/^l_2var:         bra a_2var$/
-l_abort	Tali-Forth.asm	/^l_abort:        bra a_abort$/
-l_abortq	Tali-Forth.asm	/^l_abortq:       bra a_abortq$/
-l_abs	Tali-Forth.asm	/^l_abs:          bra a_abs$/
-l_accept	Tali-Forth.asm	/^l_accept:       bra a_accept$/
-l_again	Tali-Forth.asm	/^l_again:        bra a_again$/
-l_align	Tali-Forth.asm	/^l_align:        bra a_align$/
-l_aligned	Tali-Forth.asm	/^l_aligned:      bra a_aligned$/
-l_allot	Tali-Forth.asm	/^l_allot:        bra a_allot$/
-l_and	Tali-Forth.asm	/^l_and:          bra a_and$/
-l_atxy	Tali-Forth.asm	/^l_atxy:         bra a_atxy$/
-l_backslash	Tali-Forth.asm	/^l_backslash:    bra a_backslash$/
-l_base	Tali-Forth.asm	/^l_base:         bra a_base$/
-l_bchar	Tali-Forth.asm	/^l_bchar:        bra a_bchar$/
-l_begin	Tali-Forth.asm	/^l_begin:        bra a_begin$/
-l_bell	Tali-Forth.asm	/^l_bell:         bra a_bell$/
-l_binary	Tali-Forth.asm	/^l_binary:       bra a_binary$/
-l_bl	Tali-Forth.asm	/^l_bl:           bra a_bl$/
-l_bold	Tali-Forth.asm	/^l_bold:         bra a_bold$/
-l_branch	Tali-Forth.asm	/^l_branch:       bra a_branch$/
-l_btick	Tali-Forth.asm	/^l_btick:        bra a_btick$/
-l_bye	Tali-Forth.asm	/^l_bye:          bra a_bye$/
-l_ccom	Tali-Forth.asm	/^l_ccom .proc$/
-l_cellpl	Tali-Forth.asm	/^l_cellpl:       bra a_cellpl$/
-l_cells	Tali-Forth.asm	/^l_cells:        bra a_cells$/
-l_cfetch	Tali-Forth.asm	/^l_cfetch:       bra a_cfetch$/
-l_char	Tali-Forth.asm	/^l_char:         bra a_char$/
-l_charpl	Tali-Forth.asm	/^l_charpl:       bra a_charpl$/
-l_chars	Tali-Forth.asm	/^l_chars:        bra a_chars$/
-l_cmove	Tali-Forth.asm	/^l_cmove:        bra a_cmove$/
-l_cmovegt	Tali-Forth.asm	/^l_cmovegt:      bra a_cmovegt$/
-l_cmpc	Tali-Forth.asm	/^l_cmpc:         bra a_cmpc$/
-l_cold	Tali-Forth.asm	/^l_cold:         bra a_cold$/
-l_colon	Tali-Forth.asm	/^l_colon:        bra a_colon$/
-l_comma	Tali-Forth.asm	/^l_comma:        bra a_comma$/
-l_conly	Tali-Forth.asm	/^l_conly:        bra a_conly$/
-l_constant	Tali-Forth.asm	/^l_constant:     bra a_constant$/
-l_count	Tali-Forth.asm	/^l_count:        bra a_count$/
-l_cr	Tali-Forth.asm	/^l_cr:           bra a_cr$/
-l_create	Tali-Forth.asm	/^l_create:       bra a_create$/
-l_cstore	Tali-Forth.asm	/^l_cstore:       bra a_cstore$/
-l_dabs	Tali-Forth.asm	/^l_dabs:         bra a_dabs$/
-l_dashtrl	Tali-Forth.asm	/^l_dashtrl:      bra a_dashtrl$/
-l_ddot	Tali-Forth.asm	/^l_ddot:         bra a_ddot$/
-l_ddotr	Tali-Forth.asm	/^l_ddotr:        bra a_ddotr$/
-l_decimal	Tali-Forth.asm	/^l_decimal:      bra a_decimal$/
-l_defer	Tali-Forth.asm	/^l_defer:        bra a_defer$/
-l_deferfetch	Tali-Forth.asm	/^l_deferfetch:   bra a_deferfetch$/
-l_deferstore	Tali-Forth.asm	/^l_deferstore:   bra a_deferstore$/
-l_depth	Tali-Forth.asm	/^l_depth:        bra a_depth$/
-l_digit	Tali-Forth.asm	/^l_digit:        bra a_digit$/
-l_dminus	Tali-Forth.asm	/^l_dminus:       bra a_dminus$/
-l_dnegate	Tali-Forth.asm	/^l_dnegate:      bra a_dnegate$/
-l_do	Tali-Forth.asm	/^l_do:           bra a_do$/
-l_does	Tali-Forth.asm	/^l_does:         bra a_does$/
-l_dot	Tali-Forth.asm	/^l_dot:          bra a_dot$/
-l_dotpar	Tali-Forth.asm	/^l_dotpar:       bra a_dotpar$/
-l_dotq	Tali-Forth.asm	/^l_dotq:         bra a_dotq$/
-l_dotr	Tali-Forth.asm	/^l_dotr:         bra a_dotr$/
-l_dots	Tali-Forth.asm	/^l_dots:         bra a_dots$/
-l_dplus	Tali-Forth.asm	/^l_dplus:        bra a_dplus$/
-l_drop	Tali-Forth.asm	/^l_drop:         bra a_drop$/
-l_dtos	Tali-Forth.asm	/^l_dtos:         bra a_dtos$/
-l_dump	Tali-Forth.asm	/^l_dump:         bra a_dump$/
-l_dup	Tali-Forth.asm	/^l_dup:          bra a_dup$/
-l_emit	Tali-Forth.asm	/^l_emit:         bra a_emit$/
-l_equal	Tali-Forth.asm	/^l_equal:        bra a_equal$/
-l_erase	Tali-Forth.asm	/^l_erase:        bra a_erase$/
-l_eval	Tali-Forth.asm	/^l_eval:         bra a_eval$/
-l_exe	Tali-Forth.asm	/^l_exe:          bra a_exe$/
-l_exit	Tali-Forth.asm	/^l_exit:         bra a_exit$/
-l_false	Tali-Forth.asm	/^l_false:        bra a_false$/
-l_fetch	Tali-Forth.asm	/^l_fetch:        bra a_fetch$/
-l_fill	Tali-Forth.asm	/^l_fill:         bra a_fill$/
-l_find	Tali-Forth.asm	/^l_find:         bra a_find$/
-l_findint	Tali-Forth.asm	/^l_findint:      ; This is where FIND is used inter/
-l_fmmod	Tali-Forth.asm	/^l_fmmod:        bra a_fmmod$/
-l_fromr	Tali-Forth.asm	/^l_fromr:        bra a_fromr$/
-l_grthan	Tali-Forth.asm	/^l_grthan:       bra a_grthan$/
-l_gtbody	Tali-Forth.asm	/^l_gtbody:       bra a_gtbody$/
-l_gtin	Tali-Forth.asm	/^l_gtin:         bra a_gtin$/
-l_gtname	Tali-Forth.asm	/^l_gtname:       bra a_gtname$/
-l_gtnum	Tali-Forth.asm	/^l_gtnum:        bra a_gtnum$/
-l_here	Tali-Forth.asm	/^l_here:         bra a_here$/
-l_hex	Tali-Forth.asm	/^l_hex:          bra a_hex$/
-l_hold	Tali-Forth.asm	/^l_hold:         bra a_hold$/
-l_i	Tali-Forth.asm	/^l_i:            bra a_i$/
-l_immed	Tali-Forth.asm	/^l_immed:        bra a_immed$/
-l_invert	Tali-Forth.asm	/^l_invert:       bra a_invert$/
-l_j	Tali-Forth.asm	/^l_j:            bra a_j$/
-l_key	Tali-Forth.asm	/^l_key:          bra a_key$/
-l_lbrack	Tali-Forth.asm	/^l_lbrack:       bra a_lbrack$/
-l_leave	Tali-Forth.asm	/^l_leave:        bra a_leave$/
-l_lessthan	Tali-Forth.asm	/^l_lessthan:     bra a_lessthan$/
-l_lit	Tali-Forth.asm	/^l_lit:          bra a_lit$/
-l_loop	Tali-Forth.asm	/^l_loop:         bra a_loop$/
-l_lshift	Tali-Forth.asm	/^l_lshift:       bra a_lshift$/
-l_ltnum	Tali-Forth.asm	/^l_ltnum:        bra a_ltnum$/
-l_marker	Tali-Forth.asm	/^l_marker:       bra a_marker$/
-l_max	Tali-Forth.asm	/^l_max:          bra a_max$/
-l_min	Tali-Forth.asm	/^l_min:          bra a_min$/
-l_minus	Tali-Forth.asm	/^l_minus:        bra a_minus$/
-l_mod	Tali-Forth.asm	/^l_mod:          bra a_mod$/
-l_move	Tali-Forth.asm	/^l_move:         bra a_move$/
-l_mplus	Tali-Forth.asm	/^l_mplus:        bra a_mplus$/
-l_mrot	Tali-Forth.asm	/^l_mrot:         bra a_mrot$/
-l_mstar	Tali-Forth.asm	/^l_mstar:        bra a_mstar$/
-l_natcomp	Tali-Forth.asm	/^l_natcomp:      bra a_natcomp$/
-l_negate	Tali-Forth.asm	/^l_negate:       bra a_negate$/
-l_nip	Tali-Forth.asm	/^l_nip:          bra a_nip$/
-l_num	Tali-Forth.asm	/^l_num:          bra a_num$/
-l_number	Tali-Forth.asm	/^l_number:       bra a_number$/
-l_numgt	Tali-Forth.asm	/^l_numgt:        bra a_numgt$/
-l_nums	Tali-Forth.asm	/^l_nums:         bra a_nums$/
-l_one	Tali-Forth.asm	/^l_one:          bra a_one$/
-l_or	Tali-Forth.asm	/^l_or:           bra a_or$/
-l_over	Tali-Forth.asm	/^l_over:         bra a_over$/
-l_p0branch	Tali-Forth.asm	/^l_p0branch:     bra a_p0branch$/
-l_pabortq	Tali-Forth.asm	/^l_pabortq:      bra a_pabortq$/
-l_pad	Tali-Forth.asm	/^l_pad:          bra a_pad$/
-l_page	Tali-Forth.asm	/^l_page:         bra a_page$/
-l_paren	Tali-Forth.asm	/^l_paren:        bra a_paren$/
-l_parse	Tali-Forth.asm	/^l_parse:        bra a_parse$/
-l_pbranch	Tali-Forth.asm	/^l_pbranch:      bra a_pbranch$/
-l_pdo	Tali-Forth.asm	/^l_pdo:          bra a_pdo$/
-l_pdoes	Tali-Forth.asm	/^l_pdoes:        bra a_pdoes$/
-l_pick	Tali-Forth.asm	/^l_pick:         bra a_pick$/
-l_plit	Tali-Forth.asm	/^l_plit:         bra a_plit$/
-l_ploop	Tali-Forth.asm	/^l_ploop:        bra a_ploop$/
-l_plstore	Tali-Forth.asm	/^l_plstore:      bra a_plstore$/
-l_plus	Tali-Forth.asm	/^l_plus:         bra a_plus$/
-l_postpo	Tali-Forth.asm	/^l_postpo:       bra a_postpo$/
-l_pploop	Tali-Forth.asm	/^l_pploop:       bra a_pploop$/
-l_pqdo	Tali-Forth.asm	/^l_pqdo:         bra a_pqdo$/
-l_prsnm	Tali-Forth.asm	/^l_prsnm:        bra a_prsnm$/
-l_qdo	Tali-Forth.asm	/^l_qdo:          bra a_qdo$/
-l_qdup	Tali-Forth.asm	/^l_qdup:         bra a_qdup$/
-l_quest	Tali-Forth.asm	/^l_quest:        bra a_quest$/
-l_quit	Tali-Forth.asm	/^l_quit:         bra a_quit$/
-l_rbrack	Tali-Forth.asm	/^l_rbrack:       bra a_rbrack$/
-l_recurse	Tali-Forth.asm	/^l_recurse:      bra a_recurse$/
-l_regular	Tali-Forth.asm	/^l_regular:      bra a_regular$/
-l_rfetch	Tali-Forth.asm	/^l_rfetch:       bra a_rfetch$/
-l_rot	Tali-Forth.asm	/^l_rot:          bra a_rot$/
-l_rshift	Tali-Forth.asm	/^l_rshift:       bra a_rshift$/
-l_see	Tali-Forth.asm	/^l_see:          bra a_see$/
-l_semic	Tali-Forth.asm	/^l_semic:        bra a_semic$/
-l_sign	Tali-Forth.asm	/^l_sign:         bra a_sign$/
-l_slash	Tali-Forth.asm	/^l_slash:        bra a_slash$/
-l_slashmod	Tali-Forth.asm	/^l_slashmod:     bra a_slashmod$/
-l_slstr	Tali-Forth.asm	/^l_slstr:        bra a_slstr$/
-l_smrem	Tali-Forth.asm	/^l_smrem:        bra a_smrem$/
-l_source	Tali-Forth.asm	/^l_source:       bra a_source$/
-l_space	Tali-Forth.asm	/^l_space:        bra a_space$/
-l_spaces	Tali-Forth.asm	/^l_spaces:       bra a_spaces$/
-l_squote	Tali-Forth.asm	/^l_squote:       bra a_squote$/
-l_ssmod	Tali-Forth.asm	/^l_ssmod:        bra a_ssmod$/
-l_star	Tali-Forth.asm	/^l_star:         bra a_star$/
-l_starslash	Tali-Forth.asm	/^l_starslash:    bra a_starslash$/
-l_state	Tali-Forth.asm	/^l_state:        bra a_state$/
-l_stod	Tali-Forth.asm	/^l_stod:         bra a_stod$/
-l_store	Tali-Forth.asm	/^l_store:        bra a_store$/
-l_swap	Tali-Forth.asm	/^l_swap:         bra a_swap$/
-l_then	Tali-Forth.asm	/^l_then:         bra a_then$/
-l_tick	Tali-Forth.asm	/^l_tick:         bra a_tick$/
-l_to	Tali-Forth.asm	/^l_to:           bra a_to$/
-l_tor	Tali-Forth.asm	/^l_tor:          bra a_tor$/
-l_true	Tali-Forth.asm	/^l_true:         bra a_true$/
-l_tuck	Tali-Forth.asm	/^l_tuck:         bra a_tuck$/
-l_two	Tali-Forth.asm	/^l_two:          bra a_two$/
-l_tworfetch	Tali-Forth.asm	/^l_tworfetch:    bra a_tworfetch$/
-l_type	Tali-Forth.asm	/^l_type:         bra a_type$/
-l_uddot	Tali-Forth.asm	/^l_uddot:        bra a_uddot$/
-l_udmod	Tali-Forth.asm	/^l_udmod:        bra a_udmod$/
-l_udot	Tali-Forth.asm	/^l_udot:         bra a_udot$/
-l_udotr	Tali-Forth.asm	/^l_udotr:        bra a_udotr$/
-l_ummod	Tali-Forth.asm	/^l_ummod:        bra a_ummod$/
-l_umstar	Tali-Forth.asm	/^l_umstar:        bra a_umstar$/
-l_unloop	Tali-Forth.asm	/^l_unloop:       bra a_unloop$/
-l_unused	Tali-Forth.asm	/^l_unused:       bra a_unused$/
-l_value	Tali-Forth.asm	/^l_value:        bra a_value$/
-l_var	Tali-Forth.asm	/^l_var:          bra a_var$/
-l_word	Tali-Forth.asm	/^l_word:         bra a_word$/
-l_words	Tali-Forth.asm	/^l_words:        bra a_words$/
-l_xor	Tali-Forth.asm	/^l_xor:          bra a_xor$/
-l_zero	Tali-Forth.asm	/^l_zero:         bra a_zero$/
 lastblk	xmodem.asm	/^lastblk		=	$a5		; flag for last block$/
 load_addrn	macros.asm	/^load_addrn .macro$/
-master_slave_select	basic_ide_routines.asm	/^master_slave_select .proc$/
+master_slave_select	basic_ide_routines.asm	/^master_slave_select               .proc$/
 newline	macros.asm	/^newline .macro$/
-notdone	basic_ide_routines.asm	/^notdone lda ide_register7$/
-pp_found	Tali-Forth.asm	/^pp_found:       ; we start here with (xt f) on the/
+notdone	basic_ide_routines.asm	/^notdone                           lda ide_register/
 prtline	macros.asm	/^prtline .macro$/
 ptr	xmodem.asm	/^ptr		=	INDEX		; data pointer (two byte variable)$/
 ptrh	xmodem.asm	/^ptrh		=	INDEXH 		;   "    "$/
 retry	xmodem.asm	/^retry		=	$ae		; retry counter$/
 retry2	xmodem.asm	/^retry2		=	$af		; 2nd counter$/
 sector_buffer_ptr	basic_ide_routines.asm	/^sector_buffer_ptr = $50$/
-strtbl	Tali-Forth.asm	/^strtbl: .word fs_title, fs_version, fs_disclaim, f/
 testprta	macros.asm	/^testprta .macro$/
 teststack	macros.asm	/^teststack .macro$/
 tmp	basic_ide_routines.asm	/^tmp = $70$/
@@ -1161,201 +456,3 @@ tmp1	basic_ide_routines.asm	/^tmp1 = tmp+1$/
 tmp2	basic_ide_routines.asm	/^tmp2 = tmp+2$/
 tmp3	basic_ide_routines.asm	/^tmp3 = tmp+3$/
 wrtline	macros.asm	/^wrtline .macro$/
-z_0branch	Tali-Forth.asm	/^z_0branch:      rts$/
-z_0equ	Tali-Forth.asm	/^z_0equ:         rts$/
-z_0lt	Tali-Forth.asm	/^z_0lt:          rts$/
-z_1minus	Tali-Forth.asm	/^z_1minus:       rts$/
-z_1plus	Tali-Forth.asm	/^z_1plus:        rts$/
-z_2drop	Tali-Forth.asm	/^z_2drop:        rts$/
-z_2dup	Tali-Forth.asm	/^z_2dup:         rts$/
-z_2gr	Tali-Forth.asm	/^z_2gr:          rts$/
-z_2over	Tali-Forth.asm	/^z_2over:        rts$/
-z_2rg	Tali-Forth.asm	/^z_2rg:          rts             ; never reached$/
-z_2swap	Tali-Forth.asm	/^z_2swap:        rts$/
-z_2upper	Tali-Forth.asm	/^z_2upper:       rts$/
-z_2var	Tali-Forth.asm	/^z_2var:         rts$/
-z_abort	Tali-Forth.asm	/^z_abort:        bra l_quit      ; ABORT always flo/
-z_abortq	Tali-Forth.asm	/^z_abortq:       rts$/
-z_abs	Tali-Forth.asm	/^z_abs:          rts$/
-z_accept	Tali-Forth.asm	/^z_accept:       rts$/
-z_again	Tali-Forth.asm	/^z_again:        rts$/
-z_align	Tali-Forth.asm	/^z_align:        rts             ; never reached$/
-z_aligned	Tali-Forth.asm	/^z_aligned:      rts             ; never reached$/
-z_allot	Tali-Forth.asm	/^z_allot:        rts$/
-z_and	Tali-Forth.asm	/^z_and:          rts$/
-z_atxy	Tali-Forth.asm	/^z_atxy:         rts$/
-z_backslash	Tali-Forth.asm	/^z_backslash:    rts$/
-z_base	Tali-Forth.asm	/^z_base:         rts$/
-z_bchar	Tali-Forth.asm	/^z_bchar:        rts$/
-z_begin	Tali-Forth.asm	/^z_begin:        rts$/
-z_bell	Tali-Forth.asm	/^z_bell:         rts$/
-z_binary	Tali-Forth.asm	/^z_binary:       rts$/
-z_bl	Tali-Forth.asm	/^z_bl:           rts$/
-z_bold	Tali-Forth.asm	/^z_bold:         rts$/
-z_branch	Tali-Forth.asm	/^z_branch:       rts$/
-z_btick	Tali-Forth.asm	/^z_btick:        jmp l_lit       ; JSR\/RTS$/
-z_bye	Tali-Forth.asm	/^z_bye:          rts             ; never reached, r/
-z_ccom	Tali-Forth.asm	/^z_ccom:         rts$/
-z_cellpl	Tali-Forth.asm	/^z_cellpl:       rts$/
-z_cells	Tali-Forth.asm	/^z_cells:        rts$/
-z_cfetch	Tali-Forth.asm	/^z_cfetch:       rts$/
-z_char	Tali-Forth.asm	/^z_char:         rts$/
-z_charpl	Tali-Forth.asm	/^z_charpl:       rts$/
-z_chars	Tali-Forth.asm	/^z_chars:        rts$/
-z_cmove	Tali-Forth.asm	/^z_cmove:        rts$/
-z_cmovegt	Tali-Forth.asm	/^z_cmovegt:      rts$/
-z_cmpc	Tali-Forth.asm	/^z_cmpc:         rts$/
-z_cold	Tali-Forth.asm	/^z_cold:         rts$/
-z_colon	Tali-Forth.asm	/^z_colon:        rts$/
-z_comma	Tali-Forth.asm	/^z_comma:        rts$/
-z_conly	Tali-Forth.asm	/^z_conly:        rts$/
-z_constant	Tali-Forth.asm	/^z_constant:     rts$/
-z_count	Tali-Forth.asm	/^z_count:        rts$/
-z_cr	Tali-Forth.asm	/^z_cr:           rts$/
-z_create	Tali-Forth.asm	/^z_create:       rts$/
-z_cstore	Tali-Forth.asm	/^z_cstore:       rts$/
-z_dabs	Tali-Forth.asm	/^z_dabs:         rts$/
-z_dashtrl	Tali-Forth.asm	/^z_dashtrl:      rts$/
-z_ddot	Tali-Forth.asm	/^z_ddot:         rts$/
-z_ddotr	Tali-Forth.asm	/^z_ddotr:        rts$/
-z_decimal	Tali-Forth.asm	/^z_decimal:      rts$/
-z_defer	Tali-Forth.asm	/^z_defer:        rts$/
-z_deferfetch	Tali-Forth.asm	/^z_deferfetch:   rts$/
-z_deferstore	Tali-Forth.asm	/^z_deferstore:   rts$/
-z_depth	Tali-Forth.asm	/^z_depth:        rts$/
-z_digit	Tali-Forth.asm	/^z_digit:        rts$/
-z_dminus	Tali-Forth.asm	/^z_dminus:       rts$/
-z_dnegate	Tali-Forth.asm	/^z_dnegate:      rts$/
-z_do	Tali-Forth.asm	/^z_do:           rts$/
-z_does	Tali-Forth.asm	/^z_does:         rts$/
-z_dot	Tali-Forth.asm	/^z_dot:          rts$/
-z_dotpar	Tali-Forth.asm	/^z_dotpar:       rts$/
-z_dotq	Tali-Forth.asm	/^z_dotq:         rts$/
-z_dotr	Tali-Forth.asm	/^z_dotr:         rts$/
-z_dots	Tali-Forth.asm	/^z_dots:         rts$/
-z_dplus	Tali-Forth.asm	/^z_dplus:        rts$/
-z_drop	Tali-Forth.asm	/^z_drop:         rts$/
-z_dtos	Tali-Forth.asm	/^z_dtos:         rts$/
-z_dump	Tali-Forth.asm	/^z_dump:         rts$/
-z_dup	Tali-Forth.asm	/^z_dup:          rts$/
-z_emit	Tali-Forth.asm	/^z_emit:         rts$/
-z_equal	Tali-Forth.asm	/^z_equal:        rts$/
-z_erase	Tali-Forth.asm	/^z_erase:        rts$/
-z_eval	Tali-Forth.asm	/^z_eval:         rts$/
-z_exe	Tali-Forth.asm	/^z_exe:          rts$/
-z_exit	Tali-Forth.asm	/^z_exit:         rts     ; dummy for compile only$/
-z_false	Tali-Forth.asm	/^z_false:        rts$/
-z_fetch	Tali-Forth.asm	/^z_fetch:        rts$/
-z_fill	Tali-Forth.asm	/^z_fill:         rts$/
-z_find	Tali-Forth.asm	/^z_find:         rts$/
-z_fmmod	Tali-Forth.asm	/^z_fmmod:        rts$/
-z_fromr	Tali-Forth.asm	/^z_fromr:        rts$/
-z_grthan	Tali-Forth.asm	/^z_grthan:       rts$/
-z_gtbody	Tali-Forth.asm	/^z_gtbody:       rts$/
-z_gtin	Tali-Forth.asm	/^z_gtin:         rts$/
-z_gtname	Tali-Forth.asm	/^z_gtname:       rts$/
-z_gtnum	Tali-Forth.asm	/^z_gtnum:        rts$/
-z_here	Tali-Forth.asm	/^z_here:         rts$/
-z_hex	Tali-Forth.asm	/^z_hex:          rts$/
-z_hold	Tali-Forth.asm	/^z_hold:         rts$/
-z_i	Tali-Forth.asm	/^z_i:            rts             ; should be never /
-z_immed	Tali-Forth.asm	/^z_immed:        rts$/
-z_invert	Tali-Forth.asm	/^z_invert:       rts$/
-z_j	Tali-Forth.asm	/^z_j:            rts$/
-z_key	Tali-Forth.asm	/^z_key:          rts$/
-z_lbrack	Tali-Forth.asm	/^z_lbrack:       rts$/
-z_leave	Tali-Forth.asm	/^z_leave:        nop     ; dummy, not reached, not /
-z_lessthan	Tali-Forth.asm	/^z_lessthan:     rts$/
-z_lit	Tali-Forth.asm	/^z_lit:          rts$/
-z_loop	Tali-Forth.asm	/^z_loop:         rts             ; never reached$/
-z_lshift	Tali-Forth.asm	/^z_lshift:       rts$/
-z_ltnum	Tali-Forth.asm	/^z_ltnum:        rts$/
-z_marker	Tali-Forth.asm	/^z_marker:       rts$/
-z_max	Tali-Forth.asm	/^z_max:          rts$/
-z_min	Tali-Forth.asm	/^z_min:          rts$/
-z_minus	Tali-Forth.asm	/^z_minus:        rts$/
-z_mod	Tali-Forth.asm	/^z_mod:          rts$/
-z_move	Tali-Forth.asm	/^z_move:         rts$/
-z_mplus	Tali-Forth.asm	/^z_mplus:        rts$/
-z_mrot	Tali-Forth.asm	/^z_mrot:         rts$/
-z_mstar	Tali-Forth.asm	/^z_mstar:        rts$/
-z_natcomp	Tali-Forth.asm	/^z_natcomp:      rts$/
-z_negate	Tali-Forth.asm	/^z_negate:       rts$/
-z_nip	Tali-Forth.asm	/^z_nip:          rts$/
-z_num	Tali-Forth.asm	/^z_num:          rts$/
-z_number	Tali-Forth.asm	/^z_number:       rts$/
-z_numgt	Tali-Forth.asm	/^z_numgt:        rts$/
-z_nums	Tali-Forth.asm	/^z_nums:         rts$/
-z_one	Tali-Forth.asm	/^z_one:          rts$/
-z_or	Tali-Forth.asm	/^z_or:           rts$/
-z_over	Tali-Forth.asm	/^z_over:         rts$/
-z_p0branch	Tali-Forth.asm	/^z_p0branch:     rts$/
-z_pabortq	Tali-Forth.asm	/^z_pabortq:      rts$/
-z_pad	Tali-Forth.asm	/^z_pad:          rts$/
-z_page	Tali-Forth.asm	/^z_page:         rts$/
-z_paren	Tali-Forth.asm	/^z_paren:        rts$/
-z_parse	Tali-Forth.asm	/^z_parse:        rts$/
-z_pbranch	Tali-Forth.asm	/^z_pbranch:      rts$/
-z_pdo	Tali-Forth.asm	/^z_pdo:          rts$/
-z_pdoes	Tali-Forth.asm	/^z_pdoes:        rts$/
-z_pick	Tali-Forth.asm	/^z_pick:         rts$/
-z_plit	Tali-Forth.asm	/^z_plit:         rts$/
-z_ploop	Tali-Forth.asm	/^z_ploop:        rts$/
-z_plstore	Tali-Forth.asm	/^z_plstore:      rts$/
-z_plus	Tali-Forth.asm	/^z_plus:         rts$/
-z_postpo	Tali-Forth.asm	/^z_postpo:       rts$/
-z_pploop	Tali-Forth.asm	/^z_pploop:       rts             ; never reached$/
-z_pqdo	Tali-Forth.asm	/^z_pqdo:         nop             ; dummy: never rea/
-z_prsnm	Tali-Forth.asm	/^z_prsnm:        rts$/
-z_qdo	Tali-Forth.asm	/^z_qdo:          rts             ; never reached$/
-z_qdup	Tali-Forth.asm	/^z_qdup:         rts$/
-z_quest	Tali-Forth.asm	/^z_quest:        rts$/
-z_quit	Tali-Forth.asm	/^z_quit:         rts     ; never reached; required /
-z_rbrack	Tali-Forth.asm	/^z_rbrack:       rts$/
-z_recurse	Tali-Forth.asm	/^z_recurse:      rts$/
-z_regular	Tali-Forth.asm	/^z_regular:      rts$/
-z_rfetch	Tali-Forth.asm	/^z_rfetch:       rts$/
-z_rot	Tali-Forth.asm	/^z_rot:          rts$/
-z_rshift	Tali-Forth.asm	/^z_rshift:       rts$/
-z_see	Tali-Forth.asm	/^z_see:          rts$/
-z_semic	Tali-Forth.asm	/^z_semic:        rts$/
-z_sign	Tali-Forth.asm	/^z_sign:         rts$/
-z_slash	Tali-Forth.asm	/^z_slash:        rts$/
-z_slashmod	Tali-Forth.asm	/^z_slashmod:     rts$/
-z_slstr	Tali-Forth.asm	/^z_slstr:        rts$/
-z_smrem	Tali-Forth.asm	/^z_smrem:        rts$/
-z_source	Tali-Forth.asm	/^z_source:       rts$/
-z_space	Tali-Forth.asm	/^z_space:        rts$/
-z_spaces	Tali-Forth.asm	/^z_spaces:       rts$/
-z_squote	Tali-Forth.asm	/^z_squote:       rts$/
-z_ssmod	Tali-Forth.asm	/^z_ssmod:        rts$/
-z_star	Tali-Forth.asm	/^z_star:         rts$/
-z_starslash	Tali-Forth.asm	/^z_starslash:    rts$/
-z_state	Tali-Forth.asm	/^z_state:        rts$/
-z_stod	Tali-Forth.asm	/^z_stod:         rts$/
-z_store	Tali-Forth.asm	/^z_store:        rts$/
-z_swap	Tali-Forth.asm	/^z_swap:         rts$/
-z_then	Tali-Forth.asm	/^z_then:         rts$/
-z_tick	Tali-Forth.asm	/^z_tick:         rts$/
-z_to	Tali-Forth.asm	/^z_to:           rts$/
-z_tor	Tali-Forth.asm	/^z_tor:          rts$/
-z_true	Tali-Forth.asm	/^z_true:         rts$/
-z_tuck	Tali-Forth.asm	/^z_tuck:         rts$/
-z_two	Tali-Forth.asm	/^z_two:          rts$/
-z_tworfetch	Tali-Forth.asm	/^z_tworfetch:    rts$/
-z_type	Tali-Forth.asm	/^z_type:         rts$/
-z_uddot	Tali-Forth.asm	/^z_uddot:        rts$/
-z_udmod	Tali-Forth.asm	/^z_udmod:        rts$/
-z_udot	Tali-Forth.asm	/^z_udot:         rts$/
-z_udotr	Tali-Forth.asm	/^z_udotr:        rts$/
-z_ummod	Tali-Forth.asm	/^z_ummod:        rts$/
-z_umstar	Tali-Forth.asm	/^z_umstar:       rts$/
-z_unloop	Tali-Forth.asm	/^z_unloop:       rts$/
-z_unused	Tali-Forth.asm	/^z_unused:       rts$/
-z_value	Tali-Forth.asm	/^z_value:$/
-z_var	Tali-Forth.asm	/^z_var:          rts$/
-z_word	Tali-Forth.asm	/^z_word:         rts$/
-z_words	Tali-Forth.asm	/^z_words:        rts$/
-z_xor	Tali-Forth.asm	/^z_xor:          rts$/
-z_zero	Tali-Forth.asm	/^z_zero:         rts$/
-zp0	Tali-Kernel.asm	/^zp0 = $D6 ; General use ZP entry$/
