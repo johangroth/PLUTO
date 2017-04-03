@@ -21,12 +21,12 @@ ASMPROHILO	pluto_kernel.asm	/^ASMPROHILO:$/
 ASOK	pluto_kernel.asm	/^ASOK:$/
 ASSEM	pluto_kernel.asm	/^ASSEM:$/
 ATODLOOP	pluto_kernel.asm	/^ATODLOOP:$/
-BACK	pluto_kernel.asm	/^BACK:$/
+BACK	pluto_kernel.asm	/^BACK                              .proc$/
 BBREL	pluto_kernel.asm	/^BBREL:$/
 BBRM	pluto_kernel.asm	/^BBRM:$/
 BBRS	pluto_kernel.asm	/^BBRS:$/
 BBSM	pluto_kernel.asm	/^BBSM:$/
-BCDOUT	pluto_kernel.asm	/^BCDOUT  .proc$/
+BCDOUT	pluto_kernel.asm	/^BCDOUT                            .proc$/
 BCDOUTDN	pluto_kernel.asm	/^BCDOUTDN:$/
 BCDOUTL	pluto_kernel.asm	/^BCDOUTL:$/
 BCDTOASC	pluto_kernel.asm	/^BCDTOASC	.proc$/
@@ -55,22 +55,22 @@ CAN	xmodem.asm	/^CAN		=	$18		; cancel (not standard, not supported)/
 CHEXIN2	pluto_kernel.asm	/^CHEXIN2:$/
 CHIN	pluto_kernel.asm	/^CHIN	.proc$/
 CHINLOOP	pluto_kernel.asm	/^CHINLOOP:$/
-CHREG	pluto_kernel.asm	/^CHREG:$/
+CHREG	pluto_kernel.asm	/^CHREG                             .proc$/
 CLKRD	pluto_kernel.asm	/^CLKRD:$/
 CMDPROMPTS	pluto_kernel.asm	/^CMDPROMPTS:$/
 CMON	pluto_kernel.asm	/^CMON:$/
 COLDSTART	pluto_kernel.asm	/^COLDSTART:$/
 COMX	pluto_kernel.asm	/^COMX:$/
 COMY	pluto_kernel.asm	/^COMY:$/
-COUT	pluto_kernel.asm	/^COUT:	PHA           ;Save ACCUMULATOR on STACK$/
+COUT	pluto_kernel.asm	/^COUT                              .proc$/
 COUT2	pluto_kernel.asm	/^COUT2:	JSR  COUT     ;(Send byte 2 times)$/
 COUT3	pluto_kernel.asm	/^COUT3:	JSR  COUT     ;(Send byte 3 times)$/
 COUTL	pluto_kernel.asm	/^COUTL:	LDA  SIOSTAT  ;Read ACIA status register$/
 CPXY	pluto_kernel.asm	/^CPXY:$/
 CPXYAB	pluto_kernel.asm	/^CPXYAB:$/
 CR	xmodem.asm	/^CR		=	$0d		; carriage return$/
-CR2	pluto_kernel.asm	/^CR2:$/
-CROUT	pluto_kernel.asm	/^CROUT:$/
+CR2	pluto_kernel.asm	/^CR2                               .proc$/
+CROUT	pluto_kernel.asm	/^CROUT                             .proc$/
 CSTOR2	pluto_kernel.asm	/^CSTOR2:$/
 CSTOR3	pluto_kernel.asm	/^CSTOR3:$/
 CalcCRC	xmodem.asm	/^CalcCRC:$/
@@ -84,11 +84,11 @@ DAY	pluto_kernel.asm	/^DAY:$/
 DBBR	pluto_kernel.asm	/^DBBR:$/
 DBBS	pluto_kernel.asm	/^DBBS:$/
 DECDONE	pluto_kernel.asm	/^DECDONE:$/
-DECINDEX	pluto_kernel.asm	/^DECINDEX:$/
-DECINPUT	pluto_kernel.asm	/^DECINPUT:$/
+DECINDEX	pluto_kernel.asm	/^DECINDEX                          .proc$/
+DECINPUT	pluto_kernel.asm	/^DECINPUT                          .proc$/
 DECONLY	pluto_kernel.asm	/^DECONLY:$/
 DECTEST	pluto_kernel.asm	/^DECTEST:$/
-DELAY1	pluto_kernel.asm	/^DELAY1:$/
+DELAY1	pluto_kernel.asm	/^DELAY1                            .proc$/
 DELAY2	pluto_kernel.asm	/^DELAY2:$/
 DIND	pluto_kernel.asm	/^DIND:$/
 DIRECTV	pluto_kernel.asm	/^DIRECTV:$/
@@ -101,7 +101,7 @@ DJTAB	pluto_kernel.asm	/^DJTAB:$/
 DMTAB	pluto_kernel.asm	/^DMTAB:$/
 DOCOM	pluto_kernel.asm	/^DOCOM:$/
 DODIR	pluto_kernel.asm	/^DODIR:$/
-DOLLAR	pluto_kernel.asm	/^DOLLAR:$/
+DOLLAR	pluto_kernel.asm	/^DOLLAR                            .proc$/
 DONEFILL	pluto_kernel.asm	/^DONEFILL:$/
 DONESB	pluto_kernel.asm	/^DONESB:$/
 DOUPLOAD	xmodem.asm	/^DOUPLOAD:$/
@@ -133,8 +133,6 @@ Flush	xmodem.asm	/^Flush:$/
 Flush1	xmodem.asm	/^Flush1:$/
 GETNXT	pluto_kernel.asm	/^GETNXT:$/
 GET_UP_TO_16_CHR_STRING	pluto_kernel.asm	/^GET_UP_TO_16_CHR_STRING:$/
-GLINE	pluto_kernel.asm	/^GLINE:$/
-GLINEL	pluto_kernel.asm	/^GLINEL:$/
 GetBlk	xmodem.asm	/^GetBlk:$/
 GetBlk2	xmodem.asm	/^GetBlk2:$/
 GoodBlk1	xmodem.asm	/^GoodBlk1:$/
@@ -148,13 +146,13 @@ H2OK	pluto_kernel.asm	/^H2OK:$/
 H4LOOP	pluto_kernel.asm	/^H4LOOP:$/
 H4OK	pluto_kernel.asm	/^H4OK:$/
 HEXDIGIT	pluto_kernel.asm	/^HEXDIGIT:$/
-HEXIN	pluto_kernel.asm	/^HEXIN:$/
-HEXIN2	pluto_kernel.asm	/^HEXIN2:$/
-HEXIN4	pluto_kernel.asm	/^HEXIN4:$/
-HEXOUT	pluto_kernel.asm	/^HEXOUT:$/
+HEXIN	pluto_kernel.asm	/^HEXIN                             .proc$/
+HEXIN2	pluto_kernel.asm	/^HEXIN2                            .proc$/
+HEXIN4	pluto_kernel.asm	/^HEXIN4                            .proc$/
+HEXOUT	pluto_kernel.asm	/^HEXOUT                            .proc$/
 HEXOUTDN	pluto_kernel.asm	/^HEXOUTDN:$/
 HEXOUTL	pluto_kernel.asm	/^HEXOUTL:$/
-HEXTOASC	pluto_kernel.asm	/^HEXTOASC:$/
+HEXTOASC	pluto_kernel.asm	/^HEXTOASC                          .proc$/
 HNONZERO	pluto_kernel.asm	/^HNONZERO:$/
 HPTAB	pluto_kernel.asm	/^HPTAB:$/
 HTAB	pluto_kernel.asm	/^HTAB:$/
@@ -166,7 +164,7 @@ IN3	pluto_kernel.asm	/^IN3:$/
 IN4	pluto_kernel.asm	/^IN4:$/
 INC	pluto_kernel.asm	/^INC:$/
 INCDONE	pluto_kernel.asm	/^INCDONE:$/
-INCINDEX	pluto_kernel.asm	/^INCINDEX:$/
+INCINDEX	pluto_kernel.asm	/^INCINDEX                          .proc$/
 INCNDX	pluto_kernel.asm	/^INCNDX:$/
 INDABSX	pluto_kernel.asm	/^INDABSX:$/
 INDJ	pluto_kernel.asm	/^INDJ:$/
@@ -179,7 +177,7 @@ JSUB	pluto_kernel.asm	/^JSUB:$/
 JTAB	pluto_kernel.asm	/^JTAB:$/
 JUMPS	pluto_kernel.asm	/^JUMPS:$/
 JUST3	pluto_kernel.asm	/^JUST3:$/
-JUST4	pluto_kernel.asm	/^JUST4:$/
+JUST4	pluto_kernel.asm	/^JUST4                             .proc$/
 JUSTBYTE	pluto_kernel.asm	/^JUSTBYTE:$/
 KEYCONV	pluto_kernel.asm	/^KEYCONV:$/
 LBR	pluto_kernel.asm	/^LBR:$/
@@ -258,13 +256,13 @@ PERIOD	pluto_kernel.asm	/^PERIOD:$/
 PGFILL	pluto_kernel.asm	/^PGFILL:$/
 PR1	pluto_kernel.asm	/^PR1:$/
 PR2	pluto_kernel.asm	/^PR2:$/
-PRASC	pluto_kernel.asm	/^PRASC:$/
+PRASC	pluto_kernel.asm	/^PRASC                             .proc$/
 PRBIT	pluto_kernel.asm	/^PRBIT:$/
-PRBYTE	pluto_kernel.asm	/^PRBYTE:$/
-PRINDX	pluto_kernel.asm	/^PRINDX:$/
+PRBYTE	pluto_kernel.asm	/^PRBYTE                            .proc$/
+PRINDX	pluto_kernel.asm	/^PRINDX                            .proc$/
 PRML	pluto_kernel.asm	/^PRML:$/
 PRMNEM	pluto_kernel.asm	/^PRMNEM:$/
-PROMPT	pluto_kernel.asm	/^PROMPT:$/
+PROMPT	pluto_kernel.asm	/^PROMPT                            .proc$/
 PROMPT2	pluto_kernel.asm	/^PROMPT2:$/
 PrintMsg	xmodem.asm	/^PrintMsg:$/
 Print_Err	xmodem.asm	/^Print_Err:$/
@@ -275,15 +273,15 @@ QUITFILL	pluto_kernel.asm	/^QUITFILL:$/
 QUITMV	pluto_kernel.asm	/^QUITMV:$/
 QUITP	pluto_kernel.asm	/^QUITP:$/
 RBR	pluto_kernel.asm	/^RBR:$/
-RDCHAR	pluto_kernel.asm	/^RDCHAR:$/
+RDCHAR	pluto_kernel.asm	/^RDCHAR                            .proc$/
 RDEC	pluto_kernel.asm	/^RDEC:$/
-RDLINE	pluto_kernel.asm	/^RDLINE:$/
+RDLINE	pluto_kernel.asm	/^RDLINE                            .proc$/
 RDLOOP	pluto_kernel.asm	/^RDLOOP:$/
 RDLOOP2	pluto_kernel.asm	/^RDLOOP2:$/
 RDNDX	pluto_kernel.asm	/^RDNDX:$/
 RDONE	pluto_kernel.asm	/^RDONE:$/
 RDoneNow	xmodem.asm	/^RDoneNow:$/
-READ	pluto_kernel.asm	/^READ:$/
+READ	pluto_kernel.asm	/^READ                              .proc$/
 RECODE	pluto_kernel.asm	/^RECODE:$/
 REENTR	pluto_kernel.asm	/^REENTR:$/
 REGARA	pluto_kernel.asm	/^REGARA:$/
@@ -291,7 +289,7 @@ REL	pluto_kernel.asm	/^REL:$/
 RELATIVE	pluto_kernel.asm	/^RELATIVE:$/
 RELLOOP	pluto_kernel.asm	/^RELLOOP:$/
 REORIG	pluto_kernel.asm	/^REORIG:$/
-RESREGS	pluto_kernel.asm	/^RESREGS:$/
+RESREGS	pluto_kernel.asm	/^RESREGS                           .proc$/
 REST	pluto_kernel.asm	/^REST:$/
 RIGHT	pluto_kernel.asm	/^RIGHT:$/
 RMBM	pluto_kernel.asm	/^RMBM:$/
@@ -300,17 +298,17 @@ RT	pluto_kernel.asm	/^RT:$/
 Rbuff	xmodem.asm	/^Rbuff		=	$0300      	; temp 132 byte receive buffe/
 Resend	xmodem.asm	/^Resend:$/
 SAVLST	pluto_kernel.asm	/^SAVLST:$/
-SAVREGS	pluto_kernel.asm	/^SAVREGS:$/
+SAVREGS	pluto_kernel.asm	/^SAVREGS                           .proc$/
 SBLOOP	pluto_kernel.asm	/^SBLOOP:$/
-SBYTSTR	pluto_kernel.asm	/^SBYTSTR:$/
+SBYTSTR	pluto_kernel.asm	/^SBYTSTR                           .proc$/
 SCalcCRC	xmodem.asm	/^SCalcCRC:$/
 SENDIGIT	pluto_kernel.asm	/^SENDIGIT:$/
-SENDIT	pluto_kernel.asm	/^SENDIT:$/
+SENDIT	pluto_kernel.asm	/^SENDIT                            .proc$/
 SENGBR1	pluto_kernel.asm	/^SENGBR1:$/
 SENGBR2	pluto_kernel.asm	/^SENGBR2:$/
 SENGBR3	pluto_kernel.asm	/^SENGBR3:$/
-SENGINE	pluto_kernel.asm	/^SENGINE:$/
-SET	pluto_kernel.asm	/^SET:$/
+SENGINE	pluto_kernel.asm	/^SENGINE                           .proc$/
+SET	pluto_kernel.asm	/^SET                               .proc$/
 SETUP	pluto_kernel.asm	/^SETUP:$/
 SHEXIN4	pluto_kernel.asm	/^SHEXIN4:$/
 SHFT3	pluto_kernel.asm	/^SHFT3:$/
@@ -434,10 +432,6 @@ ide_wait_busy_ready	basic_ide_routines.asm	/^ide_wait_busy_ready               .
 ide_write_buffer	basic_ide_routines.asm	/^ide_write_buffer                  .proc$/
 ide_write_sector	basic_ide_routines.asm	/^ide_write_sector                  .proc$/
 ide_write_sector_cmd	basic_ide_routines.asm	/^ide_write_sector_cmd = $30$/
-k_getchrVIAa	pluto_kernel.asm	/^k_getchrVIAa:$/
-k_getchrVIAb	pluto_kernel.asm	/^k_getchrVIAb:$/
-k_wrtchrVIAa	pluto_kernel.asm	/^k_wrtchrVIAa:$/
-k_wrtchrVIAb	pluto_kernel.asm	/^k_wrtchrVIAb:$/
 lastblk	xmodem.asm	/^lastblk		=	$a5		; flag for last block$/
 load_addrn	macros.asm	/^load_addrn .macro$/
 master_slave_select	basic_ide_routines.asm	/^master_slave_select               .proc$/

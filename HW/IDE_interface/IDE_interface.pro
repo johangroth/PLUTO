@@ -1,4 +1,4 @@
-update=Wed 15 Mar 2017 01:50:17 GMT
+update=Mon 03 Apr 2017 23:12:57 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -23,11 +23,9 @@ ModuleOutlineThickness=0.150000000000
 [cvpcb]
 version=1
 NetIExt=net
-[general]
-version=1
 [eeschema]
 version=1
-LibDir=/home/jgroth/C64/KiCadLibraries/65xx_Library/KiCad
+LibDir=/home/jgroth/C64/KiCadLibraries/65xx_Library/KiCad;../../../KiCadLibraries/kicad-lib/components
 [eeschema/libraries]
 LibName1=IDE_interface-rescue
 LibName2=power
@@ -61,3 +59,5 @@ LibName29=contrib
 LibName30=valves
 LibName31=IDE_interface
 LibName32=65xx
+[general]
+version=1
