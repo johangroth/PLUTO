@@ -15,6 +15,12 @@
 ;*          (Requires 8kb of memory)               *
 ;***************************************************
 ;
+
+;8-bit variables
+    SAVEACC  = $AD
+    SAVEX    = $AE
+    SAVEY    = $AF
+
 ;14 byte buffer
 	INBUFF   = $B0      ;14 bytes ($B0-$BD)
 ;
@@ -113,7 +119,7 @@
 	;; ***************
 	;;
 
- 	.include "xmodem.asm"
+ 	;.include "xmodem.asm"
 
 ;
 ;;;         * =  $E000 ; Target address range $E000 through $FFFF will be used
@@ -312,15 +318,15 @@ CHREG                             .proc
 ;COUT subroutines: Send byte in ACCUMULATOR to terminal (1,2 or 3 times)
 COUT3:	JSR  COUT     ;(Send byte 3 times)
 COUT2:	JSR  COUT     ;(Send byte 2 times)
-COUT                              .proc
-	PHA           ;Save ACCUMULATOR on STACK
+COUT    .proc
+	    PHA           ;Save ACCUMULATOR on STACK
 COUTL:	LDA  SIOSTAT  ;Read ACIA status register
-                                  AND  #$10     ;Isolate transmit data register status bit
-                                  BEQ  COUTL    ;LOOP back to COUTL IF transmit data register is full
-                                  PLA           ; ELSE, restore ACCUMULATOR from STACK
-                                  STA  SIODAT   ;Write byte to ACIA transmit data register
-                                  RTS           ;Done COUT subroutine, RETURN
-                                  .pend
+        AND  #$10     ;Isolate transmit data register status bit
+        BEQ  COUTL    ;LOOP back to COUTL IF transmit data register is full
+        PLA           ; ELSE, restore ACCUMULATOR from STACK
+        STA  SIODAT   ;Write byte to ACIA transmit data register
+        RTS           ;Done COUT subroutine, RETURN
+        .pend
 
 ;
 ;DECINPUT subroutine: request 1 to 10 DECIMAL digits from terminal. Result is
@@ -397,98 +403,97 @@ WAIT:
 ;IF 1 OR 2 digits are REQUESTED, returns byte in ACCUMULATOR
 ;IF 3 OR 4 digits are REQUESTED, returns word in variable INDEX (low byte),INDEXH (high byte)
 ;Variable SCNT will contain the number of digits entered
-HEXIN2                            .proc
-	LDA  #$02     ;Request 2 ASCII HEX digits from terminal: 8 bit value
-                                  BRA  HEXIN    ;GOTO HEXIN: always branch
-                                  .pend
+HEXIN2  .proc
+	    LDA  #$02     ;Request 2 ASCII HEX digits from terminal: 8 bit value
+        BRA  HEXIN    ;GOTO HEXIN: always branch
+        .pend
 
-HEXIN4                            .proc
-	LDA  #$04     ;Request 4 ASCII HEX digits from terminal: 16 bit value
-                                  .pend
+HEXIN4  .proc
+	    LDA  #$04     ;Request 4 ASCII HEX digits from terminal: 16 bit value
+        .pend
 
-HEXIN                             .proc
-	STA  INQTY    ;Store number of digits to allow: value = 1 to 4 only
-                                  JSR  DOLLAR   ;Send "$" to terminal
+HEXIN   .proc 
+	    STA  INQTY    ;Store number of digits to allow: value = 1 to 4 only
+        JSR  DOLLAR   ;Send "$" to terminal
 ;Setup RDLINE subroutine parameters:
-                                  LDA  #$80     ;  Allow only valid ASCII HEX digits to be entered:
-                                  STA  LOKOUT   ;   make variable LOKOUT <> 0
-                                  LDA  #$00     ;  ACCUMULATOR = buffer address high byte
-                                  LDY  #INBUFF  ;  Y-REGISTER = buffer address low byte
-                                  LDX  INQTY    ;  X-REGISTER = maximum number of digits allowed
-                                  JSR  RDLINE   ;Request ASCII HEX digit(s) input from terminal
-                                  STX  SCNT     ;Save number of digits entered to SCNT
-                                  LDA  INQTY    ;GOTO JUST4 IF 4 digits were REQUESTED
-                                  CMP  #$04
-                                  BEQ  JUST4
-                                  CMP  #$03     ; ELSE, GOTO JUST3 IF 3 digits were REQUESTED
-                                  BEQ  JUST3
-                                  CPX  #$00     ; ELSE, GOTO IN2 IF 0 OR 2 digits were entered
-                                  BEQ  IN2
-                                  CPX  #$02
-                                  BEQ  IN2
-                                  JSR  JUST4.JUSTBYTE ; ELSE, move digit from INBUFF to INBUFF+1, write "0" to INBUFF
+        LDA  #$80     ;  Allow only valid ASCII HEX digits to be entered:
+        STA  LOKOUT   ;   make variable LOKOUT <> 0
+        LDA  #$00     ;  ACCUMULATOR = buffer address high byte
+        LDY  #INBUFF  ;  Y-REGISTER = buffer address low byte
+        LDX  INQTY    ;  X-REGISTER = maximum number of digits allowed
+        JSR  RDLINE   ;Request ASCII HEX digit(s) input from terminal
+        STX  SCNT     ;Save number of digits entered to SCNT
+        LDA  INQTY    ;GOTO JUST4 IF 4 digits were REQUESTED
+        CMP  #$04
+        BEQ  JUST4
+        CMP  #$03     ; ELSE, GOTO JUST3 IF 3 digits were REQUESTED
+        BEQ  JUST3
+        CPX  #$00     ; ELSE, GOTO IN2 IF 0 OR 2 digits were entered
+        BEQ  IN2
+        CPX  #$02
+        BEQ  IN2
+        JSR  JUST4.JUSTBYTE ; ELSE, move digit from INBUFF to INBUFF+1, write "0" to INBUFF
 IN2:
-	LDA  INBUFF   ;Convert 2 ASCII HEX digits in INBUFF(high digit),
-                                  LDY  INBUFF+1 ; INBUFF+1(low digit) to a binary value,
-                                  JMP  ASC2BN   ; (result in ACCUMULATOR) then RETURN (done HEXIN subroutine)
+	    LDA  INBUFF   ;Convert 2 ASCII HEX digits in INBUFF(high digit),
+        LDY  INBUFF+1 ; INBUFF+1(low digit) to a binary value,
+        JMP  ASC2BN   ; (result in ACCUMULATOR) then RETURN (done HEXIN subroutine)
 JUST3:
-	CPX  #$00     ;GOTO IN3 IF 0 OR 3 digits were entered
-                                  BEQ  IN3
-                                  CPX  #$03
-                                  BEQ  IN3
-                                  CPX  #$02     ; ELSE, GOTO SHFT3 IF 2 digits were entered
-                                  BEQ  SHFT3
-                                  JSR  JUST4.JUSTBYTE ; ELSE, move digit from INBUFF to INBUFF+1, write "0" to INBUFF
+	    CPX  #$00     ;GOTO IN3 IF 0 OR 3 digits were entered
+        BEQ  IN3
+        CPX  #$03
+        BEQ  IN3
+        CPX  #$02     ; ELSE, GOTO SHFT3 IF 2 digits were entered
+        BEQ  SHFT3
+        JSR  JUST4.JUSTBYTE ; ELSE, move digit from INBUFF to INBUFF+1, write "0" to INBUFF
 SHFT3:
-	JSR  JUST4.SHIFT    ;Move digits from INBUFF+1 to INBUFF+2, INBUFF to INBUFF+1
+	    JSR  JUST4.SHIFT    ;Move digits from INBUFF+1 to INBUFF+2, INBUFF to INBUFF+1
 IN3:
-	LDA  #$30     ;Convert 2 ASCII HEX digits, "0"(high digit),
-                                  LDY  INBUFF   ; INBUFF(low digit) to a binary value,
-                                  JSR  ASC2BN   ; result in ACCUMULATOR
-                                  STA  INDEXH   ;Store in variable INDEXH(high byte)
-                                  LDA  INBUFF+1 ;Convert 2 ASCII HEX digits in INBUFF+1(high digit),
-                                  LDY  INBUFF+2 ; INBUFF+2(low digit) to a binary value,
-                                  JSR  ASC2BN   ; result in ACCUMULATOR
-                                  STA  INDEX    ;Store in variable INDEX(low byte)
-                                  RTS           ;Done HEXIN subroutine, RETURN
-                                  .pend
+	    LDA  #$30     ;Convert 2 ASCII HEX digits, "0"(high digit),
+        LDY  INBUFF   ; INBUFF(low digit) to a binary value,
+        JSR  ASC2BN   ; result in ACCUMULATOR
+        STA  INDEXH   ;Store in variable INDEXH(high byte)
+        LDA  INBUFF+1 ;Convert 2 ASCII HEX digits in INBUFF+1(high digit),
+        LDY  INBUFF+2 ; INBUFF+2(low digit) to a binary value,
+        JSR  ASC2BN   ; result in ACCUMULATOR
+        STA  INDEX    ;Store in variable INDEX(low byte)
+        RTS           ;Done HEXIN subroutine, RETURN
+        .pend
 
-JUST4                             .proc
-	CPX  #$00     ;GOTO IN4 IF 0 OR 4 digits were entered
-                                  BEQ  IN4
-                                  CPX  #$04
-                                  BEQ  IN4
-                                  CPX  #$03     ; ELSE, GOTO X3 IF 3 digits were entered
-                                  BEQ  X3
-                                  CPX  #$02     ; ELSE, GOTO X2 IF 2 digits were entered
-                                  BEQ  X2
-                                  JSR  JUSTBYTE ; ELSE, move digit from INBUFF to INBUFF+1, write "0" to INBUFF
+JUST4   .proc
+	    CPX  #$00     ;GOTO IN4 IF 0 OR 4 digits were entered
+        BEQ  IN4
+        CPX  #$04
+        BEQ  IN4
+        CPX  #$03     ; ELSE, GOTO X3 IF 3 digits were entered
+        BEQ  X3
+        CPX  #$02     ; ELSE, GOTO X2 IF 2 digits were entered
+        BEQ  X2
+        JSR  JUSTBYTE ; ELSE, move digit from INBUFF to INBUFF+1, write "0" to INBUFF
 X2:
-	JSR  SHIFT    ;Move digits from INBUFF+1 to INBUFF+2, INBUFF to INBUFF+1
+	    JSR  SHIFT    ;Move digits from INBUFF+1 to INBUFF+2, INBUFF to INBUFF+1
 X3:
-	LDA  INBUFF+2 ;Move digits from INBUFF+2 to INBUFF+3
-                                  STA  INBUFF+3
-                                  JSR  SHIFT    ;Move digits from INBUFF+1 to INBUFF+2, INBUFF to INBUFF+1
-IN4:
-	LDA  INBUFF   ;Convert 2 ASCII HEX digits in INBUFF(high digit),
-                                  LDY  INBUFF+1 ; INBUFF+1(low digit) to a binary value,
-                                  JSR  ASC2BN   ; result in ACCUMULATOR
-                                  STA  INDEXH   ;Store in variable INDEXH(high byte)
-                                  LDA  INBUFF+2 ;Convert 2 ASCII HEX digits in INBUFF+2(high digit),
-                                  LDY  INBUFF+3 ; INBUFF+3(low digit) to a binary value,
-                                  JSR  ASC2BN   ; result in ACCUMULATOR
-                                  STA  INDEX    ;Store in variable INDEX(low byte)
-                                  RTS           ;Done HEXIN subroutine, RETURN
+	    LDA  INBUFF+2 ;Move digits from INBUFF+2 to INBUFF+3
+        STA  INBUFF+3
+        JSR  SHIFT    ;Move digits from INBUFF+1 to INBUFF+2, INBUFF to INBUFF+1
+IN4:	LDA  INBUFF   ;Convert 2 ASCII HEX digits in INBUFF(high digit),
+        LDY  INBUFF+1 ; INBUFF+1(low digit) to a binary value,
+        JSR  ASC2BN   ; result in ACCUMULATOR
+        STA  INDEXH   ;Store in variable INDEXH(high byte)
+        LDA  INBUFF+2 ;Convert 2 ASCII HEX digits in INBUFF+2(high digit),
+        LDY  INBUFF+3 ; INBUFF+3(low digit) to a binary value,
+        JSR  ASC2BN   ; result in ACCUMULATOR
+        STA  INDEX    ;Store in variable INDEX(low byte)
+        RTS           ;Done HEXIN subroutine, RETURN
 SHIFT:
-	LDA  INBUFF+1 ;Move digit from INBUFF+1 to INBUFF+2
-                                  STA  INBUFF+2
-JUSTBYTE:
-	LDA  INBUFF   ;Move digit from INBUFF to INBUFF+1
-                                  STA  INBUFF+1
-                                  LDA  #$30     ;Write "0" to INBUFF
-                                  STA  INBUFF
-                                  RTS           ;Done SHIFT or JUSTBYTE subroutine, RETURN
-                                  .pend
+	    LDA  INBUFF+1 ;Move digit from INBUFF+1 to INBUFF+2
+        STA  INBUFF+2
+JUSTBYTE
+	    LDA  INBUFF   ;Move digit from INBUFF to INBUFF+1
+        STA  INBUFF+1
+        LDA  #$30     ;Write "0" to INBUFF
+        STA  INBUFF
+        RTS           ;Done SHIFT or JUSTBYTE subroutine, RETURN
+        .pend
 
 ;
 ;
@@ -606,58 +611,58 @@ PRINDX                            .proc
 ; strings buffer address is stored in variable PROLO, PROHI.
 ; PROMPT subroutine.
 
-PROMPT                            .proc
-	JSR  SAVREGS    ;Save ACCUMULATOR, X,Y REGISTERS on STACK
-                                  TAX             ;Initialize string counter from ACCUMULATOR
-	LDY  #0         ;Initialize byte counter
+PROMPT  .proc
+    	JSR  SAVREGS    ;Save ACCUMULATOR, X,Y REGISTERS on STACK
+        TAX             ;Initialize string counter from ACCUMULATOR
+	    LDY  #0         ;Initialize byte counter
 FIND:
-	LDA  (PROLO),Y  ;Read indexed byte from buffer
-                                  BEQ  ZERO       ;GOTO ZERO IF byte = $00
+	    LDA  (PROLO),Y  ;Read indexed byte from buffer
+        BEQ  ZERO       ;GOTO ZERO IF byte = $00
 NEXT:
-	INY             ; ELSE, increment byte counter
-                                  BNE  FIND       ;GOTO FIND IF counter != 0
-                                  INC  PROHI      ; ELSE, increment page
-                                  BRA  FIND       ;GOTO FIND
+	    INY             ; ELSE, increment byte counter
+        BNE  FIND       ;GOTO FIND IF counter != 0
+        INC  PROHI      ; ELSE, increment page
+        BRA  FIND       ;GOTO FIND
 ZERO:
-	DEX             ;Decrement string counter
-                                  BNE  NEXT       ;LOOP back to NEXT IF string counter <> 0
-                                  INY
+	    DEX             ;Decrement string counter
+        BNE  NEXT       ;LOOP back to NEXT IF string counter <> 0
+        INY
 ;Send indexed string to terminal
 STRINGL:
-	LDA  (PROLO),Y  ;Read indexed byte from buffer
-                                  BEQ  QUITP      ;GOTO QUITP IF byte = $00
-                                  JSR  COUT       ; ELSE, send byte to terminal
-                                  INY             ;Increment byte counter
-                                  BNE  STRINGL    ;LOOP back to STRINGL: always branch
-                                  INC  PROHI      ;Message > 255 chars, so increment page
-                                  BRA  STRINGL    ;LOOP back to STRINGL
+	    LDA  (PROLO),Y  ;Read indexed byte from buffer
+        BEQ  QUITP      ;GOTO QUITP IF byte = $00
+        JSR  COUT       ; ELSE, send byte to terminal
+        INY             ;Increment byte counter
+        BNE  STRINGL    ;LOOP back to STRINGL: always branch
+        INC  PROHI      ;Message > 255 chars, so increment page
+        BRA  STRINGL    ;LOOP back to STRINGL
 QUITP:
-	JSR  RESREGS    ;Restore ACCUMULATOR, X,Y REGISTERS from STACK
-                                  RTS             ;Done PROMPT subroutine, RETURN
-                                  .pend
+	    JSR  RESREGS    ;Restore ACCUMULATOR, X,Y REGISTERS from STACK
+        RTS             ;Done PROMPT subroutine, RETURN
+        .pend
 
 
 ;
 ;READ subroutine: Read from address pointed to by INDEX,INDEXH
-READ                              .proc
-	LDY  #$00
-                                  LDA  (INDEX),Y
-                                  RTS           ;Done READ subroutine, RETURN
-                                  .pend
+READ    .proc
+	    LDY  #$00
+        LDA  (INDEX),Y
+        RTS           ;Done READ subroutine, RETURN
+        .pend
 
 ;
 ;RDCHAR subroutine: Wait for a keystroke then clear bit 7 of keystroke value.
 ; IF keystroke is a lower-case alphabetical, convert it to upper-case
-RDCHAR                            .proc
-	JSR  CHIN     ;Request keystroke input from terminal
-                                  AND  #$7F     ;Clear bit 7 of keystroke value
-                                  CMP  #$61
-                                  BCC  AOK      ;GOTO AOK IF keystroke value < $61: a control code, upper-case alpha or numeral
-                                  SEC           ; ELSE, subtract $20: convert to upper-case
-                                  SBC  #$20
+RDCHAR  .proc
+	    JSR  CHIN     ;Request keystroke input from terminal
+        AND  #$7F     ;Clear bit 7 of keystroke value
+        CMP  #$61
+        BCC  AOK      ;GOTO AOK IF keystroke value < $61: a control code, upper-case alpha or numeral
+        SEC           ; ELSE, subtract $20: convert to upper-case
+        SBC  #$20
 AOK:
-	RTS           ;Done RDCHAR subroutine, RETURN
-                                  .pend
+	    RTS           ;Done RDCHAR subroutine, RETURN
+        .pend
 
 ;
 ;The following subroutine (RDLINE) is derivative of published material:
@@ -677,112 +682,91 @@ AOK:
 ;IF variable LOKOUT = $01 through $FE then allow only valid ASCII HEX numeral input: 0123456789ABCDEF
 ;[BACKSPACE] key removes keystrokes from buffer.
 ;[ESCAPE] key aborts RDLINE then re-enters monitor.
-RDLINE                            .proc
-	STA  BUFADRH  ;Store buffer address high byte
-                                  STY  BUFADR   ;Store buffer address low byte
-                                  STX  BUFLEN   ;Store buffer length
-                                  STZ  BUFIDX   ;Initialize RDLINE buffer index: # of keystrokes stored in buffer = 0
+RDLINE  .proc
+	    STA  BUFADRH  ;Store buffer address high byte
+        STY  BUFADR   ;Store buffer address low byte
+        STX  BUFLEN   ;Store buffer length
+        STZ  BUFIDX   ;Initialize RDLINE buffer index: # of keystrokes stored in buffer = 0
 RDLOOP:
-	JSR  RDCHAR   ;Request keystroke input from terminal, convert lower-case Alpha. to upper-case
-                                  CMP  #$1B     ;GOTO NOTESC IF keystroke <> [ESCAPE]
-                                  BNE  NOTESC
-                                  JMP  MONITOR.NMON     ; ELSE, abort RDLINE, GOTO NMON: re-enter monitor
+	    JSR  RDCHAR   ;Request keystroke input from terminal, convert lower-case Alpha. to upper-case
+        CMP  #$1B     ;GOTO NOTESC IF keystroke <> [ESCAPE]
+        BNE  NOTESC
+        JMP  MONITOR.NMON     ; ELSE, abort RDLINE, GOTO NMON: re-enter monitor
 ;****Replace above JMP NMON with NOP, NOP, NOP to DISABLE********************************************************
 ; [ESCAPE] key function during RDLINE keystroke input,
 ; including HEXIN subroutine digit input
 ; This will prevent application users from inadvertently
 ; entering SyMon monitor****
 NOTESC:
-	CMP  #$0D     ;GOTO EXITRD IF keystroke = [RETURN]
-                                  BEQ  EXITRD
-                                  CMP  #$08     ; ELSE, GOTO BACK IF keystroke = [BACKSPACE]
-                                  BEQ  BACK
-                                  LDX  LOKOUT   ; ELSE, GOTO FULTST IF variable LOKOUT = $00: keystroke filter is disabled
-                                  BEQ  FULTST
-                                  CMP  #$30     ; ELSE, filter enabled, GOTO INERR IF keystroke value < $30: value < ASCII "0"
-                                  BCC  INERR
-                                  CMP  #$47     ; ELSE, GOTO INERR IF keystroke >= $47: value >= ASCII "G" ("F" + 1)
-                                  BCS  INERR
-                                  CMP  #$41     ; ELSE, GOTO DECONLY IF keystroke >= $41: value >= ASCII "A"
-                                  BCS  DECONLY
-                                  BCC  DECTEST  ; ELSE, GOTO DECTEST: keystroke < $41: value < ASCII "A"
+	    CMP  #$0D     ;GOTO EXITRD IF keystroke = [RETURN]
+        BEQ  EXITRD
+        CMP  #$08     ; ELSE, GOTO BACK IF keystroke = [BACKSPACE]
+        BEQ  BACK
+        LDX  LOKOUT   ; ELSE, GOTO FULTST IF variable LOKOUT = $00: keystroke filter is disabled
+        BEQ  FULTST
+        CMP  #$30     ; ELSE, filter enabled, GOTO INERR IF keystroke value < $30: value < ASCII "0"
+        BCC  INERR
+        CMP  #$47     ; ELSE, GOTO INERR IF keystroke >= $47: value >= ASCII "G" ("F" + 1)
+        BCS  INERR
+        CMP  #$41     ; ELSE, GOTO DECONLY IF keystroke >= $41: value >= ASCII "A"
+        BCS  DECONLY
+        BCC  DECTEST  ; ELSE, GOTO DECTEST: keystroke < $41: value < ASCII "A"
 DECONLY:
-	CPX  #$FF     ;GOTO FULTST IF LOKOUT variable != $FF: ASCII DECIMAL digit filter disabled
-                                  BNE  FULTST
+	    CPX  #$FF     ;GOTO FULTST IF LOKOUT variable != $FF: ASCII DECIMAL digit filter disabled
+        BNE  FULTST
 DECTEST:
-	CMP  #$3A     ; ELSE, DECIMAL filter enabled, GOTO INERR IF keystroke = OR > $3A:
-                                  BCS  INERR    ;   value >= ASCII ":" ("9" + 1)
+	    CMP  #$3A     ; ELSE, DECIMAL filter enabled, GOTO INERR IF keystroke = OR > $3A:
+        BCS  INERR    ;   value >= ASCII ":" ("9" + 1)
 FULTST:
-	LDY  BUFIDX   ; ELSE, GOTO STRCH IF BUFIDX != BUFLEN: buffer is not full
-                                  CPY  BUFLEN
-                                  BCC  STRCH
+	    LDY  BUFIDX   ; ELSE, GOTO STRCH IF BUFIDX != BUFLEN: buffer is not full
+        CPY  BUFLEN
+        BCC  STRCH
 INERR:
-	JSR  BEEP     ; ELSE, Send [BELL] to terminal
-                                  BNE  RDLOOP   ;LOOP back to RDLOOP: always branch
+	    JSR  BEEP     ; ELSE, Send [BELL] to terminal
+        BNE  RDLOOP   ;LOOP back to RDLOOP: always branch
 STRCH:
-	STA  (BUFADR),Y ;Store keystroke in buffer
-                                  JSR  COUT     ;Send keystroke to terminal
-                                  INC  BUFIDX   ;Increment buffer index
-                                  BNE  RDLOOP   ;LOOP back to RDLOOP: always branch
+	    STA  (BUFADR),Y ;Store keystroke in buffer
+        JSR  COUT     ;Send keystroke to terminal
+        INC  BUFIDX   ;Increment buffer index
+        BNE  RDLOOP   ;LOOP back to RDLOOP: always branch
 EXITRD:
-	LDX  BUFIDX   ;Copy keystroke count to X-REGISTER
-                                  RTS           ;Done RDLINE subroutine, RETURN
-                                  .pend
+	    LDX  BUFIDX   ;Copy keystroke count to X-REGISTER
+        RTS           ;Done RDLINE subroutine, RETURN
+        .pend
 
 ;Perform a destructive [BACKSPACE]
-BACK                              .proc
-	LDA  BUFIDX   ;GOTO BSERROR IF buffer is empty
-                                  BEQ  BSERROR
-                                  DEC  BUFIDX   ; ELSE, decrement buffer index
-                                  JSR  BSOUT    ;Send [BACKSPACE] to terminal
-                                  JSR  SPC      ;Send [SPACE] to terminal
-                                  JSR  BSOUT    ;Send [BACKSPACE] to terminal
-                                  BRA  RDLINE.RDLOOP   ;LOOP back to RDLOOP: always branch
+BACK    .proc
+	    LDA  BUFIDX   ;GOTO BSERROR IF buffer is empty
+        BEQ  BSERROR
+        DEC  BUFIDX   ; ELSE, decrement buffer index
+        JSR  BSOUT    ;Send [BACKSPACE] to terminal
+        JSR  SPC      ;Send [SPACE] to terminal
+        JSR  BSOUT    ;Send [BACKSPACE] to terminal
+        BRA  RDLINE.RDLOOP   ;LOOP back to RDLOOP: always branch
 BSERROR:
-	JSR  BEEP     ;Send [BELL] to terminal
-                                  BRA  RDLINE.RDLOOP   ;LOOP back to RDLOOP: always branch
-                                  .pend
-
-;
-;RESREGS subroutine: restore ACCUMULATOR, X,Y REGISTERS from the copy previously saved
-; on the STACK by the SAVREGS subroutine
-RESREGS                           .proc
-	PLA           ;Pull RTS RETURN address high byte from STACK
-                                  STA  RT1      ;Save RTS RETURN address high byte to memory
-                                  PLA           ;Pull RTS RETURN address low byte from STACK
-                                  STA  RT2      ;Save RTS RETURN address low byte to memory
-                                  PLX           ;Pull saved X REGISTER from STACK
-                                  PLY           ;Pull saved Y REGISTER from STACK
-                                  PLA           ;Pull saved ACCUMULATOR from STACK
-                                  STA  STEMP    ;Save ACCUMULATOR to memory
-                                  LDA  RT2      ;Read RTS RETURN address low byte from memory
-                                  PHA           ;Push RTS RETURN address low byte onto STACK
-                                  LDA  RT1      ;Read RTS RETURN address high byte from memory
-                                  PHA           ;Push RTS RETURN address high byte onto STACK
-                                  LDA  STEMP    ;Restore ACCUMULATOR from memory
-                                  RTS           ;Done RESREGS subroutine, RETURN
-                                  .pend
+	    JSR  BEEP     ;Send [BELL] to terminal
+        BRA  RDLINE.RDLOOP   ;LOOP back to RDLOOP: always branch
+        .pend
 
 ;
 ;SAVREGS subroutine: save a copy of ACCUMULATOR, X,Y REGISTERS on the STACK.
 ;This is used in conjunction with the RESREGS subroutine
-SAVREGS                           .proc
-	STA  STEMP    ;Save ACCUMULATOR to memory
-                                  PLA           ;Pull RTS RETURN address high byte from STACK
-                                  STA  RT1      ;Save RTS RETURN address high byte to memory
-                                  PLA           ;Pull RTS RETURN address low byte from STACK
-                                  STA  RT2      ;Save RTS RETURN address low byte to memory
-                                  LDA  STEMP    ;Restore ACCUMULATOR from memory
-                                  PHA           ;Push ACCUMULATOR onto STACK
-                                  PHY           ;Push Y REGISTER onto STACK
-                                  PHX           ;Push X REGISTER onto STACK
-                                  LDA  RT2      ;Read RTS RETURN address low byte from memory
-                                  PHA           ;Push RTS RETURN address low byte onto STACK
-                                  LDA  RT1      ;Read RTS RETURN address high byte from memory
-                                  PHA           ;Push RTS RETURN address high byte onto STACK
-                                  LDA  STEMP    ;Restore ACCUMULATOR from memory
-                                  RTS           ;Done SAVREGS subroutine, RETURN
-                                  .pend
+SAVREGS .proc
+        STA  SAVEACC
+        STX  SAVEX
+        STY  SAVEY
+        RTS
+        .pend
+
+;
+;RESREGS subroutine: restore ACCUMULATOR, X,Y REGISTERS from the copy previously saved
+; on the STACK by the SAVREGS subroutine
+RESREGS .proc
+        LDA SAVEACC
+        LDX SAVEX
+        LDY SAVEY
+        RTS
+        .pend
 
 ;
 ;SBYTSTR subroutine: request 0 - 16 byte string from terminal, each byte followed by [RETURN].
@@ -790,21 +774,21 @@ SAVREGS                           .proc
 ; Y REGISTER holds number of bytes in buffer. This is used by monitor text/byte string
 ; search commands
 SBYTSTR                           .proc
-	LDY  #$00     ;Initialize index/byte counter
+	    LDY  #$00     ;Initialize index/byte counter
 SBLOOP:
-	STY  IDY      ;Save index/byte counter
-                                  LDA  #$02     ;Request 2 HEX digit input from terminal (byte value)
-                                  JSR  HEXIN
-                                  JSR  SPC2     ;Send 2 [SPACE] to terminal
-                                  LDY  IDY      ;Restore index/byte counter
-                                  CPX  #$00     ;GOTO DONESB IF no digits were entered
-                                  BEQ  DONESB
-                                  STA  SRCHBUFF,Y ; ELSE, Store byte in indexed buffer location
-                                  INY           ;Increment index/byte counter
-                                  CPY  #$10     ;LOOP back to SBLOOP IF index/byte counter < $10
-                                  BNE  SBLOOP
+	    STY  IDY      ;Save index/byte counter
+        LDA  #$02     ;Request 2 HEX digit input from terminal (byte value)
+        JSR  HEXIN
+        JSR  SPC2     ;Send 2 [SPACE] to terminal
+        LDY  IDY      ;Restore index/byte counter
+        CPX  #$00     ;GOTO DONESB IF no digits were entered
+        BEQ  DONESB
+        STA  SRCHBUFF,Y ; ELSE, Store byte in indexed buffer location
+        INY           ;Increment index/byte counter
+        CPY  #$10     ;LOOP back to SBLOOP IF index/byte counter < $10
+        BNE  SBLOOP
 DONESB:
-	RTS           ; ELSE, done SBYTSTR, RETURN
+	    RTS           ; ELSE, done SBYTSTR, RETURN
                                   .pend
 
 ;
@@ -970,68 +954,68 @@ STBR3:
 ;
 ;[invalid] command: No command assigned to keystroke. This handles unassigned keystrokes
 ERR                               .proc
-	JSR  BEEP     ;Send ASCII [BELL] to terminal
-                                  PLA           ;Remove normal return address because we don't
-                                  PLA           ; want to send a monitor prompt in this case
-                                  JMP  MONITOR.CMON     ;GOTO CMON re-enter monitor
+	    JSR  BEEP     ;Send ASCII [BELL] to terminal
+        PLA           ;Remove normal return address because we don't
+        PLA           ; want to send a monitor prompt in this case
+        JMP  MONITOR.CMON     ;GOTO CMON re-enter monitor
                                   .pend
 
 ;
 ;
 ;[F] MFILL command: Fill a specified memory range with a specified value
-MFILL                             .proc
-	JSR  ASMPROHILO ;Point to prompt strings array
-                                  LDA  #$02     ;Send CR,LF, "fill start: " to terminal
-                                  JSR  PROMPT
-                                  JSR  HEXIN4   ;Request 4 digit HEX value input from terminal. Result in variable INDEX,INDEXH
-                                  LDX  SCNT     ;GOTO DUNFILL IF no digits were entered
-                                  BEQ  DONEFILL
-                                  LDA  INDEX    ; ELSE, copy INDEX,INDEXH to TEMP2,TEMP2H: memory fill start address
-                                  STA  TEMP2
-                                  LDA  INDEXH
-                                  STA  TEMP2H
-                                  LDA  #$03     ;Send CR,LF, "length: " to terminal
-                                  JSR  PROMPT
-                                  JSR  HEXIN4   ;Request 4 digit HEX value input from terminal. Result in variable INDEX,INDEXH: memory fill length
-                                  LDX  SCNT     ;GOTO DUNFILL IF no digits were entered
-                                  BEQ  DONEFILL
-                                  LDA  #$04     ; ELSE, send CR,LF, "value: " to terminal
-                                  JSR  PROMPT
-                                  JSR  HEXIN2   ;Request 2 digit HEX value input from terminal. Result in ACCUMULATOR: fill value
-                                  LDX  SCNT     ;GOTO DUNFILL IF no digits were entered
-                                  BEQ  DONEFILL
-                                  PHA           ;Save fill value on STACK
-                                  LDA  #$01     ;Send CR,LF, "Esc key exits, any other to proceed" to terminal
-                                  JSR  PROMPT
-                                  JSR  CHIN     ;Request keystroke input from terminal
-                                  CMP  #$1B     ;GOTO QUITFILL IF keystroke = [ESCAPE]
-                                  BEQ  QUITFILL
-                                  PLA           ; ELSE, pull fill value from STACK
+MFILL   .proc
+	    JSR  ASMPROHILO ;Point to prompt strings array
+        LDA  #$02     ;Send CR,LF, "fill start: " to terminal
+        JSR  PROMPT
+        JSR  HEXIN4   ;Request 4 digit HEX value input from terminal. Result in variable INDEX,INDEXH
+        LDX  SCNT     ;GOTO DUNFILL IF no digits were entered
+        BEQ  DONEFILL
+        LDA  INDEX    ; ELSE, copy INDEX,INDEXH to TEMP2,TEMP2H: memory fill start address
+        STA  TEMP2
+        LDA  INDEXH
+        STA  TEMP2H
+        LDA  #$03     ;Send CR,LF, "length: " to terminal
+        JSR  PROMPT
+        JSR  HEXIN4   ;Request 4 digit HEX value input from terminal. Result in variable INDEX,INDEXH: memory fill length
+        LDX  SCNT     ;GOTO DUNFILL IF no digits were entered
+        BEQ  DONEFILL
+        LDA  #$04     ; ELSE, send CR,LF, "value: " to terminal
+        JSR  PROMPT
+        JSR  HEXIN2   ;Request 2 digit HEX value input from terminal. Result in ACCUMULATOR: fill value
+        LDX  SCNT     ;GOTO DUNFILL IF no digits were entered
+        BEQ  DONEFILL
+        PHA           ;Save fill value on STACK
+        LDA  #$01     ;Send CR,LF, "Esc key exits, any other to proceed" to terminal
+        JSR  PROMPT
+        JSR  CHIN     ;Request keystroke input from terminal
+        CMP  #$1B     ;GOTO QUITFILL IF keystroke = [ESCAPE]
+        BEQ  QUITFILL
+        PLA           ; ELSE, pull fill value from STACK
 USERFILL:
-	LDX  INDEXH   ;Copy INDEXH to X REGISTER: X = length parameter page counter
-                                  BEQ  FILEFT   ;GOTO FILEFT IF page counter = $00
-                                  LDY  #$00     ; ELSE, initialize page byte address index
+	    LDX  INDEXH   ;Copy INDEXH to X REGISTER: X = length parameter page counter
+        BEQ  FILEFT   ;GOTO FILEFT IF page counter = $00
+        LDY  #$00     ; ELSE, initialize page byte address index
 PGFILL:
-	STA  (TEMP2),Y ;Store fill value at indexed current page address
-                                  INY           ;Increment page byte address index
-                                  BNE  PGFILL   ;LOOP back to PGFILL IF page byte address index <> $00
-                                  INC  TEMP2H   ; ELSE, Increment page address high byte
-                                  DEX           ;Decrement page counter
-                                  BNE  PGFILL   ;LOOP back to PGFILL IF page counter <> $00
-FILEFT:
-	LDX  INDEX    ; ELSE, copy INDEX to X REGISTER: X = length parameter byte counter
-                                  BEQ  DONEFILL ;GOTO DONEFILL IF byte counter = $00
-                                  LDY  #$00     ; ELSE, initialize page byte address index
+	    STA  (TEMP2),Y ;Store fill value at indexed current page address
+        INY           ;Increment page byte address index
+        BNE  PGFILL   ;LOOP back to PGFILL IF page byte address index <> $00
+        INC  TEMP2H   ; ELSE, Increment page address high byte
+        DEX           ;Decrement page counter
+        BNE  PGFILL   ;LOOP back to PGFILL IF page counter <> $00
+FILEFT: 
+        LDX  INDEX    ; ELSE, copy INDEX to X REGISTER: X = length parameter byte counter
+        BEQ  DONEFILL ;GOTO DONEFILL IF byte counter = $00
+        LDY  #$00     ; ELSE, initialize page byte address index
 FILAST:
-	STA  (TEMP2),Y ;Store fill value at indexed current page address
-                                  INY           ;Increment page byte address index
-                                  DEX           ;Decrement byte counter
-                                  BNE  FILAST   ;LOOP back to FILAST IF byte counter <> $00
+	    STA  (TEMP2),Y ;Store fill value at indexed current page address
+        INY           ;Increment page byte address index
+        DEX           ;Decrement byte counter
+        BNE  FILAST   ;LOOP back to FILAST IF byte counter <> $00
 QUITFILL:
-	PLA           ;Pull saved fill value from STACK: value not needed, discard
+	    PLA           ;Pull saved fill value from STACK: value not needed, discard
 DONEFILL:
-                                  RTS           ;Done MFILL command, RETURN
-                                  .pend
+        RTS           ;Done MFILL command, RETURN
+        .pend
 
 ;
 ;The following command processor (MOVER) is derivative of published material:
@@ -1041,158 +1025,158 @@ DONEFILL:
 ; copyright 1982 by McGraw-Hill
 ; ISBN: 0-931988-59-4
 ;[M] MOVER command: Move (copy) specified source memory area to specified destination memory area
-MOVER                             .proc
-	JSR  ASMPROHILO ;Point to prompt strings array
-                                  LDA  #$05     ;Send CR,LF, "move source: " to terminal
-                                  JSR  PROMPT
-                                  JSR  HEXIN4   ;Request 4 digit HEX value input from terminal. Result in variable INDEX,INDEXH: memory move source address
-                                  LDX  SCNT     ;GOTO QUITMV IF no digits were entered
-                                  BEQ  QUITMV
-                                  STA  TEMP3    ; ELSE, store source address in variable TEMP3,TEMP3H
-                                  LDA  INDEXH
-                                  STA  TEMP3H
-                                  LDA  #$06     ;Send CR,LF, "destination: " to terminal
-                                  JSR  PROMPT
-                                  JSR  HEXIN4   ;Request 4 digit HEX value input from terminal. Result in variable INDEX,INDEXH: memory move destination address
-                                  LDX  SCNT     ;GOTO QUITMV IF no digits were entered
-                                  BEQ  QUITMV
-                                  STA  TEMP2    ; ELSE, store destination address in variable TEMP2,TEMP2H
-                                  LDA  INDEXH
-                                  STA  TEMP2H
-                                  LDA  #$03     ;Send CR,LF, "length: " to terminal
-                                  JSR  PROMPT
-                                  JSR  HEXIN4   ;Request 4 digit HEX value input from terminal. Result in variable INDEX,INDEXH: memory move length
-                                  LDX  SCNT     ;GOTO QUITMV IF no digits were entered
-                                  BEQ  QUITMV
-                                  LDA  #$01     ;Send CR,LF, "Esc key exits, any other to proceed" to terminal
-                                  JSR  PROMPT
-                                  JSR  CHIN     ;Request keystroke input from terminal
-                                  CMP  #$1B     ;GOTO QUITMV IF keystroke = [ESCAPE]
-                                  BEQ  QUITMV
-                                  LDA  TEMP2    ; ELSE, GOTO RIGHT IF source memory area is above destination memory area
-                                  SEC           ;  AND overlaps it (destination address - source address) < length of move
-                                  SBC  TEMP3
-                                  TAX           ;   X REGISTER = destination address low byte - source address low byte
-                                  LDA  TEMP2H
-                                  SBC  TEMP3H
-                                  TAY           ;   Y REGISTER = destination address high byte - (source address high byte + borrow)
-                                  TXA
-                                  CMP  INDEX    ;   produce borrow IF (destination address low - source address low) < destination low
-                                  TYA
-                                  SBC  INDEXH   ;   produce borrow IF ((destination address high - source address high) + borrow) < dest. high
-                                  BCC  RIGHT    ;   Branch if a borrow was produced (unmoved source memory overwrite condition detected)
+MOVER   .proc
+	    JSR  ASMPROHILO ;Point to prompt strings array
+        LDA  #$05     ;Send CR,LF, "move source: " to terminal
+        JSR  PROMPT
+        JSR  HEXIN4   ;Request 4 digit HEX value input from terminal. Result in variable INDEX,INDEXH: memory move source address
+        LDX  SCNT     ;GOTO QUITMV IF no digits were entered
+        BEQ  QUITMV
+        STA  TEMP3    ; ELSE, store source address in variable TEMP3,TEMP3H
+        LDA  INDEXH
+        STA  TEMP3H
+        LDA  #$06     ;Send CR,LF, "destination: " to terminal
+        JSR  PROMPT
+        JSR  HEXIN4   ;Request 4 digit HEX value input from terminal. Result in variable INDEX,INDEXH: memory move destination address
+        LDX  SCNT     ;GOTO QUITMV IF no digits were entered
+        BEQ  QUITMV
+        STA  TEMP2    ; ELSE, store destination address in variable TEMP2,TEMP2H
+        LDA  INDEXH
+        STA  TEMP2H
+        LDA  #$03     ;Send CR,LF, "length: " to terminal
+        JSR  PROMPT
+        JSR  HEXIN4   ;Request 4 digit HEX value input from terminal. Result in variable INDEX,INDEXH: memory move length
+        LDX  SCNT     ;GOTO QUITMV IF no digits were entered
+        BEQ  QUITMV
+        LDA  #$01     ;Send CR,LF, "Esc key exits, any other to proceed" to terminal
+        JSR  PROMPT
+        JSR  CHIN     ;Request keystroke input from terminal
+        CMP  #$1B     ;GOTO QUITMV IF keystroke = [ESCAPE]
+        BEQ  QUITMV
+        LDA  TEMP2    ; ELSE, GOTO RIGHT IF source memory area is above destination memory area
+        SEC           ;  AND overlaps it (destination address - source address) < length of move
+        SBC  TEMP3
+        TAX           ;   X REGISTER = destination address low byte - source address low byte
+        LDA  TEMP2H
+        SBC  TEMP3H
+        TAY           ;   Y REGISTER = destination address high byte - (source address high byte + borrow)
+        TXA
+        CMP  INDEX    ;   produce borrow IF (destination address low - source address low) < destination low
+        TYA
+        SBC  INDEXH   ;   produce borrow IF ((destination address high - source address high) + borrow) < dest. high
+        BCC  RIGHT    ;   Branch if a borrow was produced (unmoved source memory overwrite condition detected)
 ;Move memory block first byte to last byte
-                                  LDY  #$00     ; ELSE, initialize page byte index
-                                  LDX  INDEXH   ;Copy length high byte to X REGISTER: page counter
-                                  BEQ  MVREST   ;GOTO MVREST IF move length is < $100 bytes
+        LDY  #$00     ; ELSE, initialize page byte index
+        LDX  INDEXH   ;Copy length high byte to X REGISTER: page counter
+        BEQ  MVREST   ;GOTO MVREST IF move length is < $100 bytes
 MVPGE:
-	LDA  (TEMP3),Y ; ELSE, move (copy) byte from indexed source to indexed destination memory
-                                  STA  (TEMP2),Y
-                                  INY           ;Increment page byte index
-                                  BNE  MVPGE    ;LOOP back to MVPAGE IF page byte index <> 0: loop until entire page is moved
-                                  INC  TEMP3H   ; ELSE, increment source page address
-                                  INC  TEMP2H   ;Increment destination page address
-                                  DEX           ;Decrement page counter
-                                  BNE  MVPGE    ;LOOP back to MVPAGE IF page counter <> 0: there are more full pages to move
-                                                ; ELSE,(page byte index (Y REGISTER) = 0 at this point)
+	    LDA  (TEMP3),Y ; ELSE, move (copy) byte from indexed source to indexed destination memory
+        STA  (TEMP2),Y
+        INY           ;Increment page byte index
+        BNE  MVPGE    ;LOOP back to MVPAGE IF page byte index <> 0: loop until entire page is moved
+        INC  TEMP3H   ; ELSE, increment source page address
+        INC  TEMP2H   ;Increment destination page address
+        DEX           ;Decrement page counter
+        BNE  MVPGE    ;LOOP back to MVPAGE IF page counter <> 0: there are more full pages to move
+                      ; ELSE,(page byte index (Y REGISTER) = 0 at this point)
 MVREST:
-	LDX  INDEX    ;Copy length parameter low byte to X REGISTER: byte counter
-                                  BEQ  QUITMV   ;GOTO QUITMV IF byte counter = 0: there are no bytes left to move
+	    LDX  INDEX    ;Copy length parameter low byte to X REGISTER: byte counter
+        BEQ  QUITMV   ;GOTO QUITMV IF byte counter = 0: there are no bytes left to move
 REST:
-	LDA  (TEMP3),Y ; ELSE, move (copy) byte from indexed source to indexed destination memory
-                                  STA  (TEMP2),Y
-                                  INY           ;Increment page byte index
-                                  DEX           ;Decrement byte counter
-                                  BNE  REST     ;LOOP back to REST IF byte counter <> 0: loop until all remaining bytes are moved
+    	LDA  (TEMP3),Y ; ELSE, move (copy) byte from indexed source to indexed destination memory
+        STA  (TEMP2),Y
+        INY           ;Increment page byte index
+        DEX           ;Decrement byte counter
+        BNE  REST     ;LOOP back to REST IF byte counter <> 0: loop until all remaining bytes are moved
 QUITMV:
-	RTS           ; ELSE, done MOVER command, RETURN
+    	RTS           ; ELSE, done MOVER command, RETURN
 
 ;Move memory block last byte to first byte (avoids unmoved source memory overwrite in certain source/dest. overlap)
 RIGHT
-	LDA  INDEXH   ;Point to highest address page in source memory block
-                                  CLC           ;  source high byte = (source high byte + length high byte)
-                                  ADC  TEMP3H
-                                  STA  TEMP3H
-                                  LDA  INDEXH   ;Point to highest address page in destination memory block
-                                  CLC           ;  destination high byte = (destination high byte + length high byte)
-                                  ADC  TEMP2H
-                                  STA  TEMP2H
-                                  LDY  INDEX    ;Copy length low byte to Y REGISTER: page byte index
-                                  BEQ  MVPAG    ;GOTO MVPAG IF page byte index = 0: no partial page to move
+	    LDA  INDEXH   ;Point to highest address page in source memory block
+        CLC           ;  source high byte = (source high byte + length high byte)
+        ADC  TEMP3H
+        STA  TEMP3H
+        LDA  INDEXH   ;Point to highest address page in destination memory block
+        CLC           ;  destination high byte = (destination high byte + length high byte)
+        ADC  TEMP2H
+        STA  TEMP2H
+        LDY  INDEX    ;Copy length low byte to Y REGISTER: page byte index
+        BEQ  MVPAG    ;GOTO MVPAG IF page byte index = 0: no partial page to move
 RT:
-	DEY           ; ELSE, decrement page byte index
-                                  LDA  (TEMP3),Y ;Move (copy) byte from indexed source to indexed destination memory
-                                  STA  (TEMP2),Y
-                                  CPY  #$00     ;LOOP back to RT IF page byte index <> 0: loop until partial page is moved
-                                  BNE  RT
+	    DEY           ; ELSE, decrement page byte index
+        LDA  (TEMP3),Y ;Move (copy) byte from indexed source to indexed destination memory
+        STA  (TEMP2),Y
+        CPY  #$00     ;LOOP back to RT IF page byte index <> 0: loop until partial page is moved
+        BNE  RT
 MVPAG:
-	LDX  INDEXH   ; ELSE, copy length high byte to X REGISTER: page counter
-                                  BEQ  QUITMV   ;GOTO QUITMV IF page counter = 0: no full pages left to move
+	    LDX  INDEXH   ; ELSE, copy length high byte to X REGISTER: page counter
+        BEQ  QUITMV   ;GOTO QUITMV IF page counter = 0: no full pages left to move
 RDEC:
-	DEC  TEMP3H   ; ELSE, decrement source page address
-                                  DEC  TEMP2H   ;Decrement destination page address
+	    DEC  TEMP3H   ; ELSE, decrement source page address
+        DEC  TEMP2H   ;Decrement destination page address
 RMOV:
-	DEY           ;Decrement page byte index
-                                  LDA  (TEMP3),Y ;Move (copy) byte from indexed source to indexed destination memory
-                                  STA  (TEMP2),Y
-                                  CPY  #$00     ;LOOP back to RMOV IF page byte index <> 0: loop until entire page is moved
-                                  BNE  RMOV
-                                  DEX           ; ELSE, decrement page counter
-                                  BNE  RDEC     ;LOOP back to RDEC IF page counter <> 0: loop until all full pages are moved
-                                  RTS           ; ELSE, done MOVER command, RETURN
-                                  .pend
+	    DEY           ;Decrement page byte index
+        LDA  (TEMP3),Y ;Move (copy) byte from indexed source to indexed destination memory
+        STA  (TEMP2),Y
+        CPY  #$00     ;LOOP back to RMOV IF page byte index <> 0: loop until entire page is moved
+        BNE  RMOV
+        DEX           ; ELSE, decrement page counter
+        BNE  RDEC     ;LOOP back to RDEC IF page counter <> 0: loop until all full pages are moved
+        RTS           ; ELSE, done MOVER command, RETURN
+        .pend
 
 ;
 ;
 ;
 ;PRBIT subroutine: Send "0" or "1" to terminal depending on condition of indexed bit in
 ; PROCESSOR STATUS preset/result
-PRBIT                             .proc
-	LDA  #':'     ;Send ":" to terminal
-                                  JSR  COUT
-                                  LDA  PREG     ;Read PROCESSOR STATUS preset/result
+PRBIT   .proc
+	    LDA  #':'     ;Send ":" to terminal
+        JSR  COUT
+        LDA  PREG     ;Read PROCESSOR STATUS preset/result
 ;Select number of shifts required to isolate indexed bit
-                                  CPX  #$0B
-                                  BEQ  LS1
-                                  CPX  #$0E
-                                  BEQ  LS2
-                                  CPX  #$11
-                                  BEQ  LS4
-                                  CPX  #$14
-                                  BEQ  LS5
-                                  CPX  #$17
-                                  BEQ  LS6
-                                  CPX  #$1A
-                                  BEQ  LS7
+        CPX  #$0B
+        BEQ  LS1
+        CPX  #$0E
+        BEQ  LS2
+        CPX  #$11
+        BEQ  LS4
+        CPX  #$14
+        BEQ  LS5
+        CPX  #$17
+        BEQ  LS6
+        CPX  #$1A
+        BEQ  LS7
 ;Left-shift indexed bit into CARRY flag
-                                  ASL        ;Bit 0 CARRY
+        ASL        ;Bit 0 CARRY
 LS7:
-	ASL        ;Bit 1 ZERO
+	    ASL        ;Bit 1 ZERO
 LS6:
-	ASL        ;Bit 2 INTERRUPT REQUEST
+	    ASL        ;Bit 2 INTERRUPT REQUEST
 LS5:
-	ASL        ;Bit 3 DECIMAL
+	    ASL        ;Bit 3 DECIMAL
 LS4:
-	ASL        ;Bit 4 BREAK
-                                  ASL        ;Bit 5 (This bit is undefined in the 6502 PROCESSOR STATUS REGISTER)
+	    ASL        ;Bit 4 BREAK
+        ASL        ;Bit 5 (This bit is undefined in the 6502 PROCESSOR STATUS REGISTER)
 LS2:
-	ASL        ;Bit 6 OVERFLOW
+	    ASL        ;Bit 6 OVERFLOW
 LS1:
-	ASL        ;Bit 7 NEGATIVE
-                                  BCS  BITSET   ;Send "0" to terminal IF bit is clear
-                                  LDA  #$30
-                                  BNE  RDONE
+	    ASL        ;Bit 7 NEGATIVE
+        BCS  BITSET   ;Send "0" to terminal IF bit is clear
+        LDA  #$30
+        BNE  RDONE
 BITSET:
-	LDA  #$31     ; ELSE, Send "1" to terminal
+	    LDA  #$31     ; ELSE, Send "1" to terminal
 RDONE:
-	JSR  COUT
-                                  JMP  SPC      ;Send [SPACE] to terminal then done PRBIT subroutine, RETURN
-                                  .pend
+	    JSR  COUT
+        JMP  SPC      ;Send [SPACE] to terminal then done PRBIT subroutine, RETURN
+        .pend
 
 REGARA:
-	.text  "AXYSP"
-                                  .text  "-> NEGOVRBRK"
-                                  .text  "DECIRQZERCAR "
+	    .text  "AXYSP"
+        .text  "-> NEGOVRBRK"
+        .text  "DECIRQZERCAR "
 ;
 ;[S] STACK POINTER command: Display then change STACK POINTER preset/result
 SRG                               .proc
@@ -1245,40 +1229,40 @@ WATCHL                            .proc
 
 ;
 ;[CNTL-L] LISTER command: call disassembler
-LISTER                            .proc
-	JSR  ASMPROHILO ;Point to assembler/disassembler prompt strings
-                                  JSR  LIST     ;Call disassembler
-	JSR  MONPROHILO ;Point to monitor prompt strings
-                                  RTS           ;Done LISTER command, RETURN
-                                  .pend
+LISTER  .proc
+	    JSR  ASMPROHILO ;Point to assembler/disassembler prompt strings
+        JSR  LIST     ;Call disassembler
+	    JSR  MONPROHILO ;Point to monitor prompt strings
+RET     RTS           ;Done LISTER command, RETURN
+        .pend
 
 ;
 ;
 ;[CNTL-W] WIPE command: clear (write: $00) RAM memory from $0000 through $7FFF then coldstart SyMon
-WIPE                              .proc
-	LDA  #$15     ;Send "Wipe RAM?" to terminal
-                                  JSR  PROMPT
-	JSR  ASMPROHILO	;Point INDEX to strings
-                                  LDA  #$01     ;Send CR,LF,"ESC key exits, any other to proceed" to terminal
-                                  JSR  PROMPT
-                                  JSR  CHIN     ;Request a keystroke from terminal
-                                  CMP  #$1B     ;GOTO DOWIPE IF keystroke <> [ESC]
-                                  BNE  DOWIPE
-                                  RTS           ; ELSE, abort WIPE command, RETURN
+WIPE    .proc
+	    LDA  #$15     ;Send "Wipe RAM?" to terminal
+        JSR  PROMPT
+	    JSR  ASMPROHILO	;Point INDEX to strings
+        LDA  #$01     ;Send CR,LF,"ESC key exits, any other to proceed" to terminal
+        JSR  PROMPT
+        JSR  CHIN     ;Request a keystroke from terminal
+        CMP  #$1B     ;GOTO DOWIPE IF keystroke <> [ESC]
+        BNE  DOWIPE
+        RTS           ; ELSE, abort WIPE command, RETURN
 DOWIPE:
-	LDA  #$02     ;Initialize temporary address pointer to $0002
-                                  STA  $00
-                                  LDA  #$00
-                                  STA  $01
-                                  TAX           ;Make index offset, ACCUMULATOR both = $00
-WIPELOOP:
-	STA  ($00,X)  ;Write $00 to current address
-                                  INC  $00      ;Increment address pointer
-                                  BNE  WIPELOOP
-                                  INC  $01
-                                  BPL  WIPELOOP ;LOOP back to WIPELOOP IF address pointer < $8000
-                                  STA  $01      ; ELSE, clear address pointer
-                                  .pend
+	    LDA  #$02     ;Initialize temporary address pointer to $0002
+        STA  $00
+        LDA  #$00
+        STA  $01
+        TAX           ;Make index offset, ACCUMULATOR both = $00
+WIPELOOP
+	    STA  ($00,X)  ;Write $00 to current address
+        INC  $00      ;Increment address pointer
+        BNE  WIPELOOP
+        INC  $01
+        BPL  WIPELOOP ;LOOP back to WIPELOOP IF address pointer < $8000
+        STA  $01      ; ELSE, clear address pointer
+        .pend
 
 ; Done WIPE command, GOTO COLDSTART
 ;
@@ -1290,58 +1274,59 @@ WIPELOOP:
 ;* this.
 ;*********************************
 ;
-COLDSTART                         .proc
-	CLD           ;Disable decimal mode
-                                  LDX  #$FF     ;Initialize STACK POINTER
-                                  TXS
+COLDSTART
+	    CLD           ;Disable decimal mode
+        LDX  #$FF     ;Initialize STACK POINTER
+        TXS
 ;;; Initialise ACIA
-                                  LDA  #$1F     ;Initialize serial port (terminal I/O) 6551/65c51 ACIA
-                                  STA  SIOCON   ; (19.2K BAUD,no parity,8 data bits,1 stop bit,
-                                  LDA  #$09     ;  receiver IRQ output enabled)
-                                  STA  SIOCOM
+        LDA  #$1F     ;Initialize serial port (terminal I/O) 6551/65c51 ACIA
+        STA  SIOCON   ; (19.2K BAUD,no parity,8 data bits,1 stop bit,
+        LDA  #$09     ;  receiver IRQ output enabled)
+        STA  SIOCOM
 ;;; End init ACIA
 
 ;;; Initialise VIA
-	LDA  #$FF
-	STA  VIADDRA		;Set PA pins to be output
-	STA  VIADDRB		;Set PB pins to be output
-	STA  VIAIER		;Enable interrupts for everything
+	    LDA  #$FF
+	;STA  VIADDRA		;Set PA pins to be output
+	;STA  VIADDRB		;Set PB pins to be output
+	;STA  VIAIER		;Enable interrupts for everything
 ;;; End init VIA
 
 ;;; Initialise IDE
-	JSR IDE_INIT_DEVICES
+	; JSR IDE_INIT_DEVICES
 ;;; End init IDE
 
 ;;; Initialise SyMonIII
 ;;; Initialise system variables as follows:
-                                  STA  DELLO    ; delay time low byte
-                                  STA  DELHI    ; high byte
-	JSR  MONPROHILO	;prompt string buffer address pointer high and low byte
-                                  STZ  ACCUM    ; ACCUMULATOR preset/result value
-                                  STZ  XREG     ; X-REGISTER preset/result value
-                                  STZ  YREG     ; Y-REGISTER preset/result value
-                                  STZ  PREG     ; PROCESSOR STATUS REGISTER preset/result value
-                                  STZ  OUTCNT   ; keystroke buffer 'read from' counter
-                                  STZ  INCNT    ; keystroke buffer 'written to' counter
-                                  LDA  #$7F
-                                  STA  SREG     ; USER program/application STACK POINTER preset/result value
-                                  LDX  #$01     ; Set delay time
-                                  JSR  SET      ; do short delay
-                                  JSR  CR2      ; Send 2 CR,LF to terminal
+        STA  DELLO    ; delay time low byte
+        STA  DELHI    ; high byte
+	    JSR  MONPROHILO	;prompt string buffer address pointer high and low byte
+        STZ  ACCUM    ; ACCUMULATOR preset/result value
+        STZ  XREG     ; X-REGISTER preset/result value
+        STZ  YREG     ; Y-REGISTER preset/result value
+        STZ  PREG     ; PROCESSOR STATUS REGISTER preset/result value
+        STZ  OUTCNT   ; keystroke buffer 'read from' counter
+        STZ  INCNT    ; keystroke buffer 'written to' counter
+        LDA  #$7F
+        STA  SREG     ; USER program/application STACK POINTER preset/result value
+WARMST    
+        LDX  #$01     ; Set delay time
+        JSR  SET      ; do short delay
+        JSR  CR2      ; Send 2 CR,LF to terminal
 ;;; Send BIOS logon messages to terminal
-                                  LDA  #$03     ; Send big PLUTO + "S/O/S BIOS/monitor (c)1990 B.Phelps" to terminal
-                                  JSR  PROMPT
-                                  JSR  CROUT    ; Send CR,LF to terminal
-	JSR  MONPROHILO
-                                  LDA  #$01     ; Send "Version mm.dd.yy" to terminal
-                                  JSR  PROMPT
-                                  JSR  CROUT    ; Send CR,LF to terminal
-                                  LDA  #$02     ; Send "[ctrl-a] runs sub-assembler" to terminal
-                                  JSR  PROMPT
-                                  JSR  CR2      ; Send 2 CR,LF to terminal
-                                  LDA  #$0B     ; Send "SyMon III" to terminal
-                                  JSR  PROMPT
-                                  .pend
+        LDA  #$03     ; Send big PLUTO + "S/O/S BIOS/monitor (c)1990 B.Phelps" to terminal
+        JSR  PROMPT
+        JSR  CROUT    ; Send CR,LF to terminal
+	    JSR  MONPROHILO
+        LDA  #$01     ; Send "Version mm.dd.yy" to terminal
+        JSR  PROMPT
+        JSR  CROUT    ; Send CR,LF to terminal
+        LDA  #$02     ; Send "[ctrl-a] runs sub-assembler" to terminal
+        JSR  PROMPT
+        JSR  CR2      ; Send 2 CR,LF to terminal
+        LDA  #$0B     ; Send "SyMon III" to terminal
+        JSR  PROMPT
+
 ;
 ;
 ;**********************
@@ -1349,39 +1334,39 @@ COLDSTART                         .proc
 ;* command input loop *
 ;**********************
 ;
-MONITOR                           .proc
-                                  STZ  LOKOUT   ;Disable ASCII HEX/DEC digit filter, (RDLINE subroutine uses this)
-                                  JSR  CR2      ;Send 2 CR,LF to terminal
-	JSR  MONPROHILO
-                                  LDA  #$0C     ;Send "Monitor:" to terminal
-                                  JSR  PROMPT
-                                  JSR  BEEP     ;Send ASCII [BELL] to terminal
+MONITOR .proc
+        STZ  LOKOUT   ;Disable ASCII HEX/DEC digit filter, (RDLINE subroutine uses this)
+        JSR  CR2      ;Send 2 CR,LF to terminal
+	    JSR  MONPROHILO
+        LDA  #$0C     ;Send "Monitor:" to terminal
+        JSR  PROMPT
+        JSR  BEEP     ;Send ASCII [BELL] to terminal
 NMON:
-	LDX  #$FF     ;Initialize STACK POINTER
-                                  TXS
-                                  JSR  MONPROHILO ;Restore monitor prompt string buffer address pointer
-                                                  ; in case a monitor command, user or an application changed it
-                                  JSR  CR2	;Send 2 CR,LF to terminal
-	LDA  #'M'	;Send "M" to terminal
-                                  JSR  COUT
-	LDA  #'-'	;Send "-" to terminal
-                                  JSR  COUT
+	    LDX  #$FF     ;Initialize STACK POINTER
+        TXS
+        JSR  MONPROHILO ;Restore monitor prompt string buffer address pointer
+                        ; in case a monitor command, user or an application changed it
+        JSR  CR2	;Send 2 CR,LF to terminal
+	    LDA  #'M'	;Send "M" to terminal
+        JSR  COUT
+	    LDA  #'-'	;Send "-" to terminal
+        JSR  COUT
 CMON:
-	JSR  RDCHAR   ;Wait for keystroke: RDCHAR converts lower-case Alpha. to upper-case
-                                  PHA           ;Save keystroke to STACK
-                                  ASL        	;Multiply keystroke value by 2
-                                  TAX           ;Get monitor command processor address from table MONTAB
-                                  LDA  MONTAB,X ; using multiplied keystroke value as the index
-                                  STA  COMLO    ;Store selected command processor address low byte
-                                  INX
-                                  LDA  MONTAB,X
-                                  STA  COMHI    ;Store selected command processor address hi byte
-                                  PLA           ;Restore keystroke from STACK: some command processors send keystroke to terminal
-                                  JSR  DOCOM    ;Call selected monitor command processor as a subroutine
-                                  JMP  NMON     ;LOOP back to NMON: command has been processed, go wait for next command
+	    JSR  RDCHAR   ;Wait for keystroke: RDCHAR converts lower-case Alpha. to upper-case
+        PHA           ;Save keystroke to STACK
+        ASL        	;Multiply keystroke value by 2
+        TAX           ;Get monitor command processor address from table MONTAB
+        LDA  MONTAB,X ; using multiplied keystroke value as the index
+        STA  COMLO    ;Store selected command processor address low byte
+        INX
+        LDA  MONTAB,X
+        STA  COMHI    ;Store selected command processor address hi byte
+        PLA           ;Restore keystroke from STACK: some command processors send keystroke to terminal
+        JSR  DOCOM    ;Call selected monitor command processor as a subroutine
+        JMP  NMON     ;LOOP back to NMON: command has been processed, go wait for next command
 DOCOM:
-	JMP  (COMLO)  ;Go process command then RETURN
-                                  .pend
+	    JMP  (COMLO)  ;Go process command then RETURN
+        .pend
 
 ;
 ;
@@ -1393,10 +1378,11 @@ DOCOM:
 ; which have been filtered (lower case Alpha. converted to upper case) then multiplied by 2
 ;        command:     keystroke: Keystroke value:  Monitor command function:
 MONTAB:
+        .word  LISTER.RET      ;[BREAK]              $00 ([BREAK] keystroke is trapped by the IRQ service routine)
         .word  ASSEM    ;[CTRL-A]             $01  Call Sub-Assembler utility
         .word  ERR      ;[CTRL-B]             $02
         .word  ERR      ;[CTRL-C]             $03
-        .word  DOWNLOAD ;[CTRL-D]             $04  Download data/program file (MS HYPERTERM use: paste-to-host)
+        .word  ERR ;DOWNLOAD ;[CTRL-D]             $04  Download data/program file (MS HYPERTERM use: paste-to-host)
         .word  ERR      ;[CTRL-E]             $05
         .word  ERR      ;[CTRL-F]             $06
         .word  ERR      ;[CTRL-G]             $07
@@ -1413,6 +1399,7 @@ MONTAB:
         .word  COLDSTART ;[CTRL-R]             $12  Restart same as power-up or RESET
         .word  ERR      ;[CTRL-S]             $13
         .word  ERR      ;[CTRL-T]             $14
+        .word  ERR      ;[CTRL-U]             $15
         .word  ERR      ;[CTRL-V]             $16
         .word  WIPE     ;[CTRL-W]             $17  Clear memory ($0000-$7FFF) then restart same as power-up or COLDSTART
         .word  ERR      ;[CTRL-X]             $18
@@ -1431,9 +1418,13 @@ MONTAB:
         .word  ERR      ; %                   $25
         .word  ERR      ; &                   $26
         .word  ERR      ; '                   $27
+        .word  ERR      ; (                   $28
+        .word  ERR      ; )                   $29
         .word  ERR      ; *                   $2A
         .word  ERR      ; +                   $2B
+        .word  ERR      ; ,                   $2C
         .word  ERR      ; -                   $2D
+        .word  ERR      ; .                   $2E
         .word  ERR      ; /                   $2F
         .word  ERR      ; 0                   $30
         .word  ERR      ; 1                   $31
@@ -1452,13 +1443,32 @@ MONTAB:
         .word  ERR      ; >                   $3E
         .word  ERR      ; ?                   $3F
         .word  ERR      ; @                   $40
+        .word  ERR      ; A                   $41
+        .word  ERR      ; B                   $42
+        .word  ERR      ; C                   $43
+        .word  ERR      ; D                   $44
+        .word  ERR      ; E                   $45
         .word  MFILL    ; F                   $46  Fill a specified memory range with a specified value
+        .word  ERR      ; G                   $47
+        .word  ERR      ; H                   $48
+        .word  ERR      ; I                   $49
+        .word  ERR      ; J                   $4A
+        .word  ERR      ; K                   $4B
+        .word  ERR      ; L                   $4C
         .word  MOVER    ; M                   $4D  Copy a specified memory range to a specified target address
         .word  ERR      ; N                   $4E  (Reserved: NEXT/NOTHING command)
+        .word  ERR      ; O                   $4F
+        .word  ERR      ; P                   $50
         .word  QUERY    ; Q                   $51  Display list of useful system subroutines
+        .word  ERR      ; R                   $52
         .word  SRG      ; S                   $53  Examine/change STACK POINTER preset/result
-        .word  UPLOAD   ; U                   $55  Upload data/program file
+        .word  ERR      ; T                   $54
+        .word  ERR ;UPLOAD   ; U                   $55  Upload data/program file
+        .word  ERR      ; V                   $56
         .word  WATCH    ; W                   $57  Monitor a specified memory location's contents until a key is struck
+        .word  ERR      ; X                   $58
+        .word  ERR      ; Y                   $59
+        .word  ERR      ; Z                   $5A
         .word  ERR      ; [                   $5B
         .word  ERR      ; \                   $5C
         .word  ERR      ; ]                   $5D
@@ -1472,57 +1482,57 @@ MONTAB:
 ;*************************************
 ;
 INTERUPT:
-	STA  AINTSAV  ;Save ACCUMULATOR
-                                  STX  XINTSAV  ;Save X-REGISTER
-                                  STY  YINTSAV  ;Save Y-REGISTER
-                                  LDA  SIOSTAT  ;Read 6551 ACIA status register
-                                  AND  #$88     ;Isolate bits. bit 7: Interrupt has occured and bit 3: receive data register full
-                                  EOR  #$88     ;Invert state of both bits
-                                  BNE  BRKINSTR ;GOTO BRKINSTR IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
-                                  LDA  SIODAT   ; ELSE, read 6551 ACIA receive data register
-                                  BEQ  BREAKEY  ;GOTO BREAKEY IF received byte = $00
-                                  LDX  INCNT    ; ELSE, Store keystroke in keystroke buffer address
-                                  STA  KEYBUFF,X ;  indexed by INCNT: keystroke buffer input counter
-                                  INC  INCNT    ;Increment keystroke buffer input counter
+	    STA  AINTSAV  ;Save ACCUMULATOR
+        STX  XINTSAV  ;Save X-REGISTER
+        STY  YINTSAV  ;Save Y-REGISTER
+        LDA  SIOSTAT  ;Read 6551 ACIA status register
+        AND  #$88     ;Isolate bits. bit 7: Interrupt has occured and bit 3: receive data register full
+        EOR  #$88     ;Invert state of both bits
+        BNE  BRKINSTR ;GOTO BRKINSTR IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
+        LDA  SIODAT   ; ELSE, read 6551 ACIA receive data register
+        BEQ  BREAKEY  ;GOTO BREAKEY IF received byte = $00
+        LDX  INCNT    ; ELSE, Store keystroke in keystroke buffer address
+        STA  KEYBUFF,X ;  indexed by INCNT: keystroke buffer input counter
+        INC  INCNT    ;Increment keystroke buffer input counter
 ENDIRQ:
-	LDA  AINTSAV  ;Restore ACCUMULATOR
-                                  LDX  XINTSAV  ;Restore X-REGISTER
-                                  LDY  YINTSAV  ;Restore Y-REGISTER
-                                  RTI           ;Done INTERUPT (IRQ) service, RETURN FROM INTERRUPT
+	    LDA  AINTSAV  ;Restore ACCUMULATOR
+        LDX  XINTSAV  ;Restore X-REGISTER
+        LDY  YINTSAV  ;Restore Y-REGISTER
+        RTI           ;Done INTERUPT (IRQ) service, RETURN FROM INTERRUPT
 
 ;
 BRKINSTR:
-	PLA           ;Read PROCESSOR STATUS REGISTER from STACK
-                                  PHA
-                                  AND  #$10     ;Isolate BREAK bit
-                                  BEQ  ENDIRQ   ;GOTO ENDIRQ IF bit = 0
-                                  LDA  AINTSAV  ; ELSE, restore ACCUMULATOR to pre-interrupt condition
-                                  STA  ACCUM    ;Save in ACCUMULATOR preset/result
-                                  PLA           ;Pull PROCESSOR STATUS REGISTER from STACK
-                                  STA  PREG     ;Save in PROCESSOR STATUS preset/result
-                                  STX  XREG     ;Save X-REGISTER
-                                  STY  YREG     ;Save Y-REGISTER
-                                  TSX
-                                  STX  SREG     ;Save STACK POINTER
-                                  JSR  CROUT    ;Send CR,LF to terminal
-                                  PLA           ;Pull RETURN address from STACK then save it in INDEX
-                                  STA  INDEX    ; Low byte
-                                  PLA
-                                  STA  INDEXH   ;  High byte
-                                  JSR  CROUT    ;Send CR,LF to terminal
-                                  JSR  CROUT    ;Send CR,LF to terminal
-                                  JSR  DISLINE  ;Disassemble then display instruction at address pointed to by INDEX
-                                  LDA  #$00     ;Clear all PROCESSOR STATUS REGISTER bits
-                                  PHA
-                                  PLP
+	    PLA           ;Read PROCESSOR STATUS REGISTER from STACK
+        PHA
+        AND  #$10     ;Isolate BREAK bit
+        BEQ  ENDIRQ   ;GOTO ENDIRQ IF bit = 0
+        LDA  AINTSAV  ; ELSE, restore ACCUMULATOR to pre-interrupt condition
+        STA  ACCUM    ;Save in ACCUMULATOR preset/result
+        PLA           ;Pull PROCESSOR STATUS REGISTER from STACK
+        STA  PREG     ;Save in PROCESSOR STATUS preset/result
+        STX  XREG     ;Save X-REGISTER
+        STY  YREG     ;Save Y-REGISTER
+        TSX
+        STX  SREG     ;Save STACK POINTER
+        JSR  CROUT    ;Send CR,LF to terminal
+        PLA           ;Pull RETURN address from STACK then save it in INDEX
+        STA  INDEX    ; Low byte
+        PLA
+        STA  INDEXH   ;  High byte
+        JSR  CROUT    ;Send CR,LF to terminal
+        JSR  CROUT    ;Send CR,LF to terminal
+        JSR  DISLINE  ;Disassemble then display instruction at address pointed to by INDEX
+        LDA  #$00     ;Clear all PROCESSOR STATUS REGISTER bits
+        PHA
+        PLP
 BREAKEY:
-	LDX  #$FF     ;Set STACK POINTER to $FF
-                                  TXS
-                                  LDA  #$7F     ;Set STACK POINTER preset/result to $7F
-                                  STA  SREG
-                                  LDA  INCNT    ;Remove keystrokes from keystroke input buffer
-                                  STA  OUTCNT
-                                  JMP  MONITOR.NMON     ;Done interrupt service process, re-enter monitor
+    	LDX  #$FF     ;Set STACK POINTER to $FF
+        TXS
+        LDA  #$7F     ;Set STACK POINTER preset/result to $7F
+        STA  SREG
+        LDA  INCNT    ;Remove keystrokes from keystroke input buffer
+        STA  OUTCNT
+        JMP  MONITOR.NMON     ;Done interrupt service process, re-enter monitor
 
 ;
 ;
@@ -1534,78 +1544,78 @@ BREAKEY:
 ;
 ;Sub-assembler main loop
 ;
-ASSEM                             .proc
-	JSR  CR2      ;Send 2 CR,LF to terminal
-	JSR  ASMPROHILO ;Point to prompt strings (assembler strings)
-                                  LDA  #$12     ;Send "S/O/S sub-assembler v3.6" to terminal
-                                  JSR  PROMPT
-                                  JSR  CR2      ;Send 2 CR,LF to terminal
-                                  JSR  REORIG   ;Request origin address input from terminal (working address)
+ASSEM   .proc
+	    JSR  CR2      ;Send 2 CR,LF to terminal
+	    JSR  ASMPROHILO ;Point to prompt strings (assembler strings)
+        LDA  #$12     ;Send "S/O/S sub-assembler v3.6" to terminal
+        JSR  PROMPT
+        JSR  CR2      ;Send 2 CR,LF to terminal
+        JSR  REORIG   ;Request origin address input from terminal (working address)
 NEWLIN:
-	JSR  CROUT    ;Send CR,LF to terminal
+	    JSR  CROUT    ;Send CR,LF to terminal
 NLIN:
-	JSR  DOLLAR   ;Send "$" to terminal
-                                  JSR  PRINDX   ;Display current working address
-                                  LDA  #$2D     ;Send "-" to terminal
-                                  JSR  COUT
-                                  JSR  SPC2     ;Send 2 [SPACE] to terminal
+	    JSR  DOLLAR   ;Send "$" to terminal
+        JSR  PRINDX   ;Display current working address
+        LDA  #$2D     ;Send "-" to terminal
+        JSR  COUT
+        JSR  SPC2     ;Send 2 [SPACE] to terminal
 REENTR:
-	LDX  #$03     ;Initialize mnemonic keystroke counter
+	    LDX  #$03     ;Initialize mnemonic keystroke counter
 ENTER:
-	JSR  RDCHAR   ;Request a keystroke, convert lower-case Alpha. to upper-case
-                                  CMP  #$1B     ;GOTO ANOTESC IF keytroke <> [ESCAPE]
-                                  BNE  ANOTESC
-                                  JMP  MONITOR.NMON     ;Done ASSEM, GOTO NMON: go back to monitor
+	    JSR  RDCHAR   ;Request a keystroke, convert lower-case Alpha. to upper-case
+        CMP  #$1B     ;GOTO ANOTESC IF keytroke <> [ESCAPE]
+        BNE  ANOTESC
+        CMP  MONITOR.NMON     ;Done ASSEM, GOTO NMON: go back to monitor
 ANOTESC:
-	CMP  #$20     ;GOTO NOTSPC IF keytroke <> [SPACE]
-                                  BNE  NOTSPC
-                                  JSR  SAVLST   ; ELSE, save current working address
-                                  LDA  #$0D     ;Send [RETURN] to terminal
-                                  JSR  COUT
-                                  JSR  DISLINE  ;Disassemble byte(s) found at working address, calculate next working address
-                                  JMP  NLIN     ;LOOP back to NLIN
+	    CMP  #$20     ;GOTO NOTSPC IF keytroke <> [SPACE]
+        BNE  NOTSPC
+        JSR  SAVLST   ; ELSE, save current working address
+        LDA  #$0D     ;Send [RETURN] to terminal
+        JSR  COUT
+        JSR  DISLINE  ;Disassemble byte(s) found at working address, calculate next working address
+        JMP  NLIN     ;LOOP back to NLIN
 NOTSPC:
-	CMP  #$2E     ;GOTO DIRECTV IF keystroke = "."
-                                  BEQ  DIRECTV
+	    CMP  #$2E     ;GOTO DIRECTV IF keystroke = "."
+        BEQ  DIRECTV
 NEM:
-	CMP  #$5B     ; ELSE, GOTO TOOHI IF keystroke >= ("Z"+1)
-                                  BCS  TOOHI
-                                  CMP  #$41     ; ELSE, GOTO NOTLESS IF keystroke >= "A"
-                                  BCS  NOTLESS
+    	CMP  #$5B     ; ELSE, GOTO TOOHI IF keystroke >= ("Z"+1)
+        BCS  TOOHI
+        CMP  #$41     ; ELSE, GOTO NOTLESS IF keystroke >= "A"
+        BCS  NOTLESS
 TOOHI:
-	JSR  BEEP     ; ELSE, send [BELL] to terminal
-                                  JMP  ENTER    ;LOOP back to ENTER
+    	JSR  BEEP     ; ELSE, send [BELL] to terminal
+        JMP  ENTER    ;LOOP back to ENTER
 NOTLESS:
-	STA  INBUFF-1,X ;Store keystroke in INBUFF indexed by mnemonic keystroke counter
-                                  JSR  COUT     ;Send keystroke to terminal
-                                  DEX           ;Decrement mnemonic keystroke counter
-                                  BNE  ENTER    ;LOOP back to ENTER IF mnemonic keystroke counter <> 0
-                                  LDY  #$01     ; ELSE, initialize mnemonic counter
+        STA  INBUFF-1,X ;Store keystroke in INBUFF indexed by mnemonic keystroke counter
+        JSR  COUT     ;Send keystroke to terminal
+        DEX           ;Decrement mnemonic keystroke counter
+        BNE  ENTER    ;LOOP back to ENTER IF mnemonic keystroke counter <> 0
+        LDY  #$01     ; ELSE, initialize mnemonic counter
 RDLOOP2:
-	LDA  MTAB,X   ;GOTO SKIP3 IF indexed character in MTAB <> keystroke in INBUFF+2
-                                  CMP  INBUFF+2
-                                  BNE  SKIP3
-                                  INX           ; ELSE, increment mnemonic table index
-                                  LDA  MTAB,X   ;GOTO SKIP2 IF indexed character in MTAB <> keystroke in INBUFF+1
-                                  CMP  INBUFF+1
-                                  BNE  SKIP2
-                                  INX           ; ELSE, increment mnemonic table index
-                                  LDA  MTAB,X   ;GOTO SKIP1 IF indexed character in MTAB <> keystroke in INBUFF
-                                  CMP  INBUFF
-                                  BNE  SKIP1
-                                  TYA           ; ELSE, multiply mnemonic counter by 2: mnemonic handler jump table index
-                                  CLC
-                                  ASL
-                                  TAX
-                                  LDA  JTAB,X   ;Read indexed mnemonic handler address from jump table,
-                                  STA  COMLO    ; store address at COMLO,COMHI
-                                  LDA  JTAB+1,X
-                                  STA  COMHI
-                                  JSR  SAVLST   ;Save current working address
-                                  JMP  (COMLO)  ;GOTO mnemonic handler
+	    LDA  MTAB,X   ;GOTO SKIP3 IF indexed character in MTAB <> keystroke in INBUFF+2
+        CMP  INBUFF+2
+        BNE  SKIP3
+        INX           ; ELSE, increment mnemonic table index
+        LDA  MTAB,X   ;GOTO SKIP2 IF indexed character in MTAB <> keystroke in INBUFF+1
+        CMP  INBUFF+1
+        BNE  SKIP2
+        INX           ; ELSE, increment mnemonic table index
+        LDA  MTAB,X   ;GOTO SKIP1 IF indexed character in MTAB <> keystroke in INBUFF
+        CMP  INBUFF
+        BNE  SKIP1
+        TYA           ; ELSE, multiply mnemonic counter by 2: mnemonic handler jump table index
+        CLC
+        ASL
+        TAX
+        LDA  JTAB,X   ;Read indexed mnemonic handler address from jump table,
+        STA  COMLO    ; store address at COMLO,COMHI
+        LDA  JTAB+1,X
+        STA  COMHI
+        JSR  SAVLST   ;Save current working address
+        JMP  (COMLO)  ;GOTO mnemonic handler
 ;Abort compare against current indexed mnemonic, point to next mnemonic in mnemonic table
 SKIP3:
-	INX           ;Increment mnemonic table index
+	    INX           ;Increment mnemonic table index
 SKIP2:
 	INX           ;Increment mnemonic table index
 SKIP1:
@@ -2950,7 +2960,7 @@ MONPROHILO:
 	RTS
 ;
 ;
-;Prompt strings for [F]MFILL, [M]MOVER, [K]LOCATE_BYTE_STRING, [L]LOCATE_TEXT_STRING, [CNTL-W]WIPE commands and SUB-ASSEMBLER:
+;Prompt strings for [F]MFILL, [M]MOVER, [K]LOCATE_BYTE_STRING, [L]LOCATE_TEXT_STRING, [CTRL-W]WIPE commands and SUB-ASSEMBLER:
 ;String:                   String number:
 CMDPROMPTS:
         .byte $00

@@ -451,17 +451,6 @@ F 3 "" H 1650 3150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mounting_Hole_PAD Pad1
-U 1 1 58D7281F
-P 1475 3200
-F 0 "Pad1" H 1475 3450 50  0000 C CNN
-F 1 "RI" H 1475 3375 50  0000 C CNN
-F 2 "Wire_Pads:SolderWirePad_single_0-8mmDrill" H 1475 3200 50  0001 C CNN
-F 3 "" H 1475 3200 50  0001 C CNN
-	1    1475 3200
-	-1   0    0    1   
-$EndComp
-$Comp
 L GND #PWR06
 U 1 1 58D72DB3
 P 4925 4700
@@ -540,10 +529,6 @@ Wire Wire Line
 	1650 2650 1650 3150
 Wire Wire Line
 	3700 3550 3575 3550
-Wire Wire Line
-	1825 2850 1475 2850
-Wire Wire Line
-	1475 2850 1475 3100
 Wire Wire Line
 	4500 4350 4500 4625
 Wire Wire Line
@@ -653,4 +638,5 @@ F 3 "" H 7975 1600 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7975 4675 7975 4800
+NoConn ~ 1825 2850
 $EndSCHEMATC

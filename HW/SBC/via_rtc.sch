@@ -429,7 +429,7 @@ Text GLabel 7075 2750 0    60   Input ~ 0
 ~7FAX
 Text GLabel 7075 2875 0    60   Input ~ 0
 ~MRD
-Text GLabel 7075 2975 0    60   Input ~ 0
+Text GLabel 7075 3000 0    60   Input ~ 0
 ~MWR
 Text GLabel 7075 3200 0    60   Input ~ 0
 ~IRQ
@@ -648,7 +648,7 @@ Wire Wire Line
 Wire Wire Line
 	7400 2875 7075 2875
 Wire Wire Line
-	7400 2975 7075 2975
+	7400 3000 7075 3000
 Wire Wire Line
 	7400 3200 7075 3200
 Wire Wire Line
