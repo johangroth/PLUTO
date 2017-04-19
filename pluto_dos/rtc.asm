@@ -1,4 +1,4 @@
-;================================================================================
+
 ;
 ;DS1511 CONFIGURATION CONSTANTS — Description Order
 ;
@@ -223,7 +223,7 @@ l40                               plp                   ;restore MPU state...
 ;	 
 ; 
                                   rts
-                                  .endp
+                                  .pend
  
 ; 
 ;================================================================================ 
@@ -240,10 +240,10 @@ constime                          .proc
         jsr getdtr            ;get date & time 
         lda ibuffer+nvrtzoff  ;timezone offset 
         tax                   ;save a copy 
-        and #@11000000        ;get DST bits &... 
+        and #%11000000        ;get DST bits &... 
         sta faca              ;save 
         txa                   ;restore offset... 
-        and #@00111111        ;extract hour value &... 
+        and #%00111111        ;extract hour value &... 
         sta facb              ;save it 
         lda auxbuf+wr_hrst    ;get UTC hour 
         sed                   ;do decimal arithmetic 
@@ -287,7 +287,7 @@ constime                          .proc
         ldx #<ibuffer 
         ldy #>ibuffer 
         jmp sprint            ;set console time  
-                                  .endp
+                                  .pend
 
 ; 
 ;================================================================================ 
@@ -328,8 +328,8 @@ constime                          .proc
 ; 
 getdtr                            .proc
                                   phx                   ;preserve 
-        phy                   ;likewise 
-        php                   ;save register widths 
+                                  phy                   ;likewise 
+                                  php                   ;save register widths 
         longa                 ;16 bit .A 
         pha                   ;preserve .C 
         shortr                ;8 bit regs 
@@ -366,7 +366,7 @@ getdtraa pla                   ;get control B value &...
         ply 
         plx 
         rts 
-                                  .endp
+                                  .pend
 ; 
 ;================================================================================ 
 ; 
@@ -412,7 +412,7 @@ cli                   ;IRQs must be enabled
         pla 
         plp 
         rts 
-                                  .endp
+                                  .pend
 
 ; 
 ;================================================================================ 
@@ -484,7 +484,7 @@ putdtr                            .proc
         inx                   ;next location 
         iny                   ;next register 
         bra .0000010 
-                                  .endp
+                                  .pend
 
 ; 
 ;================================================================================ 
@@ -544,5 +544,5 @@ utdelay                           .proc
 .0000020 plp                   ;restore MPU state 
         rts 
 ;       
-                                  .endp
+                                  .pend
  
