@@ -7,7 +7,7 @@
 A2DCONV	pluto_kernel.asm	/^A2DCONV:$/;"	l
 A2DDONE	pluto_kernel.asm	/^A2DDONE:$/;"	l
 A2DSUB	pluto_kernel.asm	/^A2DSUB	.proc$/;"	l
-ABYTE	pluto_kernel.asm	/^ABYTE                             .proc$/;"	l
+ABYTE	pluto_kernel.asm	/^ABYTE   .proc$/;"	l
 ACCC	pluto_kernel.asm	/^ACCC:$/;"	l
 ACCUM	pluto_kernel.asm	/^	ACCUM    = $DA$/;"	d
 ACCUM	zp_variables.asm	/^        ACCUM    = $DA$/;"	d
@@ -22,7 +22,7 @@ AQUERY	pluto_kernel.asm	/^AQUERY:$/;"	l
 ASC2BN	pluto_kernel.asm	/^ASC2BN 	.proc$/;"	l
 ASCII	pluto_kernel.asm	/^ASCII	.proc$/;"	l
 ASCOUT	pluto_kernel.asm	/^ASCOUT:$/;"	l
-ASCTODEC	pluto_kernel.asm	/^ASCTODEC                          .proc         ;Initialize (zero) BCD digit input buffer:$/;"	l
+ASCTODEC	pluto_kernel.asm	/^ASCTODEC    .proc         ;Initialize (zero) BCD digit input buffer:$/;"	l
 ASMPROHILO	pluto_kernel.asm	/^ASMPROHILO:$/;"	l
 ASOK	pluto_kernel.asm	/^ASOK:$/;"	l
 ASSEM	pluto_kernel.asm	/^ASSEM   .proc$/;"	l
@@ -32,18 +32,18 @@ BBREL	pluto_kernel.asm	/^BBREL:$/;"	l
 BBRM	pluto_kernel.asm	/^BBRM:$/;"	l
 BBRS	pluto_kernel.asm	/^BBRS:$/;"	l
 BBSM	pluto_kernel.asm	/^BBSM:$/;"	l
-BCDOUT	pluto_kernel.asm	/^BCDOUT                            .proc$/;"	l
+BCDOUT	pluto_kernel.asm	/^BCDOUT  .proc$/;"	l
 BCDOUTDN	pluto_kernel.asm	/^BCDOUTDN:$/;"	l
 BCDOUTL	pluto_kernel.asm	/^BCDOUTL:$/;"	l
-BCDTOASC	pluto_kernel.asm	/^BCDTOASC	.proc$/;"	l
-BEEP	pluto_kernel.asm	/^BEEP	.proc$/;"	l
+BCDTOASC	pluto_kernel.asm	/^BCDTOASC    .proc$/;"	l
+BEEP	pluto_kernel.asm	/^BEEP    .proc$/;"	l
 BFIXBR1	pluto_kernel.asm	/^BFIXBR1:$/;"	l
 BINARY	pluto_kernel.asm	/^BINARY:$/;"	l
 BITPOST	pluto_kernel.asm	/^BITPOST:$/;"	l
 BITS	pluto_kernel.asm	/^BITS:$/;"	l
 BITSEL	pluto_kernel.asm	/^BITSEL:$/;"	l
 BITSET	pluto_kernel.asm	/^BITSET:$/;"	l
-BN2ASC	pluto_kernel.asm	/^BN2ASC	.proc$/;"	l
+BN2ASC	pluto_kernel.asm	/^BN2ASC  .proc$/;"	l
 BNOK	pluto_kernel.asm	/^BNOK:$/;"	l
 BRANCHOK	pluto_kernel.asm	/^BRANCHOK:$/;"	l
 BREAKEY	pluto_kernel.asm	/^BREAKEY:$/;"	l
@@ -51,7 +51,7 @@ BRFORWD	pluto_kernel.asm	/^BRFORWD:$/;"	l
 BRKINSTR	pluto_kernel.asm	/^BRKINSTR:$/;"	l
 BROFFSET	pluto_kernel.asm	/^BROFFSET:$/;"	l
 BSERROR	pluto_kernel.asm	/^BSERROR:$/;"	l
-BSOUT	pluto_kernel.asm	/^BSOUT	.proc$/;"	l
+BSOUT	pluto_kernel.asm	/^BSOUT   .proc$/;"	l
 BSPIND	pluto_kernel.asm	/^	BSPIND   = $CF$/;"	d
 BSPIND	zp_variables.asm	/^        BSPIND   = $CF$/;"	d
 BTADONE	pluto_kernel.asm	/^BTADONE:$/;"	l
@@ -67,11 +67,11 @@ BYLOOP	pluto_kernel.asm	/^BYLOOP:$/;"	l
 BYOK	pluto_kernel.asm	/^BYOK:$/;"	l
 BadCrc	xmodem.asm	/^BadCrc:$/;"	l
 BegBlk	xmodem.asm	/^BegBlk:$/;"	l
-CAN	xmodem.asm	/^CAN = $18		; cancel (not standard, not supported)$/;"	d
+CAN	xmodem.asm	/^CAN = $18		; cancel (not STAndard, not supported)$/;"	d
 CHEXIN2	pluto_kernel.asm	/^CHEXIN2:$/;"	l
 CHIN	pluto_kernel.asm	/^CHIN	.proc$/;"	l
 CHINLOOP	pluto_kernel.asm	/^CHINLOOP:$/;"	l
-CHREG	pluto_kernel.asm	/^CHREG                             .proc$/;"	l
+CHREG	pluto_kernel.asm	/^CHREG   .proc$/;"	l
 CLKRD	pluto_kernel.asm	/^CLKRD:$/;"	l
 CMDPROMPTS	pluto_kernel.asm	/^CMDPROMPTS:$/;"	l
 CMON	pluto_kernel.asm	/^CMON:$/;"	l
@@ -82,15 +82,15 @@ COMLO	pluto_kernel.asm	/^	COMLO   = $BE$/;"	d
 COMLO	zp_variables.asm	/^        COMLO   = $BE$/;"	d
 COMX	pluto_kernel.asm	/^COMX:$/;"	l
 COMY	pluto_kernel.asm	/^COMY:$/;"	l
-COUT	pluto_kernel.asm	/^COUT                              .proc$/;"	l
-COUT2	pluto_kernel.asm	/^COUT2:	JSR  COUT     ;(Send byte 2 times)$/;"	l
-COUT3	pluto_kernel.asm	/^COUT3:	JSR  COUT     ;(Send byte 3 times)$/;"	l
+COUT	pluto_kernel.asm	/^COUT    .proc$/;"	l
+COUT2	pluto_kernel.asm	/^COUT2:  .proc$/;"	l
+COUT3	pluto_kernel.asm	/^COUT3:	.proc$/;"	l
 COUTL	pluto_kernel.asm	/^COUTL:	LDA  SIOSTAT  ;Read ACIA status register$/;"	l
 CPXY	pluto_kernel.asm	/^CPXY:$/;"	l
 CPXYAB	pluto_kernel.asm	/^CPXYAB:$/;"	l
 CR	xmodem.asm	/^CR = $0d		; carriage return$/;"	d
-CR2	pluto_kernel.asm	/^CR2                               .proc$/;"	l
-CROUT	pluto_kernel.asm	/^CROUT                             .proc$/;"	l
+CR2	pluto_kernel.asm	/^CR2     .proc$/;"	l
+CROUT	pluto_kernel.asm	/^CROUT   .proc$/;"	l
 CSTOR2	pluto_kernel.asm	/^CSTOR2:$/;"	l
 CSTOR3	pluto_kernel.asm	/^CSTOR3:$/;"	l
 CalcCRC	xmodem.asm	/^CalcCRC                           .proc$/;"	l
@@ -114,11 +114,11 @@ DEC6AND7	zp_variables.asm	/^        DEC6AND7 = $E8$/;"	d
 DEC8AND9	pluto_kernel.asm	/^	DEC8AND9 = $E9$/;"	d
 DEC8AND9	zp_variables.asm	/^        DEC8AND9 = $E9$/;"	d
 DECDONE	pluto_kernel.asm	/^DECDONE:$/;"	l
-DECINDEX	pluto_kernel.asm	/^DECINDEX                          .proc$/;"	l
-DECINPUT	pluto_kernel.asm	/^DECINPUT                          .proc$/;"	l
+DECINDEX	pluto_kernel.asm	/^DECINDEX    .proc$/;"	l
+DECINPUT	pluto_kernel.asm	/^DECINPUT    .proc$/;"	l
 DECONLY	pluto_kernel.asm	/^DECONLY:$/;"	l
 DECTEST	pluto_kernel.asm	/^DECTEST:$/;"	l
-DELAY1	pluto_kernel.asm	/^DELAY1                            .proc$/;"	l
+DELAY1	pluto_kernel.asm	/^DELAY1  .proc$/;"	l
 DELAY2	pluto_kernel.asm	/^DELAY2:$/;"	l
 DELHI	pluto_kernel.asm	/^	DELHI   = DELLO+1$/;"	d
 DELHI	zp_variables.asm	/^        DELHI   = DELLO+1$/;"	d
@@ -135,7 +135,7 @@ DJTAB	pluto_kernel.asm	/^DJTAB:$/;"	l
 DMTAB	pluto_kernel.asm	/^DMTAB:$/;"	l
 DOCOM	pluto_kernel.asm	/^DOCOM:$/;"	l
 DODIR	pluto_kernel.asm	/^DODIR:$/;"	l
-DOLLAR	pluto_kernel.asm	/^DOLLAR                            .proc$/;"	l
+DOLLAR	pluto_kernel.asm	/^DOLLAR  .proc$/;"	l
 DONEFILL	pluto_kernel.asm	/^DONEFILL:$/;"	l
 DONESB	pluto_kernel.asm	/^DONESB:$/;"	l
 DOUPLOAD	xmodem.asm	/^DOUPLOAD:$/;"	l
@@ -153,7 +153,7 @@ Done	xmodem.asm	/^Done:$/;"	l
 ENDIRQ	pluto_kernel.asm	/^ENDIRQ:$/;"	l
 ENTER	pluto_kernel.asm	/^ENTER:$/;"	l
 EOT	xmodem.asm	/^EOT = $04		; end of text marker$/;"	d
-ERR	pluto_kernel.asm	/^ERR                               .proc$/;"	l
+ERR	pluto_kernel.asm	/^ERR     .proc$/;"	l
 ERRBS	pluto_kernel.asm	/^ERRBS:$/;"	l
 ESC	xmodem.asm	/^ESC = $1b		; ESC to exit$/;"	d
 EXCEPTN1	pluto_kernel.asm	/^EXCEPTN1:$/;"	l
@@ -190,13 +190,13 @@ HEX4AND5	zp_variables.asm	/^        HEX4AND5 = $E3$/;"	d
 HEX6AND7	pluto_kernel.asm	/^	HEX6AND7 = $E4$/;"	d
 HEX6AND7	zp_variables.asm	/^        HEX6AND7 = $E4$/;"	d
 HEXDIGIT	pluto_kernel.asm	/^HEXDIGIT:$/;"	l
-HEXIN	pluto_kernel.asm	/^HEXIN                             .proc$/;"	l
-HEXIN2	pluto_kernel.asm	/^HEXIN2                            .proc$/;"	l
-HEXIN4	pluto_kernel.asm	/^HEXIN4                            .proc$/;"	l
-HEXOUT	pluto_kernel.asm	/^HEXOUT                            .proc$/;"	l
+HEXIN	pluto_kernel.asm	/^HEXIN   .proc $/;"	l
+HEXIN2	pluto_kernel.asm	/^HEXIN2  .proc$/;"	l
+HEXIN4	pluto_kernel.asm	/^HEXIN4  .proc$/;"	l
+HEXOUT	pluto_kernel.asm	/^HEXOUT  .proc$/;"	l
 HEXOUTDN	pluto_kernel.asm	/^HEXOUTDN:$/;"	l
 HEXOUTL	pluto_kernel.asm	/^HEXOUTL:$/;"	l
-HEXTOASC	pluto_kernel.asm	/^HEXTOASC                          .proc$/;"	l
+HEXTOASC	pluto_kernel.asm	/^HEXTOASC    .proc$/;"	l
 HNONZERO	pluto_kernel.asm	/^HNONZERO:$/;"	l
 HPHANTOM	pluto_kernel.asm	/^	HPHANTOM = $00E0    ; HPHANTOM MUST be located (in target memory) immediatly below the HEX0AND1 variable$/;"	d
 HPHANTOM	zp_variables.asm	/^        HPHANTOM = $00E0    ; HPHANTOM MUST be located (in target memory) immediatly below the HEX0AND1 variable$/;"	d
@@ -211,11 +211,11 @@ IME	pluto_kernel.asm	/^IME:$/;"	l
 IMP	pluto_kernel.asm	/^IMP:$/;"	l
 IN2	pluto_kernel.asm	/^IN2:$/;"	l
 IN3	pluto_kernel.asm	/^IN3:$/;"	l
-IN4	pluto_kernel.asm	/^IN4:$/;"	l
+IN4	pluto_kernel.asm	/^IN4:	LDA  INBUFF   ;Convert 2 ASCII HEX digits in INBUFF(high digit),$/;"	l
 INBUFF	pluto_kernel.asm	/^	INBUFF   = $B0      ;14 bytes ($B0-$BD)$/;"	d
 INC	pluto_kernel.asm	/^INC:$/;"	l
 INCDONE	pluto_kernel.asm	/^INCDONE:$/;"	l
-INCINDEX	pluto_kernel.asm	/^INCINDEX                          .proc$/;"	l
+INCINDEX	pluto_kernel.asm	/^INCINDEX    .proc$/;"	l
 INCNDX	pluto_kernel.asm	/^INCNDX:$/;"	l
 INCNT	pluto_kernel.asm	/^	INCNT    = $EB$/;"	d
 INCNT	zp_variables.asm	/^        INCNT    = $EB$/;"	d
@@ -237,10 +237,11 @@ JSUB	pluto_kernel.asm	/^JSUB:$/;"	l
 JTAB	pluto_kernel.asm	/^JTAB:$/;"	l
 JUMPS	pluto_kernel.asm	/^JUMPS:$/;"	l
 JUST3	pluto_kernel.asm	/^JUST3:$/;"	l
-JUST4	pluto_kernel.asm	/^JUST4                             .proc$/;"	l
-JUSTBYTE	pluto_kernel.asm	/^JUSTBYTE:$/;"	l
+JUST4	pluto_kernel.asm	/^JUST4   .proc$/;"	l
+JUSTBYTE	pluto_kernel.asm	/^JUSTBYTE$/;"	l
 KEYBUFF	pluto_kernel.asm	/^	KEYBUFF  = $0200    ;256 bytes: ($200-$2FF) keystrokes (data from ACIA) are stored here$/;"	d
 KEYCONV	pluto_kernel.asm	/^KEYCONV:$/;"	l
+L10	rtc.asm	/^L10$/;"	l
 LBR	pluto_kernel.asm	/^LBR:$/;"	l
 LDAABS	pluto_kernel.asm	/^LDAABS:$/;"	l
 LDAB	pluto_kernel.asm	/^LDAB:$/;"	l
@@ -327,12 +328,12 @@ POINTER	pluto_kernel.asm	/^	POINTER  = $DF$/;"	d
 POINTER	zp_variables.asm	/^        POINTER  = $DF$/;"	d
 PR1	pluto_kernel.asm	/^PR1:$/;"	l
 PR2	pluto_kernel.asm	/^PR2:$/;"	l
-PRASC	pluto_kernel.asm	/^PRASC                             .proc$/;"	l
+PRASC	pluto_kernel.asm	/^PRASC   .proc$/;"	l
 PRBIT	pluto_kernel.asm	/^PRBIT   .proc$/;"	l
-PRBYTE	pluto_kernel.asm	/^PRBYTE                            .proc$/;"	l
+PRBYTE	pluto_kernel.asm	/^PRBYTE  .proc$/;"	l
 PREG	pluto_kernel.asm	/^	PREG     = $DE$/;"	d
 PREG	zp_variables.asm	/^        PREG     = $DE$/;"	d
-PRINDX	pluto_kernel.asm	/^PRINDX                            .proc$/;"	l
+PRINDX	pluto_kernel.asm	/^PRINDX  .proc$/;"	l
 PRML	pluto_kernel.asm	/^PRML:$/;"	l
 PRMNEM	pluto_kernel.asm	/^PRMNEM:$/;"	l
 PROHI	pluto_kernel.asm	/^	PROHI   = PROLO+1$/;"	d
@@ -340,7 +341,7 @@ PROHI	zp_variables.asm	/^        PROHI   = PROLO+1$/;"	d
 PROLO	pluto_kernel.asm	/^	PROLO   = $C2$/;"	d
 PROLO	zp_variables.asm	/^        PROLO   = $C2$/;"	d
 PROMPT	pluto_kernel.asm	/^PROMPT  .proc$/;"	l
-PROMPT2	pluto_kernel.asm	/^PROMPT2                           .proc$/;"	l
+PROMPT2	pluto_kernel.asm	/^PROMPT2 .proc$/;"	l
 PrintMsg	xmodem.asm	/^PrintMsg:$/;"	l
 Print_Err	xmodem.asm	/^Print_Err                         .proc$/;"	l
 Print_Good	xmodem.asm	/^Print_Good                        .proc$/;"	l
@@ -368,7 +369,7 @@ RELLOOP	pluto_kernel.asm	/^RELLOOP:$/;"	l
 REORIG	pluto_kernel.asm	/^REORIG:$/;"	l
 RESREGS	pluto_kernel.asm	/^RESREGS .proc$/;"	l
 REST	pluto_kernel.asm	/^REST:$/;"	l
-RET	pluto_kernel.asm	/^RET     RTS           ;Done LISTER command, RETURN$/;"	l
+RET	pluto_kernel.asm	/^RET     RTS           ;Done LISTER command, RETURN. RET label is defined for [BREAK] button$/;"	l
 RIGHT	pluto_kernel.asm	/^RIGHT$/;"	l
 RMBM	pluto_kernel.asm	/^RMBM:$/;"	l
 RMOV	pluto_kernel.asm	/^RMOV:$/;"	l
@@ -379,22 +380,25 @@ RT2	pluto_kernel.asm	/^	RT2      = $D7$/;"	d
 RT2	zp_variables.asm	/^        RT2      = $D7$/;"	d
 Rbuff	xmodem.asm	/^Rbuff = $0300      	; temp 132 byte receive buffer$/;"	d
 Resend	xmodem.asm	/^Resend:$/;"	l
+SAVEACC	pluto_kernel.asm	/^    SAVEACC  = $AD$/;"	d
+SAVEX	pluto_kernel.asm	/^    SAVEX    = $AE$/;"	d
+SAVEY	pluto_kernel.asm	/^    SAVEY    = $AF$/;"	d
 SAVLST	pluto_kernel.asm	/^SAVLST:$/;"	l
-SAVREGS	pluto_kernel.asm	/^SAVREGS                           .proc$/;"	l
+SAVREGS	pluto_kernel.asm	/^SAVREGS .proc$/;"	l
 SBLOOP	pluto_kernel.asm	/^SBLOOP:$/;"	l
 SBYTSTR	pluto_kernel.asm	/^SBYTSTR                           .proc$/;"	l
 SCNT	pluto_kernel.asm	/^	SCNT     = $D2$/;"	d
 SCNT	zp_variables.asm	/^        SCNT     = $D2$/;"	d
 SCalcCRC	xmodem.asm	/^SCalcCRC:$/;"	l
 SENDIGIT	pluto_kernel.asm	/^SENDIGIT:$/;"	l
-SENDIT	pluto_kernel.asm	/^SENDIT                            .proc$/;"	l
+SENDIT	pluto_kernel.asm	/^SENDIT  .proc$/;"	l
 SENGBR1	pluto_kernel.asm	/^SENGBR1:$/;"	l
 SENGBR2	pluto_kernel.asm	/^SENGBR2:$/;"	l
 SENGBR3	pluto_kernel.asm	/^SENGBR3:$/;"	l
-SENGINE	pluto_kernel.asm	/^SENGINE                           .proc$/;"	l
+SENGINE	pluto_kernel.asm	/^SENGINE .proc$/;"	l
 SETIM	pluto_kernel.asm	/^	SETIM    = $D8$/;"	d
 SETIM	zp_variables.asm	/^        SETIM    = $D8$/;"	d
-SETUP	pluto_kernel.asm	/^SETUP                             .proc$/;"	l
+SETUP	pluto_kernel.asm	/^SETUP   .proc$/;"	l
 SHEXIN4	pluto_kernel.asm	/^SHEXIN4:$/;"	l
 SHFT3	pluto_kernel.asm	/^SHFT3:$/;"	l
 SHIFT	pluto_kernel.asm	/^SHIFT:$/;"	l
@@ -412,10 +416,10 @@ SKIP2	pluto_kernel.asm	/^SKIP2:$/;"	l
 SKIP3	pluto_kernel.asm	/^SKIP3:$/;"	l
 SLOOP	pluto_kernel.asm	/^SLOOP:$/;"	l
 SMBM	pluto_kernel.asm	/^SMBM:$/;"	l
-SOH	xmodem.asm	/^SOH = $01		; start block$/;"	d
-SPC	pluto_kernel.asm	/^SPC                               .proc$/;"	l
-SPC2	pluto_kernel.asm	/^SPC2                              .proc$/;"	l
-SPC4	pluto_kernel.asm	/^SPC4                              .proc$/;"	l
+SOH	xmodem.asm	/^SOH = $01		; STArt block$/;"	d
+SPC	pluto_kernel.asm	/^SPC     .proc$/;"	l
+SPC2	pluto_kernel.asm	/^SPC2    .proc$/;"	l
+SPC4	pluto_kernel.asm	/^SPC4    .proc$/;"	l
 SPCRD	pluto_kernel.asm	/^SPCRD:$/;"	l
 SRAB	pluto_kernel.asm	/^SRAB:$/;"	l
 SRBIT	pluto_kernel.asm	/^SRBIT:$/;"	l
@@ -424,7 +428,7 @@ SRCHBUFF	pluto_kernel.asm	/^	SRCHBUFF = $00F0    ;16 bytes ($F0-$FF) (notice tha
 SRCHBUFF	zp_variables.asm	/^        SRCHBUFF = $00F0    ;16 bytes ($F0-$FF) (notice that this variable MUST be expressed as a 16 bit address$/;"	d
 SREG	pluto_kernel.asm	/^	SREG     = $DD$/;"	d
 SREG	zp_variables.asm	/^        SREG     = $DD$/;"	d
-SRG	pluto_kernel.asm	/^SRG                               .proc$/;"	l
+SRG	pluto_kernel.asm	/^SRG     .proc$/;"	l
 SRM	pluto_kernel.asm	/^SRM:$/;"	l
 SRMB	pluto_kernel.asm	/^SRMB:$/;"	l
 SRMB2	pluto_kernel.asm	/^SRMB2:$/;"	l
@@ -493,8 +497,8 @@ VIAT2CL	pluto_kernel.asm	/^	VIAT2CL = VIARB+8	;Write T2 Low-Order Latches, Read 
 VIEWEXIT	pluto_kernel.asm	/^VIEWEXIT:$/;"	l
 WAIT	pluto_kernel.asm	/^WAIT:$/;"	l
 WARMST	pluto_kernel.asm	/^WARMST    $/;"	l
-WATCH	pluto_kernel.asm	/^WATCH                             .proc$/;"	l
-WATCHL	pluto_kernel.asm	/^WATCHL                            .proc$/;"	l
+WATCH	pluto_kernel.asm	/^WATCH   .proc$/;"	l
+WATCHL	pluto_kernel.asm	/^WATCHL$/;"	l
 WDLOOP	pluto_kernel.asm	/^WDLOOP:$/;"	l
 WDOK	pluto_kernel.asm	/^WDOK:$/;"	l
 WIPE	pluto_kernel.asm	/^WIPE    .proc$/;"	l
@@ -520,16 +524,17 @@ ZERO	pluto_kernel.asm	/^ZERO:$/;"	l
 ZEROABS	pluto_kernel.asm	/^ZEROABS:$/;"	l
 ZPDIND	pluto_kernel.asm	/^ZPDIND:$/;"	l
 ZPIND	pluto_kernel.asm	/^ZPIND:$/;"	l
-alarm	rtc.asm	/^alarm                             .proc    $/;"	l
+alarm	rtc.asm	/^alarm   .proc$/;"	l
+alarm	rtc816.asm	/^alarm                             .proc    $/;"	l
 bflag	xmodem.asm	/^bflag = $a7		; block flag$/;"	d
 blkno	xmodem.asm	/^blkno = $a6		; block number$/;"	d
-cli	rtc.asm	/^cli                   ;IRQs must be enabled $/;"	l
-constime	rtc.asm	/^constime                          .proc$/;"	l
+constime	rtc.asm	/^constime    .proc$/;"	l
+constime	rtc816.asm	/^constime    .proc$/;"	l
 crc	xmodem.asm	/^crc = $a8		; CRC lo byte  (two byte variable)$/;"	d
 crch	xmodem.asm	/^crch = $a9		; CRC hi byte$/;"	d
 crchi	xmodem.asm	/^crchi:$/;"	l
 crclo	xmodem.asm	/^crclo:$/;"	l
-d11tab	rtc.asm	/^d11tab                            .byte wr_crb, wr_crbpb  ;CRB : updates & WDT IRQs on$/;"	l
+d11tab	rtc816.asm	/^d11tab                            .byte wr_crb, wr_crbpb  ;CRB : updates & WDT IRQs on$/;"	l
 done	basic_ide_routines.asm	/^done   	beq ide_to2$/;"	l
 done	basic_ide_routines.asm	/^done   	lda ide_register7	;get status in A$/;"	l
 done	cfs.asm	/^done			rts$/;"	l
@@ -539,9 +544,11 @@ errcnt	xmodem.asm	/^errcnt = $a7		; error counter 10 is the limit$/;"	d
 error	basic_ide_routines.asm	/^error$/;"	l
 find_boot_sector	cfs.asm	/^find_boot_sector 	.proc$/;"	l
 fprint	macros.asm	/^fprint .macro$/;"	l
-getdtr	rtc.asm	/^getdtr                            .proc$/;"	l
-getdtraa	rtc.asm	/^getdtraa pla                   ;get control B value &... $/;"	l
-getutim	rtc.asm	/^getutim                           .proc$/;"	l
+getdtr	rtc.asm	/^getdtr  .proc$/;"	l
+getdtr	rtc816.asm	/^getdtr  .proc$/;"	l
+getdtraa	rtc816.asm	/^getdtraa pla                   ;get control B value &... $/;"	l
+getutim	rtc.asm	/^getutim .proc$/;"	l
+getutim	rtc816.asm	/^getutim                           .proc$/;"	l
 ide_blp	basic_ide_routines.asm	/^ide_blp$/;"	l
 ide_dlp	basic_ide_routines.asm	/^ide_dlp$/;"	l
 ide_err	basic_ide_routines.asm	/^ide_err$/;"	l
@@ -581,23 +588,31 @@ ide_write_sector	basic_ide_routines.asm	/^ide_write_sector                  .pro
 ide_write_sector_cmd	basic_ide_routines.asm	/^ide_write_sector_cmd = $30$/;"	d
 idebufrd	basic_ide_routines.asm	/^idebufrd$/;"	l
 idebufwt	basic_ide_routines.asm	/^idebufwt$/;"	l
-l10	rtc.asm	/^l10                               stz alarmtim          ;yes, cancel alarm $/;"	l
-l20	rtc.asm	/^l20                               cpxw 0                ;null vector? $/;"	l
-l30	rtc.asm	/^l30                               lda utirqct           ;wait 'til msec count... $/;"	l
-l40	rtc.asm	/^l40                               plp                   ;restore MPU state... $/;"	l
+initrtc	rtc.asm	/^initrtc .proc$/;"	l
+io_rtc	pluto_kernel.asm	/^    io_rtc = $7FA0$/;"	d
+l0000010	rtc816.asm	/^l0000010$/;"	l
+l0000020	rtc816.asm	/^l0000020 ;xba                   ;save adjusted hour $/;"	l
+l10	rtc816.asm	/^l10                               stz alarmtim          ;yes, cancel alarm $/;"	l
+l20	rtc816.asm	/^l20                               cpxw 0                ;null vector? $/;"	l
+l30	rtc816.asm	/^l30                               lda utirqct           ;wait 'til msec count... $/;"	l
+l40	rtc816.asm	/^l40                               plp                   ;restore MPU state... $/;"	l
 lastblk	xmodem.asm	/^lastblk = $a5		; flag for last block$/;"	d
 load_addrn	macros.asm	/^load_addrn .macro$/;"	l
 master_slave_select	basic_ide_routines.asm	/^master_slave_select               .proc$/;"	l
+n_rtcreg	rtc.asm	/^n_rtcreg =*-rtcreg$/;"	l
 newline	macros.asm	/^newline .macro$/;"	l
 notdone	basic_ide_routines.asm	/^notdone                           lda ide_register7$/;"	l
 ok	basic_ide_routines.asm	/^ok$/;"	l
 prtline	macros.asm	/^prtline .macro$/;"	l
 ptr	xmodem.asm	/^ptr = INDEX		; data pointer (two byte variable)$/;"	d
 ptrh	xmodem.asm	/^ptrh = INDEXH 		;   "    "$/;"	d
-putdtr	rtc.asm	/^putdtr                            .proc$/;"	l
+putdtr	rtc.asm	/^putdtr  .proc$/;"	l
+putdtr	rtc816.asm	/^putdtr                            .proc$/;"	l
 retry	xmodem.asm	/^retry = $ae		; retry counter$/;"	d
 retry2	xmodem.asm	/^retry2 = $af		; 2nd counter$/;"	d
-s_d11tab	rtc.asm	/^                                  s_d11tab = * - d11tab   ;table size$/;"	d
+rtcparm	rtc.asm	/^rtcparm  .byte wr_crbpb        ;updates & WDT IRQs on$/;"	l
+rtcreg	rtc.asm	/^rtcreg   .byte wr_crb          ;control B$/;"	l
+s_d11tab	rtc816.asm	/^                                  s_d11tab = * - d11tab   ;table size$/;"	d
 sector_buffer_ptr	basic_ide_routines.asm	/^sector_buffer_ptr = $50$/;"	d
 testprta	macros.asm	/^testprta .macro$/;"	l
 teststack	macros.asm	/^teststack .macro$/;"	l
@@ -605,5 +620,6 @@ tmp	basic_ide_routines.asm	/^tmp = $70$/;"	d
 tmp1	basic_ide_routines.asm	/^tmp1 = tmp+1$/;"	d
 tmp2	basic_ide_routines.asm	/^tmp2 = tmp+2$/;"	d
 tmp3	basic_ide_routines.asm	/^tmp3 = tmp+3$/;"	d
-utdelay	rtc.asm	/^utdelay                           .proc$/;"	l
+utdelay	rtc.asm	/^utdelay .proc$/;"	l
+utdelay	rtc816.asm	/^utdelay                           .proc$/;"	l
 wrtline	macros.asm	/^wrtline .macro$/;"	l
