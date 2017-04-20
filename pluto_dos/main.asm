@@ -16,7 +16,6 @@
 ; xmodem
 .include "xmodem.asm"
 
-
 ; =============================================================================
 ; KERNEL
 .include "pluto_kernel.asm"
