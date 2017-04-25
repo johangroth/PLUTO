@@ -1,0 +1,492 @@
+A2DCONV	symoniii.asm	/^A2DCONV  LDA  INBUFF-1,X ;Read indexed ASCII DECIM/
+A2DDONE	symoniii.asm	/^A2DDONE  RTS           ; ELSE, done ASCTODEC, RETU/
+A2DSUB	symoniii.asm	/^A2DSUB   TXA           ;GOTO A2DCONV IF digit buff/
+AARG	symoniii.asm	/^AARG     LDA  #$FF     ;Point prompter to monitor /
+ABYTE	symoniii.asm	/^ABYTE    JSR  SAVLST   ;Save current working addre/
+ACCC	symoniii.asm	/^ACCC     JSR  SIN      ;Send 10 [SPACE] to termina/
+ACCUM	symoniii.asm	/^ACCUM    .EQU $DA$/
+ADUMP	symoniii.asm	/^ADUMP    JSR  SETUP    ;Request HEX address input /
+AGO	symoniii.asm	/^AGO      JSR  CROUT    ;Send CR\/LF to terminal$/
+AHEXIN2	symoniii.asm	/^AHEXIN2  TYA           ;Save Y-REGISTER on STACK$/
+AHEXIN4	symoniii.asm	/^AHEXIN4  TYA           ;Save Y-REGISTER on STACK$/
+AINTSAV	symoniii.asm	/^AINTSAV  .EQU $ED$/
+ANOTESC	symoniii.asm	/^ANOTESC  CMP  #$20     ;GOTO NOTSPC IF keytroke <>/
+AOK	symoniii.asm	/^AOK      RTS           ;Done RDCHAR subroutine, RE/
+APRG	symoniii.asm	/^APRG     LDA  #$FF     ;Point prompter to monitor /
+APROMPT	symoniii.asm	/^APROMPT  LDA  #$FE     ;Point prompter to assemble/
+APRSTAT	symoniii.asm	/^APRSTAT  JSR  CROUT    ;Send CR\/LF to terminal$/
+AQUERY	symoniii.asm	/^AQUERY   LDA  INDEX    ;Save current working addre/
+ARG	symoniii.asm	/^ARG      LDA  #$05     ;Send "Areg:$" to terminal$/
+ARONEG	symoniii.asm	/^ARONEG   INX           ; ELSE, Send "-> NEG" to te/
+ASC2BN	symoniii.asm	/^ASC2BN   PHA           ;Save high digit on STACK$/
+ASCII	symoniii.asm	/^ASCII    CMP  #$0A     ;GOTO ASOK IF nybble < $A$/
+ASCLOOP	symoniii.asm	/^ASCLOOP  STY  SCNT     ;Save HEX input buffer inde/
+ASCOUT	symoniii.asm	/^ASCOUT   JMP  COUT     ;Send byte in ACCUMULATOR t/
+ASCTODEC	symoniii.asm	/^ASCTODEC LDA  #$00     ;Initialize (zero) BCD digi/
+ASCTOHEX	symoniii.asm	/^ASCTOHEX LDA  #$00     ;Initialize (zero) HEX digi/
+ASOK	symoniii.asm	/^ASOK     ADC  #$30     ;ADD $30$/
+ASRG	symoniii.asm	/^ASRG     LDA  #$FF     ;Point prompter to monitor /
+ASSEM	symoniii.asm	/^ASSEM    JSR  CR2      ;Send 2 CR,LF to terminal$/
+ATODLOOP	symoniii.asm	/^ATODLOOP JSR  A2DSUB   ;Read ASCII digit then conv/
+AXRG	symoniii.asm	/^AXRG     LDA  #$FF     ;Point prompter to monitor /
+AYRG	symoniii.asm	/^AYRG     LDA  #$FF     ;Point prompter to monitor /
+BACK	symoniii.asm	/^BACK     LDA  BUFIDX   ;GOTO BSERROR IF buffer is /
+BBR	symoniii.asm	/^BBR      JSR  BITSEL   ;Request bit number (0 to 7/
+BBREL	symoniii.asm	/^BBREL    JSR  DOLLAR   ;Send "$" to terminal$/
+BBRS	symoniii.asm	/^BBRS     ORA  OPTAB,Y  ;Logical OR with the indexe/
+BBS	symoniii.asm	/^BBS      JSR  BITSEL   ;Request bit number (0 to 7/
+BCDLOOP	symoniii.asm	/^BCDLOOP  LDA  DPHANTOM,Y ;Read indexed byte from i/
+BCDOUT	symoniii.asm	/^BCDOUT   LDX  #$00     ;Initialize BCD output buff/
+BCDOUTDN	symoniii.asm	/^BCDOUTDN RTS           ;Done BCDOUT subroutine, RE/
+BCDOUTL	symoniii.asm	/^BCDOUTL  LDA  DEC0AND1,X ;Read indexed byte from B/
+BCDTOASC	symoniii.asm	/^BCDTOASC BNE  NONZERO  ;GOTO NONZERO IF BCD digit /
+BCDTOHEX	symoniii.asm	/^BCDTOHEX LDA  #$00     ;Initialize (zero) output b/
+BEEP	symoniii.asm	/^BEEP     PHA           ;Save ACCUMULATOR on STACK$/
+BFIXBR1	symoniii.asm	/^BFIXBR1  LDA  OCTAB,Y  ;Read indexed opcode byte f/
+BINARY	symoniii.asm	/^BINARY   SEC           ;Clear BORROW$/
+BIT7	symoniii.asm	/^BIT7     JSR  PRBIT    ;Send "0" or "1"  to termin/
+BITPOST	symoniii.asm	/^BITPOST  ORA  OPTAB,Y  ;Logical OR with the indexe/
+BITS	symoniii.asm	/^BITS     JSR  LSPRD    ;Read opcode pointer and re/
+BITSEL	symoniii.asm	/^BITSEL   JSR  CLKRD    ;Send "?" to terminal, requ/
+BITSET	symoniii.asm	/^BITSET   LDA  #$31     ; ELSE, Send "1" to termina/
+BN2ASC	symoniii.asm	/^BN2ASC   TAX           ;Copy ACCUMULATOR to X-REGI/
+BNOK	symoniii.asm	/^BNOK     RTS           ;Done BINARY subroutine, RE/
+BRANCHOK	symoniii.asm	/^BRANCHOK LDA  TEMP3    ;This holds the valid branc/
+BREAKEY	symoniii.asm	/^BREAKEY  LDX  #$FF     ;Set STACK POINTER to $FF$/
+BRFORWD	symoniii.asm	/^BRFORWD  LDA  OPHI     ;GOTO NORMLFWD IF target ad/
+BRKINSTR	symoniii.asm	/^BRKINSTR PLA           ;Read PROCESSOR STATUS REGI/
+BROFFSET	symoniii.asm	/^BROFFSET SEC           ;Clear borrow flag$/
+BSERROR	symoniii.asm	/^BSERROR  JSR  BEEP     ;Send [BELL] to terminal$/
+BSOUT	symoniii.asm	/^BSOUT    LDA  #$08     ;Send [BACKSPACE] to termin/
+BSPIND	symoniii.asm	/^BSPIND   .EQU $CF$/
+BTADONE	symoniii.asm	/^BTADONE  RTS           ;Done BCDTOASC subroutine, /
+BUFADR	symoniii.asm	/^BUFADR  .EQU $C4$/
+BUFADRH	symoniii.asm	/^BUFADRH .EQU BUFADR+1$/
+BUFIDX	symoniii.asm	/^BUFIDX   .EQU $CD$/
+BUFLEN	symoniii.asm	/^BUFLEN   .EQU $CE$/
+BYLOOP	symoniii.asm	/^BYLOOP   JSR  SPC2     ;Send 2 [SPACE] to terminal/
+BYOK	symoniii.asm	/^BYOK     LDX  #$00     ;Store entered byte at curr/
+BYTE	symoniii.asm	/^BYTE     JSR  DOLLAR   ;Send "$" to terminal$/
+CHANGE	symoniii.asm	/^CHANGE   JSR  SETUP    ;Request HEX address input /
+CHANGEL	symoniii.asm	/^CHANGEL  LDA  #$08     ;Send 3 non-destructive [BA/
+CHEXIN2	symoniii.asm	/^CHEXIN2  JSR  COUT     ;Send character in ACCUMULA/
+CHIN	symoniii.asm	/^CHIN     STX  TEMP     ;Save X REGISTER$/
+CHINLOOP	symoniii.asm	/^CHINLOOP CLI           ;Enable external IRQ respon/
+CHOK	symoniii.asm	/^CHOK     INC  INDEX    ;Increment INDEX address$/
+CHREG	symoniii.asm	/^CHREG    JSR  PRBYTE   ;Display HEX value of ACCUM/
+CLKRD	symoniii.asm	/^CLKRD    LDA  #$3F     ;Send "?" to terminal$/
+CMON	symoniii.asm	/^CMON     JSR  RDCHAR   ;Wait for keystroke: RDCHAR/
+CNTLUGO	symoniii.asm	/^CNTLUGO  TSX           ;Save the monitor's STACK P/
+COLDSTRT	symoniii.asm	/^COLDSTRT CLD           ;Put 6502 in binary arithma/
+COMHI	symoniii.asm	/^COMHI   .EQU COMLO+1$/
+COMLO	symoniii.asm	/^COMLO   .EQU $BE$/
+COMX	symoniii.asm	/^COMX     LDA  #$2C     ;","$/
+COMY	symoniii.asm	/^COMY     LDA  #$2C     ;","$/
+COUT	symoniii.asm	/^COUT     PHA           ;Save ACCUMULATOR on STACK$/
+COUT2	symoniii.asm	/^COUT2    JSR  COUT     ;(Send byte 2 times)$/
+COUT3	symoniii.asm	/^COUT3    JSR  COUT     ;(Send byte 3 times)$/
+COUTL	symoniii.asm	/^COUTL    LDA  SIOSTAT  ;Read ACIA status register$/
+CPXY	symoniii.asm	/^CPXY     JSR  LSPRD    ;Read opcode pointer and re/
+CPXYAB	symoniii.asm	/^CPXYAB   INY           ;Increment opcode table ind/
+CR2	symoniii.asm	/^CR2      JSR  CROUT    ;Send CR,LF to terminal$/
+CROUT	symoniii.asm	/^CROUT    PHA           ;Save ACCUMULATOR$/
+CSTOR2	symoniii.asm	/^CSTOR2   JSR  COUT     ;Send character in ACCUMULA/
+CSTOR3	symoniii.asm	/^CSTOR3   JSR  COUT     ;Send character in ACCUMULA/
+DABS	symoniii.asm	/^DABS     JSR  TRIBYT   ;Display operand bytes, the/
+DAX	symoniii.asm	/^DAX      JSR  TRIBYT   ;Display operand bytes, the/
+DAY	symoniii.asm	/^DAY      JSR  TRIBYT   ;Display operand bytes, the/
+DBBR	symoniii.asm	/^DBBR     JSR  SRMB2    ;Display operand bytes, mne/
+DBBS	symoniii.asm	/^DBBS     JSR  SRMB2    ;Display operand bytes, mne/
+DBR1	symoniii.asm	/^DBR1     CMP  #$24     ;GOTO DNEWADR IF character /
+DDOADD	symoniii.asm	/^DDOADD   CLC$/
+DEC0AND1	symoniii.asm	/^DEC0AND1 .EQU $E5$/
+DEC2AND3	symoniii.asm	/^DEC2AND3 .EQU $E6$/
+DEC4AND5	symoniii.asm	/^DEC4AND5 .EQU $E7$/
+DEC6AND7	symoniii.asm	/^DEC6AND7 .EQU $E8$/
+DEC8AND9	symoniii.asm	/^DEC8AND9 .EQU $E9$/
+DECIN	symoniii.asm	/^DECIN   JSR  DECINPUT  ;Request 1 - 10 DECIMAL dig/
+DECINDEX	symoniii.asm	/^DECINDEX SEC$/
+DECINPUT	symoniii.asm	/^DECINPUT LDA  #$FF     ;  Allow only valid ASCII D/
+DECLOOP	symoniii.asm	/^DECLOOP  LDA  HPHANTOM,Y ;Read indexed byte from i/
+DECONLY	symoniii.asm	/^DECONLY  CPX  #$FF     ;GOTO FULTST IF LOKOUT vari/
+DECTEST	symoniii.asm	/^DECTEST  CMP  #$3A     ; ELSE, DECIMAL filter enab/
+DECTOHEX	symoniii.asm	/^DECTOHEX JSR  CROUT    ;Send CR,LF to terminal$/
+DELAY1	symoniii.asm	/^DELAY1   LDX  #$01     ;Preset delay multiplier to/
+DELAY2	symoniii.asm	/^DELAY2   LDX  DELHI    ;Read delay multiplier vari/
+DELHI	symoniii.asm	/^DELHI   .EQU DELLO+1$/
+DELLO	symoniii.asm	/^DELLO   .EQU $C0$/
+DIND	symoniii.asm	/^DIND     JSR  TRIBYT   ;Display operand bytes, the/
+DIRECTV	symoniii.asm	/^DIRECTV  JSR  COUT     ;Send last keystroke (".") /
+DIROK	symoniii.asm	/^DIROK    CLC           ;multiply directive table i/
+DIRTAB	symoniii.asm	/^DIRTAB   .DB "ABGILOPQRSTUWXY"$/
+DIRTST	symoniii.asm	/^DIRTST   CMP  DIRTAB,X ;GOTO DIROK IF keystroke = /
+DISLINE	symoniii.asm	/^DISLINE  JSR  DOLLAR   ;Send "$" to terminal$/
+DISLOOP	symoniii.asm	/^DISLOOP  JSR  DISLINE  ;List (disassemble) one ins/
+DJTAB	symoniii.asm	/^DJTAB    .DW AARG$/
+DLINE	symoniii.asm	/^DLINE    JSR  SPC4     ;Send 4 [SPACE] to terminal/
+DLOOP	symoniii.asm	/^DLOOP    JSR  CHIN     ;Request a keystroke from t/
+DMLTLOOP	symoniii.asm	/^DMLTLOOP CPY  #$00$/
+DMPGR	symoniii.asm	/^DMPGR    JSR  CROUT$/
+DMTAB	symoniii.asm	/^DMTAB    .DB "***"$/
+DMULTAB	symoniii.asm	/^DMULTAB  .DB  $00, $00, $00, $01 ;HEX weight of le/
+DNEWADR	symoniii.asm	/^DNEWADR  JSR  DSUB2    ;Request 2 ASCII HEX digits/
+DOCOM	symoniii.asm	/^DOCOM    JMP  (COMLO)  ;Go process command then RE/
+DODIR	symoniii.asm	/^DODIR    JMP  (COMLO)  ;GOTO directive handler $/
+DOLLAR	symoniii.asm	/^DOLLAR   PHA           ;Save ACCUMULATOR on STACK$/
+DONEDEC	symoniii.asm	/^DONEDEC  RTS           ;Done DECTOHEX command, RET/
+DONEFILL	symoniii.asm	/^DONEFILL RTS           ; ELSE, done MFILL command,/
+DONESB	symoniii.asm	/^DONESB   RTS           ; ELSE, done SBYTSTR, RETUR/
+DOUPLD	symoniii.asm	/^DOUPLD   PLA           ;Restore start address from/
+DOWIPE	symoniii.asm	/^DOWIPE   LDA  #$02     ;Initialize temporary addre/
+DOWNLOAD	symoniii.asm	/^DOWNLOAD LDA  #$09     ;Send "Download:" to termin/
+DPHANTOM	symoniii.asm	/^DPHANTOM .EQU $00E4    ; DPHANTOM MUST be located /
+DRMB	symoniii.asm	/^DRMB     JSR  SRMB     ;Display operand byte, mnem/
+DSMB	symoniii.asm	/^DSMB     JSR  SRMB     ;Display operand byte, mnem/
+DSUB1	symoniii.asm	/^DSUB1    PHA           ;Save ACCUMULATOR on STACK:/
+DSUB2	symoniii.asm	/^DSUB2    JSR  CHIN     ;Request a keystroke from t/
+DUMPA	symoniii.asm	/^DUMPA    JSR  SPC2     ;Send 2 [SPACE] to terminal/
+DUMPH	symoniii.asm	/^DUMPH    JSR  PRBYTE   ;Display byte as a HEX valu/
+DUNSENG	symoniii.asm	/^DUNSENG  LDA  INCNT    ;Remove last keystroke from/
+DUNSINC	symoniii.asm	/^DUNSINC  RTS           ;Done SINCPTR subroutine, R/
+DUNUPLD	symoniii.asm	/^DUNUPLD  LDA  #$2A     ; ELSE, send "*" to termina/
+DZX	symoniii.asm	/^DZX      JSR  ZEROABS  ;Display operand byte, then/
+DZY	symoniii.asm	/^DZY      JSR  ZEROABS  ;Display operand byte, then/
+EDBKSPC	symoniii.asm	/^EDBKSPC  LDA  INDEX    ;GOTO EDDOBKS IF INDEX,INDE/
+EDDOBKS	symoniii.asm	/^EDDOBKS  JSR  BSOUT    ;Send [BACKSPACE] to termin/
+EDITDUN	symoniii.asm	/^EDITDUN  JSR  CR2      ;Send 2 CR,LF to terminal$/
+EDITOR	symoniii.asm	/^EDITOR   JSR  COUT     ;Send "Z" (command keystrok/
+EDJMP1	symoniii.asm	/^EDJMP1   LDA  INDEX    ; ELSE, save current edit l/
+EDJMP2	symoniii.asm	/^EDJMP2   JSR  CHIN     ;Request a keystroke from t/
+EDVWXIT	symoniii.asm	/^EDVWXIT  RTS           ;Done EDITOR command, RETUR/
+ENDIRQ	symoniii.asm	/^ENDIRQ   LDA  AINTSAV  ;Restore ACCUMULATOR$/
+ENDUMP	symoniii.asm	/^ENDUMP   INC  IDX      ;Increment line counter$/
+ENOTRET	symoniii.asm	/^ENOTRET  CMP  #$08     ;GOTO EDBKSPC IF keystroke /
+ENTER	symoniii.asm	/^ENTER    JSR  RDCHAR   ;Request a keystroke, conve/
+ERR	symoniii.asm	/^ERR      JSR  BEEP     ;Send ASCII [BELL] to termi/
+ERRBS	symoniii.asm	/^ERRBS    JSR  BEEP     ;Send [BELL] to terminal$/
+EXAMINE	symoniii.asm	/^EXAMINE  JSR  SETUP    ;Request HEX address input /
+EXCEPTN1	symoniii.asm	/^EXCEPTN1 LDA  TEMP3    ; ELSE, GOTO BRANCHOK IF of/
+EXCEPTN2	symoniii.asm	/^EXCEPTN2 LDA  TEMP3    ; ELSE, GOTO TOOFAR IF offs/
+EXITRD	symoniii.asm	/^EXITRD   LDX  BUFIDX   ;Copy keystroke count to X-/
+EXPIRE	symoniii.asm	/^EXPIRE   JMP  CROUT    ;Send CR,LF to terminal the/
+FILAST	symoniii.asm	/^FILAST   STA  (TEMP2),Y ;Store fill value at index/
+FILEFT	symoniii.asm	/^FILEFT   LDX  INDEX    ; ELSE, copy INDEX to X REG/
+FIND	symoniii.asm	/^FIND     LDA  (PROLO),Y ;Read indexed byte from bu/
+FULTST	symoniii.asm	/^FULTST   LDY  BUFIDX   ; ELSE, GOTO STRCH IF BUFID/
+GETBYT	symoniii.asm	/^GETBYT   LDA  (INDEX),Y ;Read indexed byte $/
+GETNXT	symoniii.asm	/^GETNXT   JSR  INCNDX   ;Increment working address /
+GLINE	symoniii.asm	/^GLINE    LDX  #$4F$/
+GLINEL	symoniii.asm	/^GLINEL   JSR  COUT$/
+GO	symoniii.asm	/^GO       JSR  SETUP    ;Request HEX address input /
+H2LOOP	symoniii.asm	/^H2LOOP   JSR  HEXIN2   ;Request 1 to 2 HEX digit i/
+H2OK	symoniii.asm	/^H2OK     STA  OPLO     ;Store inputted byte in OPL/
+H4LOOP	symoniii.asm	/^H4LOOP   JSR  HEXIN4   ;Request 1 to 4 HEX digit i/
+H4OK	symoniii.asm	/^H4OK     CMP  #$03     ;Set CARRY IF > 2 digits we/
+HDOADD	symoniii.asm	/^HDOADD   CLC$/
+HEX0AND1	symoniii.asm	/^HEX0AND1 .EQU $E1$/
+HEX2AND3	symoniii.asm	/^HEX2AND3 .EQU $E2$/
+HEX4AND5	symoniii.asm	/^HEX4AND5 .EQU $E3$/
+HEX6AND7	symoniii.asm	/^HEX6AND7 .EQU $E4$/
+HEXDIGIT	symoniii.asm	/^HEXDIGIT CLC$/
+HEXIN	symoniii.asm	/^HEXIN    STA  INQTY    ;Store number of digits to /
+HEXIN2	symoniii.asm	/^HEXIN2   LDA  #$02     ;Request 2 ASCII HEX digits/
+HEXIN4	symoniii.asm	/^HEXIN4   LDA  #$04     ;Request 4 ASCII HEX digits/
+HEXINPUT	symoniii.asm	/^HEXINPUT LDA  #$80     ;  Allow only valid ASCII H/
+HEXOUT	symoniii.asm	/^HEXOUT   LDX  #$00     ;Initialize HEX output buff/
+HEXOUTDN	symoniii.asm	/^HEXOUTDN RTS           ;Done HEXOUT subroutine, RE/
+HEXOUTL	symoniii.asm	/^HEXOUTL  LDA  $HEX0AND1,X ;Read indexed byte from /
+HEXTOASC	symoniii.asm	/^HEXTOASC BNE  HNONZERO ;GOTO HNONZERO IF HEX digit/
+HEXTOBCD	symoniii.asm	/^HEXTOBCD LDA  #$00     ;Initialize (zero) output b/
+HEXTODEC	symoniii.asm	/^HEXTODEC LDA  #$06     ;Send "HEX: $" to terminal$/
+HINDONE	symoniii.asm	/^HINDONE  RTS           ; ELSE, Done HEXINPUT subro/
+HMLTLOOP	symoniii.asm	/^HMLTLOOP CPY  #$00$/
+HMULTAB	symoniii.asm	/^HMULTAB  .DB $00, $00, $00, $00, $01 ;BCD weight o/
+HNONZERO	symoniii.asm	/^HNONZERO INY           ; ELSE, indicate that a non/
+HPHANTOM	symoniii.asm	/^HPHANTOM .EQU $00E0    ; HPHANTOM MUST be located /
+HPTAB	symoniii.asm	/^HPTAB    .DB $00,$0C,$00,$00,$06,$06,$06,$1C,$00,$/
+HTAB	symoniii.asm	/^HTAB     .DW SIN           ;$00$/
+HTADONE	symoniii.asm	/^HTADONE  RTS           ;Done HEXTOASC subroutine, /
+HTDDONE	symoniii.asm	/^HTDDONE  RTS           ;Done HEXTODEC command, RET/
+IDX	symoniii.asm	/^IDX      .EQU $D0$/
+IDY	symoniii.asm	/^IDY      .EQU $D1$/
+IME	symoniii.asm	/^IME      JSR  TWOBYT   ;Display operand byte, then/
+IMP	symoniii.asm	/^IMP      LDA  OPTAB,Y  ;Read indexed byte from OPT/
+IN2	symoniii.asm	/^IN2      LDA  INBUFF   ;Convert 2 ASCII HEX digits/
+IN3	symoniii.asm	/^IN3      LDA  #$30     ;Convert 2 ASCII HEX digits/
+IN4	symoniii.asm	/^IN4      LDA  INBUFF   ;Convert 2 ASCII HEX digits/
+INBUFF	symoniii.asm	/^INBUFF   .EQU $B0      ;14 bytes ($B0-$BD) $/
+INCINDEX	symoniii.asm	/^INCINDEX CLC$/
+INCNDX	symoniii.asm	/^INCNDX   JSR  INCINDEX ;Increment working address /
+INCNT	symoniii.asm	/^INCNT    .EQU $EB$/
+INDABSX	symoniii.asm	/^INDABSX  JSR  TRIBYT   ;Display operand bytes, the/
+INDEX	symoniii.asm	/^INDEX   .EQU $C8$/
+INDEXH	symoniii.asm	/^INDEXH  .EQU INDEX+1$/
+INDJ	symoniii.asm	/^INDJ     JSR  COUT     ;Send keystroke to terminal/
+INDX	symoniii.asm	/^INDX     INY           ;Increment opcode table ind/
+INERR	symoniii.asm	/^INERR    JSR  BEEP     ; ELSE, Send [BELL] to term/
+INIMACRO	symoniii.asm	/^INIMACRO LDA  #$02     ;Make memory fill start add/
+INPUT	symoniii.asm	/^INPUT    JSR  CHIN     ;Request keystroke input fr/
+INQTY	symoniii.asm	/^INQTY    .EQU $EA$/
+INTERUPT	symoniii.asm	/^INTERUPT STA  AINTSAV  ;Save ACCUMULATOR$/
+ITER	symoniii.asm	/^ITER     LDY  DELLO    ;Read delay duration variab/
+JSUB	symoniii.asm	/^JSUB     JSR  SHEXIN4  ;Request word value input f/
+JTAB	symoniii.asm	/^JTAB     .DW $FFFF$/
+JUMPS	symoniii.asm	/^JUMPS    JSR  SPCRD    ;Send 2 [SPACE] then "?" to/
+JUST3	symoniii.asm	/^JUST3    CPX  #$00     ;GOTO IN3 IF 0 OR 3 digits /
+JUST4	symoniii.asm	/^JUST4    CPX  #$00     ;GOTO IN4 IF 0 OR 4 digits /
+JUSTBYTE	symoniii.asm	/^JUSTBYTE LDA  INBUFF   ;Move digit from INBUFF to /
+KEYBUFF	symoniii.asm	/^KEYBUFF  .EQU $0200    ;256 bytes: ($200-$2FF) key/
+KEYCONV	symoniii.asm	/^KEYCONV  JSR  CHIN     ;Request a keystroke from t/
+KEYHIT	symoniii.asm	/^KEYHIT   STA  OUTCNT   ;Remove keystroke from keys/
+LBR	symoniii.asm	/^LBR      LDA  #$28     ;"("$/
+LCDCOM	symoniii.asm	/^LCDCOM   .EQU $9000    ;LCD command register <--Pu/
+LCDDATA	symoniii.asm	/^LCDDATA  .EQU LCDCOM+1$/
+LDAABS	symoniii.asm	/^LDAABS   INY           ;Add 2 to opcode table inde/
+LDAB	symoniii.asm	/^LDAB     INY           ;Add 3 to opcode table inde/
+LDABS	symoniii.asm	/^LDABS    INY           ;Add 2 to opcode table inde/
+LDACC	symoniii.asm	/^LDACC    JSR  LSPRD    ;Read opcode pointer and re/
+LDAZX	symoniii.asm	/^LDAZX    JSR  CLKRD    ; ELSE, send "?" to termina/
+LDIX	symoniii.asm	/^LDIX     INY           ;Increment opcode table ind/
+LDNIM	symoniii.asm	/^LDNIM    INY           ;Increment opcode table ind/
+LDXY	symoniii.asm	/^LDXY     JSR  LSPRD    ;Read opcode pointer and re/
+LDZP	symoniii.asm	/^LDZP     INY           ;Add 2 to opcode table inde/
+LIST	symoniii.asm	/^LIST     LDA  #$14     ;Send "List: " to terminal$/
+LISTER	symoniii.asm	/^LISTER   LDA  #$FE     ;Point to assembler\/disasse/
+LOKOUT	symoniii.asm	/^LOKOUT   .EQU $D9$/
+LS1	symoniii.asm	/^LS1      ASL  A        ;Bit 7 NEGATIVE$/
+LS2	symoniii.asm	/^LS2      ASL  A        ;Bit 6 OVERFLOW$/
+LS4	symoniii.asm	/^LS4      ASL  A        ;Bit 4 BREAK$/
+LS5	symoniii.asm	/^LS5      ASL  A        ;Bit 3 DECIMAL$/
+LS6	symoniii.asm	/^LS6      ASL  A        ;Bit 2 INTERRUPT REQUEST$/
+LS7	symoniii.asm	/^LS7      ASL  A        ;Bit 1 ZERO$/
+LSPRD	symoniii.asm	/^LSPRD    LDA  OPTAB,Y  ;Read indexed byte from OPT/
+LSTNEW	symoniii.asm	/^LSTNEW   LDA  #$15     ;Initialize instruction cou/
+LSTOR2	symoniii.asm	/^LSTOR2   LDA  OCTAB,Y  ;Read indexed opcode from o/
+LSTOR3	symoniii.asm	/^LSTOR3   LDA  OCTAB,Y  ;Read indexed opcode from o/
+MDLOOP	symoniii.asm	/^MDLOOP   TXA           ;Send "00" thru "0F", separ/
+MDUMP	symoniii.asm	/^MDUMP    JSR  SETUP    ;Request HEX address input /
+MEMDMP	symoniii.asm	/^MEMDMP   STA  TEMP3    ;Store dump command type: 0/
+MFILL	symoniii.asm	/^MFILL    LDA  #$FE     ;Point to prompt strings ar/
+MNCHAR	symoniii.asm	/^MNCHAR   LDA  REGARA,X ;Send indexed 3 character b/
+MNSTR	symoniii.asm	/^MNSTR    LDY  #$03     ;Initialize bit name charac/
+MONITOR	symoniii.asm	/^MONITOR  LDA  #$00     ;Disable ASCII HEX\/DEC digi/
+MONTAB	symoniii.asm	/^MONTAB   .DW  RET      ;[BREAK]              $00  /
+MORDIS	symoniii.asm	/^MORDIS   CMP  #$20     ;LOOP back to LSTNEW IF key/
+MORLOOP	symoniii.asm	/^MORLOOP  JSR  CHIN     ; ELSE, request a keystroke/
+MOVER	symoniii.asm	/^MOVER    LDA  #$FE     ;Point to prompt strings ar/
+MPTAB	symoniii.asm	/^MPTAB    .DB $03,$A2,$00,$00,$C6,$A2,$6C,$B7,$24,$/
+MSPC	symoniii.asm	/^MSPC     JSR  SAVREGS  ;Save ACCUMULATOR, X,Y REGI/
+MTAB	symoniii.asm	/^MTAB     .DB "BRK"$/
+MULTIPLY	symoniii.asm	/^MULTIPLY JSR  SAVREGS  ;Save A,X,Y REGISTERS on ST/
+MULTPLI	symoniii.asm	/^MULTPLI  JSR  SAVREGS  ;Save A,X,Y REGISTERS on ST/
+MVPAG	symoniii.asm	/^MVPAG    LDX  INDEXH   ; ELSE, copy length high by/
+MVPGE	symoniii.asm	/^MVPGE    LDA  (TEMP3),Y ; ELSE, move (copy) byte f/
+MVREST	symoniii.asm	/^MVREST   LDX  INDEX    ;Copy length parameter low /
+NCAREG	symoniii.asm	/^NCAREG   RTS           ;Done ARG command, RETURN$/
+NCPREG	symoniii.asm	/^NCPREG   RTS           ;Done PRG command, RETURN$/
+NCSREG	symoniii.asm	/^NCSREG   RTS           ;Done SRG command, RETURN$/
+NCXREG	symoniii.asm	/^NCXREG   RTS           ;Done XRG command, RETURN$/
+NCYREG	symoniii.asm	/^NCYREG   RTS           ;Done YRG command, RETURN$/
+NEM	symoniii.asm	/^NEM      CMP  #$5B     ; ELSE, GOTO TOOHI IF keyst/
+NEVERA	symoniii.asm	/^NEVERA   JSR  AHEXIN4  ;Request operand word input/
+NEWADR	symoniii.asm	/^NEWADR   JSR  IN4      ;Convert keystrokes in INBU/
+NEWLIN	symoniii.asm	/^NEWLIN   JSR  CROUT    ;Send CR,LF to terminal$/
+NEXT	symoniii.asm	/^NEXT     INY           ; ELSE, increment byte coun/
+NLIN	symoniii.asm	/^NLIN     JSR  DOLLAR   ;Send "$" to terminal$/
+NMON	symoniii.asm	/^NMON     LDX  #$FF     ;Initialize STACK POINTER$/
+NOABINX	symoniii.asm	/^NOABINX  JSR  RBR      ;send ")" to terminal$/
+NOIND	symoniii.asm	/^NOIND    INY           ;Increment opcode table ind/
+NONZERO	symoniii.asm	/^NONZERO  INY           ; ELSE, indicate that a non/
+NORMLFWD	symoniii.asm	/^NORMLFWD LDA  TEMP3H   ; ELSE, GOTO TOOFAR IF offs/
+NOTA	symoniii.asm	/^NOTA     INY           ;Increment opcode table ind/
+NOTESC	symoniii.asm	/^NOTESC   CMP  #$0D     ;GOTO EXITRD IF keystroke =/
+NOTIMED	symoniii.asm	/^NOTIMED  INY           ;Increment opcode table ind/
+NOTIND	symoniii.asm	/^NOTIND   INY           ;Add 3 to opcode table inde/
+NOTIXY	symoniii.asm	/^NOTIXY   INY           ;Add 2 to opcode table inde/
+NOTLESS	symoniii.asm	/^NOTLESS  STA  INBUFF-1,X ;Store keystroke in INBUF/
+NOTSPC	symoniii.asm	/^NOTSPC   CMP  #$2E     ;GOTO DIRECTV IF keystroke /
+NOTZ2S	symoniii.asm	/^NOTZ2S   JSR  BEEP     ;  send [BELL] to terminal$/
+NXTREG	symoniii.asm	/^NXTREG   LDA  REGARA,X ;Send indexed register char/
+OCTAB	symoniii.asm	/^OCTAB    .DB $E0,$E4,$EC,$C0,$C4,$CC,$3A,$D6,$C6,$/
+OPHI	symoniii.asm	/^OPHI     .EQU $D4$/
+OPLO	symoniii.asm	/^OPLO     .EQU $D3$/
+OPTAB	symoniii.asm	/^OPTAB    .DB $FF,$00,$18,$D8,$58,$B8,$CA,$88,$E8,$/
+OUTCNT	symoniii.asm	/^OUTCNT   .EQU $EC$/
+OUTPUT	symoniii.asm	/^OUTPUT   LDA  ACCUM    ;Read ACCUMULATOR preset\/re/
+OVERFLOW	symoniii.asm	/^OVERFLOW LDA  #$2A     ;Send "*" to terminal: indi/
+PERIOD	symoniii.asm	/^PERIOD   LDA  #$2E     ;  ELSE, load ACCUMULATOR w/
+PGFILL	symoniii.asm	/^PGFILL   STA  (TEMP2),Y ;Store fill value at index/
+POINTER	symoniii.asm	/^POINTER  .EQU $DF$/
+PR	symoniii.asm	/^PR       CPX  #$04$/
+PR1	symoniii.asm	/^PR1      JSR  DOLLAR   ;Send "$" to terminal$/
+PR2	symoniii.asm	/^PR2      JSR  DOLLAR   ;Send "$" to terminal$/
+PRASC	symoniii.asm	/^PRASC    CMP  #$7F$/
+PRBIT	symoniii.asm	/^PRBIT    LDA  #$3A     ;Send ":" to terminal$/
+PRBYTE	symoniii.asm	/^PRBYTE   JSR  SAVREGS  ;Save ACCUMULATOR, X,Y REGI/
+PREG	symoniii.asm	/^PREG     .EQU $DE$/
+PRG	symoniii.asm	/^PRG      LDA  #$14     ;Send "processor status:$" /
+PRINDX	symoniii.asm	/^PRINDX   PHA           ;Save ACCUMULATOR$/
+PRML	symoniii.asm	/^PRML     LDA  DMTAB,X  ;Read indexed character fro/
+PRMNEM	symoniii.asm	/^PRMNEM   LDX  SCNT     ;Retrieve opcode byte saved/
+PRNXT	symoniii.asm	/^PRNXT    JSR  SPC2     ;Send 2 [SPACE] to terminal/
+PROHI	symoniii.asm	/^PROHI   .EQU PROLO+1$/
+PROLO	symoniii.asm	/^PROLO   .EQU $C2$/
+PROMPT	symoniii.asm	/^PROMPT   JSR  SAVREGS  ;Save ACCUMULATOR, X,Y REGI/
+PROMPT2	symoniii.asm	/^PROMPT2  LDY  #$00     ;Read from current view mem/
+PRSTAT	symoniii.asm	/^PRSTAT   JSR  CROUT    ;Send CR,LF to terminal$/
+QUERY	symoniii.asm	/^QUERY    JSR  COUT$/
+QUITFILL	symoniii.asm	/^QUITFILL PLA           ;Pull saved fill value from/
+QUITMV	symoniii.asm	/^QUITMV   RTS           ; ELSE, done MOVER command,/
+QUITP	symoniii.asm	/^QUITP    JSR  RESREGS  ;Restore ACCUMULATOR, X,Y R/
+RBR	symoniii.asm	/^RBR      LDA  #$29     ;")"$/
+RDCHAR	symoniii.asm	/^RDCHAR   JSR  CHIN     ;Request keystroke input fr/
+RDEC	symoniii.asm	/^RDEC     DEC  TEMP3H   ; ELSE, decrement source pa/
+RDLINE	symoniii.asm	/^RDLINE   STA  BUFADRH  ;Store buffer address high /
+RDLOOP	symoniii.asm	/^RDLOOP   JSR  RDCHAR   ;Request keystroke input fr/
+RDLOOP2	symoniii.asm	/^RDLOOP2  LDA  MTAB,X   ;GOTO SKIP3 IF indexed char/
+RDNDX	symoniii.asm	/^RDNDX    LDX  #$00     ;Read from working address$/
+RDONE	symoniii.asm	/^RDONE    JSR  COUT$/
+READ	symoniii.asm	/^READ     LDY  #$00$/
+RECODE	symoniii.asm	/^RECODE   LDA  IDX      ;Make working address = pre/
+REENTR	symoniii.asm	/^REENTR   LDX  #$03     ;Initialize mnemonic keystr/
+REGARA	symoniii.asm	/^REGARA   .DB  "AXYSP"$/
+REL	symoniii.asm	/^REL      JSR  SHEXIN4   ;Request word value input /
+RELATIVE	symoniii.asm	/^RELATIVE JSR  TWOBYT   ;Display operand byte, then/
+RELLOOP	symoniii.asm	/^RELLOOP  JSR  PRBYTE   ;Send target address high b/
+REORIG	symoniii.asm	/^REORIG   LDA  #$11     ;Send "Origin: " to termina/
+RESREGS	symoniii.asm	/^RESREGS  PLA           ;Pull RTS RETURN address hi/
+REST	symoniii.asm	/^REST     LDA  (TEMP3),Y ; ELSE, move (copy) byte f/
+RET	symoniii.asm	/^RET      RTS           ;Done RUNMACRO command, RET/
+RIGHT	symoniii.asm	/^RIGHT    LDA  INDEXH   ;Point to highest address p/
+RMB	symoniii.asm	/^RMB      JSR  BITSEL   ;Request bit number (0 to 7/
+RMOV	symoniii.asm	/^RMOV     DEY           ;Decrement page byte index$/
+RT	symoniii.asm	/^RT       DEY           ; ELSE, decrement page byte/
+RT1	symoniii.asm	/^RT1      .EQU $D6$/
+RT2	symoniii.asm	/^RT2      .EQU $D7$/
+RUNMACRO	symoniii.asm	/^RUNMACRO LDA  #$00     ;Make keystroke buffer writ/
+SAVLST	symoniii.asm	/^SAVLST   LDA  INDEX$/
+SAVREGS	symoniii.asm	/^SAVREGS  STA  STEMP    ;Save ACCUMULATOR to memory/
+SBDONE	symoniii.asm	/^SBDONE   JMP  NMON     ;Done SRCHBYT or SRCHTXT co/
+SBLOOP	symoniii.asm	/^SBLOOP   STY  IDY      ;Save index\/byte counter $/
+SBYTSTR	symoniii.asm	/^SBYTSTR  LDY  #$00     ;Initialize index\/byte coun/
+SCNT	symoniii.asm	/^SCNT     .EQU $D2$/
+SENDIGIT	symoniii.asm	/^SENDIGIT JSR  COUT     ;Send converted digit to te/
+SENDIT	symoniii.asm	/^SENDIT   JSR  COUT$/
+SENGBR1	symoniii.asm	/^SENGBR1  JSR  SINCPTR  ;Increment memory address p/
+SENGBR2	symoniii.asm	/^SENGBR2  LDX  #$00     ;Initialize buffer index: p/
+SENGBR3	symoniii.asm	/^SENGBR3  LDA  (INDEX),Y ;Read current memory locat/
+SENGINE	symoniii.asm	/^SENGINE  CPY  #$00     ;GOTO DUNSENG IF SRCHBUFF b/
+SET	symoniii.asm	/^SET      STX  SETIM    ;Store duration value in SE/
+SETIM	symoniii.asm	/^SETIM    .EQU $D8$/
+SETUP	symoniii.asm	/^SETUP    JSR  COUT     ;Send command keystroke to /
+SHEXIN4	symoniii.asm	/^SHEXIN4  JSR  SPC2     ;Send 2 [SPACE] to terminal/
+SHFT3	symoniii.asm	/^SHFT3    JSR  SHIFT    ;Move digits from INBUFF+1 /
+SHIFT	symoniii.asm	/^SHIFT    LDA  INBUFF+1 ;Move digit from INBUFF+1 t/
+SHRO	symoniii.asm	/^SHRO     JSR  LSPRD    ;Read opcode pointer and re/
+SHROAB	symoniii.asm	/^SHROAB   INY           ;Add 2 to opcode table inde/
+SHROZP	symoniii.asm	/^SHROZP   INY           ;Increment opcode table ind/
+SIN	symoniii.asm	/^SIN      LDA  #$0A     ;Send 10 [SPACE] to termina/
+SINCPTR	symoniii.asm	/^SINCPTR  JSR  INCINDEX ;Increment memory address p/
+SIOCOM	symoniii.asm	/^SIOCOM   .EQU SIODAT+2 ;ACIA command REGISTER$/
+SIOCON	symoniii.asm	/^SIOCON   .EQU SIODAT+3 ;ACIA control REGISTER$/
+SIODAT	symoniii.asm	/^SIODAT   .EQU $8000    ;ACIA data register   <--pu/
+SIOSTAT	symoniii.asm	/^SIOSTAT  .EQU SIODAT+1 ;ACIA status REGISTER$/
+SKIP1	symoniii.asm	/^SKIP1    INX           ;Increment mnemonic table i/
+SKIP2	symoniii.asm	/^SKIP2    INX           ;Increment mnemonic table i/
+SKIP3	symoniii.asm	/^SKIP3    INX           ;Increment mnemonic table i/
+SLOOP	symoniii.asm	/^SLOOP    JSR  COUT     ;Send it to terminal$/
+SMB	symoniii.asm	/^SMB      JSR  BITSEL   ;Request bit number (0 to 7/
+SPC	symoniii.asm	/^SPC      PHA           ;Save ACCUMULATOR$/
+SPC2	symoniii.asm	/^SPC2     JSR  SPC      ;Send 2 [SPACE] to terminal/
+SPC4	symoniii.asm	/^SPC4     JSR  SPC2     ;Send 4 [SPACE] to terminal/
+SPCRD	symoniii.asm	/^SPCRD    JSR  SPC2     ;Send 2 [SPACE] to terminal/
+SR	symoniii.asm	/^SR       CPX  #$03$/
+SRAB	symoniii.asm	/^SRAB     INY           ;Increment opcode table ind/
+SRBIT	symoniii.asm	/^SRBIT    CLC           ;Convert bit selector value/
+SRBIT2	symoniii.asm	/^SRBIT2   JSR  SRBIT    ;Convert and display bit se/
+SRCHBUFF	symoniii.asm	/^SRCHBUFF .EQU $00F0    ;16 bytes ($F0-$FF) (notice/
+SRCHBYT	symoniii.asm	/^SRCHBYT  LDA  #$FE     ;Point to prompt strings lo/
+SRCHRDY	symoniii.asm	/^SRCHRDY  CPY  #$00     ;GOTO SBDONE IF no bytes in/
+SRCHTXT	symoniii.asm	/^SRCHTXT  LDA  #$FE     ;Point to prompt strings lo/
+SREG	symoniii.asm	/^SREG     .EQU $DD$/
+SRG	symoniii.asm	/^SRG      LDA  #$10     ;Send "stack pointer:$" to /
+SRM	symoniii.asm	/^SRM      LDA  #$08     ;Send 2 [BACKSPACE] to term/
+SRMB	symoniii.asm	/^SRMB     JSR  RDNDX    ;Read from working address$/
+SRMB2	symoniii.asm	/^SRMB2    JSR  RDNDX    ;Read from working address$/
+STAB	symoniii.asm	/^STAB     INY           ;Add 3 to opcode table inde/
+STACC	symoniii.asm	/^STACC    JSR  LSPRD    ;Read opcode pointer and re/
+STAIN	symoniii.asm	/^STAIN    CMP  #$28     ;GOTO NOTIND IF modifier <>/
+STBR1	symoniii.asm	/^STBR1    RTS           ;Done STXTSTR subroutine, R/
+STBR2	symoniii.asm	/^STBR2    CMP  #$08     ;GOTO STBR3 IF keystroke <>/
+STBR3	symoniii.asm	/^STBR3    STA  SRCHBUFF,Y ;Store character in index/
+STEMP	symoniii.asm	/^STEMP    .EQU $D5$/
+STLOOP	symoniii.asm	/^STLOOP   JSR  CHIN     ;Request keystroke input fr/
+STOR	symoniii.asm	/^STOR     LDX  #$00)    ;Write operand high byte to/
+STOR2	symoniii.asm	/^STOR2    LDX  #$00     ;Write opcode to working ad/
+STOR3	symoniii.asm	/^STOR3    LDX  #$00     ;Write opcode to working ad/
+STORLF	symoniii.asm	/^STORLF    JSR  COUT      ;Send [RETURN] to termina/
+STRCH	symoniii.asm	/^STRCH    STA  (BUFADR),Y ;Store keystroke in buffe/
+STRINGL	symoniii.asm	/^STRINGL  LDA  (PROLO),Y ;Read indexed byte from bu/
+STXTSTR	symoniii.asm	/^STXTSTR  LDY  #$00     ;Initialize index\/byte coun/
+STXY	symoniii.asm	/^STXY     LDA  OPTAB,Y  ;Read indexed byte from OPT/
+STZ	symoniii.asm	/^STZ      LDA  OPTAB,Y  ;Read indexed byte from OPT/
+STZP	symoniii.asm	/^STZP     INY           ;Add 2 to opcode table inde/
+SUBTRACT	symoniii.asm	/^SUBTRACT EOR  #$FF     ;Get 1's complement of offs/
+SWAIT	symoniii.asm	/^SWAIT    JSR  COUT     ;Send command keystroke to /
+TEMP	symoniii.asm	/^TEMP     .EQU $CC$/
+TEMP2	symoniii.asm	/^TEMP2   .EQU $C6$/
+TEMP2H	symoniii.asm	/^TEMP2H  .EQU TEMP2+1$/
+TEMP3	symoniii.asm	/^TEMP3   .EQU $CA$/
+TEMP3H	symoniii.asm	/^TEMP3H  .EQU TEMP3+1$/
+TEXT	symoniii.asm	/^TEXT     LDA  #$08     ;Send "TEXT: " to terminal$/
+THX	symoniii.asm	/^THX      JSR  TWOBYT   ;Display operand byte, then/
+THY	symoniii.asm	/^THY      JSR  TWOBYT   ;Display operand byte, then/
+TIME	symoniii.asm	/^TIME     JSR  TIMER    ;Do delay$/
+TIMER	symoniii.asm	/^TIMER    JSR  SAVREGS  ;Save ACCUMULATOR, X,Y REGI/
+TIMERL	symoniii.asm	/^TIMERL   JSR  DELAY2   ;Perform a medium delay. Du/
+TOOFAR	symoniii.asm	/^TOOFAR   LDA  #$15     ; ELSE, send "<- Offset = l/
+TOOHI	symoniii.asm	/^TOOHI    JSR  BEEP     ; ELSE, send [BELL] to term/
+TRIBYT	symoniii.asm	/^TRIBYT   JSR  GETNXT   ;Read, display operand low /
+TSRB	symoniii.asm	/^TSRB     LDA  OPTAB,Y  ;Read indexed byte from OPT/
+TSRBIN	symoniii.asm	/^TSRBIN   JSR  AHEXIN4  ;Request operand word input/
+TWOBYT	symoniii.asm	/^TWOBYT   JSR  GETNXT   ;Read, display operand byte/
+UCHEKEY	symoniii.asm	/^UCHEKEY  LDA  INCNT    ;GOTO KEYHIT IF a key was s/
+UNXTBYT	symoniii.asm	/^UNXTBYT  LDY  #$00$/
+UNXTLIN	symoniii.asm	/^UNXTLIN  JSR  CROUT    ;Send CR,LF to terminal$/
+UPLOAD	symoniii.asm	/^UPLOAD   LDA  #$0F     ;Send CR,LF, "Upload " to t/
+UREADY	symoniii.asm	/^UREADY   LDA  #$13     ;Send CR,LF, "10 Seconds" t/
+USER	symoniii.asm	/^USER     LDA  #$00     ;Make command address point/
+USERFILL	symoniii.asm	/^USERFILL LDX  INDEXH   ;Copy INDEXH to X REGISTER:/
+VIEWEXIT	symoniii.asm	/^VIEWEXIT RTS           ;Done VIEWTXT command, RETU/
+VIEWTXT	symoniii.asm	/^VIEWTXT  JSR  COUT     ;Send "V" (command keystrok/
+VQUERY	symoniii.asm	/^VQUERY   JSR  CROUT    ;Send CR,LF to terminal$/
+WAIT	symoniii.asm	/^WAIT     DEY           ;Decrement duration counter/
+WARMST	symoniii.asm	/^WARMST   NOP           ;<----------REPLACE THESE N/
+WATCH	symoniii.asm	/^WATCH    JSR  SETUP    ;Request HEX address input /
+WATCHL	symoniii.asm	/^WATCHL   JSR  READ     ;Read specified address$/
+WDLOOP	symoniii.asm	/^WDLOOP   JSR  SPC2     ;Send 2 [SPACE] to terminal/
+WDOK	symoniii.asm	/^WDOK     LDA  INDEX    ;Save entered data word in /
+WIPE	symoniii.asm	/^WIPE     LDA  #$15     ;Send "Wipe RAM?" to termin/
+WIPELOOP	symoniii.asm	/^WIPELOOP STA  ($00,X)  ;Write $00 to current addre/
+WITCHWAY	symoniii.asm	/^WITCHWAY BCC  BRFORWD  ;GOTO BRFORWD IF CARRY clea/
+WORD	symoniii.asm	/^WORD     JSR  SAVLST   ;Save current working addre/
+X2	symoniii.asm	/^X2       JSR  SHIFT    ;Move digits from INBUFF+1 /
+X3	symoniii.asm	/^X3       LDA  INBUFF+2 ;Move digits from INBUFF+2 /
+XINTSAV	symoniii.asm	/^XINTSAV  .EQU $EE$/
+XITDMP	symoniii.asm	/^XITDMP   JSR  GLINE    ; ELSE, Send horizontal lin/
+XITR	symoniii.asm	/^XITR     JSR  PRBYTE   ;Send preset\/result value t/
+XITUPLD	symoniii.asm	/^XITUPLD  RTS           ;Done UPLOAD command, RETUR/
+XITWR	symoniii.asm	/^XITWR    RTS           ;Done CHANGE command, RETUR/
+XR	symoniii.asm	/^XR       CPX  #$01$/
+XREG	symoniii.asm	/^XREG     .EQU $DB$/
+XRG	symoniii.asm	/^XRG      LDA  #$0A     ;Send "Xreg:$" to terminal$/
+XYNOIM	symoniii.asm	/^XYNOIM   INY           ;Increment opcode table ind/
+YINTSAV	symoniii.asm	/^YINTSAV  .EQU $EF$/
+YR	symoniii.asm	/^YR       CPX  #$02$/
+YREG	symoniii.asm	/^YREG     .EQU $DC$/
+YRG	symoniii.asm	/^YRG      LDA  #$0E     ;Send "Yreg:$" to terminal$/
+Z2SOK	symoniii.asm	/^Z2SOK    JSR  COUT     ;Send inputted digit ("0" t/
+ZERO	symoniii.asm	/^ZERO     DEX           ;Decrement string counter$/
+ZEROABS	symoniii.asm	/^ZEROABS  JSR  TWOBYT   ;Display operand byte, then/
+ZPDIND	symoniii.asm	/^ZPDIND   LDA  SCNT     ;Read saved opcode byte$/
+ZPIND	symoniii.asm	/^ZPIND    JSR  TWOBYT   ;Display operand byte, then/
