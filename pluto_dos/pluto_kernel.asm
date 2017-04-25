@@ -1421,7 +1421,7 @@ MONTAB:
         .word  ASSEM    ;[CTRL-A]             $01  Call Sub-Assembler utility
         .word  ERR      ;[CTRL-B]             $02
         .word  ERR      ;[CTRL-C]             $03
-        .word  DOWNLOAD ;[CTRL-D]             $04  Download data/program file (MS HYPERTERM use: paste-to-host)
+        .word  ERR ;DOWNLOAD ;[CTRL-D]             $04  Download data/program file (MS HYPERTERM use: paste-to-host)
         .word  ERR      ;[CTRL-E]             $05
         .word  ERR      ;[CTRL-F]             $06
         .word  ERR      ;[CTRL-G]             $07
@@ -1502,7 +1502,7 @@ MONTAB:
         .word  ERR      ; R                   $52
         .word  SRG      ; S                   $53  Examine/change STACK POINTER preset/result
         .word  ERR      ; T                   $54
-        .word  UPLOAD   ; U                   $55  Upload data/program file
+        .word  ERR ;UPLOAD   ; U                   $55  Upload data/program file
         .word  ERR      ; V                   $56
         .word  WATCH    ; W                   $57  Monitor a specified memory location's contents until a key is struck
         .word  ERR      ; X                   $58
