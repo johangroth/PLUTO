@@ -564,6 +564,88 @@ INCDONE:
         .pend
 
 ;
+;MEMDMP subroutine: Send a formatted ASCII or HEX memory dump to terminal 
+MEMDMP  .proc   
+        STA  TEMP3    ;Store dump command type: 0 = HEX dump, non-0 = ASCII dump  
+        JSR  DMPGR    ;Send address offsets to terminal 
+        JSR  CROUT    ;Send CR,LF to terminal
+        JSR  GLINE    ;Send horizontal line to terminal
+        JSR  CROUT    ;Send CR,LF to terminal
+        LDA  SCNT     ;GOTO NEWADR IF an address was entered: SCNT <> 0
+        BNE  NEWADR
+        LDA  TEMP2    ; ELSE, point to next consecutive memory page
+        STA  INDEX    ;  address saved during last memory dump
+        LDA  TEMP2H
+        STA  INDEXH
+        JMP  DLINE
+NEWADR  JSR  JUST4.IN4      ;Convert keystrokes in INBUFF thru INBUFF + 3 to binary, result in INDEX,INDEXH
+DLINE   JSR  SPC4     ;Send 4 [SPACE] to terminal
+        JSR  DOLLAR   ;Send "$" to terminal
+        JSR  PRINDX   ;Send line base address to terminal
+        JSR  SPC4     ;Send 4 [SPACE] to terminal
+        LDY  #$00     ;Initialize line byte counter
+        STY  IDY
+GETBYT  LDA  (INDEX),Y ;Read indexed byte 
+        LDX  TEMP3    ;GOTO DUMPH IF TEMP3 = 0: HEX value output was requested 
+        BEQ  DUMPH
+        JSR  PRASC    ; ELSE, Display byte as a printable ASCII character, send "." IF not printable
+        JSR  SPC      ;Send [SPACE] to terminal
+        JMP  DUMPA    ;GOTO DUMPA
+DUMPH   JSR  PRBYTE   ;Display byte as a HEX value
+DUMPA   JSR  SPC2     ;Send 2 [SPACE] to terminal
+        INC  IDY      ;Increment line byte counter
+        LDY  IDY
+        CPY  #$10
+        BNE  GETBYT   ;LOOP back to GETBYT IF < $10 bytes have been displayed
+        JSR  CROUT    ; ELSE, send CR,LF to terminal
+        CLC           ;Add $10 to line base address, save result in
+        LDA  INDEX    ; INDEX,INDEXH and TEMP2,TEMP2H
+        ADC  #$10
+        STA  INDEX
+        STA  TEMP2
+        BCC  ENDUMP   ;GOTO ENDUMP IF low byte ADD did not produce a CARRY
+        INC  INDEXH   ; ELSE, increment high byte
+        LDA  INDEXH
+        STA  TEMP2H
+ENDUMP  INC  IDX      ;Increment line counter
+        LDX  IDX
+        CPX  #$10     ;LOOP back to DLINE IF < $10 lines have been displayed
+        BNE  DLINE
+XITDMP  JSR  GLINE    ; ELSE, Send horizontal line to terminal
+        .pend
+
+;DMPGR subroutine: Send address offsets to terminal
+DMPGR   .proc
+        JSR  CROUT
+        JSR  SPC4     ;Send 4 [SPACE] to terminal
+        JSR  MONPROHILO
+        LDA  #$0D     ;Send "adrs+" to terminal
+        JSR  PROMPT
+        JSR  SPC4     ;Send 4 [SPACE] to terminal
+        LDX  #$00     ;Initialize line counter
+        STX  IDX
+MDLOOP  TXA           ;Send "00" thru "0F", separated by 2 [SPACE], to terminal  
+        JSR  PRBYTE
+        JSR  SPC2
+        INX
+        CPX  #$10
+        BNE  MDLOOP
+        RTS           ;Done DMPGR or MEMDMP subroutine, RETURN
+        .pend
+
+;
+;GLINE subroutine: Send a horizontal line to terminal 
+GLINE   .proc    
+        LDX  #$4F
+        LDA  #'~'     ;Send "~" to terminal 79 times
+GLINEL  JSR  COUT
+        DEX
+        BNE  GLINEL
+        RTS           ;Done GLINE subroutine, RETURN
+        .pend
+
+;
+;
 ;
 ;PRASC subroutine: Send byte in ACCUMULATOR to terminal IF it is a printable ASCII character,
 ; ELSE, send "." to terminal. Printable ASCII byte values = $20 through $7E
@@ -958,6 +1040,14 @@ ERR     .proc
         JMP  MONITOR.CMON     ;GOTO CMON re-enter monitor
         .pend
 
+;[D] Hex and ASCII dump command. Display in HEX and printable ASCII memory address until [ENTER] is pressed. 
+;Pause after 256 bytes.
+;
+MDUMP   .proc
+        JSR  SETUP
+        LDA  #0
+        JMP  MEMDMP
+        .pend
 ;
 ;
 ;[F] MFILL command: Fill a specified memory range with a specified value
@@ -1421,7 +1511,7 @@ MONTAB:
         .word  ASSEM    ;[CTRL-A]             $01  Call Sub-Assembler utility
         .word  ERR      ;[CTRL-B]             $02
         .word  ERR      ;[CTRL-C]             $03
-        .word  ERR ;DOWNLOAD ;[CTRL-D]             $04  Download data/program file (MS HYPERTERM use: paste-to-host)
+        .word  DOWNLOAD ;[CTRL-D]             $04  Download data/program file (MS HYPERTERM use: paste-to-host)
         .word  ERR      ;[CTRL-E]             $05
         .word  ERR      ;[CTRL-F]             $06
         .word  ERR      ;[CTRL-G]             $07
@@ -1485,7 +1575,7 @@ MONTAB:
         .word  ERR      ; A                   $41
         .word  ERR      ; B                   $42
         .word  ERR      ; C                   $43
-        .word  ERR      ; D                   $44
+        .word  MDUMP    ; D                   $44
         .word  ERR      ; E                   $45
         .word  MFILL    ; F                   $46  Fill a specified memory range with a specified value
         .word  GO       ; G                   $47  Begin program code execution at a specified address

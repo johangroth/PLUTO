@@ -397,7 +397,7 @@ U 1 1 58235DE2
 P 15000 1850
 F 0 "P2" H 15000 2900 50  0000 C CNN
 F 1 "IDE0" V 15000 1850 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_2x20_Pitch2.54mm" H 15000 900 50  0001 C CNN
+F 2 "Connect:IDC_Header_Straight_40pins" H 15000 900 50  0001 C CNN
 F 3 "" H 15000 900 50  0000 C CNN
 	1    15000 1850
 	1    0    0    -1  
@@ -465,7 +465,7 @@ U 1 1 58243ADE
 P 3900 8600
 F 0 "P1" H 3900 9900 50  0000 C CNN
 F 1 "EXPANSION PORT" V 3900 8600 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_2x25_Pitch2.54mm" H 3900 7850 50  0001 C CNN
+F 2 "Connect:IDC_Header_Straight_50pins" H 3900 7850 50  0001 C CNN
 F 3 "" H 3900 7850 50  0000 C CNN
 	1    3900 8600
 	1    0    0    -1  

@@ -626,4 +626,5 @@ Text GLabel 4750 3100 0    60   Input ~ 0
 Text GLabel 4750 3200 0    60   Input ~ 0
 ~ROMSEL
 NoConn ~ 5075 3000
+NoConn ~ 10275 1475
 $EndSCHEMATC

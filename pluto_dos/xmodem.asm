@@ -279,6 +279,7 @@ Done:
 ;
 DOWNLOAD                          .proc
 XModemRcv:
+        JSR MONPROHILO  ; Reset the monitor prompt pointer
         LDA #$09
         JSR PROMPT      ; send prompt and info
         LDA #$01
