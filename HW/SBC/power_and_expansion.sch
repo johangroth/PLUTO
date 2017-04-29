@@ -302,94 +302,6 @@ $EndComp
 Text Label 2025 1650 0    60   ~ 0
 +9V
 $Comp
-L C_Small C9
-U 1 1 58D74CC9
-P 3550 1850
-F 0 "C9" H 3560 1920 50  0000 L CNN
-F 1 ".1uF" H 3560 1770 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3.8mm_W2.6mm_P2.50mm" H 3550 1850 50  0001 C CNN
-F 3 "" H 3550 1850 50  0001 C CNN
-	1    3550 1850
-	1    0    0    -1  
-$EndComp
-$Comp
-L C_Small C10
-U 1 1 58D74D28
-P 3800 1850
-F 0 "C10" H 3810 1920 50  0000 L CNN
-F 1 ".1uF" H 3810 1770 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3.8mm_W2.6mm_P2.50mm" H 3800 1850 50  0001 C CNN
-F 3 "" H 3800 1850 50  0001 C CNN
-	1    3800 1850
-	1    0    0    -1  
-$EndComp
-$Comp
-L C_Small C11
-U 1 1 58D74D6D
-P 4050 1850
-F 0 "C11" H 4060 1920 50  0000 L CNN
-F 1 ".1uF" H 4060 1770 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3.8mm_W2.6mm_P2.50mm" H 4050 1850 50  0001 C CNN
-F 3 "" H 4050 1850 50  0001 C CNN
-	1    4050 1850
-	1    0    0    -1  
-$EndComp
-$Comp
-L C_Small C14
-U 1 1 58D74DA8
-P 4800 1850
-F 0 "C14" H 4810 1920 50  0000 L CNN
-F 1 ".1uF" H 4810 1770 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3.8mm_W2.6mm_P2.50mm" H 4800 1850 50  0001 C CNN
-F 3 "" H 4800 1850 50  0001 C CNN
-	1    4800 1850
-	1    0    0    -1  
-$EndComp
-$Comp
-L C_Small C12
-U 1 1 58D74DFB
-P 4300 1850
-F 0 "C12" H 4310 1920 50  0000 L CNN
-F 1 ".1uF" H 4310 1770 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3.8mm_W2.6mm_P2.50mm" H 4300 1850 50  0001 C CNN
-F 3 "" H 4300 1850 50  0001 C CNN
-	1    4300 1850
-	1    0    0    -1  
-$EndComp
-$Comp
-L C_Small C13
-U 1 1 58D74E20
-P 4550 1850
-F 0 "C13" H 4560 1920 50  0000 L CNN
-F 1 ".1uF" H 4560 1770 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3.8mm_W2.6mm_P2.50mm" H 4550 1850 50  0001 C CNN
-F 3 "" H 4550 1850 50  0001 C CNN
-	1    4550 1850
-	1    0    0    -1  
-$EndComp
-$Comp
-L C_Small C16
-U 1 1 58D74E77
-P 5300 1850
-F 0 "C16" H 5310 1920 50  0000 L CNN
-F 1 ".1uF" H 5310 1770 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3.8mm_W2.6mm_P2.50mm" H 5300 1850 50  0001 C CNN
-F 3 "" H 5300 1850 50  0001 C CNN
-	1    5300 1850
-	1    0    0    -1  
-$EndComp
-$Comp
-L C_Small C15
-U 1 1 58D74EA0
-P 5050 1850
-F 0 "C15" H 5060 1920 50  0000 L CNN
-F 1 ".1uF" H 5060 1770 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3.8mm_W2.6mm_P2.50mm" H 5050 1850 50  0001 C CNN
-F 3 "" H 5050 1850 50  0001 C CNN
-	1    5050 1850
-	1    0    0    -1  
-$EndComp
-$Comp
 L CONN_02X25 J5
 U 1 1 58D76145
 P 3600 4925
@@ -426,46 +338,6 @@ Wire Wire Line
 	1900 2125 1900 2500
 Wire Wire Line
 	3225 1650 5625 1650
-Wire Wire Line
-	3550 1750 3550 1650
-Connection ~ 3550 1650
-Wire Wire Line
-	3550 1950 3550 2500
-Wire Wire Line
-	3800 1750 3800 1650
-Connection ~ 3800 1650
-Wire Wire Line
-	3800 1950 3800 2500
-Wire Wire Line
-	4050 1750 4050 1650
-Connection ~ 4050 1650
-Wire Wire Line
-	4050 1950 4050 2500
-Wire Wire Line
-	4300 1750 4300 1650
-Connection ~ 4300 1650
-Wire Wire Line
-	4300 1950 4300 2500
-Wire Wire Line
-	4550 1750 4550 1650
-Connection ~ 4550 1650
-Wire Wire Line
-	4550 1950 4550 2500
-Wire Wire Line
-	4800 1750 4800 1650
-Connection ~ 4800 1650
-Wire Wire Line
-	4800 1950 4800 2500
-Wire Wire Line
-	5050 1750 5050 1650
-Connection ~ 5050 1650
-Wire Wire Line
-	5050 1950 5050 2500
-Wire Wire Line
-	5300 1750 5300 1650
-Connection ~ 5300 1650
-Wire Wire Line
-	5300 1950 5300 2500
 $Comp
 L VCC #PWR030
 U 1 1 58D7686C
@@ -659,14 +531,6 @@ Wire Wire Line
 NoConn ~ 3850 5925
 NoConn ~ 3850 6025
 Connection ~ 3225 2500
-Connection ~ 3550 2500
-Connection ~ 3800 2500
-Connection ~ 4050 2500
-Connection ~ 4300 2500
-Connection ~ 4550 2500
-Connection ~ 4800 2500
-Connection ~ 5050 2500
-Connection ~ 5300 2500
 $Comp
 L GND #PWR032
 U 1 1 58D85868
