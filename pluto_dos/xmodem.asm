@@ -25,8 +25,8 @@
 ; Files transferred via XMODEM-CRC will have the load address contained in
 ; the first two bytes in little-endian format:
 ;  FIRST BLOCK
-;     offset(0) = lo(load STArt address),
-;     offset(1) = hi(load STArt address)
+;     offset(0) = lo(load Start address),
+;     offset(1) = hi(load Start address)
 ;     offset(2) = data byte (0)
 ;     offset(n) = data byte (n-2)
 ;
@@ -85,7 +85,7 @@
 ;
 ;
 ; XMODEM Control Character ConSTAnts
-        SOH = $01       ; STArt block
+        SOH = $01       ; Start block
         EOT = $04       ; end of text marker
         ACK = $06       ; good block acknowledged
         NAK = $15       ; bad block acknowledged
@@ -118,11 +118,11 @@ XModemSend:
         JSR MONPROHILO
         LDA #$11        ; Send "address: " to terminal
         JSR Prompt
-        LDA #$04        ; Request upload STArt address input from terminal
+        LDA #$04        ; Request upload Start address input from terminal
         JSR HEXIN
         TXA             ; GOTO EXITUPLOAD IF no digits were entered
         BEQ EXITUPLOAD
-        LDA INDEX       ; ELSE, save STArt address on STACK
+        LDA INDEX       ; ELSE, save Start address on STACK
         PHA
         LDA indexh
         PHA
@@ -134,7 +134,7 @@ XModemSend:
         JSR HEXIN
         TXA             ; GOTO DOUPLOAD IF any digits were entered
         BNE DOUPLOAD
-        PLA             ; ELSE, pull STArt address from STACK, discard
+        PLA             ; ELSE, pull Start address from STACK, discard
         PLA
 EXITUPLOAD:
         RTS
@@ -144,13 +144,13 @@ DOUPLOAD:
         PLY             ; Low byte
         CLC
         TYA
-        ADC INDEX       ; Add STArt address to length: find end address
+        ADC INDEX       ; Add Start address to length: find end address
         STA TEMP2
         TXA
         ADC INDEXH
         STA TEMP2H      ; TEMP2 = end address pointer
         TXA
-        STA INDEXH      ; INDEX = STArt address pointer
+        STA INDEXH      ; INDEX = Start address pointer
         TYA
         STA INDEX
 
@@ -163,9 +163,9 @@ DOUPLOAD:
 Wait4CRC:
         LDA #$ff        ; 3 SEConds
         STA retry2      ;
-        JSR ChIn        ; wait for something to come in...
+        JSR CHIN        ; wait for something to come in...
         ;; BCC  Wait4CRC
-        CMP #"C"        ; is it the "C" to STArt a CRC xfer?
+        CMP #"C"        ; is it the "C" to Start a CRC xfer?
         BEQ SetstAddr   ; yes
         CMP #ESC        ; is it a cancel? <Esc> Key
         BNE Wait4CRC    ; No, wait for another character
@@ -178,9 +178,9 @@ SetstAddr:
         STA Rbuff       ; into 1st byte
         LDA #$FE        ; load 1's comp of block #
         STA Rbuff+1     ; into 2nd byte
-        LDA ptr         ; load low byte of STArt address
+        LDA ptr         ; load low byte of Start address
         STA Rbuff+2     ; into 3rd byte
-        LDA ptrh        ; load hi byte of STArt address
+        LDA ptrh        ; load hi byte of Start address
         STA Rbuff+3     ; into 4th byte
         BRA Ldbuff1     ; jump into buffer load routine
 
@@ -277,8 +277,7 @@ Done:
 ;
 ;
 ;
-DOWNLOAD                          .proc
-XModemRcv:
+DOWNLOAD .proc
         JSR MONPROHILO  ; Reset the monitor prompt pointer
         LDA #$09
         JSR PROMPT      ; send prompt and info
@@ -287,14 +286,13 @@ XModemRcv:
         STA bflag       ; set flag to get address from block 1
 
 StartCrc:
-        LDA #"C"        ; "C" STArt with CRC mode
+        LDA #"C"        ; "C" Start with CRC mode
         JSR COUT        ; send it
         LDA #$FF
         STA retry2      ; set loop counter for ~3 SEC delay
         STZ crc
         STZ crch        ; init CRC value
-        JSR chin        ; wait for input
-
+        JSR CHIN        ; wait for input
 GotByte:
         CMP #ESC        ; quitting?
         BNE GotByte1    ; no
@@ -302,21 +300,20 @@ GotByte:
         RTS             ; YES - do BRK or change to RTS if desired
 
 GotByte1:
-        CMP #SOH        ; STArt of block?
+        CMP #SOH        ; Start of block?
         BEQ BegBlk      ; yes
         CMP #EOT        ;
         BNE BadCrc      ; Not SOH or EOT, so flush buffer & send NAK
         JMP RDoneNow    ; EOT - all done!
 
-
 StartBlk:
-        JSR chin        ; get first byte of block
-
+        JSR CHIN        ; get first byte of block
+        
 BegBlk:
         LDX #$00
 
 GetBlk:
-        JSR chin        ; get next character
+        JSR CHIN        ; get next character
 
 GetBlk2:
         STA Rbuff,x     ; good char, save it in the rcv buffer
@@ -356,7 +353,7 @@ BadCrc:
         JSR Flush       ; flush the input port
         LDA #NAK        ;
         JSR COUT        ; send NAK to resend block
-        BRA StartBlk    ; STArt over, get the block again
+        BRA StartBlk    ; Start over, get the block again
 
 GoodCrc:
         LDX #$02        ;

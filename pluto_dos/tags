@@ -84,6 +84,7 @@ COMLO	zp_variables.asm	/^        COMLO   = $BE$/;"	d
 COMX	pluto_kernel.asm	/^COMX:$/;"	l
 COMY	pluto_kernel.asm	/^COMY:$/;"	l
 COUT	pluto_kernel.asm	/^COUT    .proc$/;"	l
+COUT	test.asm	/^        COUT = $83E7$/;"	d
 COUT2	pluto_kernel.asm	/^COUT2:  .proc$/;"	l
 COUT3	pluto_kernel.asm	/^COUT3:  .proc$/;"	l
 COUTL	pluto_kernel.asm	/^COUTL:  LDA  SIOSTAT  ;Read ACIA status register$/;"	l
@@ -139,11 +140,12 @@ DMTAB	pluto_kernel.asm	/^DMTAB:$/;"	l
 DOCOM	pluto_kernel.asm	/^DOCOM   .proc$/;"	l
 DODIR	pluto_kernel.asm	/^DODIR:$/;"	l
 DOLLAR	pluto_kernel.asm	/^DOLLAR  .proc$/;"	l
+DONE	test.asm	/^DONE    RTS$/;"	l
 DONEFILL	pluto_kernel.asm	/^DONEFILL:$/;"	l
 DONESB	pluto_kernel.asm	/^DONESB:$/;"	l
 DOUPLOAD	xmodem.asm	/^DOUPLOAD:$/;"	l
 DOWIPE	pluto_kernel.asm	/^DOWIPE:$/;"	l
-DOWNLOAD	xmodem.asm	/^DOWNLOAD                          .proc$/;"	l
+DOWNLOAD	xmodem.asm	/^DOWNLOAD .proc$/;"	l
 DPHANTOM	pluto_kernel.asm	/^    DPHANTOM = $00E4    ; DPHANTOM MUST be located (in target memory) immediatly below the DEC0AND1 variable$/;"	d
 DPHANTOM	zp_variables.asm	/^        DPHANTOM = $00E4    ; DPHANTOM MUST be located (in target memory) immediatly below the DEC0AND1 variable$/;"	d
 DRMB	pluto_kernel.asm	/^DRMB:$/;"	l
@@ -190,6 +192,7 @@ H2LOOP	pluto_kernel.asm	/^H2LOOP:$/;"	l
 H2OK	pluto_kernel.asm	/^H2OK:$/;"	l
 H4LOOP	pluto_kernel.asm	/^H4LOOP:$/;"	l
 H4OK	pluto_kernel.asm	/^H4OK:$/;"	l
+HELLO	test.asm	/^HELLO   .text "Hello world"$/;"	l
 HEX0AND1	pluto_kernel.asm	/^    HEX0AND1 = $E1$/;"	d
 HEX0AND1	zp_variables.asm	/^        HEX0AND1 = $E1$/;"	d
 HEX2AND3	pluto_kernel.asm	/^    HEX2AND3 = $E2$/;"	d
@@ -312,6 +315,7 @@ NEWQUERYAGAIN	pluto_kernel.asm	/^NEWQUERYAGAIN:$/;"	l
 NEWQUERYDONE	pluto_kernel.asm	/^NEWQUERYDONE:$/;"	l
 NEWQUERYSTRS	pluto_kernel.asm	/^NEWQUERYSTRS:$/;"	l
 NEXT	pluto_kernel.asm	/^NEXT:$/;"	l
+NEXT	test.asm	/^NEXT    LDA HELLO,X$/;"	l
 NLIN	pluto_kernel.asm	/^NLIN:$/;"	l
 NMON	pluto_kernel.asm	/^NMON:$/;"	l
 NOABINX	pluto_kernel.asm	/^NOABINX:$/;"	l
@@ -429,7 +433,7 @@ SKIP2	pluto_kernel.asm	/^SKIP2:$/;"	l
 SKIP3	pluto_kernel.asm	/^SKIP3:$/;"	l
 SLOOP	pluto_kernel.asm	/^SLOOP:$/;"	l
 SMBM	pluto_kernel.asm	/^SMBM:$/;"	l
-SOH	xmodem.asm	/^        SOH = $01       ; STArt block$/;"	d
+SOH	xmodem.asm	/^        SOH = $01       ; Start block$/;"	d
 SPC	pluto_kernel.asm	/^SPC     .proc$/;"	l
 SPC2	pluto_kernel.asm	/^SPC2    .proc$/;"	l
 SPC4	pluto_kernel.asm	/^SPC4    .proc$/;"	l
@@ -524,7 +528,6 @@ X3	pluto_kernel.asm	/^X3:$/;"	l
 XINTSAV	pluto_kernel.asm	/^    XINTSAV  = $EE$/;"	d
 XINTSAV	zp_variables.asm	/^        XINTSAV  = $EE$/;"	d
 XITDMP	pluto_kernel.asm	/^XITDMP  JSR  GLINE    ; ELSE, Send horizontal line to terminal$/;"	l
-XModemRcv	xmodem.asm	/^XModemRcv:$/;"	l
 XModemSend	xmodem.asm	/^XModemSend:$/;"	l
 XREG	pluto_kernel.asm	/^    XREG     = $DB$/;"	d
 XREG	zp_variables.asm	/^        XREG     = $DB$/;"	d
