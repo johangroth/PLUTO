@@ -84,7 +84,6 @@ COMLO	zp_variables.asm	/^        COMLO   = $BE$/;"	d
 COMX	pluto_kernel.asm	/^COMX:$/;"	l
 COMY	pluto_kernel.asm	/^COMY:$/;"	l
 COUT	pluto_kernel.asm	/^COUT    .proc$/;"	l
-COUT	test.asm	/^        COUT = $83E7$/;"	d
 COUT2	pluto_kernel.asm	/^COUT2:  .proc$/;"	l
 COUT3	pluto_kernel.asm	/^COUT3:  .proc$/;"	l
 COUTL	pluto_kernel.asm	/^COUTL:  LDA  SIOSTAT  ;Read ACIA status register$/;"	l
@@ -140,7 +139,6 @@ DMTAB	pluto_kernel.asm	/^DMTAB:$/;"	l
 DOCOM	pluto_kernel.asm	/^DOCOM   .proc$/;"	l
 DODIR	pluto_kernel.asm	/^DODIR:$/;"	l
 DOLLAR	pluto_kernel.asm	/^DOLLAR  .proc$/;"	l
-DONE	test.asm	/^DONE    RTS$/;"	l
 DONEFILL	pluto_kernel.asm	/^DONEFILL:$/;"	l
 DONESB	pluto_kernel.asm	/^DONESB:$/;"	l
 DOUPLOAD	xmodem.asm	/^DOUPLOAD:$/;"	l
@@ -192,7 +190,6 @@ H2LOOP	pluto_kernel.asm	/^H2LOOP:$/;"	l
 H2OK	pluto_kernel.asm	/^H2OK:$/;"	l
 H4LOOP	pluto_kernel.asm	/^H4LOOP:$/;"	l
 H4OK	pluto_kernel.asm	/^H4OK:$/;"	l
-HELLO	test.asm	/^HELLO   .text "Hello world"$/;"	l
 HEX0AND1	pluto_kernel.asm	/^    HEX0AND1 = $E1$/;"	d
 HEX0AND1	zp_variables.asm	/^        HEX0AND1 = $E1$/;"	d
 HEX2AND3	pluto_kernel.asm	/^    HEX2AND3 = $E2$/;"	d
@@ -253,6 +250,7 @@ JUST4	pluto_kernel.asm	/^JUST4   .proc$/;"	l
 JUSTBYTE	pluto_kernel.asm	/^JUSTBYTE$/;"	l
 KEYBUFF	pluto_kernel.asm	/^    KEYBUFF  = $0200    ;256 bytes: ($200-$2FF) keystrokes (data from ACIA) are stored here$/;"	d
 KEYCONV	pluto_kernel.asm	/^KEYCONV:$/;"	l
+L1	test.asm	/^L1      JSR $C8E7$/;"	l
 L10	rtc.asm	/^L10$/;"	l
 LBR	pluto_kernel.asm	/^LBR:$/;"	l
 LDAABS	pluto_kernel.asm	/^LDAABS:$/;"	l
@@ -315,7 +313,7 @@ NEWQUERYAGAIN	pluto_kernel.asm	/^NEWQUERYAGAIN:$/;"	l
 NEWQUERYDONE	pluto_kernel.asm	/^NEWQUERYDONE:$/;"	l
 NEWQUERYSTRS	pluto_kernel.asm	/^NEWQUERYSTRS:$/;"	l
 NEXT	pluto_kernel.asm	/^NEXT:$/;"	l
-NEXT	test.asm	/^NEXT    LDA HELLO,X$/;"	l
+NEXT	via.asm	/^NEXT$/;"	l
 NLIN	pluto_kernel.asm	/^NLIN:$/;"	l
 NMON	pluto_kernel.asm	/^NMON:$/;"	l
 NOABINX	pluto_kernel.asm	/^NOABINX:$/;"	l
@@ -495,22 +493,24 @@ TSRBIN	pluto_kernel.asm	/^TSRBIN:$/;"	l
 TWOBYT	pluto_kernel.asm	/^TWOBYT:$/;"	l
 UPLOAD	xmodem.asm	/^UPLOAD  .proc$/;"	l
 USERFILL	pluto_kernel.asm	/^USERFILL:$/;"	l
-VIAACR	pluto_kernel.asm	/^    VIAACR  = VIARB+$B  ;Auxiliary Control Register$/;"	d
-VIADDRA	pluto_kernel.asm	/^    VIADDRA = VIARB+3   ;Data Direction Register A$/;"	d
-VIADDRB	pluto_kernel.asm	/^    VIADDRB = VIARB+2   ;Data Direction Register B$/;"	d
-VIAIER	pluto_kernel.asm	/^    VIAIER  = VIARB+$E  ;Interrupt Enable Register$/;"	d
-VIAIFR	pluto_kernel.asm	/^    VIAIFR  = VIARB+$D  ;Interrupt Flag Register$/;"	d
-VIAPCR	pluto_kernel.asm	/^    VIAPCR  = VIARB+$C  ;Peripheral Control Register$/;"	d
-VIARA	pluto_kernel.asm	/^    VIARA   = VIARB+1   ;Write Output Register A, Read Input Register A$/;"	d
-VIARANH	pluto_kernel.asm	/^    VIARANH = VIARB+$F  ;Same as Reg A except no "Handshake"$/;"	d
-VIARB	pluto_kernel.asm	/^    VIARB   = $7FC0 ;Write Output Register B, Read Input Register B$/;"	d
-VIASR	pluto_kernel.asm	/^    VIASR   = VIARB+$A  ;Shift Register$/;"	d
-VIAT1CH	pluto_kernel.asm	/^    VIAT1CH = VIARB+5   ;T1 High-Order Counter$/;"	d
-VIAT1CL	pluto_kernel.asm	/^    VIAT1CL = VIARB+4   ;Write T1 Low-Order Latches, Read T1 Low-Order Counter$/;"	d
-VIAT1LH	pluto_kernel.asm	/^    VIAT1LH = VIARB+7   ;T1 High-Order Latches$/;"	d
-VIAT1LL	pluto_kernel.asm	/^    VIAT1LL = VIARB+6   ;T1 Low-Order Latches$/;"	d
-VIAT2CH	pluto_kernel.asm	/^    VIAT2CH = VIARB+9   ;T2 High-Order Counter$/;"	d
-VIAT2CL	pluto_kernel.asm	/^    VIAT2CL = VIARB+8   ;Write T2 Low-Order Latches, Read T2 Low-Order Counter$/;"	d
+VIAACR	via.asm	/^    VIAACR  = VIARB+$B  ;Auxiliary Control Register$/;"	d
+VIADDRA	via.asm	/^    VIADDRA = VIARB+3   ;Data Direction Register A$/;"	d
+VIADDRB	via.asm	/^    VIADDRB = VIARB+2   ;Data Direction Register B$/;"	d
+VIAIER	via.asm	/^    VIAIER  = VIARB+$E  ;Interrupt Enable Register$/;"	d
+VIAIFR	via.asm	/^    VIAIFR  = VIARB+$D  ;Interrupt Flag Register$/;"	d
+VIAINIT	via.asm	/^VIAINIT .proc$/;"	l
+VIAINITTABLE	via.asm	/^VIAINITTABLE$/;"	l
+VIAPCR	via.asm	/^    VIAPCR  = VIARB+$C  ;Peripheral Control Register$/;"	d
+VIARA	via.asm	/^    VIARA   = VIARB+1   ;Write Output Register A, Read Input Register A$/;"	d
+VIARANH	via.asm	/^    VIARANH = VIARB+$F  ;Same as Reg A except no "Handshake"$/;"	d
+VIARB	via.asm	/^    VIARB   = $7FC0 ;Write Output Register B, Read Input Register B$/;"	d
+VIASR	via.asm	/^    VIASR   = VIARB+$A  ;Shift Register$/;"	d
+VIAT1CH	via.asm	/^    VIAT1CH = VIARB+5   ;T1 High-Order Counter$/;"	d
+VIAT1CL	via.asm	/^    VIAT1CL = VIARB+4   ;Write T1 Low-Order Latches, Read T1 Low-Order Counter$/;"	d
+VIAT1LH	via.asm	/^    VIAT1LH = VIARB+7   ;T1 High-Order Latches$/;"	d
+VIAT1LL	via.asm	/^    VIAT1LL = VIARB+6   ;T1 Low-Order Latches$/;"	d
+VIAT2CH	via.asm	/^    VIAT2CH = VIARB+9   ;T2 High-Order Counter$/;"	d
+VIAT2CL	via.asm	/^    VIAT2CL = VIARB+8   ;Write T2 Low-Order Latches, Read T2 Low-Order Counter$/;"	d
 VIEWEXIT	pluto_kernel.asm	/^VIEWEXIT:$/;"	l
 WAIT	pluto_kernel.asm	/^WAIT:$/;"	l
 WARMST	pluto_kernel.asm	/^WARMST    $/;"	l

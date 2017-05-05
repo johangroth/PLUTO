@@ -96,24 +96,6 @@
     SIOCON   = SIODAT+3     ;ACIA control REGISTER
 ;
 
-;;; VIA device address:
-    VIARB   = $7FC0 ;Write Output Register B, Read Input Register B
-    VIARA   = VIARB+1   ;Write Output Register A, Read Input Register A
-    VIADDRB = VIARB+2   ;Data Direction Register B
-    VIADDRA = VIARB+3   ;Data Direction Register A
-    VIAT1CL = VIARB+4   ;Write T1 Low-Order Latches, Read T1 Low-Order Counter
-    VIAT1CH = VIARB+5   ;T1 High-Order Counter
-    VIAT1LL = VIARB+6   ;T1 Low-Order Latches
-    VIAT1LH = VIARB+7   ;T1 High-Order Latches
-    VIAT2CL = VIARB+8   ;Write T2 Low-Order Latches, Read T2 Low-Order Counter
-    VIAT2CH = VIARB+9   ;T2 High-Order Counter
-    VIASR   = VIARB+$A  ;Shift Register
-    VIAACR  = VIARB+$B  ;Auxiliary Control Register
-    VIAPCR  = VIARB+$C  ;Peripheral Control Register
-    VIAIFR  = VIARB+$D  ;Interrupt Flag Register
-    VIAIER  = VIARB+$E  ;Interrupt Enable Register
-    VIARANH = VIARB+$F  ;Same as Reg A except no "Handshake"
-
 ;;; RTC device address:
     io_rtc = $7FA0
 ;
@@ -1417,14 +1399,12 @@ COLDSTART
 ;;; End init IDE
 
 ;;; Initialise VIA
-        LDA  #$FF
-        STA  VIADDRA        ;Set PA pins to be output
-        STA  VIADDRB        ;Set PB pins to be output
-        STA  VIAIER     ;Enable interrupts for everything
+        JSR  VIAINIT
 ;;; End init VIA
 
 ;;; Initialise SyMonIII
 ;;; Initialise system variables as follows:
+        LDA  #$FF
         STA  DELLO    ; delay time low byte
         STA  DELHI    ; high byte
         JSR  MONPROHILO ;prompt string buffer address pointer high and low byte
