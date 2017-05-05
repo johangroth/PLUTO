@@ -625,7 +625,6 @@ Text GLabel 4750 3100 0    60   Input ~ 0
 ~MRD
 Text GLabel 4750 3200 0    60   Input ~ 0
 ~ROMSEL
-NoConn ~ 10275 1475
 $Comp
 L C C9
 U 1 1 59051EFC

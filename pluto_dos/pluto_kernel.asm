@@ -96,7 +96,7 @@
     SIOCON   = SIODAT+3     ;ACIA control REGISTER
 ;
 
-;;; RTC device address:
+;; RTC device address:
     io_rtc = $7FA0
 ;
 ;
@@ -1330,9 +1330,64 @@ WATCHL
         RTS           ;Done WATCH command, RETURN
         .pend
 
+;
+;[CTRL-D] DOWNLOAD command: Receive a formatted ASCII HEX file from terminal,
+; convert file from ASCII HEX to binary, store binary values in memory.
+; The first character in the file MUST be a dollar sign ($), followed by FOUR
+; ASCII HEX digits. These 4 digits represent the address at which to begin
+; storing the downloaded/converted file data. What follows is the ASCII HEX
+; representations of the binary file data, each byte being represented by TWO
+; ASCII HEX digits (leading zeros MUST be included). IF a dollar sign ($) is
+; again received, a new FOUR digit ASCII HEX address is expected, followed by
+; more ASCII HEX file data.
+; The last character in the file MUST be an asterisk (*). This indicates
+; the end of the file and terminates the DOWNLOAD command.
+; The ONLY printable ASCII characters allowed are: $*0123456789ABCDEF
+; (note only upper-case ABCDEF)
+; The ONLY ASCII control codes allowed are: [SPACE][RETURN][LINEFEED]
+; All other ASCII input may cause errors. 
+; The monitor [U] UPLOAD command produces formatted ASCII HEX file output to terminal
+DOWNLOAD   .proc
+         LDA  #$09     ;Send "Download:" to terminal   
+         JSR  PROMPT
+         LDA  #$E0     ;Point to $E0xx (ROM area) in case of garbage input:
+         STA  INDEXH   ; write $E0 to download destination address pointer high byte
+DLOOP    JSR  CHIN     ;Request a keystroke from terminal
+         CMP  #$20     ; LOOP back to DLOOP IF character = [SPACE]: ignore character
+         BEQ  DLOOP
+         CMP  #$0D     ; ELSE, LOOP back to DLOOP IF character = [RETURN]: ignore character
+         BEQ  DLOOP
+         CMP  #$0A     ; ELSE, LOOP back to DLOOP IF character = [LINEFEED]: ignore character
+         BEQ  DLOOP
+         CMP  #$2A     ; ELSE, GOTO DBR1 IF chatacter <> "*": End Of File
+         BNE  DBR1
+         JMP  MONITOR.NMON     ; ELSE, done DOWNLOAD, GOTO NMON
+; 
+DBR1     CMP  #$24     ;GOTO DNEWADR IF character = "$"
+         BEQ  DNEWADR
+         JSR  DSUB1    ; ELSE, this is a high digit, go get low digit then convert ASCII HEX digits to binary
+         LDY  #$00     ;Store byte at address pointed to by destination address pointer
+         STA  (INDEX),Y
+         JSR  INCINDEX ;Increment destination address pointer
+         JMP  DLOOP    ;LOOP back to DLOOP
+;
+DNEWADR  JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary 
+         STA  INDEXH   ;Write value to destination address pointer high byte
+         JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary 
+         STA  INDEX    ;Write value to destination address pointer low byte
+         JMP  DLOOP    ;LOOP back to DLOOP
+;
+DSUB2    JSR  CHIN     ;Request a keystroke from terminal, result in ACCUMULATOR
+DSUB1    PHA           ;Save ACCUMULATOR on STACK: ASCII HEX high digit of a byte  
+         JSR  CHIN     ;Request a keystroke from terminal: ASCII HEX low digit
+         TAY           ;Copy low digit to Y REGISTER
+         PLA           ;Pull ACCUMULATOR from STACK: high digit
+         JSR  ASC2BN   ;Convert high/low ASCII HEX digits to a binary value, result in ACCUMULATOR
+         RTS           ;Done DSUB1 or DSUB2 subroutine, RETURN
+        .pend
 
 ;
-;[CNTL-L] LISTER command: call disassembler
+;[CTRL-L] LISTER command: call disassembler
 LISTER  .proc
         JSR  ASMPROHILO ;Point to assembler/disassembler prompt strings
         JSR  LIST     ;Call disassembler
@@ -1400,7 +1455,7 @@ COLDSTART
 
 ;;; Initialise VIA
         JSR  VIAINIT
-;;; End init VIA
+;; End init VIA
 
 ;;; Initialise SyMonIII
 ;;; Initialise system variables as follows:
@@ -1420,7 +1475,7 @@ WARMST
         LDX  #$01     ; Set delay time
         JSR  SET      ; do short delay
         JSR  CR2      ; Send 2 CR,LF to terminal
-;;; Send BIOS logon messages to terminal
+;;; Send BIOS logo messages to terminal
         LDA  #$03     ; Send big PLUTO + "S/O/S BIOS/monitor (c)1990 B.Phelps" to terminal
         JSR  PROMPT
         JSR  CROUT    ; Send CR,LF to terminal
@@ -1590,19 +1645,71 @@ MONTAB:
 ;* IRQ/BRK Interrupt service routine *
 ;*************************************
 ;
-INTERUPT:
+
+INTERUPT
         STA  AINTSAV  ;Save ACCUMULATOR
         STX  XINTSAV  ;Save X-REGISTER
         STY  YINTSAV  ;Save Y-REGISTER
-        LDA  SIOSTAT  ;Read 6551 ACIA status register
+        LDA  SIOSTAT
+        STA  TEMP
+        LDA  SIODAT
+        STA  TEMP + 1
+        JSR  NOTHANDSHAKECONTROLA2
+
+;VIA interrupt service routine
+        LDA  VIAIFR
+        ASL
+        BPL  NOTTIMER1
+        JSR  TIMER1
+NOTTIMER1
+        ASL
+        BPL  NOTTIMER2
+        JSR  TIMER2
+NOTTIMER2
+        ASL 
+        BPL  NOTHANDSHAKECONTROLB1
+        JSR  HANDSHAKECONTROLB1
+NOTHANDSHAKECONTROLB1
+        ASL
+        BPL  NOTHANDSHAKECONTROLB2
+        JSR  HANDSHAKECONTROLB2
+NOTHANDSHAKECONTROLB2
+        ASL
+        BPL  NOTSHIFTREGISTER
+        JSR  SHIFTREGISTER 
+NOTSHIFTREGISTER
+        ASL
+        BPL  NOTHANDSHAKECONTROLA1
+        JSR  HANDSHAKECONTROLA1
+NOTHANDSHAKECONTROLA1
+        ASL
+        BPL  NOTHANDSHAKECONTROLA2
+        JSR  HANDSHAKECONTROLA2
+        BRA  ENDIRQ
+
+;ACIA interrupt service routine
+ACIAINTERRUPT
+        .text "ACIA INTERRUPT"
+        .byte $0a, $0d, $00
+
+NOTHANDSHAKECONTROLA2
+        JSR  CROUT
+        LDA  #<ACIAINTERRUPT
+        STA  INDEX
+        LDA  #>ACIAINTERRUPT
+        STA  INDEXH
+        JSR  PROMPT2
+        LDA  TEMP     ;Read 6551 ACIA status register
         AND  #$88     ;Isolate bits. bit 7: Interrupt has occured and bit 3: receive data register full
         EOR  #$88     ;Invert state of both bits
         BNE  BRKINSTR ;GOTO BRKINSTR IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
-        LDA  SIODAT   ; ELSE, read 6551 ACIA receive data register
+        LDA  TEMP + 1 ; ELSE, read 6551 ACIA receive data register
         BEQ  BREAKEY  ;GOTO BREAKEY IF received byte = $00
         LDX  INCNT    ; ELSE, Store keystroke in keystroke buffer address
         STA  KEYBUFF,X ;  indexed by INCNT: keystroke buffer input counter
         INC  INCNT    ;Increment keystroke buffer input counter
+        RTS
+       
 ENDIRQ:
         LDA  AINTSAV  ;Restore ACCUMULATOR
         LDX  XINTSAV  ;Restore X-REGISTER
@@ -1642,6 +1749,120 @@ BREAKEY:
         LDA  INCNT    ;Remove keystrokes from keystroke input buffer
         STA  OUTCNT
         JMP  MONITOR.NMON     ;Done interrupt service process, re-enter monitor
+
+;
+
+TIMER1TXT
+        .text "timer1"
+        .byte $0a, $0d, $00
+
+TIMER1
+        PHA
+; DO SOMETHING
+        LDA  #<TIMER1TXT
+        STA  INDEX
+        LDA  #>TIMER1TXT
+        STA  INDEXH
+        JSR  PROMPT2
+
+        PLA
+        RTS
+
+TIMER2TXT
+        .text "timer2"
+        .byte $0a, $0d, $00
+
+TIMER2
+        PHA
+; DO SOMETHING
+        LDA  #<TIMER2TXT
+        STA  INDEX
+        LDA  #>TIMER2TXT
+        STA  INDEXH
+        JSR  PROMPT2
+
+        PLA
+        RTS
+
+HANDB1
+        .text "HANDSHAKEB1"
+        .byte $0a, $0d, $00
+
+HANDSHAKECONTROLB1
+        PHA
+; DO SOMETHING
+        LDA  #<HANDB1
+        STA  INDEX
+        LDA  #>HANDB1
+        STA  INDEXH
+        JSR  PROMPT2
+
+        PLA
+        RTS
+
+HANDB2
+        .text "HANDSHAKEB2"
+        .byte $0a, $0d, $00
+
+HANDSHAKECONTROLB2
+        PHA
+; DO SOMETHING
+        LDA  #<HANDB2
+        STA  INDEX
+        LDA  #>HANDB2
+        STA  INDEXH
+        JSR  PROMPT2
+
+        PLA
+        RTS
+
+SHIFT
+        .text "SHIFT"
+        .byte $0a, $0d, $00
+
+SHIFTREGISTER
+        PHA
+; DO SOMETHING
+        LDA  #<SHIFT
+        STA  INDEX
+        LDA  #>SHIFT
+        STA  INDEXH
+        JSR  PROMPT2
+
+        PLA
+        RTS
+
+HANDA1
+        .text "HANDSHAKEA1"
+        .byte $0a, $0d, $00
+
+HANDSHAKECONTROLA1
+        PHA
+; DO SOMETHING
+        LDA  #<HANDA1
+        STA  INDEX
+        LDA  #>HANDA1
+        STA  INDEXH
+        JSR  PROMPT2
+
+        PLA
+        RTS
+
+HANDA2
+        .text "HANDSHAKEA2"
+        .byte $0a, $0d, $00
+
+HANDSHAKECONTROLA2
+        PHA
+; DO SOMETHING
+        LDA  #<HANDA2
+        STA  INDEX
+        LDA  #>HANDA2
+        STA  INDEXH
+        JSR  PROMPT2
+
+        PLA
+        RTS
 
 ;
 ;

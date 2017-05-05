@@ -277,7 +277,7 @@ Done:
 ;
 ;
 ;
-DOWNLOAD .proc
+DOWNLOAD1 .proc
         JSR MONPROHILO  ; Reset the monitor prompt pointer
         LDA #$09
         JSR PROMPT      ; send prompt and info

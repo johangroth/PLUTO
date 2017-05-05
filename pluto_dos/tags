@@ -84,6 +84,7 @@ COMLO	zp_variables.asm	/^        COMLO   = $BE$/;"	d
 COMX	pluto_kernel.asm	/^COMX:$/;"	l
 COMY	pluto_kernel.asm	/^COMY:$/;"	l
 COUT	pluto_kernel.asm	/^COUT    .proc$/;"	l
+OUT	test.asm	/^        COUT = $82F1$/;"	d
 COUT2	pluto_kernel.asm	/^COUT2:  .proc$/;"	l
 COUT3	pluto_kernel.asm	/^COUT3:  .proc$/;"	l
 COUTL	pluto_kernel.asm	/^COUTL:  LDA  SIOSTAT  ;Read ACIA status register$/;"	l
@@ -104,6 +105,7 @@ DAX	pluto_kernel.asm	/^DAX:$/;"	l
 DAY	pluto_kernel.asm	/^DAY:$/;"	l
 DBBR	pluto_kernel.asm	/^DBBR:$/;"	l
 DBBS	pluto_kernel.asm	/^DBBS:$/;"	l
+DBR1	pluto_kernel.asm	/^DBR1     CMP  #$24     ;GOTO DNEWADR IF character = "$"$/;"	l
 DEC0AND1	pluto_kernel.asm	/^    DEC0AND1 = $E5$/;"	d
 DEC0AND1	zp_variables.asm	/^        DEC0AND1 = $E5$/;"	d
 DEC2AND3	pluto_kernel.asm	/^    DEC2AND3 = $E6$/;"	d
@@ -134,8 +136,10 @@ DISLINE	pluto_kernel.asm	/^DISLINE:$/;"	l
 DISLOOP	pluto_kernel.asm	/^DISLOOP:$/;"	l
 DJTAB	pluto_kernel.asm	/^DJTAB:$/;"	l
 DLINE	pluto_kernel.asm	/^DLINE   JSR  SPC4     ;Send 4 [SPACE] to terminal$/;"	l
+DLOOP	pluto_kernel.asm	/^DLOOP    JSR  CHIN     ;Request a keystroke from terminal$/;"	l
 DMPGR	pluto_kernel.asm	/^DMPGR   .proc$/;"	l
 DMTAB	pluto_kernel.asm	/^DMTAB:$/;"	l
+DNEWADR	pluto_kernel.asm	/^DNEWADR  JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary $/;"	l
 DOCOM	pluto_kernel.asm	/^DOCOM   .proc$/;"	l
 DODIR	pluto_kernel.asm	/^DODIR:$/;"	l
 DOLLAR	pluto_kernel.asm	/^DOLLAR  .proc$/;"	l
@@ -143,11 +147,14 @@ DONEFILL	pluto_kernel.asm	/^DONEFILL:$/;"	l
 DONESB	pluto_kernel.asm	/^DONESB:$/;"	l
 DOUPLOAD	xmodem.asm	/^DOUPLOAD:$/;"	l
 DOWIPE	pluto_kernel.asm	/^DOWIPE:$/;"	l
-DOWNLOAD	xmodem.asm	/^DOWNLOAD .proc$/;"	l
+DOWNLOAD	pluto_kernel.asm	/^DOWNLOAD   .proc$/;"	l
+DOWNLOAD1	xmodem.asm	/^DOWNLOAD1 .proc$/;"	l
 DPHANTOM	pluto_kernel.asm	/^    DPHANTOM = $00E4    ; DPHANTOM MUST be located (in target memory) immediatly below the DEC0AND1 variable$/;"	d
 DPHANTOM	zp_variables.asm	/^        DPHANTOM = $00E4    ; DPHANTOM MUST be located (in target memory) immediatly below the DEC0AND1 variable$/;"	d
 DRMB	pluto_kernel.asm	/^DRMB:$/;"	l
 DSMB	pluto_kernel.asm	/^DSMB:$/;"	l
+DSUB1	pluto_kernel.asm	/^DSUB1    PHA           ;Save ACCUMULATOR on STACK: ASCII HEX high digit of a byte  $/;"	l
+DSUB2	pluto_kernel.asm	/^DSUB2    JSR  CHIN     ;Request a keystroke from terminal, result in ACCUMULATOR$/;"	l
 DUMPA	pluto_kernel.asm	/^DUMPA   JSR  SPC2     ;Send 2 [SPACE] to terminal$/;"	l
 DUMPH	pluto_kernel.asm	/^DUMPH   JSR  PRBYTE   ;Display byte as a HEX value$/;"	l
 DUNSENG	pluto_kernel.asm	/^DUNSENG:$/;"	l
@@ -190,6 +197,11 @@ H2LOOP	pluto_kernel.asm	/^H2LOOP:$/;"	l
 H2OK	pluto_kernel.asm	/^H2OK:$/;"	l
 H4LOOP	pluto_kernel.asm	/^H4LOOP:$/;"	l
 H4OK	pluto_kernel.asm	/^H4OK:$/;"	l
+ANDSHAKECONTROLA1	pluto_kernel.asm	/^HANDSHAKECONTROLA1$/;"	l
+HANDSHAKECONTROLA2	pluto_kernel.asm	/^HANDSHAKECONTROLA2$/;"	l
+HANDSHAKECONTROLB1	pluto_kernel.asm	/^HANDSHAKECONTROLB1$/;"	l
+HANDSHAKECONTROLB2	pluto_kernel.asm	/^HANDSHAKECONTROLB2$/;"	l
+HELLO	test.asm	/^HELLO   .text "Hello world"$/;"	l
 HEX0AND1	pluto_kernel.asm	/^    HEX0AND1 = $E1$/;"	d
 HEX0AND1	zp_variables.asm	/^        HEX0AND1 = $E1$/;"	d
 HEX2AND3	pluto_kernel.asm	/^    HEX2AND3 = $E2$/;"	d
@@ -238,7 +250,7 @@ INDX	pluto_kernel.asm	/^INDX:$/;"	l
 INERR	pluto_kernel.asm	/^INERR:$/;"	l
 INQTY	pluto_kernel.asm	/^    INQTY    = $EA$/;"	d
 INQTY	zp_variables.asm	/^        INQTY    = $EA$/;"	d
-INTERUPT	pluto_kernel.asm	/^INTERUPT:$/;"	l
+INTERUPT	pluto_kernel.asm	/^INTERUPT$/;"	l
 ITER	pluto_kernel.asm	/^ITER:$/;"	l
 IncBlk	xmodem.asm	/^IncBlk:$/;"	l
 JSR	pluto_kernel.asm	/^        JSR  SET      ; do short delay$/;"	d
@@ -322,11 +334,18 @@ NONZERO	pluto_kernel.asm	/^NONZERO:$/;"	l
 NORMLFWD	pluto_kernel.asm	/^NORMLFWD:$/;"	l
 NOTA	pluto_kernel.asm	/^NOTA:$/;"	l
 NOTESC	pluto_kernel.asm	/^NOTESC:$/;"	l
+NOTHANDSHAKECONTROLA1	pluto_kernel.asm	/^NOTHANDSHAKECONTROLA1$/;"	l
+NOTHANDSHAKECONTROLA2	pluto_kernel.asm	/^NOTHANDSHAKECONTROLA2$/;"	l
+NOTHANDSHAKECONTROLB1	pluto_kernel.asm	/^NOTHANDSHAKECONTROLB1$/;"	l
+NOTHANDSHAKECONTROLB2	pluto_kernel.asm	/^NOTHANDSHAKECONTROLB2$/;"	l
 NOTIMED	pluto_kernel.asm	/^NOTIMED:$/;"	l
 NOTIND	pluto_kernel.asm	/^NOTIND:$/;"	l
 NOTIXY	pluto_kernel.asm	/^NOTIXY:$/;"	l
 NOTLESS	pluto_kernel.asm	/^NOTLESS:$/;"	l
+NOTSHIFTREGISTER	pluto_kernel.asm	/^NOTSHIFTREGISTER$/;"	l
 NOTSPC	pluto_kernel.asm	/^NOTSPC:$/;"	l
+NOTTIMER1	pluto_kernel.asm	/^NOTTIMER1$/;"	l
+NOTTIMER2	pluto_kernel.asm	/^NOTTIMER2$/;"	l
 NOTZ2S	pluto_kernel.asm	/^NOTZ2S:$/;"	l
 NQDONE	pluto_kernel.asm	/^NQDONE:$/;"	l
 OCTAB	pluto_kernel.asm	/^OCTAB:$/;"	l
@@ -417,6 +436,7 @@ SETUP	pluto_kernel.asm	/^SETUP   .proc$/;"	l
 SHEXIN4	pluto_kernel.asm	/^SHEXIN4:$/;"	l
 SHFT3	pluto_kernel.asm	/^SHFT3:$/;"	l
 SHIFT	pluto_kernel.asm	/^SHIFT:$/;"	l
+SHIFTREGISTER	pluto_kernel.asm	/^SHIFTREGISTER$/;"	l
 SHRO	pluto_kernel.asm	/^SHRO:$/;"	l
 SHROAB	pluto_kernel.asm	/^SHROAB:$/;"	l
 SHROZP	pluto_kernel.asm	/^SHROZP:$/;"	l
@@ -484,6 +504,8 @@ TEMP3H	zp_variables.asm	/^        TEMP3H  = TEMP3+1$/;"	d
 THX	pluto_kernel.asm	/^THX:$/;"	l
 THY	pluto_kernel.asm	/^THY:$/;"	l
 TIMER	pluto_kernel.asm	/^TIMER:$/;"	l
+TIMER1	pluto_kernel.asm	/^TIMER1$/;"	l
+TIMER2	pluto_kernel.asm	/^TIMER2$/;"	l
 TIMERL	pluto_kernel.asm	/^TIMERL:$/;"	l
 TOOFAR	pluto_kernel.asm	/^TOOFAR:$/;"	l
 TOOHI	pluto_kernel.asm	/^TOOHI:$/;"	l
@@ -511,7 +533,7 @@ VIAT1LH	via.asm	/^    VIAT1LH = VIARB+7   ;T1 High-Order Latches$/;"	d
 VIAT1LL	via.asm	/^    VIAT1LL = VIARB+6   ;T1 Low-Order Latches$/;"	d
 VIAT2CH	via.asm	/^    VIAT2CH = VIARB+9   ;T2 High-Order Counter$/;"	d
 VIAT2CL	via.asm	/^    VIAT2CL = VIARB+8   ;Write T2 Low-Order Latches, Read T2 Low-Order Counter$/;"	d
-VIEWEXIT	pluto_kernel.asm	/^VIEWEXIT:$/;"	l
+IEWEXIT	pluto_kernel.asm	/^VIEWEXIT:$/;"	l
 WAIT	pluto_kernel.asm	/^WAIT:$/;"	l
 WARMST	pluto_kernel.asm	/^WARMST    $/;"	l
 WATCH	pluto_kernel.asm	/^WATCH   .proc$/;"	l

@@ -16,7 +16,7 @@ public class BinToHex {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        Path binHexFile = FileSystems
         StringBuilder sb = new StringBuilder();
         for (byte bb : byteArray) {
             System.out.println(String.format("%02X", bb));
