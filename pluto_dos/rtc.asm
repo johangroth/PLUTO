@@ -1,3 +1,4 @@
+        todbuf  = $80
 ;
 ;DS1511 CONFIGURATION CONSTANTS — Description Order
 ;
@@ -246,20 +247,22 @@ constime    .proc
 ;                    .X: entry value 
 ;                    .Y: entry value 
 ; 
-;                    Storage location will contain 8 BCD 
+;                    Storage location will contain 4 
 ;                    bytes as follows: 
 ; 
-;                    Offset  Content 
-;                    -------------- 
-;                      $00   seconds     ($00-$59) 
-;                      $01   minutes     ($00-$59) 
-;                      $02   hours       ($00-$23) 
-;                      $03   day-of-week ($01-$07) 
-;                      $04   date        ($01-$31) 
-;                      $05   month       ($01-$12) 
-;                      $06   year LSB    ($00-$99) 
-;                      $07   year MSB    ($00-$39) 
-;                    -------------- 
+; Packed Creation / Modification time bytes / bits:
+; +============+============+===+===============+============+===+===+===+===+
+; | Byte / Bit |     7      | 6 |       5       |     4      | 3 | 2 | 1 | 0 |
+; +============+============+===+===============+============+===+===+===+===+
+; | Byte 0     | Month HIGH     | Second (0-59)                              |
+; +------------+----------------+--------------------------------------------+
+; | Byte 1     | Month LOW      | Minute (0-59)                              |
+; +------------+----------------+--------------------------------------------+
+; | Byte 2     | Hour HIGH      | Year (0-63)                                |
+; +------------+----------------+---------------+----------------------------+
+; | Byte 3     | Hour LOW                       | Day (1-31)                 |
+; +------------+--------------------------------+----------------------------+
+; Month (1-12), Hour (0-23). Year begins from 1980, so 2001 is 21.
 ; 
 ;   MPU Flags: NVmxDIZC 
 ;              |||||||| 
@@ -271,6 +274,14 @@ constime    .proc
 ;    
 ; 
 getdtr  .proc
+        lda wr_mont
+        ; split into hi and lo byte
+        ; or high with seconds
+        ; or lo with minutes
+        lda wr_mint
+        ; split into hi and lo byte
+        ; or high with year
+        ; or lo with day 
         .pend
 
 ; 

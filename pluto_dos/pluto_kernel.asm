@@ -86,6 +86,11 @@
 ;Keystroke input buffer address:
     KEYBUFF  = $0200    ;256 bytes: ($200-$2FF) keystrokes (data from ACIA) are stored here
                        ; by SyMon's IRQ service routine.
+
+;
+;
+;Interrupt vector. User can change the interrupt vector by putting a new value at this address.
+    INTERRUPTVECTOR = $0302
 ;
 ;ACIA device address:
     SIODAT   = $7FE0        ;ACIA data register   <--put your 6551 ACIA base address here
@@ -722,7 +727,7 @@ RDCHAR  .proc
         BCC  AOK      ;GOTO AOK IF keystroke value < $61: a control code, upper-case alpha or numeral
         SEC           ; ELSE, subtract $20: convert to upper-case
         SBC  #$20
-AOK:
+AOK
         RTS           ;Done RDCHAR subroutine, RETURN
         .pend
 
@@ -749,7 +754,7 @@ RDLINE  .proc
         STY  BUFADR   ;Store buffer address low byte
         STX  BUFLEN   ;Store buffer length
         STZ  BUFIDX   ;Initialize RDLINE buffer index: # of keystrokes stored in buffer = 0
-RDLOOP:
+RDLOOP
         JSR  RDCHAR   ;Request keystroke input from terminal, convert lower-case Alpha. to upper-case
         CMP  #$1B     ;GOTO NOTESC IF keystroke <> [ESCAPE]
         BNE  NOTESC
@@ -759,7 +764,7 @@ RDLOOP:
 ; including HEXIN subroutine digit input
 ; This will prevent application users from inadvertently
 ; entering SyMon monitor****
-NOTESC:
+NOTESC
         CMP  #$0D     ;GOTO EXITRD IF keystroke = [RETURN]
         BEQ  EXITRD
         CMP  #$08     ; ELSE, GOTO BACK IF keystroke = [BACKSPACE]
@@ -783,14 +788,14 @@ FULTST:
         LDY  BUFIDX   ; ELSE, GOTO STRCH IF BUFIDX != BUFLEN: buffer is not full
         CPY  BUFLEN
         BCC  STRCH
-INERR:
+INERR
         JSR  BEEP     ; ELSE, Send [BELL] to terminal
-        BNE  RDLOOP   ;LOOP back to RDLOOP: always branch
+        BRA  RDLOOP   ;LOOP back to RDLOOP: always branch
 STRCH:
         STA  (BUFADR),Y ;Store keystroke in buffer
         JSR  COUT     ;Send keystroke to terminal
         INC  BUFIDX   ;Increment buffer index
-        BNE  RDLOOP   ;LOOP back to RDLOOP: always branch
+        BRA  RDLOOP   ;LOOP back to RDLOOP: always branch
 EXITRD:
         LDX  BUFIDX   ;Copy keystroke count to X-REGISTER
         RTS           ;Done RDLINE subroutine, RETURN
@@ -1469,6 +1474,10 @@ COLDSTART
         STZ  PREG     ; PROCESSOR STATUS REGISTER preset/result value
         STZ  OUTCNT   ; keystroke buffer 'read from' counter
         STZ  INCNT    ; keystroke buffer 'written to' counter
+        LDA  #<DEFAULTIRQ       ; Low byte of IRQ-vector.
+        STA  <INTERRUPTVECTOR   ; Store low byte in a user changeable location
+        LDA  #>DEFAULTIRQ       ; High byte of IRQ-vector
+        STA  >INTERRUPTVECTOR   ; Store high byte in a user changeable location
         LDA  #$7F
         STA  SREG     ; USER program/application STACK POINTER preset/result value
 WARMST    
@@ -1646,7 +1655,8 @@ MONTAB:
 ;*************************************
 ;
 
-INTERUPT
+INTERRUPT
+DEFAULTIRQ
         STA  AINTSAV  ;Save ACCUMULATOR
         STX  XINTSAV  ;Save X-REGISTER
         STY  YINTSAV  ;Save Y-REGISTER
@@ -1654,61 +1664,54 @@ INTERUPT
         STA  TEMP
         LDA  SIODAT
         STA  TEMP + 1
-        JSR  NOTHANDSHAKECONTROLA2
+        JSR  ACIA_INTERRUPT 
 
 ;VIA interrupt service routine
+;
         LDA  VIAIFR
-        ASL
-        BPL  NOTTIMER1
+        STA  TEMP
+        BBR  7,TEMP,ENDIRQ
+        BBR  6,TEMP,NOTTIMER1
         JSR  TIMER1
 NOTTIMER1
-        ASL
-        BPL  NOTTIMER2
+        BBR  5,TEMP,NOTTIMER2
         JSR  TIMER2
 NOTTIMER2
-        ASL 
-        BPL  NOTHANDSHAKECONTROLB1
+        BBR  4,TEMP,NOTHANDSHAKECONTROLB1
         JSR  HANDSHAKECONTROLB1
 NOTHANDSHAKECONTROLB1
-        ASL
-        BPL  NOTHANDSHAKECONTROLB2
+        BBR  3,TEMP,NOTHANDSHAKECONTROLB2
         JSR  HANDSHAKECONTROLB2
 NOTHANDSHAKECONTROLB2
-        ASL
-        BPL  NOTSHIFTREGISTER
+        BBR  2,TEMP,NOTSHIFTREGISTER
         JSR  SHIFTREGISTER 
 NOTSHIFTREGISTER
-        ASL
-        BPL  NOTHANDSHAKECONTROLA1
+        BBR  1,TEMP,NOTHANDSHAKECONTROLA1
         JSR  HANDSHAKECONTROLA1
 NOTHANDSHAKECONTROLA1
-        ASL
-        BPL  NOTHANDSHAKECONTROLA2
+        BBR  0,TEMP,ENDIRQ
         JSR  HANDSHAKECONTROLA2
         BRA  ENDIRQ
 
 ;ACIA interrupt service routine
-ACIAINTERRUPT
-        .text "ACIA INTERRUPT"
-        .byte $0a, $0d, $00
-
-NOTHANDSHAKECONTROLA2
-        LDA  TEMP     ;Read 6551 ACIA status register
-        AND  #$88     ;Isolate bits. bit 7: Interrupt has occured and bit 3: receive data register full
-        EOR  #$88     ;Invert state of both bits
-        BNE  BRKINSTR ;GOTO BRKINSTR IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
-        LDA  TEMP + 1 ; ELSE, read 6551 ACIA receive data register
-        BEQ  BREAKEY  ;GOTO BREAKEY IF received byte = $00
-        LDX  INCNT    ; ELSE, Store keystroke in keystroke buffer address
-        STA  KEYBUFF,X ;  indexed by INCNT: keystroke buffer input counter
-        INC  INCNT    ;Increment keystroke buffer input counter
+;
+ACIA_INTERRUPT
+        LDA  TEMP       ;Read 6551 ACIA status register
+        AND  #$88       ;Isolate bits. bit 7: Interrupt has occured and bit 3: receive data register full
+        EOR  #$88       ;Invert state of both bits
+        BNE  BRKINSTR   ;GOTO BRKINSTR IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
+        LDA  TEMP + 1   ; ELSE, read 6551 ACIA receive data register
+        BEQ  BREAKEY    ;GOTO BREAKEY IF received byte = $00
+        LDX  INCNT      ; ELSE, Store keystroke in keystroke buffer address
+        STA  KEYBUFF,X  ;indexed by INCNT: keystroke buffer input counter
+        INC  INCNT      ;Increment keystroke buffer input counter
         RTS
        
 ENDIRQ:
         LDA  AINTSAV  ;Restore ACCUMULATOR
         LDX  XINTSAV  ;Restore X-REGISTER
         LDY  YINTSAV  ;Restore Y-REGISTER
-        RTI           ;Done INTERUPT (IRQ) service, RETURN FROM INTERRUPT
+        RTI           ;Done INTERRUPT (IRQ) service, RETURN FROM INTERRUPT
 
 ;
 BRKINSTR:
@@ -1729,8 +1732,7 @@ BRKINSTR:
         STA  INDEX    ; Low byte
         PLA
         STA  INDEXH   ;  High byte
-        JSR  CROUT    ;Send CR,LF to terminal
-        JSR  CROUT    ;Send CR,LF to terminal
+        JSR  CR2      ;Send two CR,LF to terminal
         JSR  DISLINE  ;Disassemble then display instruction at address pointed to by INDEX
         LDA  #$00     ;Clear all PROCESSOR STATUS REGISTER bits
         PHA
@@ -3213,46 +3215,51 @@ NEWQUERYADRS:
         .WORD SAVREGS
         .WORD RESREGS
         .WORD INCINDEX
+        .WORD DECINDEX
         .WORD PROMPT2
         .WORD HEXIN2
         .WORD HEXIN4
         .WORD MONITOR.NMON
         .WORD COLDSTART
+        .WORD INTERRUPT
         .WORD SIODAT
+        .WORD VIABASE
         .WORD 0
 
 NEWQUERYSTRS:
-        .text  " CHIN    ",0
+        .text  " CHIN       ",0
         .text  " COUT",$0D,$0A,0
-        .text  " COUT2   ",0
+        .text  " COUT2      ",0
         .text  " CROUT",$0D,$0A,0
-        .text  " CR2     ",0
+        .text  " CR2        ",0
         .text  " SPC2",$0D,$0A,0
-        .text  " SPC4    ",0
+        .text  " SPC4       ",0
         .text  " PRASC",$0D,$0A,0
-        .text  " DOLLAR  ",0
+        .text  " DOLLAR     ",0
         .text  " PRBYTE",$0D,$0A,0
-        .TEXT  " PRINDX  ",0
+        .TEXT  " PRINDX     ",0
         .TEXT  " PROMPT",$0D,$0A,0
-        .text  " BEEP    ",0
+        .text  " BEEP       ",0
         .text  " DELAY1",$0D,$0A,0
-        .text  " DELAY2  ",0
+        .text  " DELAY2     ",0
         .text  " SET",$0D,$0A,0
-        .text  " TIMER   ",0
+        .text  " TIMER      ",0
         .text  " RDLINE",$0D,$0A,0
-        .text  " BN2ASC  ",0
+        .text  " BN2ASC     ",0
         .text  " ASC2BN",$0D,$0A,0
-        .text  " HEXIN   ",0
+        .text  " HEXIN      ",0
         .text  " SAVREGS",$0D,$0A,0
-        .text  " RESREGS ",0
+        .text  " RESREGS    ",0
         .text  " INCINDEX",$0D,$0A,0
-        .text  " DECIN   ",0
+        .text  " DECINDEX   ",0
         .text  " PROMPT2",$0D,$0A,0
-        .text  " HEXIN2  ",0
+        .text  " HEXIN2     ",0
         .text  " HEXIN4",$0D,$0A,0
-        .text  " NMON    ",0
+        .text  " NMON       ",0
         .text  " COLDSTART",$0D,$0A,0
-        .text  " 6551 ",0
+        .text  " INTERRUPT  ", 0
+        .text  " 6551",$0D,$0A,0
+        .text  " 6522",0
         .byte  $00
 ;
 ;STORLF subroutine: This is a patch that is part of the "Z" (text editor) command;
@@ -3436,6 +3443,6 @@ MONPROMPT:
          * =  $FFFA
          .word $0300        ;NMI
          .word COLDSTART    ;RESET
-         .word INTERUPT     ;IRQ
+         .word INTERRUPT   ;IRQ
 
          .end

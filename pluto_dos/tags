@@ -11,14 +11,14 @@ ABYTE	pluto_kernel.asm	/^ABYTE   .proc$/;"	l
 ACCC	pluto_kernel.asm	/^ACCC:$/;"	l
 ACCUM	pluto_kernel.asm	/^    ACCUM    = $DA$/;"	d
 ACCUM	zp_variables.asm	/^        ACCUM    = $DA$/;"	d
-ACIAINTERRUPT	pluto_kernel.asm	/^ACIAINTERRUPT$/;"	l
+ACIA_INTERRUPT	pluto_kernel.asm	/^ACIA_INTERRUPT$/;"	l
 ACK	xmodem.asm	/^        ACK = $06       ; good block acknowledged$/;"	d
 AHEXIN2	pluto_kernel.asm	/^AHEXIN2:$/;"	l
 AHEXIN4	pluto_kernel.asm	/^AHEXIN4:$/;"	l
 AINTSAV	pluto_kernel.asm	/^    AINTSAV  = $ED$/;"	d
 AINTSAV	zp_variables.asm	/^        AINTSAV  = $ED$/;"	d
 ANOTESC	pluto_kernel.asm	/^ANOTESC:$/;"	l
-AOK	pluto_kernel.asm	/^AOK:$/;"	l
+AOK	pluto_kernel.asm	/^AOK$/;"	l
 AQUERY	pluto_kernel.asm	/^AQUERY:$/;"	l
 ASC2BN	pluto_kernel.asm	/^ASC2BN  .proc$/;"	l
 ASCII	pluto_kernel.asm	/^ASCII   .proc$/;"	l
@@ -122,6 +122,7 @@ DECINDEX	pluto_kernel.asm	/^DECINDEX    .proc$/;"	l
 DECINPUT	pluto_kernel.asm	/^DECINPUT    .proc$/;"	l
 DECONLY	pluto_kernel.asm	/^DECONLY:$/;"	l
 DECTEST	pluto_kernel.asm	/^DECTEST:$/;"	l
+DEFAULTIRQ	pluto_kernel.asm	/^DEFAULTIRQ$/;"	l
 DELAY1	pluto_kernel.asm	/^DELAY1  .proc$/;"	l
 DELAY2	pluto_kernel.asm	/^DELAY2:$/;"	l
 DELHI	pluto_kernel.asm	/^    DELHI   = DELLO+1$/;"	d
@@ -253,10 +254,11 @@ INDEXH	pluto_kernel.asm	/^    INDEXH  = INDEX+1$/;"	d
 INDEXH	zp_variables.asm	/^        INDEXH  = INDEX+1$/;"	d
 INDJ	pluto_kernel.asm	/^INDJ:$/;"	l
 INDX	pluto_kernel.asm	/^INDX:$/;"	l
-INERR	pluto_kernel.asm	/^INERR:$/;"	l
+INERR	pluto_kernel.asm	/^INERR$/;"	l
 INQTY	pluto_kernel.asm	/^    INQTY    = $EA$/;"	d
 INQTY	zp_variables.asm	/^        INQTY    = $EA$/;"	d
-INTERUPT	pluto_kernel.asm	/^INTERUPT$/;"	l
+INTERRUPT	pluto_kernel.asm	/^INTERRUPT$/;"	l
+INTERRUPTVECTOR	pluto_kernel.asm	/^    INTERRUPTVECTOR = $0302$/;"	d
 ITER	pluto_kernel.asm	/^ITER:$/;"	l
 IncBlk	xmodem.asm	/^IncBlk:$/;"	l
 JSR	pluto_kernel.asm	/^        JSR  SET      ; do short delay$/;"	d
@@ -339,9 +341,8 @@ NOIND	pluto_kernel.asm	/^NOIND:$/;"	l
 NONZERO	pluto_kernel.asm	/^NONZERO:$/;"	l
 NORMLFWD	pluto_kernel.asm	/^NORMLFWD:$/;"	l
 NOTA	pluto_kernel.asm	/^NOTA:$/;"	l
-NOTESC	pluto_kernel.asm	/^NOTESC:$/;"	l
+NOTESC	pluto_kernel.asm	/^NOTESC$/;"	l
 NOTHANDSHAKECONTROLA1	pluto_kernel.asm	/^NOTHANDSHAKECONTROLA1$/;"	l
-NOTHANDSHAKECONTROLA2	pluto_kernel.asm	/^NOTHANDSHAKECONTROLA2$/;"	l
 NOTHANDSHAKECONTROLB1	pluto_kernel.asm	/^NOTHANDSHAKECONTROLB1$/;"	l
 NOTHANDSHAKECONTROLB2	pluto_kernel.asm	/^NOTHANDSHAKECONTROLB2$/;"	l
 NOTIMED	pluto_kernel.asm	/^NOTIMED:$/;"	l
@@ -394,7 +395,7 @@ RBR	pluto_kernel.asm	/^RBR:$/;"	l
 RDCHAR	pluto_kernel.asm	/^RDCHAR  .proc$/;"	l
 RDEC	pluto_kernel.asm	/^RDEC:$/;"	l
 RDLINE	pluto_kernel.asm	/^RDLINE  .proc$/;"	l
-RDLOOP	pluto_kernel.asm	/^RDLOOP:$/;"	l
+RDLOOP	pluto_kernel.asm	/^RDLOOP$/;"	l
 RDLOOP2	pluto_kernel.asm	/^RDLOOP2:$/;"	l
 RDNDX	pluto_kernel.asm	/^RDNDX:$/;"	l
 RDONE	pluto_kernel.asm	/^RDONE:$/;"	l
@@ -524,24 +525,25 @@ TSRBIN	pluto_kernel.asm	/^TSRBIN:$/;"	l
 TWOBYT	pluto_kernel.asm	/^TWOBYT:$/;"	l
 UPLOAD	xmodem.asm	/^UPLOAD  .proc$/;"	l
 USERFILL	pluto_kernel.asm	/^USERFILL:$/;"	l
-VIAACR	via.asm	/^    VIAACR  = VIARB+$B  ;Auxiliary Control Register$/;"	d
-VIADDRA	via.asm	/^    VIADDRA = VIARB+3   ;Data Direction Register A$/;"	d
-VIADDRB	via.asm	/^    VIADDRB = VIARB+2   ;Data Direction Register B$/;"	d
-VIAIER	via.asm	/^    VIAIER  = VIARB+$E  ;Interrupt Enable Register$/;"	d
-VIAIFR	via.asm	/^    VIAIFR  = VIARB+$D  ;Interrupt Flag Register$/;"	d
+VIAACR	via.asm	/^    VIAACR  = VIABASE+$B    ; Auxiliary Control Register$/;"	d
+VIABASE	via.asm	/^    VIABASE = $7FC0 ;Write Output Register B, Read Input Register B$/;"	d
+VIADDRA	via.asm	/^    VIADDRA = VIABASE+3     ; Data Direction Register A$/;"	d
+VIADDRB	via.asm	/^    VIADDRB = VIABASE+2     ; Data Direction Register B$/;"	d
+VIAIER	via.asm	/^    VIAIER  = VIABASE+$E    ; Interrupt Enable Register$/;"	d
+VIAIFR	via.asm	/^    VIAIFR  = VIABASE+$D    ; Interrupt Flag Register$/;"	d
 VIAINIT	via.asm	/^VIAINIT .proc$/;"	l
 VIAINITTABLE	via.asm	/^VIAINITTABLE$/;"	l
-VIAPCR	via.asm	/^    VIAPCR  = VIARB+$C  ;Peripheral Control Register$/;"	d
-VIARA	via.asm	/^    VIARA   = VIARB+1   ;Write Output Register A, Read Input Register A$/;"	d
-VIARANH	via.asm	/^    VIARANH = VIARB+$F  ;Same as Reg A except no "Handshake"$/;"	d
-VIARB	via.asm	/^    VIARB   = $7FC0 ;Write Output Register B, Read Input Register B$/;"	d
-VIASR	via.asm	/^    VIASR   = VIARB+$A  ;Shift Register$/;"	d
-VIAT1CH	via.asm	/^    VIAT1CH = VIARB+5   ;T1 High-Order Counter$/;"	d
-VIAT1CL	via.asm	/^    VIAT1CL = VIARB+4   ;Write T1 Low-Order Latches, Read T1 Low-Order Counter$/;"	d
-VIAT1LH	via.asm	/^    VIAT1LH = VIARB+7   ;T1 High-Order Latches$/;"	d
-VIAT1LL	via.asm	/^    VIAT1LL = VIARB+6   ;T1 Low-Order Latches$/;"	d
-VIAT2CH	via.asm	/^    VIAT2CH = VIARB+9   ;T2 High-Order Counter$/;"	d
-VIAT2CL	via.asm	/^    VIAT2CL = VIARB+8   ;Write T2 Low-Order Latches, Read T2 Low-Order Counter$/;"	d
+VIAPCR	via.asm	/^    VIAPCR  = VIABASE+$C    ; Peripheral Control Register$/;"	d
+VIARA	via.asm	/^    VIARA   = VIABASE+1     ; Write Output Register A, Read Input Register A$/;"	d
+VIARANH	via.asm	/^    VIARANH = VIABASE+$F    ; Same as Reg A except no "Handshake"$/;"	d
+VIARB	via.asm	/^    VIARB   = VIABASE+0     ; Write Output Register B, Read Input Register B$/;"	d
+VIASR	via.asm	/^    VIASR   = VIABASE+$A    ; Shift Register$/;"	d
+VIAT1CH	via.asm	/^    VIAT1CH = VIABASE+5     ; T1 High-Order Counter$/;"	d
+VIAT1CL	via.asm	/^    VIAT1CL = VIABASE+4     ; Write T1 Low-Order Latches, Read T1 Low-Order Counter$/;"	d
+VIAT1LH	via.asm	/^    VIAT1LH = VIABASE+7     ; T1 High-Order Latches$/;"	d
+VIAT1LL	via.asm	/^    VIAT1LL = VIABASE+6     ; T1 Low-Order Latches$/;"	d
+VIAT2CH	via.asm	/^    VIAT2CH = VIABASE+9     ; T2 High-Order Counter$/;"	d
+VIAT2CL	via.asm	/^    VIAT2CL = VIABASE+8     ; Write T2 Low-Order Latches, Read T2 Low-Order Counter$/;"	d
 VIEWEXIT	pluto_kernel.asm	/^VIEWEXIT:$/;"	l
 WAIT	pluto_kernel.asm	/^WAIT:$/;"	l
 WARMST	pluto_kernel.asm	/^WARMST    $/;"	l
@@ -668,6 +670,7 @@ tmp	basic_ide_routines.asm	/^tmp = $70$/;"	d
 tmp1	basic_ide_routines.asm	/^tmp1 = tmp+1$/;"	d
 tmp2	basic_ide_routines.asm	/^tmp2 = tmp+2$/;"	d
 tmp3	basic_ide_routines.asm	/^tmp3 = tmp+3$/;"	d
+todbuf	rtc.asm	/^        todbuf  = $80$/;"	d
 utdelay	rtc.asm	/^utdelay .proc$/;"	l
 utdelay	rtc816.asm	/^utdelay                           .proc$/;"	l
 wrtline	macros.asm	/^wrtline .macro$/;"	l
