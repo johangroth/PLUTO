@@ -1693,12 +1693,6 @@ ACIAINTERRUPT
         .byte $0a, $0d, $00
 
 NOTHANDSHAKECONTROLA2
-        JSR  CROUT
-        LDA  #<ACIAINTERRUPT
-        STA  INDEX
-        LDA  #>ACIAINTERRUPT
-        STA  INDEXH
-        JSR  PROMPT2
         LDA  TEMP     ;Read 6551 ACIA status register
         AND  #$88     ;Isolate bits. bit 7: Interrupt has occured and bit 3: receive data register full
         EOR  #$88     ;Invert state of both bits
