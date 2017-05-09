@@ -46,7 +46,6 @@ BITSET	pluto_kernel.asm	/^BITSET:$/;"	l
 BN2ASC	pluto_kernel.asm	/^BN2ASC  .proc$/;"	l
 BNOK	pluto_kernel.asm	/^BNOK:$/;"	l
 BRANCHOK	pluto_kernel.asm	/^BRANCHOK:$/;"	l
-BREAKEY	pluto_kernel.asm	/^BREAKEY:$/;"	l
 BRFORWD	pluto_kernel.asm	/^BRFORWD:$/;"	l
 BRKINSTR	pluto_kernel.asm	/^BRKINSTR:$/;"	l
 BROFFSET	pluto_kernel.asm	/^BROFFSET:$/;"	l
@@ -139,6 +138,7 @@ DMPGR	pluto_kernel.asm	/^DMPGR   .proc$/;"	l
 DMTAB	pluto_kernel.asm	/^DMTAB:$/;"	l
 DOCOM	pluto_kernel.asm	/^DOCOM   .proc$/;"	l
 DODIR	pluto_kernel.asm	/^DODIR:$/;"	l
+DOINTERRUPT	pluto_kernel.asm	/^DOINTERRUPT$/;"	l
 DOLLAR	pluto_kernel.asm	/^DOLLAR  .proc$/;"	l
 DONEFILL	pluto_kernel.asm	/^DONEFILL:$/;"	l
 DONESB	pluto_kernel.asm	/^DONESB:$/;"	l
@@ -239,7 +239,8 @@ INDX	pluto_kernel.asm	/^INDX:$/;"	l
 INERR	pluto_kernel.asm	/^INERR:$/;"	l
 INQTY	pluto_kernel.asm	/^    INQTY    = $EA$/;"	d
 INQTY	zp_variables.asm	/^        INQTY    = $EA$/;"	d
-INTERUPT	pluto_kernel.asm	/^INTERUPT:$/;"	l
+INTERRUPT	pluto_kernel.asm	/^INTERRUPT$/;"	l
+INTERRUPTVECTOR	pluto_kernel.asm	/^    INTERRUPTVECTOR = $302$/;"	d
 ITER	pluto_kernel.asm	/^ITER:$/;"	l
 IncBlk	xmodem.asm	/^IncBlk:$/;"	l
 JSR	pluto_kernel.asm	/^        JSR  SET      ; do short delay$/;"	d
@@ -316,7 +317,7 @@ NEWQUERYSTRS	pluto_kernel.asm	/^NEWQUERYSTRS:$/;"	l
 NEXT	pluto_kernel.asm	/^NEXT:$/;"	l
 NEXT	via.asm	/^NEXT$/;"	l
 NLIN	pluto_kernel.asm	/^NLIN:$/;"	l
-NMON	pluto_kernel.asm	/^NMON:$/;"	l
+NMON	pluto_kernel.asm	/^NMON$/;"	l
 NOABINX	pluto_kernel.asm	/^NOABINX:$/;"	l
 NOIND	pluto_kernel.asm	/^NOIND:$/;"	l
 NONZERO	pluto_kernel.asm	/^NONZERO:$/;"	l

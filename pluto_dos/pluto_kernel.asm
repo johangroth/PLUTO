@@ -98,6 +98,8 @@
 
 ;;; RTC device address:
     io_rtc = $7FA0
+
+    INTERRUPTVECTOR = $302
 ;
 ;
 ;***************
@@ -1382,6 +1384,12 @@ COLDSTART
         CLD           ;Disable decimal mode
         LDX  #$FF     ;Initialize STACK POINTER
         TXS
+;;; Initialise interrupt vector
+        LDA  #<DOINTERRUPT
+        STA  INTERRUPTVECTOR
+        LDA  #>DOINTERRUPT
+        STA  INTERRUPTVECTOR+1
+
 ;;; Initialise ACIA
         LDA  #$1F     ;Initialize serial port (terminal I/O) 6551/65c51 ACIA
         STA  SIOCON   ; (19.2K BAUD,no parity,8 data bits,1 stop bit,
@@ -1448,7 +1456,7 @@ MONITOR .proc
         LDA  #$0C     ;Send "Monitor:" to terminal
         JSR  PROMPT
         JSR  BEEP     ;Send ASCII [BELL] to terminal
-NMON:
+NMON
         LDX  #$FF     ;Initialize STACK POINTER
         TXS
         JSR  MONPROHILO ;Restore monitor prompt string buffer address pointer
@@ -1590,7 +1598,10 @@ MONTAB:
 ;* IRQ/BRK Interrupt service routine *
 ;*************************************
 ;
-INTERUPT:
+INTERRUPT
+        JMP  (INTERRUPTVECTOR)
+
+DOINTERRUPT
         STA  AINTSAV  ;Save ACCUMULATOR
         STX  XINTSAV  ;Save X-REGISTER
         STY  YINTSAV  ;Save Y-REGISTER
@@ -1599,7 +1610,6 @@ INTERUPT:
         EOR  #$88     ;Invert state of both bits
         BNE  BRKINSTR ;GOTO BRKINSTR IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
         LDA  SIODAT   ; ELSE, read 6551 ACIA receive data register
-        BEQ  BREAKEY  ;GOTO BREAKEY IF received byte = $00
         LDX  INCNT    ; ELSE, Store keystroke in keystroke buffer address
         STA  KEYBUFF,X ;  indexed by INCNT: keystroke buffer input counter
         INC  INCNT    ;Increment keystroke buffer input counter
@@ -1607,7 +1617,7 @@ ENDIRQ:
         LDA  AINTSAV  ;Restore ACCUMULATOR
         LDX  XINTSAV  ;Restore X-REGISTER
         LDY  YINTSAV  ;Restore Y-REGISTER
-        RTI           ;Done INTERUPT (IRQ) service, RETURN FROM INTERRUPT
+        RTI           ;Done INTERRUPT (IRQ) service, RETURN FROM INTERRUPT
 
 ;
 BRKINSTR:
@@ -1634,7 +1644,6 @@ BRKINSTR:
         LDA  #$00     ;Clear all PROCESSOR STATUS REGISTER bits
         PHA
         PLP
-BREAKEY:
         LDX  #$FF     ;Set STACK POINTER to $FF
         TXS
         LDA  #$7F     ;Set STACK POINTER preset/result to $7F
@@ -2998,6 +3007,7 @@ NEWQUERYADRS:
         .WORD SAVREGS
         .WORD RESREGS
         .WORD INCINDEX
+        .WORD DECINDEX
         .WORD PROMPT2
         .WORD HEXIN2
         .WORD HEXIN4
@@ -3031,7 +3041,7 @@ NEWQUERYSTRS:
         .text  " SAVREGS",$0D,$0A,0
         .text  " RESREGS ",0
         .text  " INCINDEX",$0D,$0A,0
-        .text  " DECIN   ",0
+        .text  " DECINDEX",0
         .text  " PROMPT2",$0D,$0A,0
         .text  " HEXIN2  ",0
         .text  " HEXIN4",$0D,$0A,0
@@ -3221,6 +3231,6 @@ MONPROMPT:
          * =  $FFFA
          .word $0300        ;NMI
          .word COLDSTART    ;RESET
-         .word INTERUPT     ;IRQ
+         .word INTERRUPT    ;IRQ
 
          .end
