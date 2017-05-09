@@ -104,6 +104,7 @@ DAX	pluto_kernel.asm	/^DAX:$/;"	l
 DAY	pluto_kernel.asm	/^DAY:$/;"	l
 DBBR	pluto_kernel.asm	/^DBBR:$/;"	l
 DBBS	pluto_kernel.asm	/^DBBS:$/;"	l
+DEBUG	macros.asm	/^DEBUG   .macro$/;"	l
 DEC0AND1	pluto_kernel.asm	/^    DEC0AND1 = $E5$/;"	d
 DEC0AND1	zp_variables.asm	/^        DEC0AND1 = $E5$/;"	d
 DEC2AND3	pluto_kernel.asm	/^    DEC2AND3 = $E6$/;"	d
