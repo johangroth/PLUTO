@@ -1382,14 +1382,17 @@ WIPELOOP
 ;*********************************
 ;
 COLDSTART
+        SEI
         CLD           ;Disable decimal mode
         LDX  #$FF     ;Initialize STACK POINTER
         TXS
+
 ;;; Initialise interrupt vector
         LDA  #<DOINTERRUPT
         STA  INTERRUPTVECTOR
         LDA  #>DOINTERRUPT
         STA  INTERRUPTVECTOR+1
+        CLI
 
 ;;; Initialise ACIA
         LDA  #$1F     ;Initialize serial port (terminal I/O) 6551/65c51 ACIA
