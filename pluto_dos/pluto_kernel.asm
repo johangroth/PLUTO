@@ -1485,10 +1485,6 @@ COLDSTART
         STZ  PREG     ; PROCESSOR STATUS REGISTER preset/result value
         STZ  OUTCNT   ; keystroke buffer 'read from' counter
         STZ  INCNT    ; keystroke buffer 'written to' counter
-        LDA  #<DEFAULTIRQ       ; Low byte of IRQ-vector.
-        STA  <INTERRUPTVECTOR   ; Store low byte in a user changeable location
-        LDA  #>DEFAULTIRQ       ; High byte of IRQ-vector
-        STA  >INTERRUPTVECTOR   ; Store high byte in a user changeable location
         LDA  #$7F
         STA  SREG     ; USER program/application STACK POINTER preset/result value
 WARMST    
