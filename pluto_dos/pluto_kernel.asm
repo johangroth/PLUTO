@@ -105,7 +105,6 @@
 ;; RTC device address:
     io_rtc = $7FA0
 
-    INTERRUPTVECTOR = $302
 ;
 ;
 ;***************
