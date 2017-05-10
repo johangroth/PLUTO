@@ -17,6 +17,7 @@
 ;
 
 ;8-bit variables
+    VIATEMP  = $AC
     SAVEACC  = $AD
     SAVEX    = $AE
     SAVEY    = $AF
@@ -1613,44 +1614,51 @@ DOINTERRUPT
         LDX  INCNT    ; ELSE, Store keystroke in keystroke buffer address
         STA  KEYBUFF,X ;  indexed by INCNT: keystroke buffer input counter
         INC  INCNT    ;Increment keystroke buffer input counter
-ENDIRQ:
+ENDIRQ
         LDA  AINTSAV  ;Restore ACCUMULATOR
         LDX  XINTSAV  ;Restore X-REGISTER
         LDY  YINTSAV  ;Restore Y-REGISTER
         RTI           ;Done INTERRUPT (IRQ) service, RETURN FROM INTERRUPT
 
+;Handle interrupts from VIA
+;
+VIAINTERRUPT
+        LDA  VIAIFR
+        STA  VIATEMP
+        BBR  7,VIATEMP,ENDIRQ 
+        BRA  ENDIRQ
+        
 ;
 BRKINSTR:
-        PLA           ;Read PROCESSOR STATUS REGISTER from STACK
+        PLA                 ;Read PROCESSOR STATUS REGISTER from STACK
         PHA
-        AND  #$10     ;Isolate BREAK bit
-        BEQ  ENDIRQ   ;GOTO ENDIRQ IF bit = 0
-        LDA  AINTSAV  ; ELSE, restore ACCUMULATOR to pre-interrupt condition
-        STA  ACCUM    ;Save in ACCUMULATOR preset/result
-        PLA           ;Pull PROCESSOR STATUS REGISTER from STACK
-        STA  PREG     ;Save in PROCESSOR STATUS preset/result
-        STX  XREG     ;Save X-REGISTER
-        STY  YREG     ;Save Y-REGISTER
+        AND  #$10           ;Isolate BREAK bit
+        BEQ  VIAINTERRUPT   ;GOTO VIAINTERRUPT IF bit = 0, ie not BRK instruction
+        LDA  AINTSAV        ; ELSE, restore ACCUMULATOR to pre-interrupt condition
+        STA  ACCUM          ;Save in ACCUMULATOR preset/result
+        PLA                 ;Pull PROCESSOR STATUS REGISTER from STACK
+        STA  PREG           ;Save in PROCESSOR STATUS preset/result
+        STX  XREG           ;Save X-REGISTER
+        STY  YREG           ;Save Y-REGISTER
         TSX
-        STX  SREG     ;Save STACK POINTER
-        JSR  CROUT    ;Send CR,LF to terminal
-        PLA           ;Pull RETURN address from STACK then save it in INDEX
-        STA  INDEX    ; Low byte
+        STX  SREG           ;Save STACK POINTER
+        JSR  CROUT          ;Send CR,LF to terminal
+        PLA                 ;Pull RETURN address from STACK then save it in INDEX
+        STA  INDEX          ;Low byte
         PLA
-        STA  INDEXH   ;  High byte
-        JSR  CROUT    ;Send CR,LF to terminal
-        JSR  CROUT    ;Send CR,LF to terminal
-        JSR  DISLINE  ;Disassemble then display instruction at address pointed to by INDEX
-        LDA  #$00     ;Clear all PROCESSOR STATUS REGISTER bits
+        STA  INDEXH         ;High byte
+        JSR  CR2            ;Send CR,LF to terminal two times
+        JSR  DISLINE        ;Disassemble then display instruction at address pointed to by INDEX
+        LDA  #$00           ;Clear all PROCESSOR STATUS REGISTER bits
         PHA
         PLP
-        LDX  #$FF     ;Set STACK POINTER to $FF
+        LDX  #$FF           ;Set STACK POINTER to $FF
         TXS
-        LDA  #$7F     ;Set STACK POINTER preset/result to $7F
+        LDA  #$7F           ;Set STACK POINTER preset/result to $7F
         STA  SREG
-        LDA  INCNT    ;Remove keystrokes from keystroke input buffer
+        LDA  INCNT          ;Remove keystrokes from keystroke input buffer
         STA  OUTCNT
-        JMP  MONITOR.NMON     ;Done interrupt service process, re-enter monitor
+        JMP  MONITOR.NMON   ;Done interrupt service process, re-enter monitor
 
 ;
 ;
