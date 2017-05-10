@@ -17,6 +17,7 @@
 ;
 
 ;8-bit variables
+    VIATEMP  = $AC
     SAVEACC  = $AD
     SAVEX    = $AE
     SAVEY    = $AF
@@ -103,6 +104,8 @@
 
 ;; RTC device address:
     io_rtc = $7FA0
+
+    INTERRUPTVECTOR = $302
 ;
 ;
 ;***************
@@ -1100,7 +1103,7 @@ GO      .proc
         STA  COMLO    ; address pointer low byte
         LDA  INDEXH
         STA  COMHI    ;  hi byte
-CNTLUGO 
+CTRLUGO 
         TSX           ;Save the monitor's STACK POINTER in memory
         STX  POINTER
 ;Preload all 6502 MPU registers from monitor's preset/result variables
@@ -1402,7 +1405,7 @@ RET     RTS           ;Done LISTER command, RETURN. RET label is defined for [BR
 
 ;
 ;
-;[CNTL-W] WIPE command: clear (write: $00) RAM memory from $0000 through $7FFF then coldstart SyMon
+;[CTRL-W] WIPE command: clear (write: $00) RAM memory from $0000 through $7FFF then coldstart SyMon
 WIPE    .proc
         LDA  #$15     ;Send "Wipe RAM?" to terminal
         JSR  PROMPT
@@ -1439,9 +1442,18 @@ WIPELOOP
 ;*********************************
 ;
 COLDSTART
+        SEI
         CLD           ;Disable decimal mode
         LDX  #$FF     ;Initialize STACK POINTER
         TXS
+
+;;; Initialise interrupt vector
+        LDA  #<DOINTERRUPT
+        STA  INTERRUPTVECTOR
+        LDA  #>DOINTERRUPT
+        STA  INTERRUPTVECTOR+1
+        CLI
+
 ;;; Initialise ACIA
         LDA  #$1F     ;Initialize serial port (terminal I/O) 6551/65c51 ACIA
         STA  SIOCON   ; (19.2K BAUD,no parity,8 data bits,1 stop bit,
@@ -1512,7 +1524,7 @@ MONITOR .proc
         LDA  #$0C     ;Send "Monitor:" to terminal
         JSR  PROMPT
         JSR  BEEP     ;Send ASCII [BELL] to terminal
-NMON:
+NMON
         LDX  #$FF     ;Initialize STACK POINTER
         TXS
         JSR  MONPROHILO ;Restore monitor prompt string buffer address pointer
@@ -1654,97 +1666,82 @@ MONTAB:
 ;* IRQ/BRK Interrupt service routine *
 ;*************************************
 ;
-
 INTERRUPT
-DEFAULTIRQ
-        STA  AINTSAV  ;Save ACCUMULATOR
-        STX  XINTSAV  ;Save X-REGISTER
-        STY  YINTSAV  ;Save Y-REGISTER
-        LDA  SIOSTAT
-        STA  TEMP
-        LDA  SIODAT
-        STA  TEMP + 1
-        JSR  ACIA_INTERRUPT 
+        JMP  (INTERRUPTVECTOR)
 
-;VIA interrupt service routine
+DOINTERRUPT
+        PHA             ;Save ACCUMULATOR
+        PHX             ;Save X-REGISTER
+;        PHY             ;Save Y-REGISTER
+        LDA  SIOSTAT    ;Read 6551 ACIA status register
+        AND  #ACIAMASK  ;Isolate bits. bit 7: Interrupt has occured and bit 3: receive data register full
+        EOR  #ACIAMASK  ;Invert state of both bits
+;        BNE  BRKINSTR   ;GOTO BRKINSTR IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
+        BNE  VIAINTERRUPT   ;GOTO VIAINTERRUPT IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
+        LDA  SIODAT     ; ELSE, read 6551 ACIA receive data register
+        LDX  INCNT      ; ELSE, Store keystroke in keystroke buffer address
+        STA  KEYBUFF,X  ;  indexed by INCNT: keystroke buffer input counter
+        INC  INCNT      ;Increment keystroke buffer input counter
+ENDIRQ
+;        PLY             ;Restore Y-REGISTER
+        PLX             ;Restore X-REGISTER
+        PLA             ;Restore ACCUMULATOR
+        RTI             ;Done INTERRUPT (IRQ) service, RETURN FROM INTERRUPT
+
+;Handle interrupts from VIA
 ;
+VIAINTERRUPT
         LDA  VIAIFR
-        STA  TEMP
-        BBR  7,TEMP,ENDIRQ
-        BBR  6,TEMP,NOTTIMER1
-        JSR  TIMER1
-NOTTIMER1
-        BBR  5,TEMP,NOTTIMER2
-        JSR  TIMER2
-NOTTIMER2
-        BBR  4,TEMP,NOTHANDSHAKECONTROLB1
-        JSR  HANDSHAKECONTROLB1
-NOTHANDSHAKECONTROLB1
-        BBR  3,TEMP,NOTHANDSHAKECONTROLB2
-        JSR  HANDSHAKECONTROLB2
-NOTHANDSHAKECONTROLB2
-        BBR  2,TEMP,NOTSHIFTREGISTER
-        JSR  SHIFTREGISTER 
-NOTSHIFTREGISTER
-        BBR  1,TEMP,NOTHANDSHAKECONTROLA1
-        JSR  HANDSHAKECONTROLA1
-NOTHANDSHAKECONTROLA1
-        BBR  0,TEMP,ENDIRQ
-        JSR  HANDSHAKECONTROLA2
+        AND  VIAIER
+        STA  VIATEMP
+        BBS  VIAIFRIRQ,VIATEMP,HANDLEVIAINTERRUPT 
         BRA  ENDIRQ
 
-;ACIA interrupt service routine
+;HANDLEVIAINTERRUPT
+;Priority is Timer 1 and then Timer 2
 ;
-ACIA_INTERRUPT
-        LDA  TEMP       ;Read 6551 ACIA status register
-        AND  #$88       ;Isolate bits. bit 7: Interrupt has occured and bit 3: receive data register full
-        EOR  #$88       ;Invert state of both bits
-        BNE  BRKINSTR   ;GOTO BRKINSTR IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
-        LDA  TEMP + 1   ; ELSE, read 6551 ACIA receive data register
-        BEQ  BREAKEY    ;GOTO BREAKEY IF received byte = $00
-        LDX  INCNT      ; ELSE, Store keystroke in keystroke buffer address
-        STA  KEYBUFF,X  ;indexed by INCNT: keystroke buffer input counter
-        INC  INCNT      ;Increment keystroke buffer input counter
-        RTS
-       
-ENDIRQ:
-        LDA  AINTSAV  ;Restore ACCUMULATOR
-        LDX  XINTSAV  ;Restore X-REGISTER
-        LDY  YINTSAV  ;Restore Y-REGISTER
-        RTI           ;Done INTERRUPT (IRQ) service, RETURN FROM INTERRUPT
+HANDLEVIAINTERRUPT
+        BBR  VIATIMER1MASK,VIATEMP,CHECKVIATIMER2   ;GOTO CHECKVIATIMER2 if Timer 1 didn't cause an interrupt
+; HANDLE TIMER1 INTERRUPT
 
-;
-BRKINSTR:
-        PLA           ;Read PROCESSOR STATUS REGISTER from STACK
-        PHA
-        AND  #$10     ;Isolate BREAK bit
-        BEQ  ENDIRQ   ;GOTO ENDIRQ IF bit = 0
-        LDA  AINTSAV  ; ELSE, restore ACCUMULATOR to pre-interrupt condition
-        STA  ACCUM    ;Save in ACCUMULATOR preset/result
-        PLA           ;Pull PROCESSOR STATUS REGISTER from STACK
-        STA  PREG     ;Save in PROCESSOR STATUS preset/result
-        STX  XREG     ;Save X-REGISTER
-        STY  YREG     ;Save Y-REGISTER
+CHECKVIATIMER2        
+        BBR  VIATIMER2MASK,VIATEMP,ENDIRQ           ;GOTO ENDIRQ if Timer 2 didn't cause an interrupt
+; HANDLE TIMER2 INTERRUPT
+        BRA  ENDIRQ     ;Timer 2 interrupt handled so exit ISR
+
+        BRKMASK = %00010000   ;BRK mask in processor status register
+        STACKPTR = $103       ;Stacked processor status register
+
+BRKINSTR
         TSX
-        STX  SREG     ;Save STACK POINTER
-        JSR  CROUT    ;Send CR,LF to terminal
-        PLA           ;Pull RETURN address from STACK then save it in INDEX
-        STA  INDEX    ; Low byte
+        LDA  STACKPTR,X     ;Read processor status register from stack
+        AND  #BRKMASK       ;Isolate BREAK bit
+        BEQ  VIAINTERRUPT   ;GOTO VIAINTERRUPT IF bit = 0, ie not BRK instruction
+        LDA  AINTSAV        ; ELSE, restore ACCUMULATOR to pre-interrupt condition
+        STA  ACCUM          ;Save in ACCUMULATOR preset/result
+        PLA                 ;Pull PROCESSOR STATUS REGISTER from STACK
+        STA  PREG           ;Save in PROCESSOR STATUS preset/result
+        STX  XREG           ;Save X-REGISTER
+        STY  YREG           ;Save Y-REGISTER
+        TSX
+        STX  SREG           ;Save STACK POINTER
+        JSR  CROUT          ;Send CR,LF to terminal
+        PLA                 ;Pull RETURN address from STACK then save it in INDEX
+        STA  INDEX          ;Low byte
         PLA
-        STA  INDEXH   ;  High byte
-        JSR  CR2      ;Send two CR,LF to terminal
-        JSR  DISLINE  ;Disassemble then display instruction at address pointed to by INDEX
-        LDA  #$00     ;Clear all PROCESSOR STATUS REGISTER bits
+        STA  INDEXH         ;High byte
+        JSR  CR2            ;Send CR,LF to terminal two times
+        JSR  DISLINE        ;Disassemble then display instruction at address pointed to by INDEX
+        LDA  #$00           ;Clear all PROCESSOR STATUS REGISTER bits
         PHA
         PLP
-BREAKEY:
-        LDX  #$FF     ;Set STACK POINTER to $FF
+        LDX  #$FF           ;Set STACK POINTER to $FF
         TXS
-        LDA  #$7F     ;Set STACK POINTER preset/result to $7F
+        LDA  #$7F           ;Set STACK POINTER preset/result to $7F
         STA  SREG
-        LDA  INCNT    ;Remove keystrokes from keystroke input buffer
+        LDA  INCNT          ;Remove keystrokes from keystroke input buffer
         STA  OUTCNT
-        JMP  MONITOR.NMON     ;Done interrupt service process, re-enter monitor
+        JMP  MONITOR.NMON   ;Done interrupt service process, re-enter monitor
 
 ;
 
@@ -3357,7 +3354,7 @@ MONPROMPT:
         .byte $00
         .text "Version 06.07.07"     ;$01
         .byte $00
-        .text "[CNTL-A] runs "       ;$02
+        .text "[CTRL-A] runs "       ;$02
         .text "assembler"
         .byte $00
 ;RED
@@ -3443,6 +3440,6 @@ MONPROMPT:
          * =  $FFFA
          .word $0300        ;NMI
          .word COLDSTART    ;RESET
-         .word INTERRUPT   ;IRQ
+         .word INTERRUPT    ;IRQ
 
          .end

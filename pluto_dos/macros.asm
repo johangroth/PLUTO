@@ -102,4 +102,19 @@ teststack .macro
 .endm
 
 ; -----------------------------------------------------------------------------
+; MACRO to print out debug information
+; Use with #debug <number>
+DEBUG   .macro
+        JSR  SAVREGS
+        LDA  #<\1
+        STA  INDEX
+        LDA  #>\1
+        STA  INDEXH
+        JSR  PROMPT2
+        JSR  RESREGS
+        RTS
+        .endm
+
+
+; -----------------------------------------------------------------------------
 ; END

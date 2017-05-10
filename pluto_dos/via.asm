@@ -23,6 +23,10 @@
     VIAIER  = VIABASE+$E    ; Interrupt Enable Register
     VIARANH = VIABASE+$F    ; Same as Reg A except no "Handshake"
 
+    VIAIFRIRQ = 7
+    VIATIMER1MASK = 6
+    VIATIMER2MASK = 5
+
 
 VIAINIT .proc
         LDX  #$0E
