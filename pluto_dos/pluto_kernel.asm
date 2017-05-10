@@ -1606,32 +1606,43 @@ INTERRUPT
         JMP  (INTERRUPTVECTOR)
 
 DOINTERRUPT
-        STA  AINTSAV  ;Save ACCUMULATOR
-        STX  XINTSAV  ;Save X-REGISTER
-        STY  YINTSAV  ;Save Y-REGISTER
-        LDA  SIOSTAT  ;Read 6551 ACIA status register
-        AND  #$88     ;Isolate bits. bit 7: Interrupt has occured and bit 3: receive data register full
-        EOR  #$88     ;Invert state of both bits
-        BNE  BRKINSTR ;GOTO BRKINSTR IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
-        LDA  SIODAT   ; ELSE, read 6551 ACIA receive data register
-        LDX  INCNT    ; ELSE, Store keystroke in keystroke buffer address
-        STA  KEYBUFF,X ;  indexed by INCNT: keystroke buffer input counter
-        INC  INCNT    ;Increment keystroke buffer input counter
+        PHA             ;Save ACCUMULATOR
+        PHX             ;Save X-REGISTER
+        PHY             ;Save Y-REGISTER
+        LDA  SIOSTAT    ;Read 6551 ACIA status register
+        AND  #ACIAMASK  ;Isolate bits. bit 7: Interrupt has occured and bit 3: receive data register full
+        EOR  #ACIAMASK  ;Invert state of both bits
+        BNE  BRKINSTR   ;GOTO BRKINSTR IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
+        LDA  SIODAT     ; ELSE, read 6551 ACIA receive data register
+        LDX  INCNT      ; ELSE, Store keystroke in keystroke buffer address
+        STA  KEYBUFF,X  ;  indexed by INCNT: keystroke buffer input counter
+        INC  INCNT      ;Increment keystroke buffer input counter
 ENDIRQ
-        LDA  AINTSAV  ;Restore ACCUMULATOR
-        LDX  XINTSAV  ;Restore X-REGISTER
-        LDY  YINTSAV  ;Restore Y-REGISTER
-        RTI           ;Done INTERRUPT (IRQ) service, RETURN FROM INTERRUPT
+        PLY             ;Restore Y-REGISTER
+        PLX             ;Restore X-REGISTER
+        PLA             ;Restore ACCUMULATOR
+        RTI             ;Done INTERRUPT (IRQ) service, RETURN FROM INTERRUPT
 
 ;Handle interrupts from VIA
 ;
 VIAINTERRUPT
         LDA  VIAIFR
+        AND  VIAIER
         STA  VIATEMP
-        BBR  7,VIATEMP,ENDIRQ 
+        BBS  VIAIFRIRQ,VIATEMP,HANDLEVIAINTERRUPT 
         BRA  ENDIRQ
-        
+
+;HANDLEVIAINTERRUPT
+;Priority is Timer 1 and then Timer 2
 ;
+HANDLEVIAINTERRUPT
+        BBR  VIATIMER1FLAG,VIATEMP,CHECKVIATIMER2
+        ; HANDLE TIMER1 INTERRUPT
+        BBR  VIATIMER2FLAG,VIATEMP,ENDIRQ
+CHECKVIATIMER2        ; HANDLE TIMER2 INTERRUPT
+        BRA  ENDIRQ
+
+        
 BRKINSTR:
         PLA                 ;Read PROCESSOR STATUS REGISTER from STACK
         PHA
