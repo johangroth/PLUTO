@@ -49,7 +49,8 @@ BN2ASC	pluto_kernel.asm	/^BN2ASC  .proc$/;"	l
 BNOK	pluto_kernel.asm	/^BNOK:$/;"	l
 BRANCHOK	pluto_kernel.asm	/^BRANCHOK:$/;"	l
 BRFORWD	pluto_kernel.asm	/^BRFORWD:$/;"	l
-BRKINSTR	pluto_kernel.asm	/^BRKINSTR:$/;"	l
+BRKINSTR	pluto_kernel.asm	/^BRKINSTR$/;"	l
+BRKMASK	pluto_kernel.asm	/^        BRKMASK = %00010000   ;BRK mask in processor status register$/;"	d
 BROFFSET	pluto_kernel.asm	/^BROFFSET:$/;"	l
 BSERROR	pluto_kernel.asm	/^BSERROR:$/;"	l
 BSOUT	pluto_kernel.asm	/^BSOUT   .proc$/;"	l
@@ -69,7 +70,7 @@ BYOK	pluto_kernel.asm	/^BYOK:$/;"	l
 BadCrc	xmodem.asm	/^BadCrc:$/;"	l
 BegBlk	xmodem.asm	/^BegBlk:$/;"	l
 CAN	xmodem.asm	/^        CAN = $18       ; cancel (not STAndard, not supported)$/;"	d
-CHECKVIATIMER2	pluto_kernel.asm	/^CHECKVIATIMER2        ; HANDLE TIMER2 INTERRUPT$/;"	l
+CHECKVIATIMER2	pluto_kernel.asm	/^CHECKVIATIMER2        $/;"	l
 CHEXIN2	pluto_kernel.asm	/^CHEXIN2:$/;"	l
 CHIN	pluto_kernel.asm	/^CHIN    .proc$/;"	l
 CHINLOOP	pluto_kernel.asm	/^CHINLOOP:$/;"	l
@@ -77,7 +78,6 @@ CHREG	pluto_kernel.asm	/^CHREG   .proc$/;"	l
 CLKRD	pluto_kernel.asm	/^CLKRD:$/;"	l
 CMDPROMPTS	pluto_kernel.asm	/^CMDPROMPTS:$/;"	l
 CMON	pluto_kernel.asm	/^CMON:$/;"	l
-CNTLUGO	pluto_kernel.asm	/^CNTLUGO $/;"	l
 COLDSTART	pluto_kernel.asm	/^COLDSTART$/;"	l
 COMHI	pluto_kernel.asm	/^    COMHI   = COMLO+1$/;"	d
 COMHI	zp_variables.asm	/^        COMHI   = COMLO+1$/;"	d
@@ -96,6 +96,7 @@ CR2	pluto_kernel.asm	/^CR2     .proc$/;"	l
 CROUT	pluto_kernel.asm	/^CROUT   .proc$/;"	l
 CSTOR2	pluto_kernel.asm	/^CSTOR2:$/;"	l
 CSTOR3	pluto_kernel.asm	/^CSTOR3:$/;"	l
+CTRLUGO	pluto_kernel.asm	/^CTRLUGO $/;"	l
 CalcCRC	xmodem.asm	/^CalcCRC .proc$/;"	l
 CalcCRC1	xmodem.asm	/^CalcCRC1:$/;"	l
 CopyBlk	xmodem.asm	/^CopyBlk:$/;"	l
@@ -106,6 +107,7 @@ DAX	pluto_kernel.asm	/^DAX:$/;"	l
 DAY	pluto_kernel.asm	/^DAY:$/;"	l
 DBBR	pluto_kernel.asm	/^DBBR:$/;"	l
 DBBS	pluto_kernel.asm	/^DBBS:$/;"	l
+DBR1	pluto_kernel.asm	/^DBR1     CMP  #$24     ;GOTO DNEWADR IF character = "$"$/;"	l
 DEBUG	macros.asm	/^DEBUG   .macro$/;"	l
 DEC0AND1	pluto_kernel.asm	/^    DEC0AND1 = $E5$/;"	d
 DEC0AND1	zp_variables.asm	/^        DEC0AND1 = $E5$/;"	d
@@ -137,8 +139,10 @@ DISLINE	pluto_kernel.asm	/^DISLINE:$/;"	l
 DISLOOP	pluto_kernel.asm	/^DISLOOP:$/;"	l
 DJTAB	pluto_kernel.asm	/^DJTAB:$/;"	l
 DLINE	pluto_kernel.asm	/^DLINE   JSR  SPC4     ;Send 4 [SPACE] to terminal$/;"	l
+DLOOP	pluto_kernel.asm	/^DLOOP    JSR  CHIN     ;Request a keystroke from terminal$/;"	l
 DMPGR	pluto_kernel.asm	/^DMPGR   .proc$/;"	l
 DMTAB	pluto_kernel.asm	/^DMTAB:$/;"	l
+DNEWADR	pluto_kernel.asm	/^DNEWADR  JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary $/;"	l
 DOCOM	pluto_kernel.asm	/^DOCOM   .proc$/;"	l
 DODIR	pluto_kernel.asm	/^DODIR:$/;"	l
 DOINTERRUPT	pluto_kernel.asm	/^DOINTERRUPT$/;"	l
@@ -147,11 +151,13 @@ DONEFILL	pluto_kernel.asm	/^DONEFILL:$/;"	l
 DONESB	pluto_kernel.asm	/^DONESB:$/;"	l
 DOUPLOAD	xmodem.asm	/^DOUPLOAD:$/;"	l
 DOWIPE	pluto_kernel.asm	/^DOWIPE:$/;"	l
-DOWNLOAD	xmodem.asm	/^DOWNLOAD .proc$/;"	l
+DOWNLOAD	pluto_kernel.asm	/^DOWNLOAD   .proc$/;"	l
 DPHANTOM	pluto_kernel.asm	/^    DPHANTOM = $00E4    ; DPHANTOM MUST be located (in target memory) immediatly below the DEC0AND1 variable$/;"	d
 DPHANTOM	zp_variables.asm	/^        DPHANTOM = $00E4    ; DPHANTOM MUST be located (in target memory) immediatly below the DEC0AND1 variable$/;"	d
 DRMB	pluto_kernel.asm	/^DRMB:$/;"	l
 DSMB	pluto_kernel.asm	/^DSMB:$/;"	l
+DSUB1	pluto_kernel.asm	/^DSUB1    PHA           ;Save ACCUMULATOR on STACK: ASCII HEX high digit of a byte  $/;"	l
+DSUB2	pluto_kernel.asm	/^DSUB2    JSR  CHIN     ;Request a keystroke from terminal, result in ACCUMULATOR$/;"	l
 DUMPA	pluto_kernel.asm	/^DUMPA   JSR  SPC2     ;Send 2 [SPACE] to terminal$/;"	l
 DUMPH	pluto_kernel.asm	/^DUMPH   JSR  PRBYTE   ;Display byte as a HEX value$/;"	l
 DUNSENG	pluto_kernel.asm	/^DUNSENG:$/;"	l
@@ -455,6 +461,7 @@ SRMB	pluto_kernel.asm	/^SRMB:$/;"	l
 SRMB2	pluto_kernel.asm	/^SRMB2:$/;"	l
 STAB	pluto_kernel.asm	/^STAB:$/;"	l
 STACC	pluto_kernel.asm	/^STACC:$/;"	l
+STACKPTR	pluto_kernel.asm	/^        STACKPTR = $103       ;Stacked processor status register$/;"	d
 STAIN	pluto_kernel.asm	/^STAIN:$/;"	l
 STBR1	pluto_kernel.asm	/^STBR1:$/;"	l
 STBR2	pluto_kernel.asm	/^STBR2:$/;"	l
@@ -520,8 +527,8 @@ VIAT1LL	via.asm	/^    VIAT1LL = VIARB+6   ;T1 Low-Order Latches$/;"	d
 VIAT2CH	via.asm	/^    VIAT2CH = VIARB+9   ;T2 High-Order Counter$/;"	d
 VIAT2CL	via.asm	/^    VIAT2CL = VIARB+8   ;Write T2 Low-Order Latches, Read T2 Low-Order Counter$/;"	d
 VIATEMP	pluto_kernel.asm	/^    VIATEMP  = $AC$/;"	d
-VIATIMER1FLAG	via.asm	/^    VIATIMER1FLAG = 6$/;"	d
-VIATIMER2FLAG	via.asm	/^    VIATIMER2FLAG = 5$/;"	d
+VIATIMER1MASK	via.asm	/^    VIATIMER1MASK = 6$/;"	d
+VIATIMER2MASK	via.asm	/^    VIATIMER2MASK = 5$/;"	d
 VIEWEXIT	pluto_kernel.asm	/^VIEWEXIT:$/;"	l
 WAIT	pluto_kernel.asm	/^WAIT:$/;"	l
 WARMST	pluto_kernel.asm	/^WARMST    $/;"	l
@@ -539,6 +546,7 @@ X3	pluto_kernel.asm	/^X3:$/;"	l
 XINTSAV	pluto_kernel.asm	/^    XINTSAV  = $EE$/;"	d
 XINTSAV	zp_variables.asm	/^        XINTSAV  = $EE$/;"	d
 XITDMP	pluto_kernel.asm	/^XITDMP  JSR  GLINE    ; ELSE, Send horizontal line to terminal$/;"	l
+XModemReceive	xmodem.asm	/^XModemReceive .proc$/;"	l
 XModemSend	xmodem.asm	/^XModemSend:$/;"	l
 XREG	pluto_kernel.asm	/^    XREG     = $DB$/;"	d
 XREG	zp_variables.asm	/^        XREG     = $DB$/;"	d
