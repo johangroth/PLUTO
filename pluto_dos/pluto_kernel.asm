@@ -1360,17 +1360,17 @@ DOWNLOAD   .proc
          LDA  #$E0     ;Point to $E0xx (ROM area) in case of garbage input:
          STA  INDEXH   ; write $E0 to download destination address pointer high byte
 DLOOP    JSR  CHIN     ;Request a keystroke from terminal
-         CMP  #$20     ; LOOP back to DLOOP IF character = [SPACE]: ignore character
+         CMP  #' '     ; LOOP back to DLOOP IF character = [SPACE]: ignore character
          BEQ  DLOOP
          CMP  #$0D     ; ELSE, LOOP back to DLOOP IF character = [RETURN]: ignore character
          BEQ  DLOOP
          CMP  #$0A     ; ELSE, LOOP back to DLOOP IF character = [LINEFEED]: ignore character
          BEQ  DLOOP
-         CMP  #$2A     ; ELSE, GOTO DBR1 IF chatacter <> "*": End Of File
+         CMP  #'*'     ; ELSE, GOTO DBR1 IF chatacter <> "*": End Of File
          BNE  DBR1
          JMP  MONITOR.NMON     ; ELSE, done DOWNLOAD, GOTO NMON
 ; 
-DBR1     CMP  #$24     ;GOTO DNEWADR IF character = "$"
+DBR1     CMP  #'$'     ;GOTO DNEWADR IF character = "$"
          BEQ  DNEWADR
          JSR  DSUB1    ; ELSE, this is a high digit, go get low digit then convert ASCII HEX digits to binary
          LDY  #$00     ;Store byte at address pointed to by destination address pointer
@@ -1529,10 +1529,10 @@ NMON
         JSR  COUT
         LDA  #'-'   ;Send "-" to terminal
         JSR  COUT
-CMON:
+CMON
         JSR  RDCHAR   ;Wait for keystroke: RDCHAR converts lower-case Alpha. to upper-case
         PHA           ;Save keystroke to STACK
-        ASL         ;Multiply keystroke value by 2
+        ASL           ;Multiply keystroke value by 2
         TAX           ;Get monitor command processor address from table MONTAB
         LDA  MONTAB,X ; using multiplied keystroke value as the index
         STA  COMLO    ;Store selected command processor address low byte
@@ -3374,62 +3374,62 @@ MONPROMPT:
 ;Brown       0;33     Yellow        1;33
 ;Light Gray  0;37     White         1;37
         .byte $1B
-         .text "[32m"
-         .text "PPPPPP  LL      UU   UU TTTTTTT  OOOOO"
-         .byte $0D, $0A
-         .text "PP   PP LL      UU   UU   TTT   OO   OO"
-         .byte $0D, $0A
-         .text "PPPPPP  LL      UU   UU   TTT   OO   OO"
-         .byte $0D, $0A
-         .text "PP      LL      UU   UU   TTT   OO   OO"
-         .byte $0D, $0A
-         .text "PP      LLLLLLL  UUUUU    TTT    OOOO0"
-         .byte $1B
-         .text "[0m"
-         .byte $0D, $0A
-         .text "S/O/S SyMon "         ;$03
-         .text "(c)1990 B.Phelps"
-         .byte $00
-         .text " "                    ;$04 (placeholder)
-         .byte $00
-         .text "Areg:$"               ;$05
-         .byte $00
-         .byte $0D, $0A               ;$06
-         .text "HEX: $"
-         .byte $00
-         .text " "                    ;$07 (placeholder)
-         .byte $00
-         .text "DEC: "                ;$08
-         .byte $00
-         .byte $0D, $0A               ;$09
-         .text "Begin XMODEM/CRC downnload "
-         .byte $00
-         .text "Xreg:$"               ;$0A
-         .byte $00
-         .text "SyMon III"            ;$0B
-         .byte $00
-         .text "Monitor:"             ;$0C
-         .byte $00
-         .text "adrs+"                ;$0D
-         .byte $00
-         .text "Yreg:$"               ;$0E
-         .byte $00
-         .byte $0D, $0A               ;$0F
-         .text "Begin XMODEM/CRC upload "
-         .byte $00
-         .text "Stack pointer:$"      ;$10
-         .byte $00
-         .text "Address: "            ;$11
-         .byte $00
-         .text "Length: "             ;$12
-         .byte $00
-         .byte $0D, $0A               ;$13
-         .text "10 Seconds"
-         .byte $00
-         .text "Processor status:$"   ;$14
-         .byte $00
-         .text "Wipe RAM?"            ;$15
-         .byte $00
+        .text "[32m"
+        .text "PPPPPP  LL      UU   UU TTTTTTT  OOOOO"
+        .byte $0D, $0A
+        .text "PP   PP LL      UU   UU   TTT   OO   OO"
+        .byte $0D, $0A
+        .text "PPPPPP  LL      UU   UU   TTT   OO   OO"
+        .byte $0D, $0A
+        .text "PP      LL      UU   UU   TTT   OO   OO"
+        .byte $0D, $0A
+        .text "PP      LLLLLLL  UUUUU    TTT    OOOO0"
+        .byte $1B
+        .text "[0m"
+        .byte $0D, $0A
+        .text "S/O/S SyMon "         ;$03
+        .text "(c)1990 B.Phelps"
+        .byte $00
+        .text " "                    ;$04 (placeholder)
+        .byte $00
+        .text "Areg:$"               ;$05
+        .byte $00
+        .byte $0D, $0A               ;$06
+        .text "HEX: $"
+        .byte $00
+        .text " "                    ;$07 (placeholder)
+        .byte $00
+        .text "DEC: "                ;$08
+        .byte $00
+        .byte $0D, $0A               ;$09
+        .text "Begin download "
+        .byte $00
+        .text "Xreg:$"               ;$0A
+        .byte $00
+        .text "SyMon III"            ;$0B
+        .byte $00
+        .text "Monitor:"             ;$0C
+        .byte $00
+        .text "adrs+"                ;$0D
+        .byte $00
+        .text "Yreg:$"               ;$0E
+        .byte $00
+        .byte $0D, $0A               ;$0F
+        .text "Begin upload "
+        .byte $00
+        .text "Stack pointer:$"      ;$10
+        .byte $00
+        .text "Address: "            ;$11
+        .byte $00
+        .text "Length: "             ;$12
+        .byte $00
+        .byte $0D, $0A               ;$13
+        .text "10 Seconds"
+        .byte $00
+        .text "Processor status:$"   ;$14
+        .byte $00
+        .text "Wipe RAM?"            ;$15
+        .byte $00
 ;
 ;6502 Vectors:
          * =  $FFFA

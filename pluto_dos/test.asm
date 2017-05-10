@@ -1,6 +1,6 @@
         *=$500
 
-        COUT = $82F1
+        COUT = $830C
 
         LDX #0
 NEXT    LDA HELLO,X
