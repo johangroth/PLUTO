@@ -11,6 +11,8 @@ ABYTE	pluto_kernel.asm	/^ABYTE   .proc$/;"	l
 ACCC	pluto_kernel.asm	/^ACCC:$/;"	l
 ACCUM	pluto_kernel.asm	/^    ACCUM    = $DA$/;"	d
 ACCUM	zp_variables.asm	/^        ACCUM    = $DA$/;"	d
+ACIABASE	acia.asm	/^    ACIABASE = $7FE0$/;"	d
+ACIAMASK	acia.asm	/^    ACIAMASK = %10001000    ;Bit 7 interrupt and bit 3 receive register full$/;"	d
 ACK	xmodem.asm	/^        ACK = $06       ; good block acknowledged$/;"	d
 AHEXIN2	pluto_kernel.asm	/^AHEXIN2:$/;"	l
 AHEXIN4	pluto_kernel.asm	/^AHEXIN4:$/;"	l
@@ -67,6 +69,7 @@ BYOK	pluto_kernel.asm	/^BYOK:$/;"	l
 BadCrc	xmodem.asm	/^BadCrc:$/;"	l
 BegBlk	xmodem.asm	/^BegBlk:$/;"	l
 CAN	xmodem.asm	/^        CAN = $18       ; cancel (not STAndard, not supported)$/;"	d
+CHECKVIATIMER2	pluto_kernel.asm	/^CHECKVIATIMER2        ; HANDLE TIMER2 INTERRUPT$/;"	l
 CHEXIN2	pluto_kernel.asm	/^CHEXIN2:$/;"	l
 CHIN	pluto_kernel.asm	/^CHIN    .proc$/;"	l
 CHINLOOP	pluto_kernel.asm	/^CHINLOOP:$/;"	l
@@ -156,7 +159,7 @@ DUNSINC	pluto_kernel.asm	/^DUNSINC:$/;"	l
 DZX	pluto_kernel.asm	/^DZX:$/;"	l
 DZY	pluto_kernel.asm	/^DZY:$/;"	l
 Done	xmodem.asm	/^Done:$/;"	l
-ENDIRQ	pluto_kernel.asm	/^ENDIRQ:$/;"	l
+ENDIRQ	pluto_kernel.asm	/^ENDIRQ$/;"	l
 ENDUMP	pluto_kernel.asm	/^ENDUMP  INC  IDX      ;Increment line counter$/;"	l
 ENTER	pluto_kernel.asm	/^ENTER:$/;"	l
 EOT	xmodem.asm	/^        EOT = $04       ; end of text marker$/;"	d
@@ -191,6 +194,7 @@ H2LOOP	pluto_kernel.asm	/^H2LOOP:$/;"	l
 H2OK	pluto_kernel.asm	/^H2OK:$/;"	l
 H4LOOP	pluto_kernel.asm	/^H4LOOP:$/;"	l
 H4OK	pluto_kernel.asm	/^H4OK:$/;"	l
+HANDLEVIAINTERRUPT	pluto_kernel.asm	/^HANDLEVIAINTERRUPT$/;"	l
 HEX0AND1	pluto_kernel.asm	/^    HEX0AND1 = $E1$/;"	d
 HEX0AND1	zp_variables.asm	/^        HEX0AND1 = $E1$/;"	d
 HEX2AND3	pluto_kernel.asm	/^    HEX2AND3 = $E2$/;"	d
@@ -500,8 +504,10 @@ VIADDRA	via.asm	/^    VIADDRA = VIARB+3   ;Data Direction Register A$/;"	d
 VIADDRB	via.asm	/^    VIADDRB = VIARB+2   ;Data Direction Register B$/;"	d
 VIAIER	via.asm	/^    VIAIER  = VIARB+$E  ;Interrupt Enable Register$/;"	d
 VIAIFR	via.asm	/^    VIAIFR  = VIARB+$D  ;Interrupt Flag Register$/;"	d
+VIAIFRIRQ	via.asm	/^    VIAIFRIRQ = 7$/;"	d
 VIAINIT	via.asm	/^VIAINIT .proc$/;"	l
 VIAINITTABLE	via.asm	/^VIAINITTABLE$/;"	l
+VIAINTERRUPT	pluto_kernel.asm	/^VIAINTERRUPT$/;"	l
 VIAPCR	via.asm	/^    VIAPCR  = VIARB+$C  ;Peripheral Control Register$/;"	d
 VIARA	via.asm	/^    VIARA   = VIARB+1   ;Write Output Register A, Read Input Register A$/;"	d
 VIARANH	via.asm	/^    VIARANH = VIARB+$F  ;Same as Reg A except no "Handshake"$/;"	d
@@ -513,6 +519,9 @@ VIAT1LH	via.asm	/^    VIAT1LH = VIARB+7   ;T1 High-Order Latches$/;"	d
 VIAT1LL	via.asm	/^    VIAT1LL = VIARB+6   ;T1 Low-Order Latches$/;"	d
 VIAT2CH	via.asm	/^    VIAT2CH = VIARB+9   ;T2 High-Order Counter$/;"	d
 VIAT2CL	via.asm	/^    VIAT2CL = VIARB+8   ;Write T2 Low-Order Latches, Read T2 Low-Order Counter$/;"	d
+VIATEMP	pluto_kernel.asm	/^    VIATEMP  = $AC$/;"	d
+VIATIMER1FLAG	via.asm	/^    VIATIMER1FLAG = 6$/;"	d
+VIATIMER2FLAG	via.asm	/^    VIATIMER2FLAG = 5$/;"	d
 VIEWEXIT	pluto_kernel.asm	/^VIEWEXIT:$/;"	l
 WAIT	pluto_kernel.asm	/^WAIT:$/;"	l
 WARMST	pluto_kernel.asm	/^WARMST    $/;"	l

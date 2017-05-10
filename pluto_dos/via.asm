@@ -23,8 +23,8 @@
     VIARANH = VIARB+$F  ;Same as Reg A except no "Handshake"
 
     VIAIFRIRQ = 7
-    VIATIMER1FLAG = 6
-    VIATIMER2FLAG = 5
+    VIATIMER1MASK = 6
+    VIATIMER2MASK = 5
 
 
 VIAINIT .proc

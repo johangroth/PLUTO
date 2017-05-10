@@ -1608,7 +1608,7 @@ INTERRUPT
 DOINTERRUPT
         PHA             ;Save ACCUMULATOR
         PHX             ;Save X-REGISTER
-        PHY             ;Save Y-REGISTER
+;        PHY             ;Save Y-REGISTER
         LDA  SIOSTAT    ;Read 6551 ACIA status register
         AND  #ACIAMASK  ;Isolate bits. bit 7: Interrupt has occured and bit 3: receive data register full
         EOR  #ACIAMASK  ;Invert state of both bits
@@ -1618,7 +1618,7 @@ DOINTERRUPT
         STA  KEYBUFF,X  ;  indexed by INCNT: keystroke buffer input counter
         INC  INCNT      ;Increment keystroke buffer input counter
 ENDIRQ
-        PLY             ;Restore Y-REGISTER
+;        PLY             ;Restore Y-REGISTER
         PLX             ;Restore X-REGISTER
         PLA             ;Restore ACCUMULATOR
         RTI             ;Done INTERRUPT (IRQ) service, RETURN FROM INTERRUPT
@@ -1636,17 +1636,19 @@ VIAINTERRUPT
 ;Priority is Timer 1 and then Timer 2
 ;
 HANDLEVIAINTERRUPT
-        BBR  VIATIMER1FLAG,VIATEMP,CHECKVIATIMER2
+        BBR  VIATIMER1MASK,VIATEMP,CHECKVIATIMER2
         ; HANDLE TIMER1 INTERRUPT
-        BBR  VIATIMER2FLAG,VIATEMP,ENDIRQ
+        BBR  VIATIMER2MASK,VIATEMP,ENDIRQ
 CHECKVIATIMER2        ; HANDLE TIMER2 INTERRUPT
         BRA  ENDIRQ
 
-        
-BRKINSTR:
-        PLA                 ;Read PROCESSOR STATUS REGISTER from STACK
-        PHA
-        AND  #$10           ;Isolate BREAK bit
+        BRKMASK = %00010000   ;BRK mask in processor status register
+        STACKPTR = $103       ;Stacked processor status register
+
+BRKINSTR
+        TSX
+        LDA  STACKPTR,X     ;Read processor status register from stack
+        AND  #BRKMASK       ;Isolate BREAK bit
         BEQ  VIAINTERRUPT   ;GOTO VIAINTERRUPT IF bit = 0, ie not BRK instruction
         LDA  AINTSAV        ; ELSE, restore ACCUMULATOR to pre-interrupt condition
         STA  ACCUM          ;Save in ACCUMULATOR preset/result
