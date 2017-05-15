@@ -17,6 +17,7 @@
 ;
 
 ;8-bit variables
+    STATUSREGISTER = $AB
     VIATEMP  = $AC
     SAVEACC  = $AD
     SAVEX    = $AE
@@ -1665,23 +1666,33 @@ INTERRUPT
         JMP  (INTERRUPTVECTOR)
 
 DOINTERRUPT
-        PHA             ;Save ACCUMULATOR
-        PHX             ;Save X-REGISTER
-;        PHY             ;Save Y-REGISTER
+        PLA                 ;Get processor status register from stack
+        PHA                 ;Push it back for RTI
+        STA  STATUSREGISTER ;Store processor status register for BRK ISR
+
+        PHX                 ;Save X-REGISTER
+        PHY                 ;Save Y-REGISTER
+        PHA                 ;Save ACCUMULATOR
+        JSR  ACIA_INTERRUPT
+        JSR  VIAINTERRUPT
+        JSR  BRK_INTERRUPT
+        PLA
+        PLY
+        PLX
+        RTI
+
+ACIA_INTERRUPT
         LDA  SIOSTAT    ;Read 6551 ACIA status register
         AND  #ACIAMASK  ;Isolate bits. bit 7: Interrupt has occured and bit 3: receive data register full
         EOR  #ACIAMASK  ;Invert state of both bits
-;        BNE  BRKINSTR   ;GOTO BRKINSTR IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
-        BNE  VIAINTERRUPT   ;GOTO VIAINTERRUPT IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
+        BNE  END_ACIA_INTERRUPT   ;GOTO END_ACIA_INTERRUPT IF bit 7 = 1 OR bit 3 = 1: no valid data in receive data register
         LDA  SIODAT     ; ELSE, read 6551 ACIA receive data register
         LDX  INCNT      ; ELSE, Store keystroke in keystroke buffer address
         STA  KEYBUFF,X  ;  indexed by INCNT: keystroke buffer input counter
         INC  INCNT      ;Increment keystroke buffer input counter
-ENDIRQ
-;        PLY             ;Restore Y-REGISTER
-        PLX             ;Restore X-REGISTER
-        PLA             ;Restore ACCUMULATOR
-        RTI             ;Done INTERRUPT (IRQ) service, RETURN FROM INTERRUPT
+
+END_ACIA_INTERRUPT
+        RTS
 
 ;Handle interrupts from VIA
 ;
@@ -1690,7 +1701,7 @@ VIAINTERRUPT
         AND  VIAIER
         STA  VIATEMP
         BBS  VIAIFRIRQ,VIATEMP,HANDLEVIAINTERRUPT 
-        BRA  ENDIRQ
+        RTS
 
 ;HANDLEVIAINTERRUPT
 ;Priority is Timer 1 and then Timer 2
@@ -1702,17 +1713,21 @@ HANDLEVIAINTERRUPT
 CHECKVIATIMER2        
         BBR  VIATIMER2MASK,VIATEMP,ENDIRQ           ;GOTO ENDIRQ if Timer 2 didn't cause an interrupt
 ; HANDLE TIMER2 INTERRUPT
-        BRA  ENDIRQ     ;Timer 2 interrupt handled so exit ISR
+ENDIRQ
+        RTS         ;Timer 2 interrupt handled so exit ISR
 
         BRKMASK = %00010000   ;BRK mask in processor status register
         STACKPTR = $103       ;Stacked processor status register
 
-BRKINSTR
-        TSX
-        LDA  STACKPTR,X     ;Read processor status register from stack
+BRK_INTERRUPT
+        LDA  STATUSREGISTER ;Read processor status register
         AND  #BRKMASK       ;Isolate BREAK bit
-        BEQ  VIAINTERRUPT   ;GOTO VIAINTERRUPT IF bit = 0, ie not BRK instruction
-        LDA  AINTSAV        ; ELSE, restore ACCUMULATOR to pre-interrupt condition
+        BNE  BRKINSTRUCTION ;GOTO BREAKINSTRUCTIOF IF bit = 1, ie BRK instruction
+        RTS                 ; ELSE, RETURN from BRK instruction handler
+BRKINSTRUCTION
+        PLA                 ;Remove return address low byte to ISR 
+        PLA                 ;Remove return address high byte to ISR 
+        PLA                 ; ELSE, restore ACCUMULATOR to pre-interrupt condition
         STA  ACCUM          ;Save in ACCUMULATOR preset/result
         PLA                 ;Pull PROCESSOR STATUS REGISTER from STACK
         STA  PREG           ;Save in PROCESSOR STATUS preset/result
