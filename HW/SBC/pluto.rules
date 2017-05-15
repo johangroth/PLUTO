@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 10883)
+    (start_pass_no 9557)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,17 +63,18 @@
     )
   )
   (class "kicad_default"
-    "Net-(C1-Pad2)" "Net-(C2-Pad1)" "Net-(C3-Pad1)" "Net-(C3-Pad2)" "Net-(C5-Pad1)" "Net-(C5-Pad2)" "Net-(C6-Pad1)" "Net-(D1-Pad1)"
-    ~IRQ "Net-(J1-Pad2)" "Net-(J1-Pad3)" "Net-(J1-Pad7)" "Net-(J1-Pad8)" "Net-(J2-Pad3)" "Net-(J2-Pad4)" "Net-(J2-Pad5)"
-    "Net-(J2-Pad6)" "Net-(J2-Pad7)" "Net-(J2-Pad8)" "Net-(J2-Pad9)" "Net-(J2-Pad10)" "Net-(J2-Pad11)" "Net-(J2-Pad12)" "Net-(J3-Pad3)"
-    "Net-(J3-Pad4)" "Net-(J3-Pad5)" "Net-(J3-Pad6)" "Net-(J3-Pad7)" "Net-(J3-Pad8)" "Net-(J3-Pad9)" "Net-(J3-Pad10)" "Net-(J3-Pad11)"
-    "Net-(J3-Pad12)" A14 A12 ~MWR A7 A13 A6 A8
-    A5 A9 A4 A11 A3 ~MRD A2 A10
-    A1 A0 D7 D0 D6 D1 D5 D2
-    D4 D3 A15 ~RES ~7F0X CLK ~7F2X ~7F4X
-    ~IOSEL ~7F6X ~NMI ~7F8X R/~W RDY ~PWR BE
-    PHI2 ~ROMSEL ~RAMSEL "Net-(U4-Pad9)" "Net-(U4-Pad10)" "Net-(U4-Pad11)" "Net-(U4-Pad12)" ~7FEX
-    "Net-(U5-Pad7)" ~7FCX ~7FAX
+    "Net-(C1-Pad2)" "Net-(C2-Pad1)" "Net-(C3-Pad1)" "Net-(C3-Pad2)" "Net-(C5-Pad1)" "Net-(C5-Pad2)" "Net-(D1-Pad1)" ~IRQ
+    "Net-(J1-Pad2)" "Net-(J1-Pad3)" "Net-(J1-Pad7)" "Net-(J1-Pad8)" "Net-(J2-Pad3)" "Net-(J2-Pad4)" "Net-(J2-Pad5)" "Net-(J2-Pad6)"
+    "Net-(J2-Pad7)" "Net-(J2-Pad8)" "Net-(J2-Pad9)" "Net-(J2-Pad10)" "Net-(J2-Pad11)" "Net-(J2-Pad12)" "Net-(J3-Pad3)" "Net-(J3-Pad4)"
+    "Net-(J3-Pad5)" "Net-(J3-Pad6)" "Net-(J3-Pad7)" "Net-(J3-Pad8)" "Net-(J3-Pad9)" "Net-(J3-Pad10)" "Net-(J3-Pad11)" "Net-(J3-Pad12)"
+    A14 A12 ~MWR A7 A13 A6 A8 A5
+    A9 A4 A11 A3 ~MRD A2 A10 A1
+    A0 D7 D0 D6 D1 D5 D2 D4
+    D3 A15 ~RES ~7F0X CLK ~7F2X ~7F4X ~IOSEL
+    ~7F6X ~NMI ~7F8X R/~W RDY ~PWR BE PHI2
+    ~ROMSEL ~RAMSEL "Net-(U4-Pad9)" "Net-(U4-Pad10)" "Net-(U4-Pad11)" "Net-(U4-Pad12)" ~7FEX ~7FCX
+    ~7FAX "Net-(C6-Pad2)" "Net-(C9-Pad1)" "Net-(C9-Pad2)" "Net-(C10-Pad1)" "Net-(C10-Pad2)" "Net-(C11-Pad1)" "Net-(C11-Pad2)"
+    "Net-(C17-Pad2)" "Net-(C13-Pad1)" "Net-(C13-Pad2)" "Net-(C14-Pad1)" "Net-(C14-Pad2)" "Net-(C2-Pad2)" "Net-(C12-Pad1)" "Net-(C12-Pad2)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
