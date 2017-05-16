@@ -28,7 +28,7 @@
     VIATIMER2MASK = 5
 
 
-VIAINIT .proc
+INITVIA .proc
         LDX  #$0E
 NEXT
         LDA  VIAINITTABLE,X

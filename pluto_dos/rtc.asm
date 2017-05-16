@@ -171,7 +171,7 @@ rtcparm  .byte wr_crbpb        ;updates & WDT IRQs on
 ; initrtc: Initiliase the DALLAS 1511Y
 ;
 ;
-initrtc .proc
+INITRTC .proc
         LDY  #N_RTCREG-1
 L10
         LDA  RTCPARM,Y
@@ -180,8 +180,27 @@ L10
         DEY
         BPL  L10
         RTS
+       .pend
 
-        .pend
+DEBUGRTC   .macro
+        PHA
+        PHX
+        PHY
+        LDA  #<INITTXT
+        STA  INDEX
+        LDA  #>INITTXT
+        STA  INDEXH
+        JSR  PROMPT2
+        JSR  CROUT
+        PLY
+        PLX
+        PLA
+        BRA  ENDMACRO
+INITTXT
+        .null \@        ; Debug string goes here with null termination.
+ENDMACRO
+        .endm
+        
 ;================================================================================ 
 ; 
 ;alarm: SET AN ALARM 

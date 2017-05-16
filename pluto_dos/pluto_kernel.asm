@@ -93,18 +93,9 @@
 ;
 ;Interrupt vector. User can change the interrupt vector by putting a new value at this address.
     INTERRUPTVECTOR = $0302
-;
-;ACIA device address:
-    SIODAT   = $7FE0        ;ACIA data register   <--put your 6551 ACIA base address here
-                ;(REQUIRED!)
-
-    SIOSTAT  = SIODAT+1     ;ACIA status REGISTER
-    SIOCOM   = SIODAT+2     ;ACIA command REGISTER
-    SIOCON   = SIODAT+3     ;ACIA control REGISTER
-;
 
 ;; RTC device address:
-    io_rtc = $7FA0
+    IO_RTC = $7FA0
 
 ;
 ;
@@ -1442,9 +1433,9 @@ WIPELOOP
 ;*********************************
 ;
 COLDSTART
-        SEI
-        CLD           ;Disable decimal mode
-        LDX  #$FF     ;Initialize STACK POINTER
+        SEI         ;Turn off interrupts while initialising hardware
+        CLD         ;Disable decimal mode
+        LDX  #$FF   ;Initialize STACK POINTER
         TXS
 
 ;;; Initialise interrupt vector
@@ -1452,27 +1443,25 @@ COLDSTART
         STA  INTERRUPTVECTOR
         LDA  #>DOINTERRUPT
         STA  INTERRUPTVECTOR+1
-        CLI
-
-;;; Initialise ACIA
-        LDA  #$1F     ;Initialize serial port (terminal I/O) 6551/65c51 ACIA
-        STA  SIOCON   ; (19.2K BAUD,no parity,8 data bits,1 stop bit,
-        LDA  #$09     ;  receiver IRQ output enabled)
-        STA  SIOCOM
-;;; End init ACIA
-
-;;; Initialise RTC
-        JSR  INITRTC
-;;; End init RTC
-
 
 ;;; Initialise IDE
     ; JSR IDE_INIT_DEVICES
 ;;; End init IDE
 
+;;; Initialise ACIA
+        JSR  INITACIA
+;;; End init ACIA
+
 ;;; Initialise VIA
-        JSR  VIAINIT
+        JSR  INITVIA
 ;; End init VIA
+
+;;; Initialise RTC
+        JSR  INITRTC
+;;; End init RTC
+
+        CLI             ; Turn on interrupts again
+
 
 ;;; Initialise SyMonIII
 ;;; Initialise system variables as follows:
@@ -1500,7 +1489,7 @@ WARMST
         LDA  #$01     ; Send "Version mm.dd.yy" to terminal
         JSR  PROMPT
         JSR  CROUT    ; Send CR,LF to terminal
-        LDA  #$02     ; Send "[ctrl-a] runs sub-assembler" to terminal
+        LDA  #$02     ; Send "[CTRL-A] runs sub-assembler" to terminal
         JSR  PROMPT
         JSR  CR2      ; Send 2 CR,LF to terminal
         LDA  #$0B     ; Send "SyMon III" to terminal
@@ -1725,8 +1714,8 @@ BRK_INTERRUPT
         BNE  BRKINSTRUCTION ;GOTO BREAKINSTRUCTIOF IF bit = 1, ie BRK instruction
         RTS                 ; ELSE, RETURN from BRK instruction handler
 BRKINSTRUCTION
-        PLA                 ;Remove return address low byte to ISR 
-        PLA                 ;Remove return address high byte to ISR 
+        PLA                 ; ELSE, Remove return address low byte to ISR 
+        PLA                 ; ELSE, Remove return address high byte to ISR 
         PLA                 ; ELSE, restore ACCUMULATOR to pre-interrupt condition
         STA  ACCUM          ;Save in ACCUMULATOR preset/result
         PLA                 ;Pull PROCESSOR STATUS REGISTER from STACK
@@ -3398,7 +3387,7 @@ MONPROMPT:
         .byte $0D, $0A
         .text "PP      LL      UU   UU   TTT   OO   OO"
         .byte $0D, $0A
-        .text "PP      LLLLLLL  UUUUU    TTT    OOOO0"
+        .text "PP      LLLLLLL  UUUUU    TTT    OOOOO"
         .byte $1B
         .text "[0m"
         .byte $0D, $0A
