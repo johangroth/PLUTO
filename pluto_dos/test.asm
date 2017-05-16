@@ -35,8 +35,10 @@
         VIA = $7FC0
         DS1511 = $7FA0
 
+        .include "zp_variables.asm"
         .include "1511.asm"
         .include "1511_constants.asm"
+        .include "utils.asm"
 
 DEBUGRTC   .macro
         PHA
@@ -53,7 +55,7 @@ DEBUGRTC   .macro
         PLA
         BRA  ENDMACRO
 INITTXT
-        .null \@        ; Debug string goes here with null termination.
+        .null \@        ; Debug string goes here. .null directive will terminate the string.
 ENDMACRO
         .endm
         
@@ -149,7 +151,7 @@ constime    .proc
 ;            jsr getdtr 
 ;    
 ; 
-getdtr  .block
+GET_TIME_AND_DATE_OF_DAY  .block
         PHA
         PHX
         LDA  CRB_RTC
@@ -161,11 +163,12 @@ L1
         LDA  IO_RTC,X   ;Read time data
         CPX  #WR_MON    ;Month byte contains control bits
         BNE  L2
-        AND  #d11emmsk  ;Get rid of control bits
+        AND  #D11EMMSK  ;Get rid of control bits
 L2      STA  TODBUF,X
         INX
         CPX  #WR_SECA   ;IF X != Alarm seconds register
         BNE  L1         ;  GOTO L1, next register
+        JSR  COMPRESS
         PLA             ;  ELSE, we're done 
         STA  CRB_RTC    ;  restore all registers
         PLX
@@ -180,14 +183,39 @@ L2      STA  TODBUF,X
         .bend
 
 ; Convert TODBUF to compressed binary format 
-compress    .proc
-        LDA  TODBUF+WR_SEC
-        JSR  BCD2BIN
-        
+COMPRESS    .proc
+        LDA  TODBUF+WR_SECT
+        JSR  BCD2BIN            ;Result in BINOUT
+        STA  TOD
         LDA  TODBUF+WR_MON
-        AND  #%00010000     ; MSB month
-        
+        JSR  BCD2BIN
+        PHA                     ;Preserve original value
+        AND  #%00001100         ;Month high
+        ASL                     ;Move month high to bit 6 and 7
+        ASL
+        ASL
+        ASL
+        ORA  TOD                ;Merge seconds and month high
+        STA  TOD                ;Store month high and second (0-59)
+        LDA  TODBUF+WR_MINT     ;Load minute
+        JSR  BCD2BIN            ;Convert to binary, result is in BINOUT
+        STA  TOD+1
+        PLA                     ;Restore month value
+        AND  #%00000011         ;Remove everything but the low byte
+        ASL                     ;Move month low to bit 6 and 7
+        ASL
+        ASL
+        ASL
+        ASL
+        ASL
+        ORA  TOD+1              ;Merge minutes and month low
+        STA  TOD+1              ;Store month low and minute (0-59)
+        ;need routine to convert 4 bcd digits to binary so bcd 1980 becomes $7BC
+        RTS        
         .pend
+
+
+
 ; 
 ;================================================================================ 
 ; 
