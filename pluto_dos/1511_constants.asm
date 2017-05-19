@@ -31,6 +31,6 @@ d11sumsk =%01111111            ;stop register updates
 ;
     IO_RTC = $7FA0
 ;Storage area for Time Of Day
-    TODBUF = $F0    ;Temporary buffer for RTC time and date registers
+    TODBUF = $0400    ;Temporary buffer for RTC time and date registers
     TOD = $A0       ;Compressed Date structure compatible with CFS 0.11
 	.end

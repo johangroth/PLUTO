@@ -1,6 +1,8 @@
 ;16-bit variables
-    BINOUT = $A9        ;Low byte binary out after BCD conversion
-    BINOUTH = BINOUT+1  ;High byte
+    BCDNUM  = $A6       ;High byte BCD number to be converted
+    BCDNUML = BCDNUM+1  ;Low byte 
+    BINOUT  = $A8       ;High byte binary out after BCD conversion
+    BINOUTL = BINOUT+1  ;Low byte
  
 ;8-bit variables
     STATUSREGISTER = $AB

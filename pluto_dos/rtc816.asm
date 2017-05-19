@@ -461,7 +461,7 @@ getutim                           .proc
 ;	 
 ; 
 putdtr                            .proc
-                                   phx                   ;preserve 
+        phx                   ;preserve 
         phy                   ;likewise 
         php                   ;save register widths 
         longa                 ;16 bit .A 

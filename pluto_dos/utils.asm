@@ -1,5 +1,3 @@
-
-
 ;Table for BCD -> BIN -> BCD conversion
 ;BCD representations of 1,2,4,8,16,32,64,128 
 TABLE1     .BYTE  $01
@@ -23,32 +21,50 @@ TABLE2     .BYTE  $00
 ;
 ;==============================================================================
 ;BCD2BIN
-;Convert one byte of BCD data to one byte of binary data
+;Convert two bytes of BCD data to two byte of binary data
 ;
-;Entry:             Register A = BCD data
-;Exit:              BINOUT = binary data
+;Entry:             BCDNUM = data in big endian format
+;Exit:              BINOUT = binary data in big endian format
 ;
 ;Registers used:    A, P
 BCD2BIN .proc
-        ;Multiply upper nibble by 10 and save it
-        ;Temp = upper nibble * 10 which equals upper nibble * (8 + 2)
-        PHY
-        TAY             ;Save original value
-        AND #$F0        ;Get upper nibble
-        LSR             ;Divide by 2 which = upper nibble * 8
-        STA TEMP        ;Save * 8
-        LSR             ;Divide by 4
-        LSR             ;Divide by 8: A = upper nibble * 2
-        CLC
-        ADC TEMP
-        STA TEMP        ;REG A = upper nibble * 10
-        TYA             ;Get original value
-        AND #$0F        ;Get lower nibble
-        CLC
-        ADC TEMP        ;Add to upper nibble
-        STA BINOUT
-        PLY
-        RTS
+        BYTE = $FE
+START   CLD                 ;Clear decimal mode.
+        LDA #00             ;Clear locations that will hold the binary number.
+        LDX #BYTE
+BACK    STA BINOUT+2,X
+        INX
+        BNE BACK            ;Locations have been cleared.
+        SEC
+THERE   LDX #BYTE           ;Rotate the binary number right, moving the remainder from the BCD division into the binary number.
+RETURN  ROR BINOUT+2,X
+        INX
+        BNE RETURN
+        BCS OUT             ;If the carry is set, the conversion is complete.
+        LDX #BYTE
+AGAIN   ROR BCDNUM+2,X      ;Start the division-by-two by shifting BCD number right.
+        INX
+        BNE AGAIN           ;Remainder will be in carry flag so save it on the stack.
+        PHP
+        LDX #BYTE           ;Test bit three of each byte to see if a one was shifted in.
+        SEC
+LAKE    LDA BCDNUM+2,X
+        AND #08             ;If so, subtract three.
+        BEQ FORWD           ;If not, no correction needed, so test bit seven of each byte to see if a one was shifted in.
+        LDA BCDNUM+2,X
+        SBC #03
+        STA BCDNUM+2,X
+FORWD   LDA BCDNUM+2,X      ;Here bit seven is checked.
+        AND # $80
+        BEQ ARND            ;No correction.
+        LDA BCDNUM+2,X      ;Correction: subtract 30.
+        SBC #$30
+        STA BCDNUM+2,X
+ARND    INX
+        BNE LAKE            ;Repeat for all N bytes.
+        PLP                 ;Get the carry back because it held the remainder.
+        BRA THERE           ;Go back and put it in the binary number. Then finish.
+OUT     RTS
         .pend
 
 BIN2BCD .proc
@@ -72,3 +88,25 @@ L1
         CLD
         RTS
         .pend
+
+;Send BCD number in A to terminal
+BCDOUT  .proc
+        PHA
+        LSR             ;Shift high digit to low digit, zero high digit
+        LSR
+        LSR
+        LSR
+        JSR  BCDTOASC   ;Convert BCD digit to ASCII DECIMAL digit, send digit to terminal
+        PLA             ;Read indexed byte from BCD output buffer
+        AND  #$0F       ;Zero the high digit
+        JSR  BCDTOASC   ;Convert BCD digit to ASCII DECIMAL digit, send digit to terminal
+        RTS           ;Done BCDOUT subroutine, RETURN
+
+;BCDTOASC subroutine:
+; convert BCD digit to ASCII DECIMAL digit, send digit to terminal
+BCDTOASC 
+        CLC           ;Add ASCII "0" to digit: convert BCD digit to ASCII DECIMAL digit
+        ADC  #$30
+        JMP  COUT     ;Send converted digit to terminal
+        .pend
+

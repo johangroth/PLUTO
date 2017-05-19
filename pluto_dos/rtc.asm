@@ -149,14 +149,15 @@ n_rtcreg =*-rtcreg
 ;
 ;       parameters...
 ;
-rtcparm  .byte wr_crbpb        ;updates & WDT IRQs on
-         .byte wr_secap        ;no alarm secs IRQ
-         .byte wr_minap        ;no alarm min IRQ
-         .byte wr_hrsap        ;no alarm hour IRQ
-         .byte wr_dowap        ;no alarm date/day IRQ
-         .byte wr_wdmsp        ;10 ms underflows LSB
-         .byte wr_wdsp         ;10 ms underflows MSB
-         .byte wr_crbpa        ;updates & WDT IRQs off
+;rtcparm  .byte wr_crbpb        ;updates & WDT IRQs on
+rtcparm     .byte d11temsk
+            .byte wr_secap        ;no alarm secs IRQ
+            .byte wr_minap        ;no alarm min IRQ
+            .byte wr_hrsap        ;no alarm hour IRQ
+            .byte wr_dowap        ;no alarm date/day IRQ
+            .byte wr_wdmsp        ;10 ms underflows LSB
+            .byte wr_wdsp         ;10 ms underflows MSB
+            .byte wr_crbpa        ;updates & WDT IRQs off
 ;
         .if *-rtcparm < n_rtcreg
                 .error "!!! RTCREG & RTCPARM data tables don't match !!!"

@@ -59,6 +59,74 @@ INITTXT
 ENDMACRO
         .endm
         
+        STZ  TODBUF+WR_SECT
+        LDA  #$5
+        STA  TODBUF+WR_DOWT 
+        LDA  #$19
+        STA  TODBUF+WR_DATT
+        LDA  #$5
+        STA  TODBUF+WR_MON
+        LDA  #$17
+        STA  TODBUF+WR_YRLO
+        LDA  #$20
+        STA  TODBUF+WR_YRHI
+        LDA  #$20
+        STA  TODBUF+WR_HRST
+        LDA  #$00
+        STA  TODBUF+WR_MINT
+        JSR  PUT_DATE_AND_TIME
+        LDX  #$F
+L1
+        STZ  TODBUF,X
+        DEX
+        BPL  L1
+;        RTS
+        LDX  #$10
+L2
+        PHX
+        JSR  GET_DATE_AND_TIME
+        JSR  COMPRESS             ;Convert TODBUF to CFS compressed format
+        JSR  PRINT_DATE_AND_TIME
+        STZ  DELHI
+        STZ  DELLO
+        JSR  DELAY2
+        PLX
+        DEX
+        BNE  L2
+        RTS
+
+PRINT_DATE_AND_TIME .proc
+        LDA  TODBUF+WR_DATT
+        JSR  BCDOUT
+        LDA  #'/'
+        JSR  COUT
+        LDA  TODBUF+WR_MON
+        JSR  BCDOUT
+        LDA  #'/'
+        JSR  COUT
+        LDA  TODBUF+WR_YRHI
+        JSR  BCDOUT
+        LDA  TODBUF+WR_YRLO
+        JSR  BCDOUT 
+        
+        LDA  #' '
+        JSR  COUT
+        LDA  TODBUF+WR_HRST
+        
+        
+        JSR  BCDOUT
+        LDA  #':'
+        JSR  COUT
+        LDA  TODBUF+WR_MINT
+        JSR  BCDOUT
+        LDA  #':'
+        JSR  COUT
+        LDA  TODBUF+WR_SECT
+        JSR  BCDOUT
+        JSR  CROUT
+        RTS
+        .pend
+
 ;================================================================================ 
 ; 
 ;alarm: SET AN ALARM 
@@ -115,11 +183,10 @@ constime    .proc
 ; Read date and time and store in compressed format
 ;================================================================================ 
 ; 
-;getdtr: READ RTC DATE & TIME REGISTERS 
+;GET_DATE_AND_TIME: READ RTC DATE & TIME REGISTERS 
 ; 
 ;    
-;   Preparatory Ops: .X: storage address LSB 
-;                    .Y: storage address MSB 
+;   Preparatory Ops: None 
 ; 
 ;   Returned Values: .A: entry value 
 ;                    .X: entry value 
@@ -151,15 +218,16 @@ constime    .proc
 ;            jsr getdtr 
 ;    
 ; 
-GET_TIME_AND_DATE_OF_DAY  .block
+GET_DATE_AND_TIME   .proc
         PHA
         PHX
-        LDA  CRB_RTC
+        LDA  CRB_RTC    ;Load control register B
         PHA             ;Preserve control register B
         AND  #D11SUMSK  ;Turn off update of registers
         STA  CRB_RTC    
         LDX  #0         ;Initialise index
 L1
+;        #DEBUGRTC "RTC"
         LDA  IO_RTC,X   ;Read time data
         CPX  #WR_MON    ;Month byte contains control bits
         BNE  L2
@@ -168,27 +236,27 @@ L2      STA  TODBUF,X
         INX
         CPX  #WR_SECA   ;IF X != Alarm seconds register
         BNE  L1         ;  GOTO L1, next register
-        JSR  COMPRESS
+;        JSR  COMPRESS   ;Convert TODBUF (BCD format) to CFS compressed date format as described above
         PLA             ;  ELSE, we're done 
+        ORA  #%10000000 ; TEMP FIX FOR REGISTER UPDATE
         STA  CRB_RTC    ;  restore all registers
         PLX
         PLA
         RTS
-        ; split into hi and lo byte
-        ; or high with seconds
-        ; or lo with minutes
-        ; split into hi and lo byte
-        ; or high with year
-        ; or lo with day 
-        .bend
+        .pend
 
 ; Convert TODBUF to compressed binary format 
 COMPRESS    .proc
-        LDA  TODBUF+WR_SECT
+        LDA  TODBUF+WR_SECT     ;Get seconds
+        STZ  BCDNUM
+        STA  BCDNUML
         JSR  BCD2BIN            ;Result in BINOUT
+        LDA  BINOUTL
         STA  TOD
-        LDA  TODBUF+WR_MON
+        LDA  TODBUF+WR_MON      ;Get month
+        STA  BCDNUML
         JSR  BCD2BIN
+        LDA  BINOUTL
         PHA                     ;Preserve original value
         AND  #%00001100         ;Month high
         ASL                     ;Move month high to bit 6 and 7
@@ -198,10 +266,12 @@ COMPRESS    .proc
         ORA  TOD                ;Merge seconds and month high
         STA  TOD                ;Store month high and second (0-59)
         LDA  TODBUF+WR_MINT     ;Load minute
+        STA  BCDNUML
         JSR  BCD2BIN            ;Convert to binary, result is in BINOUT
+        LDA  BINOUTL
         STA  TOD+1
         PLA                     ;Restore month value
-        AND  #%00000011         ;Remove everything but the low byte
+        AND  #%00000011         ;Remove everything but the low byte (the AND might be redunant).
         ASL                     ;Move month low to bit 6 and 7
         ASL
         ASL
@@ -210,7 +280,44 @@ COMPRESS    .proc
         ASL
         ORA  TOD+1              ;Merge minutes and month low
         STA  TOD+1              ;Store month low and minute (0-59)
-        ;need routine to convert 4 bcd digits to binary so bcd 1980 becomes $7BC
+
+        ;Convert year bcd digits to binary and substract 1980 
+        LDA  TODBUF+WR_YRLO
+        STA  BCDNUML
+        LDA  TODBUF+WR_YRHI
+        STA  BCDNUM
+        JSR  BCD2BIN
+        SEC
+        LDA  BINOUTL            ;Time starts at 1980 ($7BC) so substract that from year
+        SBC  #$BC
+        STA  TOD+2
+        LDA  TODBUF+WR_HRST
+        STZ  BCDNUM
+        STA  BCDNUML
+        JSR  BCD2BIN
+        LDA  BINOUTL
+        PHA
+        AND  #%00011000         ;Hour high
+        ASL                     ;Move hour high to bit 6 and 7
+        ASL
+        ASL
+        ORA  TOD+2              ;Merge year and hour high
+        STA  TOD+2              ;Store year and hour high 
+        LDA  TODBUF+WR_DATT     ;Load date (1-31)
+        STZ  BCDNUM
+        STA  BCDNUML
+        JSR  BCD2BIN
+        LDA  BINOUTL
+        STA  TOD+3
+        PLA
+        AND  #%00000111         ;Keep three lower bits of month
+        ASL
+        ASL
+        ASL
+        ASL
+        ASL
+        ORA  TOD+3              ;Merge date and month low
+        STA  TOD+3              ;Store date and month low
         RTS        
         .pend
 
@@ -245,10 +352,9 @@ getutim .proc
 ;putdtr: WRITE RTC DATE & TIME REGISTERS 
 ; 
 ;    
-;   Preparatory Ops: .X: source address LSB 
-;                    .Y: source address MSB 
+;   Preparatory Ops: Fill TODBUF with data 
 ; 
-;                    Source must contain 8 BCD values in 
+;                    TODBUF must contain 8 BCD values in 
 ;                    the following order: 
 ; 
 ;                    Offset  Content 
@@ -271,12 +377,35 @@ getutim .proc
 ;              |||||||| 
 ;              ++++++++> entry values 
 ; 
-;   Example: ldx #<todbuf 
-;            ldy #>todbuf 
-;            jsr putdtr 
-;    
 ; 
-putdtr  .proc
+PUT_DATE_AND_TIME  .proc
+        PHA
+        PHX
+        PHY
+        LDA  CRB_RTC    ;Load control register B
+        PHA             ;Preserve control register B
+        AND  #D11SUMSK  ;Turn off update of registers
+        STA  CRB_RTC    
+        LDX  #WR_YRHI   ;Initialise index
+L1
+;        #DEBUGRTC "RTC"
+        LDA  TODBUF,X
+        CPX  #WR_MON    ;IF X = month register
+        BNE  L2         ;  GOTO L1 (month register contains control bits)
+        LDA  IO_RTC,X   ;Read in month from RTC
+        AND  #D11ECMSK  ;Clear out month data
+        ORA  TODBUF,X   ;Copy in month data from TODBUF
+L2
+        STA  IO_RTC,X   ;Update register
+        DEX
+        BPL  L1         ;Take care of next register
+        PLA             ;Restore control register b
+        ORA  #%10000000 ;temp fix for register update
+        STA  CRB_RTC    ;Turn on update of registers
+        PLY
+        PLX
+        PLA
+        RTS
         .pend
 
 ; 

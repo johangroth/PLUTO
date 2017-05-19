@@ -116,7 +116,7 @@ A2DCONV:
 BCDOUT  .proc
         LDX  #$00     ;Initialize BCD output buffer index: point to MSB
         LDY  #$00     ;Initialize leading zero flag: no non-zero digits have been processed
-BCDOUTL:
+BCDOUTL
         LDA  DEC0AND1,X ;Read indexed byte from BCD output buffer
         LSR        ;Shift high digit to low digit, zero high digit
         LSR
@@ -133,7 +133,7 @@ BCDOUTL:
         BNE  BCDOUTDN ; ELSE, GOTO BCDOUTDN IF any non-zero digits were processed
         LDA  #$30     ; ELSE, send "0" to terminal
         JSR  COUT
-BCDOUTDN:
+BCDOUTDN
         RTS           ;Done BCDOUT subroutine, RETURN
         .pend
 
@@ -143,12 +143,12 @@ BCDTOASC    .proc
         BNE  NONZERO  ;GOTO NONZERO IF BCD digit <> 0
         CPY  #$00     ; ELSE, GOTO BTADONE IF no non-zero digits have been processed
         BEQ  BTADONE  ;  (supress output of leading zeros)
-NONZERO:
+NONZERO
         INY           ; ELSE, indicate that a non-zero digit has been processed (Y REGISTER <> 0)
         CLC           ;Add ASCII "0" to digit: convert BCD digit to ASCII DECIMAL digit
         ADC  #$30
         JSR  COUT     ;Send converted digit to terminal
-BTADONE:
+BTADONE
         RTS           ;Done BCDTOASC subroutine, RETURN
         .pend
 ;
@@ -300,11 +300,11 @@ SENDIT  .proc
 DELAY1  .proc
         LDX  #$01     ;Preset delay multiplier to 1
         BRA  ITER
-DELAY2:
+DELAY2
         LDX  DELHI    ;Read delay multiplier variable
-ITER:
+ITER
         LDY  DELLO    ;Read delay duration variable
-WAIT:
+WAIT
         DEY           ;Decrement duration counter
         BNE  WAIT     ;LOOP back to WAIT IF duration <> 0
         DEX           ; ELSE, decrement multiplier
@@ -1331,7 +1331,7 @@ RET     RTS           ;Done LISTER command, RETURN. RET label is defined for [BR
 
 ;
 ;
-;[CTRL-W] WIPE command: clear (write: $00) RAM memory from $0000 through $7FFF then coldstart SyMon
+;[CTRL-W] WIPE command: clear (write: $00) RAM memory from $0000 through $7F00 then coldstart SyMon
 WIPE    .proc
         LDA  #$15     ;Send "Wipe RAM?" to terminal
         JSR  PROMPT
@@ -1347,14 +1347,18 @@ DOWIPE:
         STA  $00
         LDA  #$00
         STA  $01
-        TAX           ;Make index offset, ACCUMULATOR both = $00
+        TAX             ;Make index offset, ACCUMULATOR both = $00
 WIPELOOP
-        STA  ($00,X)  ;Write $00 to current address
-        INC  $00      ;Increment address pointer
+        STA  ($00,X)    ;Write $00 to current address
+        INC  $00        ;Increment address pointer
         BNE  WIPELOOP
         INC  $01
-        BPL  WIPELOOP ;LOOP back to WIPELOOP IF address pointer < $8000
-        STA  $01      ; ELSE, clear address pointer
+        LDY  $01        ; stop if we are at 
+        CPY  #$7F       ; $7F00, RTC really don't like to be zeroed out 
+        BEQ  EXIT 
+        BRA  WIPELOOP   ;LOOP back to WIPELOOP IF address pointer < $8000
+EXIT
+        STA  $01        ; ELSE, clear address pointer
         .pend
 
 ; Done WIPE command, GOTO COLDSTART
