@@ -42,7 +42,7 @@ BCD2BIN	utils.asm	/^BCD2BIN .proc$/;"	l
 BCDNUM	zp_variables.asm	/^    BCDNUM  = $A6       ;High byte BCD number to be converted$/;"	d
 BCDNUML	zp_variables.asm	/^    BCDNUML = BCDNUM+1  ;Low byte $/;"	d
 BCDOUT	pluto_kernel.asm	/^BCDOUT  .proc$/;"	l
-BCDOUT	utils.asm	/^BCDOUT  .proc$/;"	l
+BCDOUTA	utils.asm	/^BCDOUTA  .proc$/;"	l
 BCDOUTDN	pluto_kernel.asm	/^BCDOUTDN$/;"	l
 BCDOUTL	pluto_kernel.asm	/^BCDOUTL$/;"	l
 BCDTOASC	pluto_kernel.asm	/^BCDTOASC    .proc$/;"	l
@@ -94,11 +94,11 @@ COLDSTART	pluto_kernel.asm	/^COLDSTART$/;"	l
 COLDSTART	test.asm	/^        COLDSTART = $87A8$/;"	d
 COMHI	zp_variables.asm	/^    COMHI   = COMLO+1$/;"	d
 COMLO	zp_variables.asm	/^    COMLO   = $BE$/;"	d
-COMPRESS	test.asm	/^COMPRESS    .proc$/;"	l
+COMPRESS	cfs.asm	/^COMPRESS    .PROC$/;"	l
 COMX	pluto_kernel.asm	/^COMX:$/;"	l
 COMY	pluto_kernel.asm	/^COMY:$/;"	l
 COUT	pluto_kernel.asm	/^COUT    .proc$/;"	l
-COUT	test.asm	/^        COUT = $8317$/;"	d
+COUT	test.asm	/^        COUT = $8148$/;"	d
 COUT2	pluto_kernel.asm	/^COUT2:  .proc$/;"	l
 COUT2	test.asm	/^        COUT2 = $8314$/;"	d
 COUT3	pluto_kernel.asm	/^COUT3:  .proc$/;"	l
@@ -125,8 +125,7 @@ DBBR	pluto_kernel.asm	/^DBBR:$/;"	l
 DBBS	pluto_kernel.asm	/^DBBS:$/;"	l
 DBR1	pluto_kernel.asm	/^DBR1     CMP  #'$'     ;GOTO DNEWADR IF character = "$"$/;"	l
 DEBUG	macros.asm	/^DEBUG   .macro$/;"	l
-DEBUGRTC	rtc.asm	/^DEBUGRTC   .macro$/;"	l
-DEBUGRTC	test.asm	/^DEBUGRTC   .macro$/;"	l
+DEBUGRTC	rtc.asm	/^DEBUGRTC    .MACRO$/;"	l
 DEBUGTEXT	macros.asm	/^DEBUGTEXT$/;"	l
 DEC0AND1	zp_variables.asm	/^    DEC0AND1 = $E5$/;"	d
 DEC2AND3	zp_variables.asm	/^    DEC2AND3 = $E6$/;"	d
@@ -140,7 +139,7 @@ DECINPUT	pluto_kernel.asm	/^DECINPUT    .proc$/;"	l
 DECONLY	pluto_kernel.asm	/^DECONLY:$/;"	l
 DECTEST	pluto_kernel.asm	/^DECTEST:$/;"	l
 DELAY1	pluto_kernel.asm	/^DELAY1  .proc$/;"	l
-DELAY1	test.asm	/^        DELAY1 = $8342$/;"	d
+DELAY1	test.asm	/^        DELAY1 = $8173$/;"	d
 DELAY2	pluto_kernel.asm	/^DELAY2$/;"	l
 DELAY2	test.asm	/^        DELAY2 = $8346$/;"	d
 DELHI	zp_variables.asm	/^    DELHI   = DELLO+1$/;"	d
@@ -163,6 +162,7 @@ DODIR	pluto_kernel.asm	/^DODIR:$/;"	l
 DOINTERRUPT	pluto_kernel.asm	/^DOINTERRUPT$/;"	l
 DOLLAR	pluto_kernel.asm	/^DOLLAR  .proc$/;"	l
 DOLLAR	test.asm	/^        DOLLAR = $832D$/;"	d
+DONE	cfs.asm	/^DONE			RTS$/;"	l
 DONEFILL	pluto_kernel.asm	/^DONEFILL:$/;"	l
 DONESB	pluto_kernel.asm	/^DONESB:$/;"	l
 DOUPLOAD	xmodem.asm	/^DOUPLOAD:$/;"	l
@@ -199,12 +199,13 @@ ErrMsg	xmodem.asm	/^ErrMsg:$/;"	l
 FILAST	pluto_kernel.asm	/^FILAST:$/;"	l
 FILEFT	pluto_kernel.asm	/^FILEFT: $/;"	l
 FIND	pluto_kernel.asm	/^FIND:$/;"	l
+FIND_BOOT_SECTOR	cfs.asm	/^FIND_BOOT_SECTOR 	.PROC$/;"	l
 FORWD	utils.asm	/^FORWD   LDA BCDNUM+2,X      ;Here bit seven is checked.$/;"	l
 FULTST	pluto_kernel.asm	/^FULTST:$/;"	l
 Flush	xmodem.asm	/^Flush   .proc$/;"	l
 GETBYT	pluto_kernel.asm	/^GETBYT  LDA  (INDEX),Y ;Read indexed byte $/;"	l
 GETNXT	pluto_kernel.asm	/^GETNXT:$/;"	l
-GET_DATE_AND_TIME	test.asm	/^GET_DATE_AND_TIME   .proc$/;"	l
+GET_DATE_AND_TIME	rtc.asm	/^GET_DATE_AND_TIME   .PROC$/;"	l
 GET_UP_TO_16_CHR_STRING	pluto_kernel.asm	/^GET_UP_TO_16_CHR_STRING           .proc$/;"	l
 GLINE	pluto_kernel.asm	/^GLINE   .proc    $/;"	l
 GLINEL	pluto_kernel.asm	/^GLINEL  JSR  COUT$/;"	l
@@ -271,16 +272,14 @@ INDJ	pluto_kernel.asm	/^INDJ:$/;"	l
 INDX	pluto_kernel.asm	/^INDX:$/;"	l
 INERR	pluto_kernel.asm	/^INERR$/;"	l
 INITACIA	acia.asm	/^INITACIA    .proc$/;"	l
-INITRTC	rtc.asm	/^INITRTC .proc$/;"	l
+INITRTC	rtc.asm	/^INITRTC .PROC$/;"	l
 INITTXT	rtc.asm	/^INITTXT$/;"	l
-INITTXT	test.asm	/^INITTXT$/;"	l
 INITVIA	via.asm	/^INITVIA .proc$/;"	l
 INQTY	zp_variables.asm	/^    INQTY    = $EA$/;"	d
 INTERRUPT	pluto_kernel.asm	/^INTERRUPT$/;"	l
 INTERRUPT	test.asm	/^        INTERRUPT = $8902$/;"	d
 INTERRUPTVECTOR	pluto_kernel.asm	/^    INTERRUPTVECTOR = $0302$/;"	d
 IO_RTC	1511_constants.asm	/^    IO_RTC = $7FA0$/;"	d
-IO_RTC	pluto_kernel.asm	/^    IO_RTC = $7FA0$/;"	d
 ITER	pluto_kernel.asm	/^ITER$/;"	l
 IncBlk	xmodem.asm	/^IncBlk:$/;"	l
 JSR	pluto_kernel.asm	/^        JSR  SET      ; do short delay$/;"	d
@@ -292,11 +291,12 @@ JUST4	pluto_kernel.asm	/^JUST4   .proc$/;"	l
 JUSTBYTE	pluto_kernel.asm	/^JUSTBYTE$/;"	l
 KEYBUFF	pluto_kernel.asm	/^    KEYBUFF  = $0200    ;256 bytes: ($200-$2FF) keystrokes (data from ACIA) are stored here$/;"	d
 KEYCONV	pluto_kernel.asm	/^KEYCONV:$/;"	l
+L1	rtc.asm	/^L1$/;"	l
 L1	test.asm	/^L1$/;"	l
 L1	utils.asm	/^L1$/;"	l
 L10	rtc.asm	/^L10$/;"	l
-L2	test.asm	/^L2      STA  TODBUF,X$/;"	l
-L2	test.asm	/^L2$/;"	l
+L2	rtc.asm	/^L2      STA  TODBUF,X$/;"	l
+L2	rtc.asm	/^L2$/;"	l
 LAKE	utils.asm	/^LAKE    LDA BCDNUM+2,X$/;"	l
 LBR	pluto_kernel.asm	/^LBR:$/;"	l
 LDAABS	pluto_kernel.asm	/^LDAABS:$/;"	l
@@ -395,7 +395,7 @@ PRBYTE	test.asm	/^        PRBYTE = $8496$/;"	d
 PREG	zp_variables.asm	/^    PREG     = $DE$/;"	d
 PRINDX	pluto_kernel.asm	/^PRINDX  .proc$/;"	l
 PRINDX	test.asm	/^        PRINDX = $84A7$/;"	d
-PRINT_DATE_AND_TIME	test.asm	/^PRINT_DATE_AND_TIME .proc$/;"	l
+PRINT_DATE_AND_TIME	rtc.asm	/^PRINT_DATE_AND_TIME .PROC$/;"	l
 PRML	pluto_kernel.asm	/^PRML:$/;"	l
 PRMNEM	pluto_kernel.asm	/^PRMNEM:$/;"	l
 PROHI	zp_variables.asm	/^    PROHI   = PROLO+1$/;"	d
@@ -404,7 +404,8 @@ PROMPT	pluto_kernel.asm	/^PROMPT  .proc$/;"	l
 PROMPT	test.asm	/^        PROMPT = $84B4$/;"	d
 PROMPT2	pluto_kernel.asm	/^PROMPT2 .proc$/;"	l
 PROMPT2	test.asm	/^        PROMPT2 = $86FF$/;"	d
-PUT_DATE_AND_TIME	test.asm	/^PUT_DATE_AND_TIME  .proc$/;"	l
+PUT_DATE_AND_TIME	rtc.asm	/^PUT_DATE_AND_TIME  .PROC$/;"	l
+PUT_DATE_AND_TIME	test.asm	/^        PUT_DATE_AND_TIME = $8095$/;"	d
 PrintMsg	xmodem.asm	/^PrintMsg    .proc$/;"	l
 Print_Err	xmodem.asm	/^Print_Err   .proc$/;"	l
 Print_Good	xmodem.asm	/^Print_Good  .proc$/;"	l
@@ -604,12 +605,10 @@ ZPDIND	pluto_kernel.asm	/^ZPDIND:$/;"	l
 ZPIND	pluto_kernel.asm	/^ZPIND:$/;"	l
 alarm	rtc.asm	/^alarm   .proc$/;"	l
 alarm	rtc816.asm	/^alarm                             .proc    $/;"	l
-alarm	test.asm	/^alarm   .proc$/;"	l
 bflag	xmodem.asm	/^        bflag = $a7         ; block flag$/;"	d
 blkno	xmodem.asm	/^        blkno = $a6         ; block number$/;"	d
 constime	rtc.asm	/^constime    .proc$/;"	l
 constime	rtc816.asm	/^constime    .proc$/;"	l
-constime	test.asm	/^constime    .proc$/;"	l
 cra_rtc	1511.asm	/^cra_rtc  =io_rtc+wr_cra        ;control register A $/;"	l
 crb_rtc	1511.asm	/^crb_rtc  =io_rtc+wr_crb        ;control register B $/;"	l
 crc	xmodem.asm	/^        crc = $a8           ; CRC lo byte  (two byte variable)$/;"	d
@@ -627,20 +626,16 @@ d11tab	rtc816.asm	/^d11tab                            .byte wr_crb, wr_crbpb  ;C
 datt_rtc	1511.asm	/^datt_rtc =io_rtc+wr_datt       ;date $/;"	l
 done	basic_ide_routines.asm	/^done   	beq ide_to2$/;"	l
 done	basic_ide_routines.asm	/^done   	lda ide_register7	;get status in A$/;"	l
-done	cfs.asm	/^done			rts$/;"	l
 dowa_rtc	1511.asm	/^dowa_rtc =io_rtc+wr_dowa       ;alarm date\/day & IRQ control $/;"	l
 dowt_rtc	1511.asm	/^dowt_rtc =io_rtc+wr_dowt       ;day of week $/;"	l
 eofp	xmodem.asm	/^        eofp = TEMP2        ; end of file address pointer (2 bytes)$/;"	d
 eofph	xmodem.asm	/^        eofph = TEMP2H      ;  "    "   "   "$/;"	d
 errcnt	xmodem.asm	/^        errcnt = $a7        ; error counter 10 is the limit$/;"	d
 error	basic_ide_routines.asm	/^error$/;"	l
-find_boot_sector	cfs.asm	/^find_boot_sector 	.proc$/;"	l
-getdtr	rtc.asm	/^getdtr  .proc$/;"	l
 getdtr	rtc816.asm	/^getdtr  .proc$/;"	l
 getdtraa	rtc816.asm	/^getdtraa pla                   ;get control B value &... $/;"	l
 getutim	rtc.asm	/^getutim .proc$/;"	l
 getutim	rtc816.asm	/^getutim                           .proc$/;"	l
-getutim	test.asm	/^getutim .proc$/;"	l
 hrsa_rtc	1511.asm	/^hrsa_rtc =io_rtc+wr_hrsa       ;alarm hour & IRQ control $/;"	l
 hrst_rtc	1511.asm	/^hrst_rtc =io_rtc+wr_hrst       ;TOD hour $/;"	l
 ide_blp	basic_ide_routines.asm	/^ide_blp$/;"	l
@@ -701,13 +696,12 @@ nvrd_rtc	1511.asm	/^nvrd_rtc =io_rtc+wr_nvrd       ;NVRAM data port $/;"	l
 ok	basic_ide_routines.asm	/^ok$/;"	l
 ptr	xmodem.asm	/^        ptr = INDEX         ; data pointer (two byte variable)$/;"	d
 ptrh	xmodem.asm	/^        ptrh = INDEXH       ;   "    "$/;"	d
-putdtr	rtc.asm	/^putdtr  .proc$/;"	l
 putdtr	rtc816.asm	/^putdtr                            .proc$/;"	l
 retry	xmodem.asm	/^        retry = $ae         ; retry counter$/;"	d
 retry2	xmodem.asm	/^        retry2 = $af        ; 2nd counter$/;"	d
 rsva_rtc	1511.asm	/^rsva_rtc =io_rtc+wr_rsva       ;reserved $/;"	l
 rsvb_rtc	1511.asm	/^rsvb_rtc =io_rtc+wr_rsvb       ;reserved $/;"	l
-rtcparm	rtc.asm	/^rtcparm     .byte d11temsk$/;"	l
+rtcparm	rtc.asm	/^rtcparm  .byte wr_crbpb        ;updates & WDT IRQs on$/;"	l
 rtcreg	rtc.asm	/^rtcreg   .byte wr_crb          ;control B$/;"	l
 s_d11tab	rtc816.asm	/^                                  s_d11tab = * - d11tab   ;table size$/;"	d
 seca_rtc	1511.asm	/^seca_rtc =io_rtc+wr_seca       ;alarm seconds & IRQ control $/;"	l
@@ -717,10 +711,8 @@ tmp	basic_ide_routines.asm	/^tmp = $70$/;"	d
 tmp1	basic_ide_routines.asm	/^tmp1 = tmp+1$/;"	d
 tmp2	basic_ide_routines.asm	/^tmp2 = tmp+2$/;"	d
 tmp3	basic_ide_routines.asm	/^tmp3 = tmp+3$/;"	d
-todbuf	rtc.asm	/^        todbuf  = $80$/;"	d
 utdelay	rtc.asm	/^utdelay .proc$/;"	l
 utdelay	rtc816.asm	/^utdelay                           .proc$/;"	l
-utdelay	test.asm	/^utdelay .proc$/;"	l
 wdms_rtc	1511.asm	/^wdms_rtc =io_rtc+wr_wdms       ;watchdog millisecs*10 $/;"	l
 wds_rtc	1511.asm	/^wds_rtc  =io_rtc+wr_wds        ;watchdog seconds $/;"	l
 wr_cra	1511.asm	/^wr_cra   =$0e                  ;control register A... $/;"	l

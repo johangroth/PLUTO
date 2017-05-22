@@ -378,11 +378,104 @@
 ; Holes are sectors filled with $00, or for relative files $FF at record beginnings and $00
 ; everywhere else. This way unused parts of relative/normal files do not eat up disk space.
 
-find_boot_sector 	.proc
-			stz ide_lba0
-			stz ide_lba1
-			stz ide_lba2
-			stz ide_lba3
-			jsr ide_read_sector
-done			rts
-			.pend
+FIND_BOOT_SECTOR 	.PROC
+			STZ IDE_LBA0
+			STZ IDE_LBA1
+			STZ IDE_LBA2
+			STZ IDE_LBA3
+			JSR IDE_READ_SECTOR
+DONE			RTS
+			.PEND
+
+; Packed Creation / Modification time bytes / bits:
+; +============+============+===+===============+============+===+===+===+===+
+; | Byte / Bit |     7      | 6 |       5       |     4      | 3 | 2 | 1 | 0 |
+; +============+============+===+===============+============+===+===+===+===+
+; | Byte 0     | Month HIGH     | Second (0-59)                              |
+; +------------+----------------+--------------------------------------------+
+; | Byte 1     | Month LOW      | Minute (0-59)                              |
+; +------------+----------------+--------------------------------------------+
+; | Byte 2     | Hour HIGH      | Year (0-63)                                |
+; +------------+----------------+---------------+----------------------------+
+; | Byte 3     | Hour LOW                       | Day (1-31)                 |
+; +------------+--------------------------------+----------------------------+
+; Month (1-12), Hour (0-23). Year begins from 1980, so 2001 is 21.
+;
+; 
+; Convert TODBUF to compressed binary format 
+COMPRESS    .PROC
+        LDA  TODBUF+WR_SECT     ;Get seconds
+		STZ  BCDNUM
+        STA  BCDNUML
+        JSR  BCD2BIN            ;Result in BINOUT
+        LDA  BINOUTL
+        STA  TOD
+        LDA  TODBUF+WR_MON      ;Get month
+        STA  BCDNUML
+        JSR  BCD2BIN
+        LDA  BINOUTL
+        PHA                     ;Preserve original value
+        AND  #%00001100         ;Month high
+        ASL                     ;Move month high to bit 6 and 7
+        ASL
+        ASL
+        ASL
+        ORA  TOD                ;Merge seconds and month high
+        STA  TOD                ;Store month high and second (0-59)
+        LDA  TODBUF+WR_MINT     ;Load minute
+        STA  BCDNUML
+        JSR  BCD2BIN            ;Convert to binary, result is in BINOUT
+        LDA  BINOUTL
+        STA  TOD+1
+        PLA                     ;Restore month value
+        AND  #%00000011         ;Remove everything but the low byte (the AND might be redunant).
+        ASL                     ;Move month low to bit 6 and 7
+        ASL
+        ASL
+        ASL
+        ASL
+        ASL
+        ORA  TOD+1              ;Merge minutes and month low
+        STA  TOD+1              ;Store month low and minute (0-59)
+
+        ;Convert year bcd digits to binary and substract 1980
+        LDA  TODBUF+WR_YRLO
+        STA  BCDNUML
+        LDA  TODBUF+WR_YRHI
+        STA  BCDNUM
+        JSR  BCD2BIN
+        SEC
+        LDA  BINOUTL            ;Time starts at 1980 ($7BC) so substract that from year
+        SBC  #$BC
+        STA  TOD+2
+        LDA  TODBUF+WR_HRST
+	    STZ  BCDNUM
+	    STA  BCDNUML
+        JSR  BCD2BIN
+        LDA  BINOUTL
+        PHA
+        AND  #%00011000         ;Hour high
+        ASL                     ;Move hour high to bit 6 and 7
+        ASL
+        ASL
+        ORA  TOD+2              ;Merge year and hour high
+        STA  TOD+2              ;Store year and hour high
+        LDA  TODBUF+WR_DATT     ;Load date (1-31)
+        STZ  BCDNUM
+        STA  BCDNUML
+        JSR  BCD2BIN
+        LDA  BINOUTL
+        STA  TOD+3
+        PLA
+        AND  #%00000111         ;Keep three lower bits of month
+        ASL
+        ASL
+        ASL
+        ASL
+        ASL
+        ORA  TOD+3              ;Merge date and month low
+        STA  TOD+3              ;Store date and month low
+        RTS
+        .PEND
+
+

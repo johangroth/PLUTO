@@ -29,9 +29,6 @@
 ;Interrupt vector. User can change the interrupt vector by putting a new value at this address.
     INTERRUPTVECTOR = $0302
 
-;; RTC device address:
-    IO_RTC = $7FA0
-
 ;
 ;
 ;***************
@@ -1354,9 +1351,9 @@ WIPELOOP
         BNE  WIPELOOP
         INC  $01
         LDY  $01        ; stop if we are at 
-        CPY  #$7F       ; $7F00, RTC really don't like to be zeroed out 
+        CPY  #$7F       ; $7F00 to protect the I/O area.  
         BEQ  EXIT 
-        BRA  WIPELOOP   ;LOOP back to WIPELOOP IF address pointer < $8000
+        BRA  WIPELOOP   ;LOOP back to WIPELOOP IF address pointer < $7F00
 EXIT
         STA  $01        ; ELSE, clear address pointer
         .pend
@@ -1571,13 +1568,13 @@ MONTAB:
         .word  QUERY    ; Q                   $51  Display list of useful system subroutines
         .word  ERR      ; R                   $52
         .word  SRG      ; S                   $53  Examine/change STACK POINTER preset/result
-        .word  ERR      ; T                   $54
+        .word  PRINT_DATE_AND_TIME      ; T                   $54
         .word  ERR ;UPLOAD   ; U                   $55  Upload data/program file
         .word  ERR      ; V                   $56
         .word  WATCH    ; W                   $57  Monitor a specified memory location's contents until a key is struck
         .word  ERR      ; X                   $58
         .word  ERR      ; Y                   $59
-        .word  ERR      ; Z                   $5A
+        .word  PUT_DATE_AND_TIME      ; Z                   $5A
         .word  ERR      ; [                   $5B
         .word  ERR      ; \                   $5C
         .word  ERR      ; ]                   $5D

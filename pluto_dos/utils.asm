@@ -87,10 +87,10 @@ L1
         BPL LOOP        ;If still not done, go back for another loop.
         CLD
         RTS
-        .pend
+        .PEND
 
 ;Send BCD number in A to terminal
-BCDOUT  .proc
+BCDOUTA  .proc
         PHA
         LSR             ;Shift high digit to low digit, zero high digit
         LSR
