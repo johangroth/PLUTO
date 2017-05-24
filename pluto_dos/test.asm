@@ -41,9 +41,10 @@
         .include "1511_constants.asm"
         .include "1511.asm"
 
-;
-;Set the date and time. 
-;
+;;;
+;; set the date and time
+;;;
+start1  .proc
         LDA  #$00
         STA  TODBUF+WR_SECT
         LDA  #$49
@@ -69,4 +70,4 @@ L1
         DEX
         BPL  L1
         RTS
-
+        .pend
