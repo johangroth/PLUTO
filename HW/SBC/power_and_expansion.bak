@@ -374,162 +374,80 @@ Wire Wire Line
 Wire Wire Line
 	3850 6325 3850 6125
 Connection ~ 3600 6325
-NoConn ~ 3850 3825
-Text GLabel 2925 4825 0    60   Input ~ 0
+Text GLabel 2925 4150 0    60   Input ~ 0
 A0
-Text GLabel 2925 4675 0    60   Input ~ 0
+Text GLabel 4250 4150 2    60   Input ~ 0
 A1
-Text GLabel 2925 4525 0    60   Input ~ 0
+Text GLabel 2925 4300 0    60   Input ~ 0
 A2
-Text GLabel 2925 4375 0    60   Input ~ 0
+Text GLabel 4250 4300 2    60   Input ~ 0
 A3
-Text GLabel 2925 4225 0    60   Input ~ 0
+Text GLabel 2925 4450 0    60   Input ~ 0
 A4
-Text GLabel 2925 4075 0    60   Input ~ 0
+Text GLabel 4250 4450 2    60   Input ~ 0
 A5
-Text GLabel 2925 3925 0    60   Input ~ 0
+Text GLabel 2925 4600 0    60   Input ~ 0
 A6
-Text GLabel 2925 3775 0    60   Input ~ 0
+Text GLabel 4250 4600 2    60   Input ~ 0
 A7
-Text GLabel 4250 3775 2    60   Input ~ 0
+Text GLabel 2925 4750 0    60   Input ~ 0
 A8
-Text GLabel 4250 3925 2    60   Input ~ 0
+Text GLabel 4250 4750 2    60   Input ~ 0
 A9
-Text GLabel 4250 4375 2    60   Input ~ 0
+Text GLabel 2925 4900 0    60   Input ~ 0
 A10
-Text GLabel 4250 4075 2    60   Input ~ 0
+Text GLabel 4250 4900 2    60   Input ~ 0
 A11
-Text GLabel 2925 3625 0    60   Input ~ 0
+Text GLabel 2925 5050 0    60   Input ~ 0
 A12
-Text GLabel 4250 3625 2    60   Input ~ 0
+Text GLabel 4250 5050 2    60   Input ~ 0
 A13
-Text GLabel 2925 3475 0    60   Input ~ 0
+Text GLabel 2925 5200 0    60   Input ~ 0
 A14
-Text GLabel 4250 5275 2    60   Input ~ 0
+Text GLabel 4250 5200 2    60   Input ~ 0
 A15
-Text GLabel 4250 3475 2    60   Input ~ 0
+Text GLabel 4250 5950 2    60   Input ~ 0
 ~MWR
-Text GLabel 4250 4225 2    60   Input ~ 0
+Text GLabel 4250 6100 2    60   Input ~ 0
 ~MRD
-Text GLabel 4250 5425 2    60   Input ~ 0
+Text GLabel 2925 5350 0    60   Input ~ 0
 ~7F0X
-Text GLabel 4250 5575 2    60   Input ~ 0
+Text GLabel 4250 5350 2    60   Input ~ 0
 ~7F2X
-Text GLabel 4250 5725 2    60   Input ~ 0
+Text GLabel 2925 5500 0    60   Input ~ 0
 ~7F4X
-Text GLabel 4250 5875 2    60   Input ~ 0
+Text GLabel 4250 5500 2    60   Input ~ 0
 ~7F6X
-Text GLabel 4250 6025 2    60   Input ~ 0
+Text GLabel 2925 5650 0    60   Input ~ 0
 ~7F8X
-Text GLabel 2925 4975 0    60   Input ~ 0
+Text GLabel 2925 3550 0    60   Input ~ 0
 D0
-Text GLabel 2925 5125 0    60   Input ~ 0
+Text GLabel 4250 3550 2    60   Input ~ 0
 D1
-Text GLabel 2925 5275 0    60   Input ~ 0
+Text GLabel 2925 3700 0    60   Input ~ 0
 D2
-Text GLabel 4250 5125 2    60   Input ~ 0
+Text GLabel 4250 3700 2    60   Input ~ 0
 D3
-Text GLabel 4250 4975 2    60   Input ~ 0
+Text GLabel 2925 3850 0    60   Input ~ 0
 D4
-Text GLabel 4250 4825 2    60   Input ~ 0
+Text GLabel 4250 3850 2    60   Input ~ 0
 D5
-Text GLabel 4250 4675 2    60   Input ~ 0
+Text GLabel 2925 4000 0    60   Input ~ 0
 D6
-Text GLabel 4250 4525 2    60   Input ~ 0
+Text GLabel 4250 4000 2    60   Input ~ 0
 D7
-Text GLabel 2925 5575 0    60   Input ~ 0
+Text GLabel 2925 6250 0    60   Input ~ 0
 CLK
-Text GLabel 2925 5725 0    60   Input ~ 0
+Text GLabel 4250 6250 2    60   Input ~ 0
 ~IRQ
-Text GLabel 2925 5875 0    60   Input ~ 0
+Text GLabel 2925 5950 0    60   Input ~ 0
 ~IOSEL
-Text GLabel 2925 6025 0    60   Input ~ 0
+Text GLabel 2925 6100 0    60   Input ~ 0
 ~NMI
-Text GLabel 2925 6175 0    60   Input ~ 0
+Text GLabel 2925 5800 0    60   Input ~ 0
 R/~W
-Text GLabel 2925 5425 0    60   Input ~ 0
+Text GLabel 4250 5800 2    60   Input ~ 0
 ~RES
-NoConn ~ 3350 5125
-NoConn ~ 3350 5225
-NoConn ~ 3850 4625
-NoConn ~ 3350 5925
-NoConn ~ 3350 6025
-Wire Wire Line
-	3350 3825 2925 3475
-Wire Wire Line
-	3350 3925 2925 3625
-Wire Wire Line
-	3350 4025 2925 3775
-Wire Wire Line
-	3350 4125 2925 3925
-Wire Wire Line
-	3350 4225 2925 4075
-Wire Wire Line
-	3350 4325 2925 4225
-Wire Wire Line
-	3350 4425 2925 4375
-Wire Wire Line
-	3350 4525 2925 4525
-Wire Wire Line
-	3350 4625 2925 4675
-Wire Wire Line
-	3350 4725 2925 4825
-Wire Wire Line
-	3350 4825 2925 4975
-Wire Wire Line
-	3350 4925 2925 5125
-Wire Wire Line
-	3350 5025 2925 5275
-Wire Wire Line
-	2925 5425 3350 5325
-Wire Wire Line
-	2925 5575 3350 5425
-Wire Wire Line
-	2925 5725 3350 5525
-Wire Wire Line
-	2925 5875 3350 5625
-Wire Wire Line
-	2925 6025 3350 5725
-Wire Wire Line
-	2925 6175 3350 5825
-Wire Wire Line
-	4250 3475 3850 3925
-Wire Wire Line
-	4250 3625 3850 4025
-Wire Wire Line
-	4250 3775 3850 4125
-Wire Wire Line
-	4250 3925 3850 4225
-Wire Wire Line
-	4250 4075 3850 4325
-Wire Wire Line
-	4250 4225 3850 4425
-Wire Wire Line
-	4250 4375 3850 4525
-Wire Wire Line
-	4250 4525 3850 4725
-Wire Wire Line
-	4250 4675 3850 4825
-Wire Wire Line
-	4250 4825 3850 4925
-Wire Wire Line
-	4250 4975 3850 5025
-Wire Wire Line
-	4250 5125 3850 5125
-Wire Wire Line
-	4250 5275 3850 5225
-Wire Wire Line
-	4250 5425 3850 5325
-Wire Wire Line
-	4250 5575 3850 5425
-Wire Wire Line
-	4250 5725 3850 5525
-Wire Wire Line
-	4250 5875 3850 5625
-Wire Wire Line
-	4250 6025 3850 5725
-NoConn ~ 3850 5925
-NoConn ~ 3850 6025
 Connection ~ 3225 2500
 $Comp
 L GND #PWR028
@@ -542,10 +460,8 @@ F 3 "" H 5625 2500 50  0001 C CNN
 	1    5625 2500
 	1    0    0    -1  
 $EndComp
-Text GLabel 4250 6175 2    60   Input ~ 0
+Text GLabel 4250 5650 2    60   Input ~ 0
 ~7FAX
-Wire Wire Line
-	4250 6175 3850 5825
 $Comp
 L LM7805CT U11
 U 1 1 58E10ED4
@@ -601,4 +517,88 @@ F 3 "" H 6750 3725 50  0001 C CNN
 	1    6750 3725
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	3350 3825 2925 3550
+Wire Wire Line
+	3350 3925 2925 3700
+Wire Wire Line
+	3350 4025 2925 3850
+Wire Wire Line
+	3350 4125 2925 4000
+Wire Wire Line
+	3350 4225 2925 4150
+Wire Wire Line
+	3350 4325 2925 4300
+Wire Wire Line
+	3350 4425 2925 4450
+Wire Wire Line
+	3350 4525 2925 4600
+Wire Wire Line
+	3350 4625 2925 4750
+Wire Wire Line
+	3350 4725 2925 4900
+Wire Wire Line
+	3350 4825 2925 5050
+Wire Wire Line
+	3350 4925 2925 5200
+Wire Wire Line
+	3850 3825 4250 3550
+Wire Wire Line
+	3850 3925 4250 3700
+Wire Wire Line
+	3850 4025 4250 3850
+Wire Wire Line
+	3850 4125 4250 4000
+Wire Wire Line
+	3850 4225 4250 4150
+Wire Wire Line
+	3850 4325 4250 4300
+Wire Wire Line
+	3850 4425 4250 4450
+Wire Wire Line
+	3850 4525 4250 4600
+Wire Wire Line
+	3850 4625 4250 4750
+Wire Wire Line
+	3850 4725 4250 4900
+Wire Wire Line
+	3850 4825 4250 5050
+Wire Wire Line
+	3850 4925 4250 5200
+Wire Wire Line
+	3350 5225 2925 5350
+Wire Wire Line
+	3350 5325 2925 5500
+Wire Wire Line
+	3350 5425 2925 5650
+Wire Wire Line
+	3350 5525 2925 5800
+Wire Wire Line
+	3350 5725 2925 5950
+Wire Wire Line
+	3350 5925 2925 6100
+Wire Wire Line
+	3350 6025 2925 6250
+Wire Wire Line
+	3850 5225 4250 5350
+Wire Wire Line
+	3850 5325 4250 5500
+Wire Wire Line
+	3850 5425 4250 5650
+Wire Wire Line
+	3850 5525 4250 5800
+Wire Wire Line
+	3850 5725 4250 5950
+Wire Wire Line
+	3850 5925 4250 6100
+Wire Wire Line
+	3850 6025 4250 6250
+NoConn ~ 3850 5025
+NoConn ~ 3850 5125
+NoConn ~ 3350 5025
+NoConn ~ 3350 5125
+NoConn ~ 3350 5625
+NoConn ~ 3850 5625
+NoConn ~ 3350 5825
+NoConn ~ 3850 5825
 $EndSCHEMATC

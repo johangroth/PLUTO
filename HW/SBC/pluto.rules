@@ -11,18 +11,18 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 9557)
+    (start_pass_no 10490)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 2.1)
+      (against_preferred_direction_trace_costs 2.3)
     )
     (layer_rule B.Cu
       (active on)
       (preferred_direction vertical)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 1.9)
+      (against_preferred_direction_trace_costs 1.8)
     )
   )
   (rule
@@ -73,8 +73,10 @@
     D3 A15 ~RES ~7F0X CLK ~7F2X ~7F4X ~IOSEL
     ~7F6X ~NMI ~7F8X R/~W RDY ~PWR BE PHI2
     ~ROMSEL ~RAMSEL "Net-(U4-Pad9)" "Net-(U4-Pad10)" "Net-(U4-Pad11)" "Net-(U4-Pad12)" ~7FEX ~7FCX
-    ~7FAX "Net-(C6-Pad2)" "Net-(C9-Pad1)" "Net-(C9-Pad2)" "Net-(C10-Pad1)" "Net-(C10-Pad2)" "Net-(C11-Pad1)" "Net-(C11-Pad2)"
-    "Net-(C17-Pad2)" "Net-(C13-Pad1)" "Net-(C13-Pad2)" "Net-(C14-Pad1)" "Net-(C14-Pad2)" "Net-(C2-Pad2)" "Net-(C12-Pad1)" "Net-(C12-Pad2)"
+    ~7FAX "Net-(C6-Pad2)" "Net-(C17-Pad2)" "Net-(J1-Pad1)" "Net-(J1-Pad4)" "Net-(J1-Pad6)" "Net-(J1-Pad9)" "Net-(J1-Pad10)"
+    "Net-(J5-Pad27)" "Net-(J5-Pad28)" "Net-(J5-Pad29)" "Net-(J5-Pad30)" "Net-(J5-Pad39)" "Net-(J5-Pad40)" "Net-(J5-Pad43)" "Net-(J5-Pad44)"
+    "Net-(RN1-Pad2)" "Net-(U1-Pad1)" "Net-(U1-Pad3)" "Net-(U1-Pad5)" "Net-(U1-Pad7)" "Net-(U1-Pad35)" "Net-(U1-Pad38)" "Net-(U5-Pad5)"
+    "Net-(U5-Pad11)" "Net-(U7-Pad23)" "Net-(U7-Pad24)" "Net-(U7-Pad26)" "Net-(X1-Pad1)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
@@ -84,8 +86,8 @@
       (use_layer F.Cu B.Cu)
     )
   )
-  (class +9V
-    "/Power and expansion port/+9V"
+  (class GND
+    GND
     (clearance_class default)
     (via_rule default)
     (rule
@@ -96,18 +98,7 @@
     )
   )
   (class VCC
-    VCC
-    (clearance_class default)
-    (via_rule default)
-    (rule
-      (width 1000.0)
-    )
-    (circuit 
-      (use_layer F.Cu B.Cu)
-    )
-  )
-  (class GND
-    GND
+    VCC "/Power and expansion port/+9V"
     (clearance_class default)
     (via_rule default)
     (rule

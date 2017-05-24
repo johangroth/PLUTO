@@ -203,7 +203,7 @@ CONSTIME    .PROC
 ;                      $00   seconds     ($00-$59)
 ;                      $01   minutes     ($00-$59)
 ;                      $02   hours       ($00-$23)
-;                      $03   day-of-week ($01-$07)
+;                      $03   day-of-week ($01-$07) Day 1 is Monday
 ;                      $04   date        ($01-$31)
 ;                      $05   month       ($01-$12)
 ;                      $06   year LSB    ($00-$99)

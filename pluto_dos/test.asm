@@ -41,27 +41,49 @@
         .include "1511_constants.asm"
         .include "1511.asm"
 
-;;;
-;; set the date and time
-;;;
-start1  .proc
-        LDA  #$00
-        STA  TODBUF+WR_SECT
-        LDA  #$49
-        STA  TODBUF+WR_MINT
-        LDA  #$3
-        STA  TODBUF+WR_HRST
-        LDA  #$1
-        STA  TODBUF+WR_DOWT
-        LDA  #$22
-        STA  TODBUF+WR_DATT
-        LDA  #$5
-        STA  TODBUF+WR_MON
-        LDA  #$17
-        STA  TODBUF+WR_YRLO
-        LDA  #$20
-        STA  TODBUF+WR_YRHI
-        JSR  PUT_DATE_AND_TIME
+INC16M	.MACRO
+        INC \1 
+        BNE DONE
+        INC \1 + 1
+DONE
+        .ENDM
+    
+        LDA  #<USEFUL_ROUTINES
+        STA  TEMP2
+        LDA  #>USEFUL_ROUTINES
+        STA  TEMP2H
+
+NEXT
+        LDA  TEMP2
+        STA  INDEX
+        LDA  TEMP2H
+        STA  INDEXH
+        JSR  PROMPT2
+        #INC16M INDEX
+        LDA  INDEX
+        PHA
+        LDA  INDEXH
+        PHA
+        LDY  #0
+        LDA  (INDEX),Y
+        STA  TEMP2
+        INY
+        LDA  (INDEX),Y
+        STA  INDEXH
+        LDA  TEMP2
+        STA  INDEX
+        JSR  PRINDX
+        PLA
+        STA  TEMP2H
+        PLA
+        STA  TEMP2
+        #INC16M TEMP2
+        #INC16M TEMP2
+        LDA  (TEMP2)
+        BEQ  DONE
+        JSR  CROUT
+        BRA  NEXT
+DONE
         RTS
 
         LDX  #$F
@@ -70,4 +92,4 @@ L1
         DEX
         BPL  L1
         RTS
-        .pend
+

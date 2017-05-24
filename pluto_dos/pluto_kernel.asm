@@ -323,7 +323,7 @@ HEXIN4  .proc
         LDA  #$04     ;Request 4 ASCII HEX digits from terminal: 16 bit value
         .pend
 
-HEXIN   .proc 
+HEXIN   .proc
         STA  INQTY    ;Store number of digits to allow: value = 1 to 4 only
         JSR  DOLLAR   ;Send "$" to terminal
 ;Setup RDLINE subroutine parameters:
@@ -477,10 +477,10 @@ INCDONE:
         .pend
 
 ;
-;MEMDMP subroutine: Send a formatted ASCII or HEX memory dump to terminal 
-MEMDMP  .proc   
-        STA  TEMP3    ;Store dump command type: 0 = HEX dump, non-0 = ASCII dump  
-        JSR  DMPGR    ;Send address offsets to terminal 
+;MEMDMP subroutine: Send a formatted ASCII or HEX memory dump to terminal
+MEMDMP  .proc
+        STA  TEMP3    ;Store dump command type: 0 = HEX dump, non-0 = ASCII dump
+        JSR  DMPGR    ;Send address offsets to terminal
         JSR  CROUT    ;Send CR,LF to terminal
         JSR  GLINE    ;Send horizontal line to terminal
         JSR  CROUT    ;Send CR,LF to terminal
@@ -498,8 +498,8 @@ DLINE   JSR  SPC4     ;Send 4 [SPACE] to terminal
         JSR  SPC4     ;Send 4 [SPACE] to terminal
         LDY  #$00     ;Initialize line byte counter
         STY  IDY
-GETBYT  LDA  (INDEX),Y ;Read indexed byte 
-        LDX  TEMP3    ;GOTO DUMPH IF TEMP3 = 0: HEX value output was requested 
+GETBYT  LDA  (INDEX),Y ;Read indexed byte
+        LDX  TEMP3    ;GOTO DUMPH IF TEMP3 = 0: HEX value output was requested
         BEQ  DUMPH
         JSR  PRASC    ; ELSE, Display byte as a printable ASCII character, send "." IF not printable
         JSR  SPC      ;Send [SPACE] to terminal
@@ -537,7 +537,7 @@ DMPGR   .proc
         JSR  SPC4     ;Send 4 [SPACE] to terminal
         LDX  #$00     ;Initialize line counter
         STX  IDX
-MDLOOP  TXA           ;Send "00" thru "0F", separated by 2 [SPACE], to terminal  
+MDLOOP  TXA           ;Send "00" thru "0F", separated by 2 [SPACE], to terminal
         JSR  PRBYTE
         JSR  SPC2
         INX
@@ -547,8 +547,8 @@ MDLOOP  TXA           ;Send "00" thru "0F", separated by 2 [SPACE], to terminal
         .pend
 
 ;
-;GLINE subroutine: Send a horizontal line to terminal 
-GLINE   .proc    
+;GLINE subroutine: Send a horizontal line to terminal
+GLINE   .proc
         LDX  #$4F
         LDA  #'~'     ;Send "~" to terminal 79 times
 GLINEL  JSR  COUT
@@ -953,7 +953,7 @@ ERR     .proc
         JMP  MONITOR.CMON     ;GOTO CMON re-enter monitor
         .pend
 
-;[D] Hex and ASCII dump command. Display in HEX and printable ASCII memory address until [ENTER] is pressed. 
+;[D] Hex and ASCII dump command. Display in HEX and printable ASCII memory address until [ENTER] is pressed.
 ;Pause after 256 bytes.
 ;
 MDUMP   .proc
@@ -1003,7 +1003,7 @@ PGFILL:
         INC  TEMP2H   ; ELSE, Increment page address high byte
         DEX           ;Decrement page counter
         BNE  PGFILL   ;LOOP back to PGFILL IF page counter <> $00
-FILEFT: 
+FILEFT:
         LDX  INDEX    ; ELSE, copy INDEX to X REGISTER: X = length parameter byte counter
         BEQ  DONEFILL ;GOTO DONEFILL IF byte counter = $00
         LDY  #$00     ; ELSE, initialize page byte address index
@@ -1022,11 +1022,11 @@ DONEFILL:
 GO      .proc
         JSR  SETUP    ;Request HEX address input from terminal
         JSR  CROUT    ;Send CR,LF to terminal
-        LDA  INDEX    ;Transfer specified address to monitor command processor 
+        LDA  INDEX    ;Transfer specified address to monitor command processor
         STA  COMLO    ; address pointer low byte
         LDA  INDEXH
         STA  COMHI    ;  hi byte
-CTRLUGO 
+CTRLUGO
         TSX           ;Save the monitor's STACK POINTER in memory
         STX  POINTER
 ;Preload all 6502 MPU registers from monitor's preset/result variables
@@ -1230,7 +1230,7 @@ NCSREG:
 
 ;
 ;
-    
+
 PROMPT2 .proc
         LDY  #$00     ;Read from current view memory address
         LDA  (INDEX),Y
@@ -1276,10 +1276,10 @@ WATCHL
 ; The ONLY printable ASCII characters allowed are: $*0123456789ABCDEF
 ; (note only upper-case ABCDEF)
 ; The ONLY ASCII control codes allowed are: [SPACE][RETURN][LINEFEED]
-; All other ASCII input may cause errors. 
+; All other ASCII input may cause errors.
 ; The monitor [U] UPLOAD command produces formatted ASCII HEX file output to terminal
 DOWNLOAD   .proc
-         LDA  #$09     ;Send "Download:" to terminal   
+         LDA  #$09     ;Send "Download:" to terminal
          JSR  PROMPT
          LDA  #$E0     ;Point to $E0xx (ROM area) in case of garbage input:
          STA  INDEXH   ; write $E0 to download destination address pointer high byte
@@ -1293,7 +1293,7 @@ DLOOP    JSR  CHIN     ;Request a keystroke from terminal
          CMP  #'*'     ; ELSE, GOTO DBR1 IF chatacter <> "*": End Of File
          BNE  DBR1
          JMP  MONITOR.NMON     ; ELSE, done DOWNLOAD, GOTO NMON
-; 
+;
 DBR1     CMP  #'$'     ;GOTO DNEWADR IF character = "$"
          BEQ  DNEWADR
          JSR  DSUB1    ; ELSE, this is a high digit, go get low digit then convert ASCII HEX digits to binary
@@ -1302,14 +1302,14 @@ DBR1     CMP  #'$'     ;GOTO DNEWADR IF character = "$"
          JSR  INCINDEX ;Increment destination address pointer
          JMP  DLOOP    ;LOOP back to DLOOP
 ;
-DNEWADR  JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary 
+DNEWADR  JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary
          STA  INDEXH   ;Write value to destination address pointer high byte
-         JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary 
+         JSR  DSUB2    ;Request 2 ASCII HEX digits from terminal then convert to binary
          STA  INDEX    ;Write value to destination address pointer low byte
          JMP  DLOOP    ;LOOP back to DLOOP
 ;
 DSUB2    JSR  CHIN     ;Request a keystroke from terminal, result in ACCUMULATOR
-DSUB1    PHA           ;Save ACCUMULATOR on STACK: ASCII HEX high digit of a byte  
+DSUB1    PHA           ;Save ACCUMULATOR on STACK: ASCII HEX high digit of a byte
          JSR  CHIN     ;Request a keystroke from terminal: ASCII HEX low digit
          TAY           ;Copy low digit to Y REGISTER
          PLA           ;Pull ACCUMULATOR from STACK: high digit
@@ -1350,9 +1350,9 @@ WIPELOOP
         INC  $00        ;Increment address pointer
         BNE  WIPELOOP
         INC  $01
-        LDY  $01        ; stop if we are at 
-        CPY  #$7F       ; $7F00 to protect the I/O area.  
-        BEQ  EXIT 
+        LDY  $01        ; stop if we are at
+        CPY  #$7F       ; $7F00 to protect the I/O area.
+        BEQ  EXIT
         BRA  WIPELOOP   ;LOOP back to WIPELOOP IF address pointer < $7F00
 EXIT
         STA  $01        ; ELSE, clear address pointer
@@ -1413,7 +1413,7 @@ COLDSTART
         STZ  INCNT    ; keystroke buffer 'written to' counter
         LDA  #$7F
         STA  SREG     ; USER program/application STACK POINTER preset/result value
-WARMST    
+WARMST
         LDX  #$01     ; Set delay time
         JSR  SET      ; do short delay
         JSR  CR2      ; Send 2 CR,LF to terminal
@@ -1625,7 +1625,7 @@ VIAINTERRUPT
         LDA  VIAIFR
         AND  VIAIER
         STA  VIATEMP
-        BBS  VIAIFRIRQ,VIATEMP,HANDLEVIAINTERRUPT 
+        BBS  VIAIFRIRQ,VIATEMP,HANDLEVIAINTERRUPT
         RTS
 
 ;HANDLEVIAINTERRUPT
@@ -1635,7 +1635,7 @@ HANDLEVIAINTERRUPT
         BBR  VIATIMER1MASK,VIATEMP,CHECKVIATIMER2   ;GOTO CHECKVIATIMER2 if Timer 1 didn't cause an interrupt
 ; HANDLE TIMER1 INTERRUPT
 
-CHECKVIATIMER2        
+CHECKVIATIMER2
         BBR  VIATIMER2MASK,VIATEMP,ENDIRQ           ;GOTO ENDIRQ if Timer 2 didn't cause an interrupt
 ; HANDLE TIMER2 INTERRUPT
 ENDIRQ
@@ -1650,8 +1650,8 @@ BRK_INTERRUPT
         BNE  BRKINSTRUCTION ;GOTO BREAKINSTRUCTIOF IF bit = 1, ie BRK instruction
         RTS                 ; ELSE, RETURN from BRK instruction handler
 BRKINSTRUCTION
-        PLA                 ; ELSE, Remove return address low byte to ISR 
-        PLA                 ; ELSE, Remove return address high byte to ISR 
+        PLA                 ; ELSE, Remove return address low byte to ISR
+        PLA                 ; ELSE, Remove return address high byte to ISR
         PLA                 ; ELSE, restore ACCUMULATOR to pre-interrupt condition
         STA  ACCUM          ;Save in ACCUMULATOR preset/result
         PLA                 ;Pull PROCESSOR STATUS REGISTER from STACK
@@ -3055,7 +3055,7 @@ DIRTAB:
 ;
 ;Directive jump table
 DJTAB:
-    
+
         .word  ABYTE
 
         .word  KEYCONV
@@ -3072,127 +3072,136 @@ DJTAB:
 ;
 ;QUERY command:
 ;NOTE: prompt string pointers here
-QUERY:
-        JSR SAVREGS
-        JSR CROUT
-        LDA #<NEWQUERYADRS
-        STA TEMP2
-        LDA #>NEWQUERYADRS
-        STA TEMP2H
-        LDA #<NEWQUERYSTRS
-        STA TEMP3
-        LDA #>NEWQUERYSTRS
-        STA TEMP3H
+QUERY .PROC
+INC16M .MACRO
+        INC \1
+        BNE DONE
+        INC \1 + 1
+DONE
+        .ENDM
 
-;;; PRINT THE HEX ADDRESS TO SUBROUTINE
-NEWQUERYAGAIN:
-        JSR DOLLAR
-        LDY #0
-        LDA (TEMP2),Y
-        STA INDEX
-        INY
-        LDA (TEMP2),Y
-        STA INDEXH
-        JSR PRINDX
-        LDX #2
-INC:
-        INC TEMP2
-        BNE NQDONE
-        INC TEMP2H
-NQDONE:
-        DEX
-        BNE INC
+        JSR  CROUT
+        LDA  #<NEWQUERYSTRS
+        STA  TEMP2
+        LDA  #>NEWQUERYSTRS
+        STA  TEMP2H
 
-;;; PRINT THE NAME OF THE LABEL TO THE SUBROUTINE
-        LDA TEMP3
-        STA INDEX
-        LDA TEMP3H
-        STA INDEXH
-        JSR PROMPT2     ; INDEX WILL POINT TO THE TERMINATING 0 OF THE STRING
-        JSR INCINDEX        ; INCREASE THE STRING INDEX POINTER
-        LDA (INDEX),Y       ; Y HAS BEEN SET TO 0 BY PROMPT2 SO (INDEX),Y WILL POINT TO NEXT STRING OR TERMINATING 0
-        BEQ NEWQUERYDONE    ; TWO ZEROES IN A ROW MEANS WE ARE DONE
-        LDA INDEX       ;  ELSE SAVE INDEX IN TEMP3
-        STA TEMP3
-        LDA INDEXH
-        STA TEMP3H
-        BRA NEWQUERYAGAIN   ; NEXT QUERY STRING
-
-NEWQUERYDONE:
-        JSR RESREGS
+NEXT
+        LDA  TEMP2          ;Copy pointer to the name of the procedure
+        STA  INDEX          ;from TEMP2
+        LDA  TEMP2H         ;and TEMP2H
+        STA  INDEXH         ;to INDEX and INDEXH.
+        JSR  PROMPT2        ;Send the string to terminal using INDEX as pointer to string.
+        JSR  INCINDEX       ;Advance the pointer to implementation address of the procedure.
+        LDA  INDEX          ;Preserve the pointer by placing it on the stack
+        PHA                 ;
+        LDA  INDEXH         ;
+        PHA                 ;
+        LDY  #0             ;Null indirect index
+        LDA  (INDEX),Y      ;Store the low byte 
+        STA  TEMP2          ;of the procedure address in TEMP2
+        INY                 ;Point to high byte
+        LDA  (INDEX),Y      ;Store high byte of procedure in 
+        STA  TEMP2H         ;TEMP2H
+        JSR  PRINT_EQUAL_DOLLAR
+        LDA  TEMP2H
+        STA  INDEXH         ;INDEXH. 
+        LDA  TEMP2          ;Store the low byte
+        STA  INDEX          ;in INDEX
+        JSR  PRINDX         ;Send the value of the address as hex to the terminal
+        PLA                 ;Restore table
+        STA  TEMP2H         ;pointer to TEMP2H
+        PLA                 ;and
+        STA  TEMP2          ;TEMP2.
+        #INC16M TEMP2       ;Advance table pointer to
+        #INC16M TEMP2       ;next string.
+        LDA  (TEMP2)        ;IF next table entry == NULL
+        BEQ  DONE           ;  GOTO DONE
+        JSR  CROUT          ;  ELSE print CR
+        BRA  NEXT           ;  and print next entry in table.
+DONE
         RTS
+        .PEND
 
-NEWQUERYADRS:
-        .word CHIN
-        .word COUT
-        .WORD COUT2
-        .WORD CROUT
-        .WORD CR2
-        .WORD SPC2
-        .WORD SPC4
-        .WORD PRASC
-        .WORD DOLLAR
-        .WORD PRBYTE
-        .WORD PRINDX
-        .WORD PROMPT
-        .WORD BEEP
-        .WORD DELAY1
-        .WORD DELAY1.DELAY2
-        .WORD SET
-        .WORD SET.TIMER
-        .WORD RDLINE
-        .WORD BN2ASC
-        .WORD ASC2BN
-        .WORD HEXIN
-        .WORD SAVREGS
-        .WORD RESREGS
-        .WORD INCINDEX
-        .WORD DECINDEX
-        .WORD PROMPT2
-        .WORD HEXIN2
-        .WORD HEXIN4
-        .WORD MONITOR.NMON
-        .WORD COLDSTART
-        .WORD INTERRUPT
-        .WORD SIODAT
-        .WORD VIABASE
-        .WORD 0
+PRINT_EQUAL_DOLLAR .PROC
+        LDA  #<EQUAL
+        STA  INDEX
+        LDA  #>EQUAL
+        STA  INDEXH
+        JSR  PROMPT2
+        JSR  DOLLAR
+        RTS
+EQUAL   .NULL " = "
+        .PEND
 
 NEWQUERYSTRS:
-        .text  " CHIN       ",0
-        .text  " COUT",$0D,$0A,0
-        .text  " COUT2      ",0
-        .text  " CROUT",$0D,$0A,0
-        .text  " CR2        ",0
-        .text  " SPC2",$0D,$0A,0
-        .text  " SPC4       ",0
-        .text  " PRASC",$0D,$0A,0
-        .text  " DOLLAR     ",0
-        .text  " PRBYTE",$0D,$0A,0
-        .TEXT  " PRINDX     ",0
-        .TEXT  " PROMPT",$0D,$0A,0
-        .text  " BEEP       ",0
-        .text  " DELAY1",$0D,$0A,0
-        .text  " DELAY2     ",0
-        .text  " SET",$0D,$0A,0
-        .text  " TIMER      ",0
-        .text  " RDLINE",$0D,$0A,0
-        .text  " BN2ASC     ",0
-        .text  " ASC2BN",$0D,$0A,0
-        .text  " HEXIN      ",0
-        .text  " SAVREGS",$0D,$0A,0
-        .text  " RESREGS    ",0
-        .text  " INCINDEX",$0D,$0A,0
-        .text  " DECINDEX   ",0
-        .text  " PROMPT2",$0D,$0A,0
-        .text  " HEXIN2     ",0
-        .text  " HEXIN4",$0D,$0A,0
-        .text  " NMON       ",0
-        .text  " COLDSTART",$0D,$0A,0
-        .text  " INTERRUPT  ", 0
-        .text  " 6551",$0D,$0A,0
-        .text  " 6522",0
-        .byte  $00
+        .NULL  "CHIN"
+        .WORD CHIN
+        .NULL  "COUT"
+        .WORD COUT
+        .NULL  "COUT2"
+        .WORD COUT2
+        .NULL  "CROUT"
+        .WORD CROUT
+        .NULL  "CR2"
+        .WORD CR2
+        .NULL  "SPC2"
+        .WORD SPC2
+        .NULL  "SPC4"
+        .WORD SPC4
+        .NULL  "PRASC"
+        .WORD PRASC
+        .NULL  "DOLLAR"
+        .WORD DOLLAR
+        .NULL  "PRBYTE"
+        .WORD PRBYTE
+        .NULL  "PRINDX"
+        .WORD PRINDX
+        .NULL  "PROMPT"
+        .WORD PROMPT
+        .NULL  "BEEP"
+        .WORD BEEP
+        .NULL  "DELAY1"
+        .WORD DELAY1
+        .NULL  "DELAY2"
+        .WORD DELAY1.DELAY2
+        .NULL  "SET"
+        .WORD SET
+        .NULL  "TIMER"
+        .WORD SET.TIMER
+        .NULL  "RDLINE"
+        .WORD RDLINE
+        .NULL  "BN2ASC"
+        .WORD BN2ASC
+        .NULL  "ASC2BN"
+        .WORD ASC2BN
+        .NULL  "HEXIN"
+        .WORD HEXIN
+        .NULL  "SAVREGS"
+        .WORD SAVREGS
+        .NULL  "RESREGS"
+        .WORD RESREGS
+        .NULL  "INCINDEX"
+        .WORD INCINDEX
+        .NULL  "DECINDEX"
+        .WORD DECINDEX
+        .NULL  "PROMPT2"
+        .WORD PROMPT2
+        .NULL  "HEXIN2"
+        .WORD HEXIN2
+        .NULL  "HEXIN4"
+        .WORD HEXIN4
+        .NULL  "NMON"
+        .WORD MONITOR.NMON
+        .NULL  "COLDSTART"
+        .WORD COLDSTART
+        .NULL  "INTERRUPT"
+        .WORD INTERRUPT
+        .NULL  "6551"
+        .WORD SIODAT
+        .NULL  "6522"
+        .WORD VIABASE
+        .BYTE  $00
 ;
 ;STORLF subroutine: This is a patch that is part of the "Z" (text editor) command;
 ; it stores a [LINEFEED] after [RETURN] when [RETURN] is struck.

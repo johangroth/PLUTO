@@ -4,3 +4,7 @@ pluto.bin: main.asm zp_variables.asm rtc.asm 1511.asm 1511_constants.asm acia.as
 test.bin.hex: test.asm utils.asm 1511.asm 1511_constants.asm zp_variables.asm
 	64tass --mw65c02  -o test.bin --no-monitor --line-numbers --list=test.lst test.asm
 	java -cp ..:. uk.org.linuxgrotto.BinToHex test.bin
+
+bcd2bin.hex: bcd2bin.asm
+	64tass --mw65c02  -o bcd2bin.bin --no-monitor --line-numbers --list=bcd2bin.lst bcd2bin.asm
+	java -cp ..:. uk.org.linuxgrotto.BinToHex bcd2bin.bin
