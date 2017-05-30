@@ -12,6 +12,7 @@ ACCC	pluto_kernel.asm	/^ACCC:$/;"	l
 ACCUM	zp_variables.asm	/^    ACCUM    = $DA$/;"	d
 ACIA	settime.asm	/^        ACIA = $7FE0$/;"	d
 ACIA	test.asm	/^        ACIA = $7FE0$/;"	d
+ACIA6551	test.asm	/^ACIA6551 = $7FE0$/;"	d
 ACIABASE	acia.asm	/^    ACIABASE = $7FE0$/;"	d
 ACIAMASK	acia.asm	/^    ACIAMASK = %10001000    ;Bit 7 interrupt and bit 3 receive register full$/;"	d
 ACIA_INTERRUPT	pluto_kernel.asm	/^ACIA_INTERRUPT$/;"	l
@@ -45,6 +46,7 @@ BCD2BIN	utils.asm	/^BCD2BIN .proc$/;"	l
 BCDNUM	zp_variables.asm	/^    BCDNUM  = $A6       ;High byte BCD number to be converted$/;"	d
 BCDNUML	zp_variables.asm	/^    BCDNUML = BCDNUM+1  ;Low byte $/;"	d
 BCDOUT	pluto_kernel.asm	/^BCDOUT  .proc$/;"	l
+BCDOUTA	test.asm	/^BCDOUTA = $80FF$/;"	d
 BCDOUTA	utils.asm	/^BCDOUTA  .proc$/;"	l
 BCDOUTDN	pluto_kernel.asm	/^BCDOUTDN$/;"	l
 BCDOUTL	pluto_kernel.asm	/^BCDOUTL$/;"	l
@@ -93,6 +95,7 @@ CHIN	settime.asm	/^        CHIN = $82F5$/;"	d
 CHIN	test.asm	/^CHIN = $815A$/;"	d
 CHINLOOP	pluto_kernel.asm	/^CHINLOOP:$/;"	l
 CHREG	pluto_kernel.asm	/^CHREG   .proc$/;"	l
+CLEAR_ENTIRE_SCREEN	test.asm	/^CLEAR_ENTIRE_SCREEN .NULL "[2J"$/;"	l
 CLKRD	pluto_kernel.asm	/^CLKRD:$/;"	l
 CMDPROMPTS	pluto_kernel.asm	/^CMDPROMPTS:$/;"	l
 CMON	pluto_kernel.asm	/^CMON$/;"	l
@@ -149,6 +152,7 @@ DECINDEX	pluto_kernel.asm	/^DECINDEX    .proc$/;"	l
 DECINDEX	settime.asm	/^        DECINDEX = $8324$/;"	d
 DECINDEX	test.asm	/^DECINDEX = $8189$/;"	d
 DECINPUT	pluto_kernel.asm	/^DECINPUT    .proc$/;"	l
+DECMSD	test.asm	/^DECMSD$/;"	l
 DECONLY	pluto_kernel.asm	/^DECONLY:$/;"	l
 DECTEST	pluto_kernel.asm	/^DECTEST:$/;"	l
 DELAY1	pluto_kernel.asm	/^DELAY1  .proc$/;"	l
@@ -226,6 +230,7 @@ GETBYT	pluto_kernel.asm	/^GETBYT  LDA  (INDEX),Y ;Read indexed byte$/;"	l
 GETNXT	pluto_kernel.asm	/^GETNXT:$/;"	l
 GETUTIM	rtc.asm	/^GETUTIM .PROC$/;"	l
 GET_DATE_AND_TIME	rtc.asm	/^GET_DATE_AND_TIME   .PROC$/;"	l
+GET_DATE_AND_TIME	test.asm	/^GET_DATE_AND_TIME  = $8072$/;"	d
 GET_UP_TO_16_CHR_STRING	pluto_kernel.asm	/^GET_UP_TO_16_CHR_STRING           .proc$/;"	l
 GLINE	pluto_kernel.asm	/^GLINE   .proc$/;"	l
 GLINEL	pluto_kernel.asm	/^GLINEL  JSR  COUT$/;"	l
@@ -317,7 +322,6 @@ JUSTBYTE	pluto_kernel.asm	/^JUSTBYTE$/;"	l
 KEYBUFF	pluto_kernel.asm	/^    KEYBUFF  = $0200    ;256 bytes: ($200-$2FF) keystrokes (data from ACIA) are stored here$/;"	d
 KEYCONV	pluto_kernel.asm	/^KEYCONV:$/;"	l
 L1	rtc.asm	/^L1$/;"	l
-L1	settime.asm	/^L1$/;"	l
 L1	utils.asm	/^L1$/;"	l
 L10	rtc.asm	/^L10$/;"	l
 L2	rtc.asm	/^L2$/;"	l
@@ -365,6 +369,7 @@ MONTAB	pluto_kernel.asm	/^MONTAB:$/;"	l
 MORDIS	pluto_kernel.asm	/^MORDIS:$/;"	l
 MORLOOP	pluto_kernel.asm	/^MORLOOP:$/;"	l
 MOVER	pluto_kernel.asm	/^MOVER   .proc$/;"	l
+MOVE_CURSOR_TO_SCREEN_LOCATION_V_H	test.asm	/^MOVE_CURSOR_TO_SCREEN_LOCATION_V_H  .NULL "[<v>;<h>H"$/;"	l
 MPTAB	pluto_kernel.asm	/^MPTAB:$/;"	l
 MSPC	pluto_kernel.asm	/^MSPC:$/;"	l
 MTAB	pluto_kernel.asm	/^MTAB:$/;"	l
@@ -421,6 +426,7 @@ PRINDX	pluto_kernel.asm	/^PRINDX  .proc$/;"	l
 PRINDX	settime.asm	/^        PRINDX = $84A7$/;"	d
 PRINDX	test.asm	/^PRINDX = $830C$/;"	d
 PRINT_DATE_AND_TIME	rtc.asm	/^PRINT_DATE_AND_TIME .PROC$/;"	l
+PRINT_DATE_AND_TIME	test.asm	/^PRINT_DATE_AND_TIME = $801F $/;"	d
 PRINT_EQUAL_DOLLAR	pluto_kernel.asm	/^PRINT_EQUAL_DOLLAR .PROC$/;"	l
 PRML	pluto_kernel.asm	/^PRML:$/;"	l
 PRMNEM	pluto_kernel.asm	/^PRMNEM:$/;"	l
@@ -466,6 +472,7 @@ RESREGS	pluto_kernel.asm	/^RESREGS .proc$/;"	l
 RESREGS	settime.asm	/^        RESREGS = $8555$/;"	d
 RESREGS	test.asm	/^RESREGS = $83BA$/;"	d
 REST	pluto_kernel.asm	/^REST:$/;"	l
+RESTORE_CURSOR_POSITION_AND_ATTRIBUTES	test.asm	/^RESTORE_CURSOR_POSITION_AND_ATTRIBUTES .TEXT "8"$/;"	l
 RET	pluto_kernel.asm	/^RET     RTS           ;Done LISTER command, RETURN. RET label is defined for [BREAK] button$/;"	l
 RETURN	utils.asm	/^RETURN  ROR BINOUT+2,X$/;"	l
 RIGHT	pluto_kernel.asm	/^RIGHT$/;"	l
@@ -479,6 +486,7 @@ Resend	xmodem.asm	/^Resend:$/;"	l
 SAVEACC	zp_variables.asm	/^    SAVEACC  = $AD$/;"	d
 SAVEX	zp_variables.asm	/^    SAVEX    = $AE$/;"	d
 SAVEY	zp_variables.asm	/^    SAVEY    = $AF$/;"	d
+SAVE_CURSOR_POSITION_AND_ATTRIBUTES	test.asm	/^SAVE_CURSOR_POSITION_AND_ATTRIBUTES .TEXT "7"$/;"	l
 SAVLST	pluto_kernel.asm	/^SAVLST:$/;"	l
 SAVREGS	pluto_kernel.asm	/^SAVREGS .proc$/;"	l
 SAVREGS	settime.asm	/^        SAVREGS = $854E$/;"	d
@@ -489,6 +497,8 @@ SCNT	zp_variables.asm	/^    SCNT     = $D2$/;"	d
 SCalcCRC	xmodem.asm	/^SCalcCRC:$/;"	l
 SENDIGIT	pluto_kernel.asm	/^SENDIGIT:$/;"	l
 SENDIT	pluto_kernel.asm	/^SENDIT  .proc$/;"	l
+SEND_DATE_AND_TIME	test.asm	/^SEND_DATE_AND_TIME .PROC$/;"	l
+SEND_ESCAPE	test.asm	/^SEND_ESCAPE$/;"	l
 SENGBR1	pluto_kernel.asm	/^SENGBR1:$/;"	l
 SENGBR2	pluto_kernel.asm	/^SENGBR2:$/;"	l
 SENGBR3	pluto_kernel.asm	/^SENGBR3:$/;"	l
@@ -575,6 +585,7 @@ TIMER	settime.asm	/^        TIMER = $855E$/;"	d
 TIMER	test.asm	/^TIMER = $83C3$/;"	d
 TIMER1	pluto_kernel.asm	/^TIMER1$/;"	l
 TIMER1TXT	pluto_kernel.asm	/^TIMER1TXT$/;"	l
+TIMER1_INTERRUPT	test.asm	/^TIMER1_INTERRUPT$/;"	l
 TIMER2	pluto_kernel.asm	/^TIMER2$/;"	l
 TIMER2TXT	pluto_kernel.asm	/^TIMER2TXT$/;"	l
 TIMERL	pluto_kernel.asm	/^TIMERL:$/;"	l
@@ -586,11 +597,13 @@ TRIBYT	pluto_kernel.asm	/^TRIBYT:$/;"	l
 TSRB	pluto_kernel.asm	/^TSRB:$/;"	l
 TSRBIN	pluto_kernel.asm	/^TSRBIN:$/;"	l
 TWOBYT	pluto_kernel.asm	/^TWOBYT:$/;"	l
+UPDATE_TOD_ON_CONSOLE	test.asm	/^UPDATE_TOD_ON_CONSOLE .PROC $/;"	l
 UPLOAD	xmodem.asm	/^UPLOAD  .proc$/;"	l
 USERFILL	pluto_kernel.asm	/^USERFILL:$/;"	l
 UTDELAY	rtc.asm	/^UTDELAY .PROC$/;"	l
 VIA	settime.asm	/^        VIA = $7FC0$/;"	d
 VIA	test.asm	/^        VIA = $7FC0$/;"	d
+VIA6522	test.asm	/^VIA6522 = $7FC0$/;"	d
 VIAACR	via.asm	/^    VIAACR  = VIABASE+$B    ; Auxiliary Control Register$/;"	d
 VIABASE	via.asm	/^    VIABASE = $7FC0 ;Write Output Register B, Read Input Register B$/;"	d
 VIADDRA	via.asm	/^    VIADDRA = VIABASE+3     ; Data Direction Register A$/;"	d
@@ -600,6 +613,7 @@ VIAIFR	via.asm	/^    VIAIFR  = VIABASE+$D    ; Interrupt Flag Register$/;"	d
 VIAIFRIRQ	via.asm	/^    VIAIFRIRQ = 7$/;"	d
 VIAINITTABLE	via.asm	/^VIAINITTABLE$/;"	l
 VIAINTERRUPT	pluto_kernel.asm	/^VIAINTERRUPT$/;"	l
+VIAINTERRUPT	test.asm	/^VIAINTERRUPT$/;"	l
 VIAPCR	via.asm	/^    VIAPCR  = VIABASE+$C    ; Peripheral Control Register$/;"	d
 VIARA	via.asm	/^    VIARA   = VIABASE+1     ; Write Output Register A, Read Input Register A$/;"	d
 VIARANH	via.asm	/^    VIARANH = VIABASE+$F    ; Same as Reg A except no "Handshake"$/;"	d

@@ -48,7 +48,31 @@ BCDOUTA = $80FF
         .include "1511_constants.asm"
         .include "1511.asm"
 
-   
+
+        SEI
+        LDA  INTERRUPTVECTOR
+        STA  INTERRUPTVECTOR+2
+        LDA  INTERRUPTVECTOR+1
+        STA  INTERRUPTVECTOR+3
+        LDA  #<TIMER1_INTERRUPT
+        STA  INTERRUPTVECTOR
+        LDA  #>TIMER1_INTERRUPT
+        STA  INTERRUPTVECTOR+1
+        CLI
+
+TIMER1_INTERRUPT
+        LDA  VIAIFR
+        AND  VIAIER
+        BNE  VIAINTERRUPT
+        JMP  (INTERRUPTVECTOR+2)   ;Execute normal ISR
+
+VIAINTERRUPT
+        BIT  #%00100000
+        BNE  DECMSD
+        BRA  EXIT
+DECMSD
+        
+UPDATE_TOD_ON_CONSOLE .PROC 
         JSR  SEND_ESCAPE
         LDA  SAVE_CURSOR_POSITION_AND_ATTRIBUTES
         JSR  COUT
@@ -70,6 +94,7 @@ BCDOUTA = $80FF
         LDA  RESTORE_CURSOR_POSITION_AND_ATTRIBUTES
         JSR  COUT
         RTS
+        .PEND
 
 SEND_ESCAPE
         LDA  #27

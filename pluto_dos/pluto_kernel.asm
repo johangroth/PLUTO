@@ -3087,7 +3087,7 @@ DONE
         STA  TEMP2H
 
 NEXT
-        LDA  TEMP2          ;Copy pointer to the name of the procedure
+        LDA  TEMP2          ;Store pointer to the name of the procedure
         STA  INDEX          ;from TEMP2
         LDA  TEMP2H         ;and TEMP2H
         STA  INDEXH         ;to INDEX and INDEXH.
@@ -3102,12 +3102,12 @@ NEXT
         STA  TEMP2          ;of the procedure address in TEMP2
         INY                 ;Point to high byte
         LDA  (INDEX),Y      ;Store high byte of procedure in 
-        STA  TEMP2H         ;TEMP2H
-        JSR  PRINT_EQUAL_DOLLAR
-        LDA  TEMP2H
-        STA  INDEXH         ;INDEXH. 
+        STA  TEMP2H         ;TEMP2H.
+        JSR  PRINT_EQUAL_DOLLAR ;Send ' = $' to terminal
+        LDA  TEMP2H         ;Store the address to procedure in INDEX and INDEXH 
+        STA  INDEXH         ;Store the high byte. 
         LDA  TEMP2          ;Store the low byte
-        STA  INDEX          ;in INDEX
+        STA  INDEX          ;in INDEX. 
         JSR  PRINDX         ;Send the value of the address as hex to the terminal
         PLA                 ;Restore table
         STA  TEMP2H         ;pointer to TEMP2H
