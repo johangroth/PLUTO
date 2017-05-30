@@ -3,4 +3,6 @@
 *.lst
 a.out
 *.rom
-*.bak
+*bak
+*.hex
+

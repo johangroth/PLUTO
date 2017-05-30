@@ -10,6 +10,7 @@ wr_minap =%00000000            ;no alarm min IRQ
 wr_secap =%00000000            ;no alarm secs IRQ
 wr_crbpa =%00000000            ;updates & WDT IRQs off
 wr_crbpb =%10100010            ;updates & WDT IRQs on
+wr_irqoff=%10000000            ;updates on but WDT IRQs off
 ;
 ;================================================================================
 ;

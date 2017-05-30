@@ -31,7 +31,7 @@ n_rtcreg =*-rtcreg
 ;
 ;       parameters...
 ;
-rtcparm  .byte wr_crbpb        ;updates & WDT IRQs on
+rtcparm  .byte wr_irqoff        ;updates on & WDT IRQs off
          .byte wr_secap        ;no alarm secs IRQ
          .byte wr_minap        ;no alarm min IRQ
          .byte wr_hrsap        ;no alarm hour IRQ

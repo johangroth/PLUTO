@@ -1,95 +1,117 @@
 
         * = $500
-        CHIN = $82F5
-        COUT = $8148
-        COUT2 = $8314
-        CROUT = $8335
-        CR2 = $8332
-        SPC2 = $8584
-        SPC4 = $8581
-        PRASC = $8489
-        DOLLAR = $832D
-        PRBYTE = $8496
-        PRINDX = $84A7
-        PROMPT = $84B4
-        BEEP = $82CB
-        DELAY1 = $8173
-        DELAY2 = $8346
-        SET = $855C
-        TIMER = $855E
-        RDLINE = $84ED
-        BN2ASC = $82D3
-        ASC2BN = $82AF
-        HEXIN = $8357
-        SAVREGS = $854E
-        RESREGS = $8555
-        INCINDEX = $83E9
-        DECINDEX = $8324
-        PROMPT2 = $86FF
-        HEXIN2 = $8351
-        HEXIN4 = $8355
-        NMON = $8812
-        COLDSTART = $87A8
-        INTERRUPT = $8902
+CHIN = $815A
+COUT = $817C
+COUT2 = $8179
+CROUT = $819A
+CR2 = $8197
+SPC2 = $83E9
+SPC4 = $83E6
+PRASC = $82EE
+DOLLAR = $8192
+PRBYTE = $82FB
+PRINDX = $830C
+PROMPT = $8319
+BEEP = $8130
+DELAY1 = $81A7
+DELAY2 = $81AB
+SET = $83C1
+TIMER = $83C3
+RDLINE = $8352
+BN2ASC = $8138
+ASC2BN = $8114
+HEXIN = $81BC
+SAVREGS = $83B3
+RESREGS = $83BA
+INCINDEX = $824E
+DECINDEX = $8189
+PROMPT2 = $8564
+HEXIN2 = $81B6
+HEXIN4 = $81BA
+NMON = $867D
+COLDSTART = $8613
+INTERRUPT = $876D
+ACIA6551 = $7FE0
+VIA6522 = $7FC0
+PRINT_DATE_AND_TIME = $801F 
+GET_DATE_AND_TIME  = $8072
+BCDOUTA = $80FF
+
+
         ACIA = $7FE0
         VIA = $7FC0
         DS1511 = $7FA0
         PUT_DATE_AND_TIME = $8095
 
         .include "zp_variables.asm"
-        .include "utils.asm"
+        ;.include "utils.asm"
         .include "1511_constants.asm"
         .include "1511.asm"
 
-INC16M	.MACRO
-        INC \1 
-        BNE DONE
-        INC \1 + 1
-DONE
-        .ENDM
-    
-        LDA  #<USEFUL_ROUTINES
-        STA  TEMP2
-        LDA  #>USEFUL_ROUTINES
-        STA  TEMP2H
+   
+        JSR  SEND_ESCAPE
+        LDA  SAVE_CURSOR_POSITION_AND_ATTRIBUTES
+        JSR  COUT
+        JSR  SEND_ESCAPE
+        LDA  #'['
+        JSR  COUT
+        LDA  #'1'
+        JSR  COUT
+        LDA  #';'
+        JSR  COUT
+        LDA  #'6'
+        JSR  COUT
+        LDA  #'2'
+        JSR  COUT
+        LDA  #'H'
+        JSR  COUT
+        JSR  SEND_DATE_AND_TIME
+        JSR  SEND_ESCAPE
+        LDA  RESTORE_CURSOR_POSITION_AND_ATTRIBUTES
+        JSR  COUT
+        RTS
 
-NEXT
-        LDA  TEMP2
-        STA  INDEX
-        LDA  TEMP2H
-        STA  INDEXH
-        JSR  PROMPT2
-        #INC16M INDEX
-        LDA  INDEX
+SEND_ESCAPE
+        LDA  #27
+        JMP  COUT
+
+SEND_DATE_AND_TIME .PROC
         PHA
-        LDA  INDEXH
-        PHA
-        LDY  #0
-        LDA  (INDEX),Y
-        STA  TEMP2
-        INY
-        LDA  (INDEX),Y
-        STA  INDEXH
-        LDA  TEMP2
-        STA  INDEX
-        JSR  PRINDX
-        PLA
-        STA  TEMP2H
-        PLA
-        STA  TEMP2
-        #INC16M TEMP2
-        #INC16M TEMP2
-        LDA  (TEMP2)
-        BEQ  DONE
+        PHX
+        PHY
+        JSR  GET_DATE_AND_TIME
+        LDA  TODBUF+WR_DATT
+        JSR  BCDOUTA
+        LDA  #'/'
+        JSR  COUT
+        LDA  TODBUF+WR_MON
+        JSR  BCDOUTA
+        LDA  #'/'
+        JSR  COUT
+        LDA  TODBUF+WR_YRHI
+        JSR  BCDOUTA
+        LDA  TODBUF+WR_YRLO
+        JSR  BCDOUTA
+        LDA  #' '
+        JSR  COUT
+        LDA  TODBUF+WR_HRST
+        JSR  BCDOUTA
+        LDA  #':'
+        JSR  COUT
+        LDA  TODBUF+WR_MINT
+        JSR  BCDOUTA
+        LDA  #':'
+        JSR  COUT
+        LDA  TODBUF+WR_SECT
+        JSR  BCDOUTA
         JSR  CROUT
-        BRA  NEXT
-DONE
+        PLY
+        PLX
+        PLA
         RTS
+        .PEND
 
-        LDX  #$F
-L1
-        STZ  TODBUF,X
-        DEX
-        BPL  L1
-        RTS
-
+CLEAR_ENTIRE_SCREEN .NULL "[2J"
+MOVE_CURSOR_TO_SCREEN_LOCATION_V_H  .NULL "[<v>;<h>H"
+SAVE_CURSOR_POSITION_AND_ATTRIBUTES .TEXT "7"
+RESTORE_CURSOR_POSITION_AND_ATTRIBUTES .TEXT "8"

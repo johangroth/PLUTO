@@ -46,8 +46,8 @@
       (place C10 146050 -97790 front 0 (PN 0.1uF))
       (place C11 127000 -92710 front 0 (PN 0.1uF))
       (place C12 80010 -81280 front 180 (PN 0.1uF))
-      (place C13 124460 -138430 front 90 (PN 0.1uF))
-      (place C14 130810 -142875 front 0 (PN 0.1uF))
+      (place C13 114300 -132715 front 90 (PN 0.1uF))
+      (place C14 137160 -131445 front 90 (PN 0.1uF))
       (place C17 72390 -88900 front 270 (PN 22pF))
     )
     (component Capacitors_ThroughHole:CP_Radial_D6.3mm_P2.50mm
@@ -1113,20 +1113,18 @@
   )
   (network
     (net GND
-      (pins C1-1 C4-2 C6-1 C7-2 C8-2 C9-2 C10-1 C11-1 C12-2 C13-2 C14-2 C17-1 J1-5
-        J2-1 J2-2 J3-1 J3-2 J4-1 J5-49 J5-50 Q1-3 SW1-1 SW1-1@1 U1-21 U2-14 U3-14
-        U4-15 U5-1 U5-16 U5-17 U6-1 U7-21 U7-14 U8-7 U9-7 U10-5 U10-8 U11-2 X1-4)
+      (pins C1-1 C2-2 C4-1 C4-2 C6-1 C7-2 C8-1 C8-2 C9-1 C9-2 C10-1 C10-2 C11-1 C11-2
+        C12-1 C12-2 C13-1 C13-2 C14-1 C14-2 C17-1 J1-5 J2-1 J2-2 J2-13 J2-14 J3-1
+        J3-2 J3-13 J3-14 J4-1 J5-1 J5-2 J5-49 J5-50 Q1-2 Q1-3 RN1-1 SW1-1 SW1-1@1
+        U1-21 U1-8 U2-27 U2-14 U2-28 U3-14 U3-28 U4-15 U4-16 U5-1 U5-15 U5-2 U5-16
+        U5-17 U6-1 U6-24 U6-20 U7-21 U7-14 U7-28 U8-7 U8-14 U9-7 U9-14 U10-5 U10-6
+        U10-8 U10-16 U11-2 U11-3 X1-4 X1-8)
     )
     (net "Net-(C1-Pad2)"
       (pins C1-2 U4-6)
     )
     (net "Net-(C2-Pad1)"
       (pins C2-1 U4-2)
-    )
-    (net VCC
-      (pins C2-2 C4-1 C8-1 C9-1 C10-2 C11-2 C12-1 C13-1 C14-1 J2-13 J2-14 J3-13 J3-14
-        J5-1 J5-2 Q1-2 RN1-1 U1-8 U2-27 U2-28 U3-28 U4-16 U5-15 U5-2 U6-24 U6-20 U7-28
-        U8-14 U9-14 U10-6 U10-16 U11-3 X1-8)
     )
     (net "Net-(C3-Pad1)"
       (pins C3-1 U4-4)
