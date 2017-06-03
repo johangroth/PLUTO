@@ -243,11 +243,12 @@ LIBS:zetex
 LIBS:Zilog
 LIBS:pluto
 LIBS:pluto-cache
+LIBS:IDE_interface-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 8
+Sheet 8 9
 Title ""
 Date ""
 Rev ""

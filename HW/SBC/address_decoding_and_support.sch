@@ -243,6 +243,7 @@ LIBS:zetex
 LIBS:Zilog
 LIBS:pluto
 LIBS:pluto-cache
+LIBS:IDE_interface-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268

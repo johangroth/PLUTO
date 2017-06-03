@@ -243,6 +243,7 @@ LIBS:zetex
 LIBS:Zilog
 LIBS:pluto
 LIBS:pluto-cache
+LIBS:IDE_interface-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -363,9 +364,9 @@ Wire Wire Line
 Wire Wire Line
 	6325 1500 7325 1500
 $Sheet
-S 7400 3950 1550 1500
-U 5932E4CB
-F0 "IDE interface" 60
-F1 "ide.sch" 60
+S 7450 3975 2150 2050
+U 5932EBB3
+F0 "IDE 16bit interface" 60
+F1 "IDE16bit.sch" 60
 $EndSheet
 $EndSCHEMATC
