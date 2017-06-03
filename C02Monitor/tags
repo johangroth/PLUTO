@@ -1,0 +1,477 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ACK	C02Monitor.asm	/^ACK				.EQU	$06	;Good Block Acknowledge$/;"	l
+AOK	C02Monitor.asm	/^AOK				RTS	;Character received, return to caller$/;"	l
+AREG	C02Monitor.asm	/^AREG			.EQU	BIOS_PG0+6	;Temp A reg$/;"	l
+ARG	C02Monitor.asm	/^ARG				LDX	#$04	;Offset to Page Zero Register storage$/;"	l
+ASC2BIN	C02Monitor.asm	/^ASC2BIN		SEC	;Set carry for subtraction$/;"	l
+ASCBUF	C02Monitor.asm	/^ASCBUF		.EQU	BUFF_PG0+0	;6 bytes ($BC-$C1)$/;"	l
+ASCHOK	C02Monitor.asm	/^ASCHOK		ADC	#$30	;Add $30 for ASCII$/;"	l
+ASCLOK	C02Monitor.asm	/^ASCLOK		ADC	#$30	;Add $30 for ASCII$/;"	l
+ASCLOOP	C02Monitor.asm	/^ASCLOOP		STY	STMP	;Save HEX input buffer index$/;"	l
+ASCOUT	C02Monitor.asm	/^ASCOUT		BRA	BRCHOUT	;Send byte in A-Reg, then return$/;"	l
+ASCTOHEX	C02Monitor.asm	/^ASCTOHEX	STZ	HEXDATAH	;Clear MS HEX digits$/;"	l
+ASYNC	C02Monitor.asm	/^ASYNC			BIT #%00001000	;check receive bit (2)$/;"	l
+BACK	C02Monitor.asm	/^BACK			LDA	BUFIDX	;Check if buffer is empty$/;"	l
+BADCRC	C02Monitor.asm	/^BADCRC		DEC	CRCCNT	;Decrement retry count$/;"	l
+BEEP	C02Monitor.asm	/^BEEP			LDA	#$07	;Send ASCII [BELL] to terminal$/;"	l
+BIN2ASC	C02Monitor.asm	/^BIN2ASC		PHA	;Save character to stack$/;"	l
+BINVALH	C02Monitor.asm	/^BINVALH		.EQU	PGZERO8_ST+29$/;"	l
+BINVALL	C02Monitor.asm	/^BINVALL		.EQU	PGZERO8_ST+28	;Binary Value for HEX2ASC$/;"	l
+BIOS_MSG	C02Monitor.asm	/^BIOS_MSG	.DB	$0D,$0A$/;"	l
+BIOS_PG0	C02Monitor.asm	/^BIOS_PG0	.EQU	PGZERO8_ST+96	;Start of BIOS page zero use ($E0-$FF)$/;"	l
+BLKNO	C02Monitor.asm	/^BLKNO			.EQU	PGZERO8_ST+58	;Block number$/;"	l
+BLK_OKAY	C02Monitor.asm	/^BLK_OKAY	STZ	CRCLO	;Reset the CRC value by (3)$/;"	l
+BMSG_LP	C02Monitor.asm	/^BMSG_LP		LDA	BIOS_MSG,X	;Get BIOS init msg$/;"	l
+BRA_PRMPT	C02Monitor.asm	/^BRA_PRMPT	JMP	PROMPT	;Send to console and exit$/;"	l
+BRCHOUT	C02Monitor.asm	/^BRCHOUT		JMP	CHOUT	;then done BSOUT subroutine, RETURN$/;"	l
+BREAKEY	C02Monitor.asm	/^BREAKEY		CLI	;Enable IRQ (2)$/;"	l
+BREAKEY2	C02Monitor.asm	/^BREAKEY2	STZ	ITAIL	;Zero out input buffer \/ reset pointers$/;"	l
+BRKINSTR0	C02Monitor.asm	/^BRKINSTR0	PLY	;Restore Y reg$/;"	l
+BRKRTVEC0	C02Monitor.asm	/^BRKRTVEC0	.EQU	SOFTVEC+8	;BRK Return Handler 0$/;"	l
+BRKVEC0	C02Monitor.asm	/^BRKVEC0		.EQU	SOFTVEC+2	;BRK Interrupt Vector 0$/;"	l
+BSOUT	C02Monitor.asm	/^BSOUT			LDA	#$08	;Get ASCII backspace$/;"	l
+BSOUT2	C02Monitor.asm	/^BSOUT2		LDA	#$08	;Send another Backspace to return$/;"	l
+BSOUT2T	C02Monitor.asm	/^BSOUT2T		JSR	BSOUT2	;Send a Backspace 2 times$/;"	l
+BSOUT3T	C02Monitor.asm	/^BSOUT3T		JSR	BSOUT2	;Send a Backspace 3 times$/;"	l
+BUFADRH	C02Monitor.asm	/^BUFADRH		.EQU	PGZERO8_ST+19$/;"	l
+BUFADRL	C02Monitor.asm	/^BUFADRL		.EQU	PGZERO8_ST+18	;Input address$/;"	l
+BUFFUL	C02Monitor.asm	/^BUFFUL		LDA #%00001100 ;buffer overflow flag (2)$/;"	l
+BUFF_PG0	C02Monitor.asm	/^BUFF_PG0	.EQU	PGZERO8_ST+60	;Default Page zero location for Monitor buffers$/;"	l
+BUFIDX	C02Monitor.asm	/^BUFIDX		.EQU	PGZERO8_ST+40	;Buffer index$/;"	l
+BUFLEN	C02Monitor.asm	/^BUFLEN		.EQU	PGZERO8_ST+41	;Buffer length$/;"	l
+BURN_BYTE	C02Monitor.asm	/^BURN_BYTE	.EQU	$0000	;Location in RAM for BYTE write routine$/;"	l
+BYTCMP	C02Monitor.asm	/^BYTCMP		LDA	LENL	;get low byte index (last page, 1-256 bytes)$/;"	l
+BYTCMPC	C02Monitor.asm	/^BYTCMPC		LDA	(SRCL),Y	;Get source data$/;"	l
+BYTE_RCV0	C02Monitor.asm	/^BYTE_RCV0	CMP	#SOH	;Start of header?$/;"	l
+BYTE_WLP	C02Monitor.asm	/^BYTE_WLP	STA	TEMP3	;Store in Temp location$/;"	l
+BYTE_WRE	C02Monitor.asm	/^BYTE_WRE	RTS	;Return to caller$/;"	l
+BYTE_WRS	C02Monitor.asm	/^BYTE_WRS	SEI	;Disable interrupts$/;"	l
+BYTE_XFER	C02Monitor.asm	/^BYTE_XFER	LDA	BYTE_WRS-1,X	;Get code$/;"	l
+BYTPRGC	C02Monitor.asm	/^BYTPRGC		JSR	BURN_BYTE	;Write a byte to EEPROM$/;"	l
+CALCCRC	C02Monitor.asm	/^CALCCRC		LDA	RBUFF+2,Y	;Get first data byte (4)$/;"	l
+CAN	C02Monitor.asm	/^CAN				.EQU	$18	;Cancel character$/;"	l
+CFG_6522	C02Monitor.asm	/^CFG_6522	;13 bytes required for 6522$/;"	l
+CFG_6551	C02Monitor.asm	/^CFG_6551	;2 bytes required for 6551$/;"	l
+CFG_TABLE	C02Monitor.asm	/^CFG_TABLE	;Configuration table for hardware devices$/;"	l
+CHANGE	C02Monitor.asm	/^CHANGE		JSR	SETUP	;Request HEX address input from terminal$/;"	l
+CHANGEL	C02Monitor.asm	/^CHANGEL		LDA	(INDEXL)	;Read specified address$/;"	l
+CHIN	C02Monitor.asm	/^CHIN			LDA	ICNT	;Get character count	(3)$/;"	l
+CHIN1	C02Monitor.asm	/^CHIN1			STY	IHEAD	;Update buffer pointer	(3)$/;"	l
+CHOK	C02Monitor.asm	/^CHOK			INC	INDEXL	;Increment INDEX address$/;"	l
+CHOUT	C02Monitor.asm	/^CHOUT			PHY	;save Y reg	(3)$/;"	l
+CHR_DLY	C02Monitor.asm	/^CHR_DLY		JSR	EXE_MSDLY	;Delay 2 milliseconds$/;"	l
+CLDMNVEC0	C02Monitor.asm	/^CLDMNVEC0	.EQU	SOFTVEC+12	;Cold Monitor Entry Vector 0$/;"	l
+CMBV	C02Monitor.asm	/^CMBV			JMP	(CLDMNVEC0)$/;"	l
+CMD_DEC	C02Monitor.asm	/^CMD_DEC		DEX	;Decrement index count$/;"	l
+CMD_LP	C02Monitor.asm	/^CMD_LP		CMP	MONCMD,X	;Compare to command list$/;"	l
+CMON	C02Monitor.asm	/^CMON			JSR	RDCHAR	;Wait for keystroke (RDCHAR converts to upper-case)$/;"	l
+CMPBYTRT	C02Monitor.asm	/^CMPBYTRT	INY	;Increment index to next source data$/;"	l
+CMPERR	C02Monitor.asm	/^CMPERR		JSR	COMPERR	;Call error subroutine$/;"	l
+CMPH	C02Monitor.asm	/^CMPH			.EQU	PGZERO8_ST+39$/;"	l
+CMPL	C02Monitor.asm	/^CMPL			.EQU	PGZERO8_ST+38	;Compare address for memory operations$/;"	l
+CMPPGLP	C02Monitor.asm	/^CMPPGLP		LDA	(SRCL),Y	;Get source data$/;"	l
+CMPPGRT	C02Monitor.asm	/^CMPPGRT		INY	;Increment index for next data byte$/;"	l
+CNVERT	C02Monitor.asm	/^CNVERT		STZ	MOD10L	;Clear 16-bit work area low byte$/;"	l
+COLDSTRT	C02Monitor.asm	/^COLDSTRT	CLD	;Clear decimal mode in case of software call (Zero Ram calls this)$/;"	l
+COMHI	C02Monitor.asm	/^COMHI			.EQU	PGZERO8_ST+21$/;"	l
+COMLO	C02Monitor.asm	/^COMLO			.EQU	PGZERO8_ST+20	;User command address$/;"	l
+COMPARE	C02Monitor.asm	/^COMPARE		STA	TEMP3	;Save command character$/;"	l
+COMPERR	C02Monitor.asm	/^COMPERR		PHY	;Push index to stack$/;"	l
+COMPLP	C02Monitor.asm	/^COMPLP		LDA	LENH	;Get high byte of length$/;"	l
+CONTINUE	C02Monitor.asm	/^CONTINUE	LDA	#$00	;Get msg cont? (Y\/N) to terminal$/;"	l
+CONTINUE2	C02Monitor.asm	/^CONTINUE2	LDA	#$01	;Get short msg (Y\/N) only$/;"	l
+COPYBLK	C02Monitor.asm	/^COPYBLK		LDA	RBUFF+2,X	;Get data byte from buffer$/;"	l
+COPYBLK2	C02Monitor.asm	/^COPYBLK2	INX	;Point to next data byte$/;"	l
+CRCCNT	C02Monitor.asm	/^CRCCNT		.EQU	PGZERO8_ST+55	;CRC retry count$/;"	l
+CRCHI	C02Monitor.asm	/^CRCHI			.EQU	PGZERO8_ST+53	;CRC lo byte  (two byte variable)$/;"	l
+CRCLO	C02Monitor.asm	/^CRCLO			.EQU	PGZERO8_ST+54	;CRC hi byte$/;"	l
+CRCLOOP	C02Monitor.asm	/^CRCLOOP		ASL	VALUE	;Shift (next) bit to carry (5)$/;"	l
+CRCLP1	C02Monitor.asm	/^CRCLP1		STA	CRCHI	;Store CRC hi (3)$/;"	l
+CRCRTRY	C02Monitor.asm	/^CRCRTRY		STZ	ICNT	;Zero input count$/;"	l
+CROUT	C02Monitor.asm	/^CROUT			PHA	;Save A reg$/;"	l
+DATA_XFER	C02Monitor.asm	/^DATA_XFER	SEI	;Disable Interrupts, can be called via JMP table$/;"	l
+DATA_XFLP	C02Monitor.asm	/^DATA_XFLP$/;"	l
+DAYSH	C02Monitor.asm	/^DAYSH			.EQU	BIOS_PG0+19	;High order byte$/;"	l
+DAYSL	C02Monitor.asm	/^DAYSL			.EQU	BIOS_PG0+18	;Days: (2 bytes) 0-65535 >179 years$/;"	l
+DECCNT	C02Monitor.asm	/^DECCNT		DEX	;Decrement the count$/;"	l
+DECMSD	C02Monitor.asm	/^DECMSD		BIT	Via1T2CL	;Clear interrupt for T2 (4)$/;"	l
+DECONLY	C02Monitor.asm	/^DECONLY		CPX	#$FF	;Check for filter enabled for ASCII decimal$/;"	l
+DECTEST	C02Monitor.asm	/^DECTEST		CMP	#$3A	;Check for decimal filter$/;"	l
+DELHI	C02Monitor.asm	/^DELHI			.EQU	BIOS_PG0+24	;	BIOS use only$/;"	l
+DELLO	C02Monitor.asm	/^DELLO			.EQU	BIOS_PG0+23	;Delay value	BIOS use only$/;"	l
+DF_TICKS	C02Monitor.asm	/^DF_TICKS	.EQU	#250	;clock timer set for 4 milliseconds, so 250 x 4ms = 1 second$/;"	l
+DLINE	C02Monitor.asm	/^DLINE			JSR	SPC4	;Send 4 Spaces to terminal$/;"	l
+DMPGR	C02Monitor.asm	/^DMPGR			LDA	#$02	;Get msg for "addr:" to terminal$/;"	l
+DO16TIME	C02Monitor.asm	/^DO16TIME	PHA	;Save message number$/;"	l
+DO8TIME	C02Monitor.asm	/^DO8TIME		LDY	#$00	;Zero high byte$/;"	l
+DOCMD	C02Monitor.asm	/^DOCMD			JMP	(MONTAB,X)	;Execute CMD from Table$/;"	l
+DOCOM	C02Monitor.asm	/^DOCOM			JMP	(COMLO)	;Execute the command$/;"	l
+DOCONT	C02Monitor.asm	/^DOCONT		RTS	;Return$/;"	l
+DOLLAR	C02Monitor.asm	/^DOLLAR		PHA	;Save A reg on STACK$/;"	l
+DONEFILL	C02Monitor.asm	/^DONEFILL	RTS	;Return to caller$/;"	l
+DONTCNT	C02Monitor.asm	/^DONTCNT		PLA	;Else remove return address$/;"	l
+DO_BRK	C02Monitor.asm	/^DO_BRK		JMP	(BRKVEC0)	;Jump to Soft vectored BRK Handler (5) (25 clock cycles to vector routine)$/;"	l
+DO_COLD	C02Monitor.asm	/^DO_COLD		JMP	COLDSTRT	;Jump to coldstart vector$/;"	l
+DO_DLL	C02Monitor.asm	/^DO_DLL		JSR	EXE_MSDLY	;Call millisecond delay$/;"	l
+DO_NULL	C02Monitor.asm	/^DO_NULL		LDA	#$00	;Clear all PROCESSOR STATUS REGISTER bits$/;"	l
+DVLOOP	C02Monitor.asm	/^DVLOOP		ROL	BINVALL	;Shift carry into dividend$/;"	l
+ENDUMP	C02Monitor.asm	/^ENDUMP		INC	IDX	;Increment line counter$/;"	l
+END_LOAD	C02Monitor.asm	/^END_LOAD	PLA	;Get MSG #$/;"	l
+EOT	C02Monitor.asm	/^EOT				.EQU	$04	;End of Text marker$/;"	l
+EXE_LGDLY	C02Monitor.asm	/^EXE_LGDLY	PHX	;Save X Reg$/;"	l
+EXE_MSDLY	C02Monitor.asm	/^EXE_MSDLY	PHA	;Save A Reg (3)$/;"	l
+EXE_XLDLY	C02Monitor.asm	/^EXE_XLDLY	JSR	EXE_LGDLY	;Call the Long Delay routine$/;"	l
+EXITRD	C02Monitor.asm	/^EXITRD		LDX	BUFIDX	;Get keystroke count$/;"	l
+FILAST	C02Monitor.asm	/^FILAST		STA	(TGTL),Y	;Store fill value at current page address$/;"	l
+FILEFT	C02Monitor.asm	/^FILEFT		LDX	LENL	;Get current length lo byte$/;"	l
+FLSH_DLY	C02Monitor.asm	/^FLSH_DLY	STZ	ICNT	;Zero input count$/;"	l
+FM_INPUT	C02Monitor.asm	/^FM_INPUT	LDA	#$05	;Send "val: " to terminal$/;"	l
+FULTST	C02Monitor.asm	/^FULTST		LDY	BUFIDX	;Get the current buffer index$/;"	l
+F_INPUT	C02Monitor.asm	/^F_INPUT		JSR	HEX4	;Use short cut version for print and input$/;"	l
+GENCRC	C02Monitor.asm	/^GENCRC		PHP	;Save registers (3)$/;"	l
+GETBYT	C02Monitor.asm	/^GETBYT		LDA	(INDEXL),Y	;Read indexed byte$/;"	l
+GETBYT2	C02Monitor.asm	/^GETBYT2		LDA	(INDEXL),Y	;Read indexed byte$/;"	l
+GETMULT	C02Monitor.asm	/^GETMULT		LDA	#$19	;Get Multiplier message$/;"	l
+GET_BLK	C02Monitor.asm	/^GET_BLK		LDA	#$40	;Get flag setting$/;"	l
+GET_BLK1	C02Monitor.asm	/^GET_BLK1	JSR	CHIN	;Get a character$/;"	l
+GET_CH	C02Monitor.asm	/^GET_CH		PHY	;Save Y reg	(3)$/;"	l
+GLINE	C02Monitor.asm	/^GLINE			LDX	#$4F	;Load index for 79 decimal$/;"	l
+GLINEL	C02Monitor.asm	/^GLINEL		JSR	CHOUT	;Send to terminal (draw a line)$/;"	l
+GO	C02Monitor.asm	/^GO				JSR	SETUP	;Get HEX address input (Areg\/Yreg contains 16-bit value)$/;"	l
+GOODCRC	C02Monitor.asm	/^GOODCRC		LDA	S19FLAG	;Get S19 record flag$/;"	l
+HD_BNOK	C02Monitor.asm	/^HD_BNOK		ASL	A	;Shift to high nibble$/;"	l
+HEX2	C02Monitor.asm	/^HEX2			JSR	PROMPT	;Print MSG # from A reg$/;"	l
+HEX2ASC	C02Monitor.asm	/^HEX2ASC		STX	BINVALL	;Save Low byte$/;"	l
+HEX4	C02Monitor.asm	/^HEX4			JSR	PROMPT	;Print MSG # from A reg$/;"	l
+HEXDATA	C02Monitor.asm	/^HEXDATA		.EQU PGZERO16_ST+15$/;"	l
+HEXDATAH	C02Monitor.asm	/^HEXDATAH	.EQU PGZERO8_ST+16$/;"	l
+HEXDATAL	C02Monitor.asm	/^HEXDATAL	.EQU PGZERO8_ST+17$/;"	l
+HEXIN2	C02Monitor.asm	/^HEXIN2		LDX	#$02	;Set for number of characters allowed$/;"	l
+HEXIN4	C02Monitor.asm	/^HEXIN4		LDX	#$04	;Set for number of characters allowed$/;"	l
+HEXINPUT	C02Monitor.asm	/^HEXINPUT	JSR	DOLLAR	;Send "$" to console$/;"	l
+HINDONE	C02Monitor.asm	/^HINDONE		LDX	SCNT	;Get entered count before exit$/;"	l
+HINEXIT	C02Monitor.asm	/^HINEXIT		RTS	;And return to caller$/;"	l
+HOURS	C02Monitor.asm	/^HOURS			.EQU	BIOS_PG0+17	;Hours: 0-23$/;"	l
+IBUF	C02Monitor.asm	/^IBUF			.EQU	$0200	;INPUT BUFFER  128 BYTES - BIOS use only$/;"	l
+ICNT	C02Monitor.asm	/^ICNT			.EQU	BIOS_PG0+7	;Input buffer count$/;"	l
+IDX	C02Monitor.asm	/^IDX				.EQU	PGZERO8_ST+44	;Indexing for Memory Dump$/;"	l
+IDY	C02Monitor.asm	/^IDY				.EQU	PGZERO8_ST+45	;Indexing for Search Memory$/;"	l
+IHEAD	C02Monitor.asm	/^IHEAD			.EQU	BIOS_PG0+8	;Input buffer head pointer$/;"	l
+INBUFF	C02Monitor.asm	/^INBUFF		.EQU	BUFF_PG0+6	;14 bytes ($C2-$CF)$/;"	l
+INCBLK	C02Monitor.asm	/^INCBLK		INC	BLKNO	;Increment block number$/;"	l
+INCBLK2	C02Monitor.asm	/^INCBLK2		BRA	INCBLK	;Increment block and get next frame$/;"	l
+INCRTC	C02Monitor.asm	/^INCRTC		BIT	Via1T1CL	;Clear interrupt for T1 (4)$/;"	l
+INDEXH	C02Monitor.asm	/^INDEXH		.EQU	PGZERO8_ST+23$/;"	l
+INDEXL	C02Monitor.asm	/^INDEXL		.EQU	PGZERO8_ST+22	;Index for address$/;"	l
+INERR	C02Monitor.asm	/^INERR			JSR	BEEP	;Else, error, send Bell to terminal$/;"	l
+INIMACRO	C02Monitor.asm	/^INIMACRO	LDA	#$02	;Make memory fill start address = $0200$/;"	l
+INIT_6522	C02Monitor.asm	/^INIT_6522$/;"	l
+INIT_6522L	C02Monitor.asm	/^INIT_6522L$/;"	l
+INIT_6551	C02Monitor.asm	/^INIT_6551$/;"	l
+INIT_6551L	C02Monitor.asm	/^INIT_6551L$/;"	l
+INIT_CFG	C02Monitor.asm	/^INIT_CFG	LDY	#$40	;Get offset to data$/;"	l
+INIT_IO	C02Monitor.asm	/^INIT_IO		JSR	INIT_6551	;Init the Console first$/;"	l
+INIT_PG03	C02Monitor.asm	/^INIT_PG03	JSR	INIT_VEC	;Init the Vectors first$/;"	l
+INIT_VEC	C02Monitor.asm	/^INIT_VEC	LDY	#$20	;Get offset to data$/;"	l
+INTERUPT0	C02Monitor.asm	/^INTERUPT0	LDA	SIOSTAT	;Get status register, xfer irq bit to n flag (4)$/;"	l
+INTERUPT1	C02Monitor.asm	/^INTERUPT1	LDA	Via1IFR	;Get IRQ flag register, xfer irq bit to n flag (4)$/;"	l
+IN_PORT	C02Monitor.asm	/^IN_PORT		LDA	Via1PRB,X	;Read Port data$/;"	l
+IOPAGE	C02Monitor.asm	/^IOPAGE		.EQU	$FE00  $/;"	l
+IO_DIR	C02Monitor.asm	/^IO_DIR		.EQU	BIOS_PG0+27	;I\/O port direction temp$/;"	l
+IO_IN	C02Monitor.asm	/^IO_IN			.EQU	BIOS_PG0+28	;I\/O port Input temp$/;"	l
+IO_LOOP	C02Monitor.asm	/^IO_LOOP		LDA	$FE00,X	;Get I\/O Page (X reg already at #$00)$/;"	l
+IO_OUT	C02Monitor.asm	/^IO_OUT		.EQU	BIOS_PG0+29	;I\/O port Output temp$/;"	l
+IRQEXT	C02Monitor.asm	/^IRQEXT		STA STTVAL ;update status value (3) (19 clock cycles to here for CTS fallout)$/;"	l
+IRQRTVEC0	C02Monitor.asm	/^IRQRTVEC0	.EQU	SOFTVEC+10	;IRQ Return Handler 0$/;"	l
+IRQVEC0	C02Monitor.asm	/^IRQVEC0		.EQU	SOFTVEC+4	;INTERRUPT VECTOR 0$/;"	l
+IRQ_EXIT0	C02Monitor.asm	/^IRQ_EXIT0	;This is the standard return for the IRQ\/BRK handler routines$/;"	l
+IRQ_VECTOR	C02Monitor.asm	/^IRQ_VECTOR	;This is the ROM start for the BRK\/IRQ handler$/;"	l
+ITAIL	C02Monitor.asm	/^ITAIL			.EQU	BIOS_PG0+9	;Input buffer tail pointer$/;"	l
+LD_BNOK	C02Monitor.asm	/^LD_BNOK		ORA	TEMP1	;OR in the high nibble$/;"	l
+LENH	C02Monitor.asm	/^LENH			.EQU	PGZERO8_ST+37$/;"	l
+LENL	C02Monitor.asm	/^LENL			.EQU	PGZERO8_ST+36	;Length address for memory operations$/;"	l
+LOAD_6522	C02Monitor.asm	/^LOAD_6522	.EQU	SOFTCFG+2	;6522 SOFT config data start$/;"	l
+LOAD_6551	C02Monitor.asm	/^LOAD_6551	.EQU	SOFTCFG	;6551 SOFT config data start$/;"	l
+LOKOUT	C02Monitor.asm	/^LOKOUT		.EQU	PGZERO8_ST+46	;Lokout flag for RDLINE routine$/;"	l
+MATCH	C02Monitor.asm	/^MATCH			.EQU	BIOS_PG0+21	;Delay Match flag, $FF is set, $00 is cleared$/;"	l
+MATCH_LP	C02Monitor.asm	/^MATCH_LP	LDA	MATCH	;Read MATCH flag (3)$/;"	l
+MDLOOP	C02Monitor.asm	/^MDLOOP		TXA	;Send "00" thru "0F", separated by 1 Space, to terminal$/;"	l
+MDUMP	C02Monitor.asm	/^MDUMP			JSR	SETUP	;Request HEX address input from terminal$/;"	l
+MFILL	C02Monitor.asm	/^MFILL$/;"	l
+MINS	C02Monitor.asm	/^MINS			.EQU	BIOS_PG0+16	;Minutes: 0-59$/;"	l
+MOD10H	C02Monitor.asm	/^MOD10H		.EQU	PGZERO8_ST+31$/;"	l
+MOD10L	C02Monitor.asm	/^MOD10L		.EQU	PGZERO8_ST+30	;Modulus Value for HEX2ASC$/;"	l
+MONCMD	C02Monitor.asm	/^MONCMD		.DB	$0C	;[CNTRL-L]	Xmodem\/CRC Loader$/;"	l
+MONITOR	C02Monitor.asm	/^MONITOR		LDA	#$7F	;Get user stack value$/;"	l
+MONTAB	C02Monitor.asm	/^MONTAB		.DW	XMODEM	;[CNTL-L]	$0C	Xmodem download, use send from terminal program$/;"	l
+MOVER	C02Monitor.asm	/^MOVER			JSR	CONTINUE	;Prompt to continue move$/;"	l
+MOVE_BLK	C02Monitor.asm	/^MOVE_BLK	LDX	#$00	;Set index offset to data$/;"	l
+MSDELAY	C02Monitor.asm	/^MSDELAY		.EQU	BIOS_PG0+20	;Timer delay countdown byte (255 > 0)$/;"	l
+MSG_00	C02Monitor.asm	/^MSG_00		.DB " cont?"$/;"	l
+MSG_01	C02Monitor.asm	/^MSG_01		.DB	"(y\/n)"$/;"	l
+MSG_02	C02Monitor.asm	/^MSG_02		.DB $0D,$0A$/;"	l
+MSG_03	C02Monitor.asm	/^MSG_03		.DB	" addr:"$/;"	l
+MSG_04	C02Monitor.asm	/^MSG_04		.DB " len:"$/;"	l
+MSG_05	C02Monitor.asm	/^MSG_05		.DB " val:"$/;"	l
+MSG_06	C02Monitor.asm	/^MSG_06		.DB " src:"$/;"	l
+MSG_07	C02Monitor.asm	/^MSG_07		.DB " tgt:"$/;"	l
+MSG_08	C02Monitor.asm	/^MSG_08		.DB " find txt:"$/;"	l
+MSG_09	C02Monitor.asm	/^MSG_09		.DB " find bin:"$/;"	l
+MSG_0A	C02Monitor.asm	/^MSG_0A		.DB "not "$/;"	l
+MSG_0B	C02Monitor.asm	/^MSG_0B		.DB "found"$/;"	l
+MSG_0C	C02Monitor.asm	/^MSG_0C		.DB ":$"$/;"	l
+MSG_0D	C02Monitor.asm	/^MSG_0D		.DB $0D,$0A$/;"	l
+MSG_0E	C02Monitor.asm	/^MSG_0E		.DB $0D,$0A$/;"	l
+MSG_0F	C02Monitor.asm	/^MSG_0F		.DB "SP:$"$/;"	l
+MSG_10	C02Monitor.asm	/^MSG_10		.DB "SR:$"$/;"	l
+MSG_11	C02Monitor.asm	/^MSG_11		.DB "YR:$"$/;"	l
+MSG_12	C02Monitor.asm	/^MSG_12		.DB "XR:$"$/;"	l
+MSG_13	C02Monitor.asm	/^MSG_13		.DB "AC:$"$/;"	l
+MSG_14	C02Monitor.asm	/^MSG_14		.DB	#$0D,#$0A$/;"	l
+MSG_15	C02Monitor.asm	/^MSG_15		.DB $0D,$0A,$0A$/;"	l
+MSG_16	C02Monitor.asm	/^MSG_16		.DB "Version 1.0"$/;"	l
+MSG_17	C02Monitor.asm	/^MSG_17		.DB $0D,$0A$/;"	l
+MSG_18	C02Monitor.asm	/^MSG_18		.DB	" delay ms:"$/;"	l
+MSG_19	C02Monitor.asm	/^MSG_19		.DB	" mult:"$/;"	l
+MSG_1A	C02Monitor.asm	/^MSG_1A		.DB	" delay xl:"$/;"	l
+MSG_1B	C02Monitor.asm	/^MSG_1B		.DB	"Uptime: "$/;"	l
+MSG_1C	C02Monitor.asm	/^MSG_1C		.DB	" Days, "$/;"	l
+MSG_1D	C02Monitor.asm	/^MSG_1D		.DB	" Hours, "$/;"	l
+MSG_1E	C02Monitor.asm	/^MSG_1E		.DB	" Minutes, "$/;"	l
+MSG_1F	C02Monitor.asm	/^MSG_1F		.DB	" Seconds"$/;"	l
+MSG_20	C02Monitor.asm	/^MSG_20		.DB "Zero RAM\/"$/;"	l
+MSG_21	C02Monitor.asm	/^MSG_21		.DB	"Reset System,"$/;"	l
+MSG_22	C02Monitor.asm	/^MSG_22		.DB	"Program EEPROM",$0D,$0A$/;"	l
+MSG_23	C02Monitor.asm	/^MSG_23		.DB	$0D,$0A$/;"	l
+MSG_24	C02Monitor.asm	/^MSG_24		.DB	$0D,$0A$/;"	l
+MSG_25	C02Monitor.asm	/^MSG_25		.DB	$0D,$0A$/;"	l
+MSG_26	C02Monitor.asm	/^MSG_26		.DB	$0D,$0A$/;"	l
+MSG_27	C02Monitor.asm	/^MSG_27		.DB	$0D,$0A$/;"	l
+MSG_28	C02Monitor.asm	/^MSG_28		.DB	$0D,$0A$/;"	l
+MSG_29	C02Monitor.asm	/^MSG_29		.DB	"XMODEM Loader, <Esc> to abort, or",$0D,$0A$/;"	l
+MSG_2A	C02Monitor.asm	/^MSG_2A		.DB	$0D,$0A$/;"	l
+MSG_2B	C02Monitor.asm	/^MSG_2B		.DB	$0D,$0A$/;"	l
+MSG_2C	C02Monitor.asm	/^MSG_2C		.DB $0D,$0A$/;"	l
+MSG_TABLE	C02Monitor.asm	/^MSG_TABLE	;Message table - contains addresses as words of each message sent via the PROMPT routine$/;"	l
+MTLOOP	C02Monitor.asm	/^MTLOOP		TXA	;Xfer to A reg$/;"	l
+MVE_SREC	C02Monitor.asm	/^MVE_SREC	LDA	SRBUFF+3,Y	;Get offset to data in record$/;"	l
+MVPAG	C02Monitor.asm	/^MVPAG			LDA	(SRCL),Y	;Load source data$/;"	l
+MVPG	C02Monitor.asm	/^MVPG			DEY	;Decrement page count$/;"	l
+MVPGE	C02Monitor.asm	/^MVPGE			LDA	(SRCL),Y	;Load source data$/;"	l
+MVPRT	C02Monitor.asm	/^MVPRT			LDA	(SRCL),Y	;Load source data$/;"	l
+MVREST	C02Monitor.asm	/^MVREST		LDX	LENL	;Get length lo byte count$/;"	l
+NAK	C02Monitor.asm	/^NAK				.EQU	$15	;Bad Block acknowledged$/;"	l
+NCAREG	C02Monitor.asm	/^NCAREG		RTS	;Done ARG command, RETURN$/;"	l
+NMIHNDLR0	C02Monitor.asm	/^NMIHNDLR0	RTI	;Return from IRQ\/BRK routine (6) (18 clock cycles from vector jump to IRQ end)$/;"	l
+NMIRTVEC0	C02Monitor.asm	/^NMIRTVEC0	.EQU	SOFTVEC+6	;NMI Return Handler 0$/;"	l
+NMIVEC0	C02Monitor.asm	/^NMIVEC0		.EQU	SOFTVEC	;NMI Interrupt Vector 0$/;"	l
+NMI_VECTOR	C02Monitor.asm	/^NMI_VECTOR	;This is the ROM start for NMI Panic handler$/;"	l
+NMON	C02Monitor.asm	/^NMON			LDX	#$FF	;Initialize Stack pointer$/;"	l
+NODATA	C02Monitor.asm	/^NODATA		LDY	#$09	;get mask for xmit off \/ rcv on (2)$/;"	l
+NOINCR	C02Monitor.asm	/^NOINCR		JSR	SPC2	;Send 2 spaces$/;"	l
+NOMULT	C02Monitor.asm	/^NOMULT		RTS	;Return to caller$/;"	l
+NOTESC	C02Monitor.asm	/^NOTESC		CMP	#$0D	;Check for C\/R$/;"	l
+NO_OFFSET	C02Monitor.asm	/^NO_OFFSET	LDA	BLKNO	;Get Block number$/;"	l
+NO_OFFST2	C02Monitor.asm	/^NO_OFFST2	LDX	SRBUFF	;Get record length$/;"	l
+NXT_FRAME	C02Monitor.asm	/^NXT_FRAME	STY	IDY	;Save SRBUFF offset$/;"	l
+OBUF	C02Monitor.asm	/^OBUF			.EQU	$0280	;OUTPUT BUFFER 128 BYTES - BIOS use only$/;"	l
+OCNT	C02Monitor.asm	/^OCNT			.EQU	BIOS_PG0+10	;Output buffer count$/;"	l
+OC_LOOP	C02Monitor.asm	/^OC_LOOP		LDA	OCNT	;Check output buffer count$/;"	l
+OHEAD	C02Monitor.asm	/^OHEAD			.EQU	BIOS_PG0+11	;Output buffer head pointer$/;"	l
+OTAIL	C02Monitor.asm	/^OTAIL			.EQU	BIOS_PG0+12	;Output buffer tail pointer$/;"	l
+OUTC1	C02Monitor.asm	/^OUTC1			STY	OTAIL	;Update pointer	(3)$/;"	l
+OUTC2	C02Monitor.asm	/^OUTC2			PLP	;Restore CPU state (4)$/;"	l
+OUTCH	C02Monitor.asm	/^OUTCH			LDY	OCNT	;get character output count in buffer	(3)$/;"	l
+OUTD1	C02Monitor.asm	/^OUTD1			STY OHEAD ;save new head index (3)$/;"	l
+OUTDAT	C02Monitor.asm	/^OUTDAT		LDY OHEAD ;get pointer to buffer (3)$/;"	l
+OUT_PORT	C02Monitor.asm	/^OUT_PORT	STA	Via1PRB,X	;Write Port data$/;"	l
+PAGE0_LP	C02Monitor.asm	/^PAGE0_LP	STZ	$00,X	;Zero out Page Zero$/;"	l
+PAN_LP1	C02Monitor.asm	/^PAN_LP1		STZ	ICNT-1,X	;Zero out console I\/O pointers$/;"	l
+PCH	C02Monitor.asm	/^PCH				.EQU	BIOS_PG0+1	;Program Counter High index$/;"	l
+PCL	C02Monitor.asm	/^PCL				.EQU	BIOS_PG0+0	;Program Counter Low index$/;"	l
+PERIOD	C02Monitor.asm	/^PERIOD		LDA	#$2E	;Else, print a "."$/;"	l
+PGFILL	C02Monitor.asm	/^PGFILL		STA	(TGTL),Y	;Store fill value at current page address$/;"	l
+PGZERO16_ST	C02Monitor.asm	/^PGZERO16_ST	.EQU	$0080	;16-bit start of Page Zero usage$/;"	l
+PGZERO8_ST	C02Monitor.asm	/^PGZERO8_ST	.EQU	$80	;8-bit start of Page Zero usage$/;"	l
+PLP0	C02Monitor.asm	/^PLP0			LDA	($00),Y	;get byte$/;"	l
+POINTER	C02Monitor.asm	/^POINTER		.EQU	PGZERO8_ST+47	;Stack Pointer for Go routine$/;"	l
+PORT_OK	C02Monitor.asm	/^PORT_OK		CLC	;Clear Carry flag for no error$/;"	l
+PRASC	C02Monitor.asm	/^PRASC			CMP	#$7F	;Check for first 128$/;"	l
+PRBYT2	C02Monitor.asm	/^PRBYT2		JSR	BIN2ASC	;Convert A reg to 2 ASCII Hex characters$/;"	l
+PRBYTE	C02Monitor.asm	/^PRBYTE		PHA	;Save A register$/;"	l
+PREG	C02Monitor.asm	/^PREG			.EQU	BIOS_PG0+2	;Temp Status reg$/;"	l
+PRG	C02Monitor.asm	/^PRG				LDX	#$00	;Set offset for Processor Status register$/;"	l
+PRGBYT	C02Monitor.asm	/^PRGBYT		LDA	LENL	;get low byte index (last page, 1-256 bytes)$/;"	l
+PRGBYTRT	C02Monitor.asm	/^PRGBYTRT	INY	;Increment index to next source data$/;"	l
+PRGERR	C02Monitor.asm	/^PRGERR		LDA	#$FF	;Get flag set$/;"	l
+PRGE_E	C02Monitor.asm	/^PRGE_E		LDA	#$06	;Send " src:" to terminal$/;"	l
+PRGPGLP	C02Monitor.asm	/^PRGPGLP		JSR	BURN_BYTE	;Write a byte to EEPROM$/;"	l
+PRGPGRT	C02Monitor.asm	/^PRGPGRT		INY	;Increment index for next data byte$/;"	l
+PRG_GOOD	C02Monitor.asm	/^PRG_GOOD	LDA	#$26	;Get completed message$/;"	l
+PRNXT	C02Monitor.asm	/^PRNXT			JSR	SPC2	;Send 2 Spaces to terminal$/;"	l
+PROGEE	C02Monitor.asm	/^PROGEE		LDA	#$22	;Get PRG_EE msg$/;"	l
+PROG_EE	C02Monitor.asm	/^PROG_EE		LDA	#$23	;Get first warning msg$/;"	l
+PROG_LP	C02Monitor.asm	/^PROG_LP		LDA	LENH	;Get high byte of length$/;"	l
+PROMPT	C02Monitor.asm	/^PROMPT		ASL	A	;Multiply by two for msg table index$/;"	l
+PROMPT2	C02Monitor.asm	/^PROMPT2		LDY	#$00	;Zero index$/;"	l
+PROMPT2L	C02Monitor.asm	/^PROMPT2L	LDA	(PROMPTL),Y	;Get string data$/;"	l
+PROMPTH	C02Monitor.asm	/^PROMPTH		.EQU	PGZERO8_ST+27$/;"	l
+PROMPTL	C02Monitor.asm	/^PROMPTL		.EQU	PGZERO8_ST+26	;Prompt string address$/;"	l
+PROMPTR	C02Monitor.asm	/^PROMPTR		STY	PROMPTH	;Store hi byte$/;"	l
+PRSTAT	C02Monitor.asm	/^PRSTAT		JSR	CHOUT	;Send "R" to terminal$/;"	l
+PRSTAT1	C02Monitor.asm	/^PRSTAT1		LDA	#$14	;Get Header msg$/;"	l
+PRWORD	C02Monitor.asm	/^PRWORD		PHA	;Save A register$/;"	l
+PTRH	C02Monitor.asm	/^PTRH			.EQU	PGZERO8_ST+57	;Data pointer hi byte$/;"	l
+PTRL	C02Monitor.asm	/^PTRL			.EQU	PGZERO8_ST+56	;Data pointer lo byte (two byte variable)$/;"	l
+QUITCMP	C02Monitor.asm	/^QUITCMP		RTS	;Finished, return$/;"	l
+QUITMV	C02Monitor.asm	/^QUITMV		RTS	;Return to caller$/;"	l
+QUITPRG	C02Monitor.asm	/^QUITPRG		LDA	TEMP4	;Get Prog error flag$/;"	l
+RBUFF	C02Monitor.asm	/^RBUFF			.EQU	$037C	;Xmodem temp 132 byte receive buffer$/;"	l
+RCV0	C02Monitor.asm	/^RCV0			LDY ICNT	;get buffer counter (3)$/;"	l
+RCV1	C02Monitor.asm	/^RCV1			STY ITAIL ;update buffer tail pointer (3)$/;"	l
+RCVCHR	C02Monitor.asm	/^RCVCHR		LDA SIODAT	;get character from 6551 (4)$/;"	l
+RDCHAR	C02Monitor.asm	/^RDCHAR		JSR	CHIN	;Request keystroke input from terminal$/;"	l
+RDLINE	C02Monitor.asm	/^RDLINE		STX	BUFLEN	;Store buffer length   $/;"	l
+RDLOOP	C02Monitor.asm	/^RDLOOP		JSR	RDCHAR	;Get keystroke input from terminal, convert LC2UC$/;"	l
+REGEXT	C02Monitor.asm	/^REGEXT		JMP	(IRQRTVEC0) ;handle next irq (5)$/;"	l
+REGEXT1	C02Monitor.asm	/^REGEXT1		JMP	(VECINSRT0) ;handle next irq (5)$/;"	l
+REGEXT2	C02Monitor.asm	/^REGEXT2		JMP	(VECINSRT1)	;Done with timer handler, exit (5)$/;"	l
+REGPLOOP	C02Monitor.asm	/^REGPLOOP	LDA	PREG,X	;Start with A reg variable$/;"	l
+REG_UPT	C02Monitor.asm	/^REG_UPT		PHX	;Save offset to stack$/;"	l
+RESET_T2	C02Monitor.asm	/^RESET_T2	LDA	LOAD_6522+$07	;Get T2H value (4)$/;"	l
+REST	C02Monitor.asm	/^REST			LDA	(SRCL),Y	;Load source data$/;"	l
+RESTRT	C02Monitor.asm	/^RESTRT		LDA	#NAK	;Get NAK character$/;"	l
+RESTRT2	C02Monitor.asm	/^RESTRT2		JSR	CHOUT	;Send to xfer program$/;"	l
+RET	C02Monitor.asm	/^RET				RTS	;Return to caller$/;"	l
+RETRY	C02Monitor.asm	/^RETRY			.EQU	PGZERO8_ST+59	;Retry counter $/;"	l
+RIGHT	C02Monitor.asm	/^RIGHT			LDX	LENH	;Get the length hi byte count$/;"	l
+RUNMACRO	C02Monitor.asm	/^RUNMACRO	LDA	#$7F	;Set keystroke buffer tail pointer to $7F$/;"	l
+S19FLAG	C02Monitor.asm	/^S19FLAG		.EQU	BIOS_PG0+31	;S-record transfer active flag$/;"	l
+S19_LOOP	C02Monitor.asm	/^S19_LOOP	LDA	RBUFF+2,X	;Get S-Record data$/;"	l
+S19_LOOP2	C02Monitor.asm	/^S19_LOOP2	LDX	IDX	;Load current offset to RBUFF$/;"	l
+S1_PROC	C02Monitor.asm	/^S1_PROC		JSR	SR_PROC	;Process the S-Record and checksum$/;"	l
+S9_PROC	C02Monitor.asm	/^S9_PROC		JSR	SR_PROC	;Process the S-Record and checksum$/;"	l
+SBLOOP	C02Monitor.asm	/^SBLOOP		STY	IDY	;Save index $/;"	l
+SBYTSTR	C02Monitor.asm	/^SBYTSTR		LDY	#$00	;Initialize index$/;"	l
+SCNT	C02Monitor.asm	/^SCNT			.EQU	PGZERO8_ST+42	;Input character count for HEXINPUT$/;"	l
+SECS	C02Monitor.asm	/^SECS			.EQU	BIOS_PG0+15	;Seconds: 0-59$/;"	l
+SENDIT	C02Monitor.asm	/^SENDIT		JSR	CHOUT	;Send to terminal$/;"	l
+SENGBR1	C02Monitor.asm	/^SENGBR1		JSR	SINCPTR	;Increment address pointer, test for end of memory$/;"	l
+SENGBR2	C02Monitor.asm	/^SENGBR2		LDX	#$00	;Initialize buffer index$/;"	l
+SENGBR3	C02Monitor.asm	/^SENGBR3		LDA	(INDEXL)	;Read current memory location$/;"	l
+SENGINE	C02Monitor.asm	/^SENGINE		LDA	#$08	;Initialize address to $0800: skip over $0000 through $07FF$/;"	l
+SETIM	C02Monitor.asm	/^SETIM			.EQU	BIOS_PG0+22	;Set timeout for delay routines - BIOS use only$/;"	l
+SETUP	C02Monitor.asm	/^SETUP			JSR	CHOUT	;Send command keystroke to terminal$/;"	l
+SET_DELAY	C02Monitor.asm	/^SET_DELAY	LDA	#$18	;Get millisecond delay message$/;"	l
+SET_DLY	C02Monitor.asm	/^SET_DLY		STA	SETIM	;Save millisecond count$/;"	l
+SET_PORT	C02Monitor.asm	/^SET_PORT	STA	Via1DDRB,X	;Store config Mask to the correct port$/;"	l
+SET_XLDLY	C02Monitor.asm	/^SET_XLDLY	LDA	#$1A	;Get XL Loop message$/;"	l
+SHRT_EXIT	C02Monitor.asm	/^SHRT_EXIT	JMP	PROMPT	;Print message and exit$/;"	l
+SH_CONT	C02Monitor.asm	/^SH_CONT		JSR	PROMPT	;Send to terminal$/;"	l
+SINCEXT	C02Monitor.asm	/^SINCEXT		RTS	;Exit$/;"	l
+SINCPTR	C02Monitor.asm	/^SINCPTR		CLC	;Clear carry for addition$/;"	l
+SIOBase	C02Monitor.asm	/^SIOBase		.EQU	IOPAGE+$20	;6551 Base HW address$/;"	l
+SIOCOM	C02Monitor.asm	/^SIOCOM		.EQU	SIOBase+2 ;ACIA command register$/;"	l
+SIOCON	C02Monitor.asm	/^SIOCON		.EQU	SIOBase+3 ;ACIA control register$/;"	l
+SIODAT	C02Monitor.asm	/^SIODAT		.EQU	SIOBase+0	;ACIA data register$/;"	l
+SIOSTAT	C02Monitor.asm	/^SIOSTAT		.EQU	SIOBase+1	;ACIA status register$/;"	l
+SKIP_HB	C02Monitor.asm	/^SKIP_HB		STA	TGTL	;Save TGTL$/;"	l
+SKP_DLL	C02Monitor.asm	/^SKP_DLL		DEX	;Decrement high byte index$/;"	l
+SOFTCFG	C02Monitor.asm	/^SOFTCFG		.EQU SOFTVEC+32	;Start of hardware config parameters$/;"	l
+SOFTVEC	C02Monitor.asm	/^SOFTVEC		.EQU	$0300	;Start of soft vectors$/;"	l
+SOH	C02Monitor.asm	/^SOH				.EQU	$01	;Start of Block Header$/;"	l
+SPC	C02Monitor.asm	/^SPC				PHA	;Save character in A reg$/;"	l
+SPC2	C02Monitor.asm	/^SPC2			JSR	SPC	;Send 2 Spaces to terminal$/;"	l
+SPC4	C02Monitor.asm	/^SPC4			JSR	SPC2	;Send 4 Spaces to terminal$/;"	l
+SRBUFF	C02Monitor.asm	/^SRBUFF		.EQU	$0350	;Start of Motorola S-record buffer, 44 bytes in length$/;"	l
+SRB_ZERO	C02Monitor.asm	/^SRB_ZERO	TYA	;Transfer Ascii character to A reg$/;"	l
+SRCH	C02Monitor.asm	/^SRCH			.EQU	PGZERO8_ST+33$/;"	l
+SRCHBUFF	C02Monitor.asm	/^SRCHBUFF	.EQU	BUFF_PG0+20	;16 bytes ($D0-$DF)$/;"	l
+SRCHBYT	C02Monitor.asm	/^SRCHBYT		LDA	#$09	;Get msg " find bin:"$/;"	l
+SRCHRDY	C02Monitor.asm	/^SRCHRDY		STY	IDY	;Save input character count$/;"	l
+SRCHTXT	C02Monitor.asm	/^SRCHTXT		LDA	#$08	;Get msg " find text:"$/;"	l
+SRCL	C02Monitor.asm	/^SRCL			.EQU	PGZERO8_ST+32	;Source address for memory operations$/;"	l
+SREC_ERR	C02Monitor.asm	/^SREC_ERR	PLA	;Pull return address$/;"	l
+SREC_PROC	C02Monitor.asm	/^SREC_PROC	LDA	SRBUFF+1	;Get the next character$/;"	l
+SREG	C02Monitor.asm	/^SREG			.EQU	BIOS_PG0+3	;Temp Stack ptr$/;"	l
+SREG_LP	C02Monitor.asm	/^SREG_LP		LDY	#$30	;Get Ascii "zero"$/;"	l
+SRG	C02Monitor.asm	/^SRG				LDX	#$01	;Set offset for Stack register$/;"	l
+SR_CHKSM	C02Monitor.asm	/^SR_CHKSM	CLC	;Clear carry for add$/;"	l
+SR_CMPLP	C02Monitor.asm	/^SR_CMPLP	PHY	;Save Y reg index$/;"	l
+SR_COMP	C02Monitor.asm	/^SR_COMP		LDX	#$00	;Zero Index$/;"	l
+SR_PROC	C02Monitor.asm	/^SR_PROC		LDY	SRBUFF+3	;Get record length LS character$/;"	l
+STBR1	C02Monitor.asm	/^STBR1			BRA	SRCHRDY	;Branch for cleanup\/exit$/;"	l
+STBR2	C02Monitor.asm	/^STBR2			CMP	#$08	;Check for B\/S$/;"	l
+STBR3	C02Monitor.asm	/^STBR3			STA	SRCHBUFF,Y	;Store character in buffer location$/;"	l
+STLOOP	C02Monitor.asm	/^STLOOP		JSR	CHIN	;Get input from terminal$/;"	l
+STMP	C02Monitor.asm	/^STMP			.EQU	PGZERO8_ST+43	;Temp for HEXINPUT routine$/;"	l
+STRCH	C02Monitor.asm	/^STRCH			STA	INBUFF,Y	;Store keystroke in buffer$/;"	l
+STRT_BLK	C02Monitor.asm	/^STRT_BLK	JSR	CHIN	;Get a character$/;"	l
+STRT_ERR	C02Monitor.asm	/^STRT_ERR	LDA	#CAN	;Else get Cancel code$/;"	l
+STRT_XFER	C02Monitor.asm	/^STRT_XFER	LDA	#"C"	;Send "C" character for CRC mode$/;"	l
+STTVAL	C02Monitor.asm	/^STTVAL		.EQU	BIOS_PG0+13	;6551 BIOS status byte$/;"	l
+STVVAL	C02Monitor.asm	/^STVVAL		.EQU	BIOS_PG0+26	;Status for VIA IRQ flags$/;"	l
+STXTSTR	C02Monitor.asm	/^STXTSTR		LDY	#$00	;Initialize index\/byte counter$/;"	l
+SYS_RST	C02Monitor.asm	/^SYS_RST		LDA	#$21	;Get msg "Reset System"$/;"	l
+TEMP1	C02Monitor.asm	/^TEMP1			.EQU	PGZERO8_ST+48	;Temp value - Math routines$/;"	l
+TEMP1H	C02Monitor.asm	/^TEMP1H		.EQU	PGZERO8_ST+25$/;"	l
+TEMP1L	C02Monitor.asm	/^TEMP1L		.EQU	PGZERO8_ST+24	;Index for word temp value used by Memdump$/;"	l
+TEMP2	C02Monitor.asm	/^TEMP2			.EQU	PGZERO8_ST+49	;Temp value - 16-bit Word convert$/;"	l
+TEMP3	C02Monitor.asm	/^TEMP3			.EQU	PGZERO8_ST+50	;Temp value - Fill\/Move\/Compare\/Program routines$/;"	l
+TEMP4	C02Monitor.asm	/^TEMP4			.EQU	PGZERO8_ST+51	;Temp value - Program EEPROM routine$/;"	l
+TEST_S19	C02Monitor.asm	/^TEST_S19	LDA	RBUFF+2	;Get first character$/;"	l
+TGTH	C02Monitor.asm	/^TGTH			.EQU	PGZERO8_ST+35$/;"	l
+TGTL	C02Monitor.asm	/^TGTL			.EQU	PGZERO8_ST+34	;Target address for memory operations$/;"	l
+TICKS	C02Monitor.asm	/^TICKS			.EQU	BIOS_PG0+14	;# timer countdowns for 1 second (250)$/;"	l
+TRY_AGN	C02Monitor.asm	/^TRY_AGN		JSR	RDCHAR	;Get keystroke from terminal$/;"	l
+UPTIME	C02Monitor.asm	/^UPTIME		LDA	#$1B	;Get Uptime message$/;"	l
+USERFILL	C02Monitor.asm	/^USERFILL	LDX	LENH	;Get current length hi byte$/;"	l
+VALUE	C02Monitor.asm	/^VALUE			.EQU	PGZERO8_ST+52	;Data value for CRC calculation$/;"	l
+VECINSRT0	C02Monitor.asm	/^VECINSRT0	.EQU	SOFTVEC+16	;1st Vector Insert$/;"	l
+VECINSRT1	C02Monitor.asm	/^VECINSRT1	.EQU	SOFTVEC+18	;1st Vector Insert$/;"	l
+VECINSRT2	C02Monitor.asm	/^VECINSRT2	.EQU	SOFTVEC+20	;1st Vector Insert$/;"	l
+VECINSRT3	C02Monitor.asm	/^VECINSRT3	.EQU	SOFTVEC+22	;1st Vector Insert$/;"	l
+VECINSRT4	C02Monitor.asm	/^VECINSRT4	.EQU	SOFTVEC+24	;1st Vector Insert$/;"	l
+VECINSRT5	C02Monitor.asm	/^VECINSRT5	.EQU	SOFTVEC+26	;1st Vector Insert$/;"	l
+VECINSRT6	C02Monitor.asm	/^VECINSRT6	.EQU	SOFTVEC+28	;1st Vector Insert$/;"	l
+VECINSRT7	C02Monitor.asm	/^VECINSRT7	.EQU	SOFTVEC+30	;1st Vector Insert$/;"	l
+VEC_TABLE	C02Monitor.asm	/^VEC_TABLE	;Vector table data for default ROM handlers$/;"	l
+VER	C02Monitor.asm	/^VER				LDA	#$16	;Get Intro substring (version)$/;"	l
+Via1ACR	C02Monitor.asm	/^Via1ACR   .EQU  Via1Base+11$/;"	l
+Via1Base	C02Monitor.asm	/^Via1Base	.EQU	IOPAGE	;65C22 VIA base address here$/;"	l
+Via1DDRA	C02Monitor.asm	/^Via1DDRA  .EQU  Via1Base+3$/;"	l
+Via1DDRB	C02Monitor.asm	/^Via1DDRB	.EQU  Via1Base+2$/;"	l
+Via1IER	C02Monitor.asm	/^Via1IER   .EQU  Via1Base+14$/;"	l
+Via1IFR	C02Monitor.asm	/^Via1IFR   .EQU  Via1Base+13$/;"	l
+Via1PCR	C02Monitor.asm	/^Via1PCR   .EQU  Via1Base+12$/;"	l
+Via1PRA	C02Monitor.asm	/^Via1PRA		.EQU  Via1Base+1$/;"	l
+Via1PRA1	C02Monitor.asm	/^Via1PRA1  .EQU  Via1Base+15$/;"	l
+Via1PRB	C02Monitor.asm	/^Via1PRB		.EQU  Via1Base+0$/;"	l
+Via1SR	C02Monitor.asm	/^Via1SR    .EQU  Via1Base+10$/;"	l
+Via1T1CH	C02Monitor.asm	/^Via1T1CH  .EQU  Via1Base+5$/;"	l
+Via1T1CL	C02Monitor.asm	/^Via1T1CL  .EQU  Via1Base+4$/;"	l
+Via1T1LL	C02Monitor.asm	/^Via1T1LL  .EQU  Via1Base+6$/;"	l
+Via1T2CH	C02Monitor.asm	/^Via1T2CH  .EQU  Via1Base+9$/;"	l
+Via1T2CL	C02Monitor.asm	/^Via1T2CL  .EQU  Via1Base+8$/;"	l
+Via1TALH	C02Monitor.asm	/^Via1TALH  .EQU  Via1Base+7$/;"	l
+WARMVEC	C02Monitor.asm	/^WARMVEC		JMP	(WRMMNVEC0)	;Done BRK service process, re-enter monitor$/;"	l
+WRMMNVEC0	C02Monitor.asm	/^WRMMNVEC0	.EQU	SOFTVEC+14	;Warm Monitor Entry Vector 0$/;"	l
+XDEFLT	C02Monitor.asm	/^XDEFLT		LDA	#$0A	;Retry value of 10$/;"	l
+XDL	C02Monitor.asm	/^XDL				.EQU	BIOS_PG0+25	;XL Delay count$/;"	l
+XDONE	C02Monitor.asm	/^XDONE			LDA	#ACK	;Last block, get ACK character$/;"	l
+XFER_S19	C02Monitor.asm	/^XFER_S19	STZ	IDX	;Zero offset to RBUFF$/;"	l
+XLINE	C02Monitor.asm	/^XLINE			LDA	INDEXH	;Get new high order address$/;"	l
+XMFLAG	C02Monitor.asm	/^XMFLAG		.EQU	BIOS_PG0+30	;Xmodem transfer active flag$/;"	l
+XMODEM	C02Monitor.asm	/^XMODEM		LDA	#$29	;Get Xmodem intro msg$/;"	l
+XMTCHR	C02Monitor.asm	/^XMTCHR		LDA OCNT ;any characters to xmit? (3)$/;"	l
+XREG	C02Monitor.asm	/^XREG			.EQU	BIOS_PG0+5	;Temp X reg$/;"	l
+XRG	C02Monitor.asm	/^XRG				LDX	#$03	;Set offset for X Reg$/;"	l
+YREG	C02Monitor.asm	/^YREG			.EQU	BIOS_PG0+4	;Temp Y reg$/;"	l
+YRG	C02Monitor.asm	/^YRG				LDX	#$02	;Set offset for Y Reg$/;"	l
+ZERO	C02Monitor.asm	/^ZERO			LDA	#$20	;Get msg "Zero RAM\/Reset System"$/;"	l
+ZEROLOOP	C02Monitor.asm	/^ZEROLOOP	STA	($00)	;Write $00 to current address$/;"	l

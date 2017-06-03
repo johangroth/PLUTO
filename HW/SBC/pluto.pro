@@ -1,4 +1,4 @@
-update=Sun 26 Mar 2017 17:42:10 BST
+update=Thu 01 Jun 2017 19:26:08 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -27,7 +27,7 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
-LibDir=../../../KiCadLibraries/kicad-lib/components;../IDE_interface;../../../KiCadLibraries/kicad-library/library;../../../KiCadLibraries/kicad-library2/libs
+LibDir=../../../KiCadLibraries/kicad-lib/components;../IDE_interface;../../../KiCadLibraries/kicad-library/library;../../../KiCadLibraries/kicad-library2/libs;../SBC
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -299,3 +299,4 @@ LibName267=/home/jgroth/C64/KiCadLibraries/kicad-library/library/Xicor
 LibName268=/home/jgroth/C64/KiCadLibraries/kicad-library/library/xilinx
 LibName269=/home/jgroth/C64/KiCadLibraries/kicad-library/library/zetex
 LibName270=/home/jgroth/C64/KiCadLibraries/kicad-library/library/Zilog
+LibName271=pluto

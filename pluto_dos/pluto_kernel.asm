@@ -26,9 +26,14 @@
 
 ;
 ;
-;Interrupt vector. User can change the interrupt vector by putting a new value at this address.
-    INTERRUPTVECTOR = $0302
-
+;Interrupt vectors. User can change the interrupt vector by putting a new value at this address.
+    INTERRUPTVECTORS    = $0300
+    NMIVECTOR           = INTERRUPTVECTORS
+    IRQVECTOR           = INTERRUPTVECTORS+2
+    BREAKVECTOR         = INTERRUPTVECTORS+4
+    VIATIMER1VECTOR     = INTERRUPTVECTORS+6
+    VIATIMER2VECTOR     = INTERRUPTVECTORS+8
+    ACIAVECTOR          = INTERRUPTVECTORS+10
 ;
 ;
 ;***************
@@ -785,7 +790,7 @@ DONESB:
                                   .pend
 
 ;
-;SENGINE subroutine: Scan memory range $0300 through $FFFF for exact match to string
+;SENGINE subroutine: Scan memory range $0400 through $FFFF for exact match to string
 ; contained in buffer SRCHBUFF (1 to 16 bytes/characters). Display address of first
 ; byte/character of each match found until the end of memory is reached.
 ; This is used by monitor text/byte string search commands
@@ -793,7 +798,7 @@ SENGINE .proc
         CPY  #$00     ;GOTO DUNSENG IF SRCHBUFF buffer is empty
         BEQ  DUNSENG
         STY  IDY      ; ELSE, save buffer byte/character count
-        LDA  #$03     ;Initialize memory address pointer to $0300: skip over $0000 through $0200
+        LDA  #$04     ;Initialize memory address pointer to $0400: skip over $0000 through $0300
         STA  INDEXH
         LDY  #$00     ; and initialize (zero) memory address index
         STY  INDEX
@@ -1376,9 +1381,9 @@ COLDSTART
 
 ;;; Initialise interrupt vector
         LDA  #<DOINTERRUPT
-        STA  INTERRUPTVECTOR
+        STA  IRQVECTOR
         LDA  #>DOINTERRUPT
-        STA  INTERRUPTVECTOR+1
+        STA  IRQVECTOR+1
 
 ;;; Initialise IDE
     ; JSR IDE_INIT_DEVICES
@@ -1588,7 +1593,7 @@ MONTAB:
 ;*************************************
 ;
 INTERRUPT
-        JMP  (INTERRUPTVECTOR)
+        JMP  (IRQVECTOR)
 
 DOINTERRUPT
         PLA                 ;Get processor status register from stack
@@ -1638,6 +1643,7 @@ HANDLEVIAINTERRUPT
 CHECKVIATIMER2
         BBR  VIATIMER2MASK,VIATEMP,ENDIRQ           ;GOTO ENDIRQ if Timer 2 didn't cause an interrupt
 ; HANDLE TIMER2 INTERRUPT
+        
 ENDIRQ
         RTS         ;Timer 2 interrupt handled so exit ISR
 
@@ -1647,7 +1653,7 @@ ENDIRQ
 BRK_INTERRUPT
         LDA  STATUSREGISTER ;Read processor status register
         AND  #BRKMASK       ;Isolate BREAK bit
-        BNE  BRKINSTRUCTION ;GOTO BREAKINSTRUCTIOF IF bit = 1, ie BRK instruction
+        BNE  BRKINSTRUCTION ;GOTO BRKINSTRUCTION IF bit = 1, ie BRK instruction
         RTS                 ; ELSE, RETURN from BRK instruction handler
 BRKINSTRUCTION
         PLA                 ; ELSE, Remove return address low byte to ISR

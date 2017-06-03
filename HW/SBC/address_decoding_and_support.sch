@@ -240,12 +240,13 @@ LIBS:Worldsemi
 LIBS:Xicor
 LIBS:zetex
 LIBS:Zilog
+LIBS:pluto
 LIBS:pluto-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 6
+Sheet 5 7
 Title "Clock, pullups and decoding logic"
 Date "2017-03-25"
 Rev "0.1"
@@ -321,62 +322,146 @@ F 3 "" H 7925 4575 50  0001 C CNN
 	1    7925 4575
 	1    0    0    -1  
 $EndComp
-Text GLabel 4575 2250 0    60   Input ~ 0
-A15
-Text GLabel 9075 2150 2    60   Input ~ 0
-~ROMSEL
-Text GLabel 4575 1100 0    60   Input ~ 0
-R/~W
-Text GLabel 9075 1200 2    60   Input ~ 0
-~MRD
-Text GLabel 4575 1775 0    60   Input ~ 0
-CLK
-Text GLabel 9075 1675 2    60   Input ~ 0
-~MWR
-Text GLabel 9075 2600 2    60   Input ~ 0
-~RAMSEL
-Text GLabel 9075 3075 2    60   Input ~ 0
-~IOSEL
-Text GLabel 4575 2625 0    60   Input ~ 0
-A11
-Text GLabel 4575 2800 0    60   Input ~ 0
-A8
-Text GLabel 4575 3000 0    60   Input ~ 0
-A14
-Text GLabel 4575 3200 0    60   Input ~ 0
-A13
-Text GLabel 4575 3400 0    60   Input ~ 0
-A12
-Text GLabel 4575 3600 0    60   Input ~ 0
-A9
-Text GLabel 4575 3800 0    60   Input ~ 0
-A10
-Text GLabel 6700 4175 0    60   Input ~ 0
-A5
-Text GLabel 6700 4325 0    60   Input ~ 0
-A6
-Text GLabel 6700 4475 0    60   Input ~ 0
-A7
-Text GLabel 6700 5100 0    60   Input ~ 0
-~IOSEL
-Text GLabel 9125 3900 2    60   Input ~ 0
-~7F0X
-Text GLabel 9125 4075 2    60   Input ~ 0
-~7F2X
-Text GLabel 9125 4250 2    60   Input ~ 0
-~7F4X
-Text GLabel 9125 4425 2    60   Input ~ 0
-~7F6X
-Text GLabel 9125 4600 2    60   Input ~ 0
-~7F8X
-Text GLabel 9125 4775 2    60   Input ~ 0
-~7FAX
-Text GLabel 9125 4950 2    60   Input ~ 0
-~7FCX
-Text GLabel 9125 5125 2    60   Input ~ 0
-~7FEX
+$Comp
+L R_Network07 RN1
+U 1 1 58D6C524
+P 1975 1475
+F 0 "RN1" V 1575 1475 50  0000 C CNN
+F 1 "3.3 kOhm" V 2375 1475 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm" V 2450 1475 50  0001 C CNN
+F 3 "" H 1975 1475 50  0001 C CNN
+	1    1975 1475
+	1    0    0    -1  
+$EndComp
+$Comp
+L CXO_DIP8 X1
+U 1 1 58D6C921
+P 1875 4650
+F 0 "X1" H 1675 4900 50  0000 L CNN
+F 1 "8 MHz" H 1925 4400 50  0000 L CNN
+F 2 "Housings_DIP:DIP-8_W7.62mm" H 2325 4300 50  0001 C CNN
+F 3 "" H 1775 4650 50  0001 C CNN
+	1    1875 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L VCC #PWR35
+U 1 1 58D6CEDE
+P 1875 4250
+F 0 "#PWR35" H 1875 4100 50  0001 C CNN
+F 1 "VCC" H 1875 4400 50  0000 C CNN
+F 2 "" H 1875 4250 50  0001 C CNN
+F 3 "" H 1875 4250 50  0001 C CNN
+	1    1875 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR36
+U 1 1 58D6CF02
+P 1875 5125
+F 0 "#PWR36" H 1875 4875 50  0001 C CNN
+F 1 "GND" H 1875 4975 50  0000 C CNN
+F 2 "" H 1875 5125 50  0001 C CNN
+F 3 "" H 1875 5125 50  0001 C CNN
+	1    1875 5125
+	1    0    0    -1  
+$EndComp
+NoConn ~ 1575 4650
+$Comp
+L Q_NPN_EBC Q1
+U 1 1 58D6D190
+P 1875 3025
+F 0 "Q1" H 1775 2850 50  0000 L CNN
+F 1 "DS1813" H 1550 3200 50  0000 L CNN
+F 2 "TO_SOT_Packages_THT:TO-92_Inline_Narrow_Oval" H 2075 3125 50  0001 C CNN
+F 3 "" H 1875 3025 50  0001 C CNN
+	1    1875 3025
+	-1   0    0    1   
+$EndComp
+$Comp
+L VCC #PWR37
+U 1 1 58D6D2F3
+P 2075 3025
+F 0 "#PWR37" H 2075 2875 50  0001 C CNN
+F 1 "VCC" H 2075 3175 50  0000 C CNN
+F 2 "" H 2075 3025 50  0001 C CNN
+F 3 "" H 2075 3025 50  0001 C CNN
+	1    2075 3025
+	1    0    0    -1  
+$EndComp
+$Comp
+L SW_Push SW1
+U 1 1 58D6D3A4
+P 1125 2825
+F 0 "SW1" H 1050 2725 50  0000 L CNN
+F 1 "RESET" H 1125 3000 50  0000 C CNN
+F 2 "Buttons_Switches_ThroughHole:SW_PUSH_6mm_h4.3mm" H 1125 3025 50  0001 C CNN
+F 3 "" H 1125 3025 50  0001 C CNN
+	1    1125 2825
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR34
+U 1 1 58D6D657
+P 1775 3400
+F 0 "#PWR34" H 1775 3150 50  0001 C CNN
+F 1 "GND" H 1775 3250 50  0000 C CNN
+F 2 "" H 1775 3400 50  0001 C CNN
+F 3 "" H 1775 3400 50  0001 C CNN
+	1    1775 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L VCC #PWR33
+U 1 1 58D7E610
+P 1675 1100
+F 0 "#PWR33" H 1675 950 50  0001 C CNN
+F 1 "VCC" H 1675 1250 50  0000 C CNN
+F 2 "" H 1675 1100 50  0001 C CNN
+F 3 "" H 1675 1100 50  0001 C CNN
+	1    1675 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L VCC #PWR38
+U 1 1 58D83088
+P 6700 4725
+F 0 "#PWR38" H 6700 4575 50  0001 C CNN
+F 1 "VCC" H 6700 4875 50  0000 C CNN
+F 2 "" H 6700 4725 50  0001 C CNN
+F 3 "" H 6700 4725 50  0001 C CNN
+	1    6700 4725
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR39
+U 1 1 58D830F6
+P 6700 4900
+F 0 "#PWR39" H 6700 4650 50  0001 C CNN
+F 1 "GND" H 6700 4750 50  0000 C CNN
+F 2 "" H 6700 4900 50  0001 C CNN
+F 3 "" H 6700 4900 50  0001 C CNN
+	1    6700 4900
+	0    1    1    0   
+$EndComp
+NoConn ~ 1675 1675
+$Comp
+L 74LS74 U15
+U 1 1 593140EB
+P 3025 4650
+F 0 "U15" H 3175 4950 50  0000 C CNN
+F 1 "74LS74" H 3325 4355 50  0000 C CNN
+F 2 "" H 3025 4650 50  0001 C CNN
+F 3 "" H 3025 4650 50  0001 C CNN
+	1    3025 4650
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	6050 2150 9075 2150
+	6050 2150 6350 2150
+Wire Wire Line
+	6350 2150 7550 2150
+Wire Wire Line
+	7550 2150 9075 2150
 Wire Wire Line
 	4850 2050 4850 2250
 Wire Wire Line
@@ -392,7 +477,9 @@ Wire Wire Line
 Wire Wire Line
 	5650 1300 5650 1100
 Wire Wire Line
-	6850 1200 9075 1200
+	6850 1200 6975 1200
+Wire Wire Line
+	6975 1200 9075 1200
 Wire Wire Line
 	6975 1200 6975 1575
 Connection ~ 6975 1200
@@ -546,119 +633,18 @@ Wire Wire Line
 	1875 1675 1875 2500
 Wire Wire Line
 	1875 2500 2600 2500
-Text GLabel 2600 1875 2    60   Input ~ 0
-~IRQ
-Text GLabel 2600 2050 2    60   Input ~ 0
-~NMI
-Text GLabel 2600 2200 2    60   Input ~ 0
-BE
-Text GLabel 2600 2650 2    60   Input ~ 0
-~RES
-Text GLabel 2600 2500 2    60   Input ~ 0
-RDY
 Wire Wire Line
 	1675 1275 1675 1100
-$Comp
-L R_Network07 RN1
-U 1 1 58D6C524
-P 1975 1475
-F 0 "RN1" V 1575 1475 50  0000 C CNN
-F 1 "3.3 kOhm" V 2375 1475 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm" V 2450 1475 50  0001 C CNN
-F 3 "" H 1975 1475 50  0001 C CNN
-	1    1975 1475
-	1    0    0    -1  
-$EndComp
-Text GLabel 2600 2350 2    60   Input ~ 0
-~PWR
 Wire Wire Line
-	1775 1675 1775 2825
+	1775 1675 1775 2650
+Wire Wire Line
+	1775 2650 1775 2825
 Wire Wire Line
 	1775 2650 2600 2650
-$Comp
-L CXO_DIP8 X1
-U 1 1 58D6C921
-P 1875 4650
-F 0 "X1" H 1675 4900 50  0000 L CNN
-F 1 "4 MHz" H 1925 4400 50  0000 L CNN
-F 2 "Housings_DIP:DIP-8_W7.62mm" H 2325 4300 50  0001 C CNN
-F 3 "" H 1775 4650 50  0001 C CNN
-	1    1875 4650
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2175 4650 2425 4650
-Text GLabel 2425 4650 2    60   Input ~ 0
-PHI2
-$Comp
-L VCC #PWR028
-U 1 1 58D6CEDE
-P 1875 4350
-F 0 "#PWR028" H 1875 4200 50  0001 C CNN
-F 1 "VCC" H 1875 4500 50  0000 C CNN
-F 2 "" H 1875 4350 50  0001 C CNN
-F 3 "" H 1875 4350 50  0001 C CNN
-	1    1875 4350
-	1    0    0    -1  
-$EndComp
-$Comp
-L GND #PWR029
-U 1 1 58D6CF02
-P 1875 4950
-F 0 "#PWR029" H 1875 4700 50  0001 C CNN
-F 1 "GND" H 1875 4800 50  0000 C CNN
-F 2 "" H 1875 4950 50  0001 C CNN
-F 3 "" H 1875 4950 50  0001 C CNN
-	1    1875 4950
-	1    0    0    -1  
-$EndComp
-NoConn ~ 1575 4650
-$Comp
-L Q_NPN_EBC Q1
-U 1 1 58D6D190
-P 1875 3025
-F 0 "Q1" H 1775 2850 50  0000 L CNN
-F 1 "DS1813" H 1550 3200 50  0000 L CNN
-F 2 "TO_SOT_Packages_THT:TO-92_Inline_Narrow_Oval" H 2075 3125 50  0001 C CNN
-F 3 "" H 1875 3025 50  0001 C CNN
-	1    1875 3025
-	-1   0    0    1   
-$EndComp
-$Comp
-L VCC #PWR030
-U 1 1 58D6D2F3
-P 2075 3025
-F 0 "#PWR030" H 2075 2875 50  0001 C CNN
-F 1 "VCC" H 2075 3175 50  0000 C CNN
-F 2 "" H 2075 3025 50  0001 C CNN
-F 3 "" H 2075 3025 50  0001 C CNN
-	1    2075 3025
-	1    0    0    -1  
-$EndComp
-$Comp
-L SW_Push SW1
-U 1 1 58D6D3A4
-P 1125 2825
-F 0 "SW1" H 1050 2725 50  0000 L CNN
-F 1 "RESET" H 1125 3000 50  0000 C CNN
-F 2 "Buttons_Switches_ThroughHole:SW_PUSH_6mm_h4.3mm" H 1125 3025 50  0001 C CNN
-F 3 "" H 1125 3025 50  0001 C CNN
-	1    1125 2825
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1775 3225 1775 3400
-$Comp
-L GND #PWR031
-U 1 1 58D6D657
-P 1775 3400
-F 0 "#PWR031" H 1775 3150 50  0001 C CNN
-F 1 "GND" H 1775 3250 50  0000 C CNN
-F 2 "" H 1775 3400 50  0001 C CNN
-F 3 "" H 1775 3400 50  0001 C CNN
-	1    1775 3400
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1775 3400 925  3400
 Wire Wire Line
@@ -666,38 +652,155 @@ Wire Wire Line
 Wire Wire Line
 	1775 2825 1325 2825
 Connection ~ 1775 2650
-$Comp
-L VCC #PWR032
-U 1 1 58D7E610
-P 1675 1100
-F 0 "#PWR032" H 1675 950 50  0001 C CNN
-F 1 "VCC" H 1675 1250 50  0000 C CNN
-F 2 "" H 1675 1100 50  0001 C CNN
-F 3 "" H 1675 1100 50  0001 C CNN
-	1    1675 1100
-	1    0    0    -1  
-$EndComp
-$Comp
-L VCC #PWR033
-U 1 1 58D83088
-P 6700 4725
-F 0 "#PWR033" H 6700 4575 50  0001 C CNN
-F 1 "VCC" H 6700 4875 50  0000 C CNN
-F 2 "" H 6700 4725 50  0001 C CNN
-F 3 "" H 6700 4725 50  0001 C CNN
-	1    6700 4725
-	0    -1   -1   0   
-$EndComp
-$Comp
-L GND #PWR034
-U 1 1 58D830F6
-P 6700 4900
-F 0 "#PWR034" H 6700 4650 50  0001 C CNN
-F 1 "GND" H 6700 4750 50  0000 C CNN
-F 2 "" H 6700 4900 50  0001 C CNN
-F 3 "" H 6700 4900 50  0001 C CNN
-	1    6700 4900
-	0    1    1    0   
-$EndComp
-NoConn ~ 1675 1675
+Wire Wire Line
+	1875 4950 1875 5125
+Wire Wire Line
+	1875 4350 1875 4250
+Wire Wire Line
+	2275 5200 3025 5200
+Wire Wire Line
+	2275 4100 2275 4350
+Wire Wire Line
+	2275 4350 2275 5200
+Wire Wire Line
+	2275 4350 1875 4350
+Wire Wire Line
+	3025 4100 2275 4100
+Connection ~ 2275 4350
+Wire Wire Line
+	2425 4450 2425 4000
+Wire Wire Line
+	2425 4000 3725 4000
+Wire Wire Line
+	3725 4000 3725 4850
+Wire Wire Line
+	3725 4850 3625 4850
+Wire Wire Line
+	3625 4450 4000 4450
+Text Label 3975 4450 2    60   ~ 0
+CLK
+Text HLabel 4000 4450 2    60   Output ~ 0
+CLK
+Text Label 4575 2625 0    60   ~ 0
+A8
+Text Label 4575 2800 0    60   ~ 0
+A9
+Text Label 4575 3000 0    60   ~ 0
+A10
+Text Label 4575 3200 0    60   ~ 0
+A11
+Text Label 4575 3400 0    60   ~ 0
+A12
+Text Label 4575 3600 0    60   ~ 0
+A13
+Text Label 4575 3800 0    60   ~ 0
+A14
+Text Label 4575 2250 0    60   ~ 0
+A15
+Entry Wire Line
+	4475 2350 4575 2250
+Entry Wire Line
+	4475 2725 4575 2625
+Entry Wire Line
+	4475 2900 4575 2800
+Entry Wire Line
+	4475 3100 4575 3000
+Entry Wire Line
+	4475 3300 4575 3200
+Entry Wire Line
+	4475 3500 4575 3400
+Entry Wire Line
+	4475 3700 4575 3600
+Entry Wire Line
+	4475 3900 4575 3800
+Wire Bus Line
+	4475 3900 4475 3700
+Wire Bus Line
+	4475 3700 4475 3500
+Wire Bus Line
+	4475 3500 4475 3300
+Wire Bus Line
+	4475 3300 4475 3100
+Wire Bus Line
+	4475 3100 4475 2900
+Wire Bus Line
+	4475 2900 4475 2725
+Wire Bus Line
+	4475 2725 4475 2350
+Wire Bus Line
+	4475 2350 3975 2350
+Text Label 3975 2350 0    60   ~ 0
+A[0..15]
+Text HLabel 3975 2350 0    60   Input ~ 0
+A[0..15]
+Text HLabel 9075 1200 2    60   Output ~ 0
+~MRD
+Text HLabel 9075 1675 2    60   Output ~ 0
+~MWR
+Text HLabel 9075 2150 2    60   Output ~ 0
+~ROMSEL
+Text HLabel 9075 2600 2    60   Output ~ 0
+~RAMSEL
+Text Label 9000 3075 2    60   ~ 0
+~IOSEL
+Text HLabel 9075 3075 2    60   Output ~ 0
+~IOSEL
+Text Label 6700 5100 0    60   ~ 0
+~IOSEL
+Text Label 6700 4175 0    60   ~ 0
+A5
+Text Label 6700 4325 0    60   ~ 0
+A6
+Text Label 6700 4475 0    60   ~ 0
+A7
+Entry Wire Line
+	6600 4275 6700 4175
+Entry Wire Line
+	6600 4425 6700 4325
+Entry Wire Line
+	6600 4575 6700 4475
+Wire Bus Line
+	6600 4575 6600 4425
+Wire Bus Line
+	6600 4425 6600 4275
+Wire Bus Line
+	6600 4275 6225 4275
+Text Label 6225 4275 0    60   ~ 0
+A[0..15]
+Text HLabel 6225 4275 0    60   Input ~ 0
+A[0..15]
+Text HLabel 4575 1775 0    60   Input ~ 0
+CLK
+Text HLabel 4575 1100 0    60   Input ~ 0
+R/~W
+Text HLabel 2600 1875 2    60   BiDi ~ 0
+~IRQ
+Text HLabel 2600 2050 2    60   BiDi ~ 0
+~NMI
+Text HLabel 2600 2200 2    60   Output ~ 0
+BE
+Text HLabel 2600 2350 2    60   Output ~ 0
+~PWR
+Text HLabel 2600 2500 2    60   Output ~ 0
+RDY
+Text HLabel 2600 2650 2    60   Output ~ 0
+~RES
+Text HLabel 9125 3900 2    60   Output ~ 0
+~7F0X
+Text HLabel 9125 4075 2    60   Output ~ 0
+~7F2X
+Text HLabel 9125 4250 2    60   Output ~ 0
+~7F4X
+Text HLabel 9125 4425 2    60   Output ~ 0
+~7F6X
+Text HLabel 9125 4600 2    60   Output ~ 0
+~7F8X
+Text HLabel 9125 4775 2    60   Output ~ 0
+~7FAX
+Text HLabel 9125 4950 2    60   Output ~ 0
+~7FCX
+Text HLabel 9125 5125 2    60   Output ~ 0
+~7FEX
+Text Label 4625 1775 0    60   ~ 0
+CLK
 $EndSCHEMATC
