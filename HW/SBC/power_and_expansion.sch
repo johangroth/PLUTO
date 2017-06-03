@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:pluto-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -246,7 +247,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 7
+Sheet 6 8
 Title "Expansion port, power supply and decoupling capacitators"
 Date "2017-03-25"
 Rev "0.1"
@@ -364,80 +365,6 @@ Wire Wire Line
 Wire Wire Line
 	3850 6325 3850 6125
 Connection ~ 3600 6325
-Text GLabel 2925 4150 0    60   Input ~ 0
-A0
-Text GLabel 4250 4150 2    60   Input ~ 0
-A1
-Text GLabel 2925 4300 0    60   Input ~ 0
-A2
-Text GLabel 4250 4300 2    60   Input ~ 0
-A3
-Text GLabel 2925 4450 0    60   Input ~ 0
-A4
-Text GLabel 4250 4450 2    60   Input ~ 0
-A5
-Text GLabel 2925 4600 0    60   Input ~ 0
-A6
-Text GLabel 4250 4600 2    60   Input ~ 0
-A7
-Text GLabel 2925 4750 0    60   Input ~ 0
-A8
-Text GLabel 4250 4750 2    60   Input ~ 0
-A9
-Text GLabel 2925 4900 0    60   Input ~ 0
-A10
-Text GLabel 4250 4900 2    60   Input ~ 0
-A11
-Text GLabel 2925 5050 0    60   Input ~ 0
-A12
-Text GLabel 4250 5050 2    60   Input ~ 0
-A13
-Text GLabel 2925 5200 0    60   Input ~ 0
-A14
-Text GLabel 4250 5200 2    60   Input ~ 0
-A15
-Text GLabel 4250 5950 2    60   Input ~ 0
-~MWR
-Text GLabel 4250 6100 2    60   Input ~ 0
-~MRD
-Text GLabel 2925 5350 0    60   Input ~ 0
-~7F0X
-Text GLabel 4250 5350 2    60   Input ~ 0
-~7F2X
-Text GLabel 2925 5500 0    60   Input ~ 0
-~7F4X
-Text GLabel 4250 5500 2    60   Input ~ 0
-~7F6X
-Text GLabel 2925 5650 0    60   Input ~ 0
-~7F8X
-Text GLabel 2925 3550 0    60   Input ~ 0
-D0
-Text GLabel 4250 3550 2    60   Input ~ 0
-D1
-Text GLabel 2925 3700 0    60   Input ~ 0
-D2
-Text GLabel 4250 3700 2    60   Input ~ 0
-D3
-Text GLabel 2925 3850 0    60   Input ~ 0
-D4
-Text GLabel 4250 3850 2    60   Input ~ 0
-D5
-Text GLabel 2925 4000 0    60   Input ~ 0
-D6
-Text GLabel 4250 4000 2    60   Input ~ 0
-D7
-Text GLabel 2925 6250 0    60   Input ~ 0
-CLK
-Text GLabel 4250 6250 2    60   Input ~ 0
-~IRQ
-Text GLabel 2925 5950 0    60   Input ~ 0
-~IOSEL
-Text GLabel 2925 6100 0    60   Input ~ 0
-~NMI
-Text GLabel 2925 5800 0    60   Input ~ 0
-R/~W
-Text GLabel 4250 5800 2    60   Input ~ 0
-~RES
 Connection ~ 3225 2500
 $Comp
 L GND #PWR43
@@ -450,8 +377,6 @@ F 3 "" H 5625 2500 50  0001 C CNN
 	1    5625 2500
 	1    0    0    -1  
 $EndComp
-Text GLabel 4250 5650 2    60   Input ~ 0
-~7FAX
 $Comp
 L LM7805CT U11
 U 1 1 58E10ED4
@@ -604,4 +529,26 @@ F 3 "" H 1050 2000 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	1350 1900 1350 2000
+$Comp
+L Mounting_Hole MK5
+U 1 1 5932DD04
+P 6050 4225
+F 0 "MK5" H 6050 4425 50  0000 C CNN
+F 1 "Mounting_Hole" H 6050 4350 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3_Pad" H 6050 4225 50  0001 C CNN
+F 3 "" H 6050 4225 50  0001 C CNN
+	1    6050 4225
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK6
+U 1 1 5932DD62
+P 6750 4225
+F 0 "MK6" H 6750 4425 50  0000 C CNN
+F 1 "Mounting_Hole" H 6750 4350 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3_Pad" H 6750 4225 50  0001 C CNN
+F 3 "" H 6750 4225 50  0001 C CNN
+	1    6750 4225
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

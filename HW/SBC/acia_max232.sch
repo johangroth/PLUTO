@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:pluto-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -246,7 +247,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 7
+Sheet 3 8
 Title "ACIA, MAX232 and serial port connector"
 Date "2017-03-25"
 Rev "0.1"

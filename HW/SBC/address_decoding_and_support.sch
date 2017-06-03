@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:pluto-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -246,7 +247,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 7
+Sheet 5 8
 Title "Clock, pullups and decoding logic"
 Date "2017-03-25"
 Rev "0.1"
@@ -457,11 +458,7 @@ F 3 "" H 3025 4650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6050 2150 6350 2150
-Wire Wire Line
-	6350 2150 7550 2150
-Wire Wire Line
-	7550 2150 9075 2150
+	6050 2150 9075 2150
 Wire Wire Line
 	4850 2050 4850 2250
 Wire Wire Line
@@ -477,9 +474,7 @@ Wire Wire Line
 Wire Wire Line
 	5650 1300 5650 1100
 Wire Wire Line
-	6850 1200 6975 1200
-Wire Wire Line
-	6975 1200 9075 1200
+	6850 1200 9075 1200
 Wire Wire Line
 	6975 1200 6975 1575
 Connection ~ 6975 1200
@@ -636,9 +631,7 @@ Wire Wire Line
 Wire Wire Line
 	1675 1275 1675 1100
 Wire Wire Line
-	1775 1675 1775 2650
-Wire Wire Line
-	1775 2650 1775 2825
+	1775 1675 1775 2825
 Wire Wire Line
 	1775 2650 2600 2650
 Wire Wire Line
@@ -659,9 +652,7 @@ Wire Wire Line
 Wire Wire Line
 	2275 5200 3025 5200
 Wire Wire Line
-	2275 4100 2275 4350
-Wire Wire Line
-	2275 4350 2275 5200
+	2275 4100 2275 5200
 Wire Wire Line
 	2275 4350 1875 4350
 Wire Wire Line
@@ -714,19 +705,7 @@ Entry Wire Line
 Entry Wire Line
 	4475 3900 4575 3800
 Wire Bus Line
-	4475 3900 4475 3700
-Wire Bus Line
-	4475 3700 4475 3500
-Wire Bus Line
-	4475 3500 4475 3300
-Wire Bus Line
-	4475 3300 4475 3100
-Wire Bus Line
-	4475 3100 4475 2900
-Wire Bus Line
-	4475 2900 4475 2725
-Wire Bus Line
-	4475 2725 4475 2350
+	4475 2350 4475 3900
 Wire Bus Line
 	4475 2350 3975 2350
 Text Label 3975 2350 0    60   ~ 0
@@ -760,9 +739,7 @@ Entry Wire Line
 Entry Wire Line
 	6600 4575 6700 4475
 Wire Bus Line
-	6600 4575 6600 4425
-Wire Bus Line
-	6600 4425 6600 4275
+	6600 4275 6600 4575
 Wire Bus Line
 	6600 4275 6225 4275
 Text Label 6225 4275 0    60   ~ 0

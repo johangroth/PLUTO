@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:pluto-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -246,7 +247,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 7
+Sheet 1 8
 Title "Pluto SCB"
 Date "2017-03-25"
 Rev "0.1"
@@ -361,4 +362,10 @@ Wire Wire Line
 	6325 2400 7325 2400
 Wire Wire Line
 	6325 1500 7325 1500
+$Sheet
+S 7400 3950 1550 1500
+U 5932E4CB
+F0 "IDE interface" 60
+F1 "ide.sch" 60
+$EndSheet
 $EndSCHEMATC

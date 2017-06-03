@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:pluto-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -246,7 +247,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 7
+Sheet 2 8
 Title "CPU, ROM and RAM"
 Date "2017-03-25"
 Rev "0.1"
@@ -273,9 +274,11 @@ NoConn ~ 1525 2250
 NoConn ~ 1525 2550
 NoConn ~ 1525 2350
 $Comp
-L 28C256 U2
+L 28C256-RESCUE-pluto U2
 U 1 1 58D5901B
 P 5775 2300
+AR Path="/58D5901B" Ref="U2"  Part="1" 
+AR Path="/58D5892B/58D5901B" Ref="U2"  Part="1" 
 F 0 "U2" H 5500 3300 50  0000 C CNN
 F 1 "28C256" H 6075 1300 50  0000 C CNN
 F 2 "Housings_DIP:DIP-28_W15.24mm" H 5775 2300 50  0001 C CNN
@@ -376,7 +379,7 @@ RAM
 Text Label 9400 1050 0    60   ~ 0
 RAM
 $Comp
-L HM62256BLP-7 U3
+L HM62256BLP-7-RESCUE-pluto U3
 U 1 1 58D5907B
 P 8475 2200
 F 0 "U3" H 8175 3100 50  0000 C CNN

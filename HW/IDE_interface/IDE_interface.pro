@@ -1,4 +1,4 @@
-update=Mon 03 Apr 2017 23:12:57 BST
+update=Sat 03 Jun 2017 16:29:05 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -61,3 +61,13 @@ LibName31=IDE_interface
 LibName32=65xx
 [general]
 version=1
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=../../../../../Desktop/
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
