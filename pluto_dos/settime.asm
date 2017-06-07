@@ -45,15 +45,15 @@
 ;
         LDA  #$00
         STA  TODBUF+WR_SECT
-        LDA  #$00
+        LDA  #$04
         STA  TODBUF+WR_MINT
-        LDA  #$23
+        LDA  #$00
         STA  TODBUF+WR_HRST
         LDA  #$3
         STA  TODBUF+WR_DOWT
-        LDA  #$24
+        LDA  #$07
         STA  TODBUF+WR_DATT
-        LDA  #$5
+        LDA  #$06
         STA  TODBUF+WR_MON
         LDA  #$17
         STA  TODBUF+WR_YRLO
