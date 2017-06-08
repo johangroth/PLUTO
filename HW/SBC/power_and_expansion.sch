@@ -257,69 +257,47 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Mounting_Hole MK1
-U 1 1 59149E0C
-P 8200 1675
-F 0 "MK1" H 8200 1875 50  0000 C CNN
-F 1 "Mounting_Hole" H 8200 1800 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_Pad" H 8200 1675 50  0001 C CNN
-F 3 "" H 8200 1675 50  0001 C CNN
-	1    8200 1675
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mounting_Hole MK2
-U 1 1 59149E41
-P 8200 2075
-F 0 "MK2" H 8200 2275 50  0000 C CNN
-F 1 "Mounting_Hole" H 8200 2200 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_Pad" H 8200 2075 50  0001 C CNN
-F 3 "" H 8200 2075 50  0001 C CNN
-	1    8200 2075
-	1    0    0    -1  
-$EndComp
-$Comp
 L Mounting_Hole MK3
 U 1 1 59149E60
-P 8900 1650
-F 0 "MK3" H 8900 1850 50  0000 C CNN
-F 1 "Mounting_Hole" H 8900 1775 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_Pad" H 8900 1650 50  0001 C CNN
-F 3 "" H 8900 1650 50  0001 C CNN
-	1    8900 1650
+P 1825 3025
+F 0 "MK3" H 1825 3225 50  0000 C CNN
+F 1 "Mounting_Hole" H 1825 3150 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3_Pad" H 1825 3025 50  0001 C CNN
+F 3 "" H 1825 3025 50  0001 C CNN
+	1    1825 3025
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mounting_Hole MK4
 U 1 1 59149E83
-P 8900 2075
-F 0 "MK4" H 8900 2275 50  0000 C CNN
-F 1 "Mounting_Hole" H 8900 2200 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_Pad" H 8900 2075 50  0001 C CNN
-F 3 "" H 8900 2075 50  0001 C CNN
-	1    8900 2075
+P 1825 3450
+F 0 "MK4" H 1825 3650 50  0000 C CNN
+F 1 "Mounting_Hole" H 1825 3575 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3_Pad" H 1825 3450 50  0001 C CNN
+F 3 "" H 1825 3450 50  0001 C CNN
+	1    1825 3450
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mounting_Hole MK5
 U 1 1 5932DD04
-P 8200 2575
-F 0 "MK5" H 8200 2775 50  0000 C CNN
-F 1 "Mounting_Hole" H 8200 2700 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_Pad" H 8200 2575 50  0001 C CNN
-F 3 "" H 8200 2575 50  0001 C CNN
-	1    8200 2575
+P 1125 3950
+F 0 "MK5" H 1125 4150 50  0000 C CNN
+F 1 "Mounting_Hole" H 1125 4075 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3_Pad" H 1125 3950 50  0001 C CNN
+F 3 "" H 1125 3950 50  0001 C CNN
+	1    1125 3950
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mounting_Hole MK6
 U 1 1 5932DD62
-P 8900 2575
-F 0 "MK6" H 8900 2775 50  0000 C CNN
-F 1 "Mounting_Hole" H 8900 2700 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_Pad" H 8900 2575 50  0001 C CNN
-F 3 "" H 8900 2575 50  0001 C CNN
-	1    8900 2575
+P 1825 3950
+F 0 "MK6" H 1825 4150 50  0000 C CNN
+F 1 "Mounting_Hole" H 1825 4075 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3_Pad" H 1825 3950 50  0001 C CNN
+F 3 "" H 1825 3950 50  0001 C CNN
+	1    1825 3950
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -342,7 +320,7 @@ F 1 "BARREL_JACK" H 1050 1800 50  0000 C CNN
 F 2 "Connect:BARREL_JACK" H 1050 2000 50  0001 C CNN
 F 3 "" H 1050 2000 50  0001 C CNN
 	1    1050 2000
-	1    0    0    1   
+	1    0    0    -1  
 $EndComp
 $Comp
 L VCC #PWR041
@@ -367,8 +345,6 @@ Wire Wire Line
 	1350 2100 1900 2100
 Wire Wire Line
 	1900 2100 1900 2275
-Wire Wire Line
-	1350 1900 1350 2000
 Wire Wire Line
 	3225 1650 3600 1650
 Wire Wire Line
@@ -416,4 +392,6 @@ F 3 "" H 2825 1700 50  0001 C CNN
 	1    2825 1700
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	1350 2000 1350 2100
 $EndSCHEMATC

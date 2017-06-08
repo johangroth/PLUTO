@@ -472,7 +472,7 @@ Wire Wire Line
 	7550 2500 7550 2150
 Connection ~ 7550 2150
 Wire Wire Line
-	7550 3075 9075 3075
+	7550 3075 8975 3075
 Wire Wire Line
 	7550 3075 7550 2700
 Wire Wire Line
@@ -690,9 +690,7 @@ Text HLabel 9075 2150 2    60   Output ~ 0
 ~ROMSEL
 Text HLabel 9075 2600 2    60   Output ~ 0
 ~RAMSEL
-Text Label 9000 3075 2    60   ~ 0
-~IOSEL
-Text HLabel 9075 3075 2    60   Output ~ 0
+Text Label 8975 3075 2    60   ~ 0
 ~IOSEL
 Text Label 6700 5100 0    60   ~ 0
 ~IOSEL

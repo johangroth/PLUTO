@@ -359,8 +359,8 @@ $Comp
 L D_Small D1
 U 1 1 58D69B92
 P 3850 3850
-F 0 "D1" H 3875 3725 50  0000 L CNN
-F 1 "D" H 3725 3700 50  0000 C BNN
+F 0 "D1" H 3900 3775 50  0000 L CNN
+F 1 "D" H 3725 3750 50  0000 C BNN
 F 2 "Diodes_ThroughHole:D_DO-35_SOD27_P7.62mm_Horizontal" V 3850 3850 50  0001 C CNN
 F 3 "" V 3850 3850 50  0001 C CNN
 	1    3850 3850
@@ -507,7 +507,7 @@ Connection ~ 875  1325
 Wire Wire Line
 	3675 2925 3850 2925
 Wire Wire Line
-	3675 3050 3825 3050
+	3675 3050 3950 3050
 Wire Wire Line
 	3675 3475 3950 3475
 Wire Wire Line
@@ -967,7 +967,7 @@ Text Label 3950 2600 2    60   ~ 0
 A2
 Text Label 3950 2725 2    60   ~ 0
 A3
-Text HLabel 3825 3050 2    60   BiDi ~ 0
+Text HLabel 3950 3050 2    60   Input ~ 0
 ~7FCX
 Text Label 8500 2350 2    60   ~ 0
 A0

@@ -594,12 +594,12 @@ Wire Wire Line
 Wire Wire Line
 	5450 3775 5725 3775
 Wire Bus Line
-	5825 2800 5825 3675
+	5825 2725 5825 3675
 Wire Bus Line
-	5825 2800 6450 2800
-Text Label 5900 2800 0    60   ~ 0
+	5825 2725 6450 2725
+Text Label 5975 2725 0    60   ~ 0
 V2PA[0..7]
-Text HLabel 6450 2800 2    60   BiDi ~ 0
+Text HLabel 6450 2725 2    60   BiDi ~ 0
 V2PA[0..7]
 Wire Wire Line
 	4450 3675 4125 3675
@@ -782,4 +782,21 @@ Wire Bus Line
 	4025 4600 4025 6100
 Wire Bus Line
 	4025 6100 4750 6100
+$Comp
+L C C22
+U 1 1 593A070B
+P 5100 4625
+F 0 "C22" H 5125 4725 50  0000 L CNN
+F 1 "C" H 5125 4525 50  0000 L CNN
+F 2 "Capacitors_ThroughHole:C_Disc_D3.8mm_W2.6mm_P2.50mm" H 5138 4475 50  0001 C CNN
+F 3 "" H 5100 4625 50  0001 C CNN
+	1    5100 4625
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5250 4625 7125 4625
+Wire Wire Line
+	7125 4625 7125 2825
+Wire Wire Line
+	7125 2825 4950 2825
 $EndSCHEMATC
