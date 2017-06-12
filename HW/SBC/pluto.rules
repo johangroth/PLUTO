@@ -1,0 +1,105 @@
+
+(rules PCB pluto
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 24636)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.6)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 1.6)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clear 200.2)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
+  )
+  (padstack "Via[0-1]_600:400_um"
+    (shape
+      (circle F.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 600.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_600:400_um" "Via[0-1]_600:400_um" default
+  )
+  (via 
+    "Via[0-1]_600:400_um-kicad_default" "Via[0-1]_600:400_um" "kicad_default"
+  )
+  (via_rule
+    default "Via[0-1]_600:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_600:400_um-kicad_default"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    "Net-(C1-Pad2)" "Net-(C2-Pad1)" "Net-(C3-Pad1)" "Net-(C3-Pad2)" "Net-(C5-Pad1)" "Net-(C5-Pad2)" "Net-(C6-Pad2)" "Net-(C16-Pad1)"
+    "Net-(C16-Pad2)" "Net-(C17-Pad2)" "Net-(C20-Pad1)" "Net-(C20-Pad2)" "Net-(C21-Pad2)" "Net-(D1-Pad1)" "/16bit IDE interface/~IRQ" "Net-(D2-Pad1)"
+    "/16bit IDE interface/~IDE:DASP" "Net-(D3-Pad2)" "Net-(J1-Pad2)" "Net-(J1-Pad3)" "Net-(J1-Pad7)" "Net-(J1-Pad8)" "Net-(J2-Pad3)" "Net-(J2-Pad4)"
+    "Net-(J2-Pad5)" "Net-(J2-Pad6)" "Net-(J2-Pad7)" "Net-(J2-Pad8)" "Net-(J2-Pad9)" "Net-(J2-Pad10)" "Net-(J2-Pad11)" "Net-(J2-Pad12)"
+    "Net-(J3-Pad3)" "Net-(J3-Pad4)" "Net-(J3-Pad5)" "Net-(J3-Pad6)" "Net-(J3-Pad7)" "Net-(J3-Pad8)" "Net-(J3-Pad9)" "Net-(J3-Pad10)"
+    "Net-(J3-Pad11)" "Net-(J3-Pad12)" "/Audio/IO_A0" "/Audio/IO_A1" "/Audio/IO_A2" "/Audio/IO_A3" "/Audio/IO_A4" "/Audio/IO_A5"
+    "/Audio/IO_A6" "/Audio/IO_A7" "Net-(J7-Pad3)" "Net-(J7-Pad4)" "Net-(J7-Pad5)" "Net-(J7-Pad6)" "Net-(J7-Pad7)" "Net-(J7-Pad8)"
+    "Net-(J7-Pad9)" "Net-(J7-Pad10)" "Net-(J7-Pad11)" "Net-(J7-Pad12)" "/16bit IDE interface/~RES" "/16bit IDE interface/IDE-D7" "/16bit IDE interface/IDE-D8" "/16bit IDE interface/IDE-D6"
+    "/16bit IDE interface/IDE-D9" "/16bit IDE interface/IDE-D5" "/16bit IDE interface/IDE-D10" "/16bit IDE interface/IDE-D4" "/16bit IDE interface/IDE-D11" "/16bit IDE interface/IDE-D3" "/16bit IDE interface/IDE-D12" "/16bit IDE interface/IDE-D2"
+    "/16bit IDE interface/IDE-D13" "/16bit IDE interface/IDE-D1" "/16bit IDE interface/IDE-D14" "/16bit IDE interface/IDE-D0" "/16bit IDE interface/IDE-D15" "/16bit IDE interface/~DIOW" "/16bit IDE interface/~DIOR" "/16bit IDE interface/~IDE:DMACK"
+    "/16bit IDE interface/A1" "/16bit IDE interface/A0" "/16bit IDE interface/A2" "/16bit IDE interface/~IDE:CS0" "/16bit IDE interface/~IDE:CS1" "Net-(R3-Pad1)" "Net-(R9-Pad1)" "/Address decoding and support section/RDY"
+    "/Address decoding and support section/~PWR" "/Address decoding and support section/BE" "/Address decoding and support section/~NMI" "/Address decoding and support section/A12" "/Address decoding and support section/A13" "/Address decoding and support section/A14" "/Address decoding and support section/A15" "/16bit IDE interface/D7"
+    "/16bit IDE interface/D6" "/16bit IDE interface/D5" "/16bit IDE interface/D4" "/16bit IDE interface/D3" "/16bit IDE interface/D2" "/16bit IDE interface/A3" "/16bit IDE interface/D1" "/CPU, ROM and RAM/A4"
+    "/16bit IDE interface/D0" "/Address decoding and support section/A5" "/ACIA and MAX232/R/~W" "/Address decoding and support section/A6" "/Address decoding and support section/A7" "/Address decoding and support section/A8" "/16bit IDE interface/CLK" "/Address decoding and support section/A9"
+    "/Address decoding and support section/A10" "/Address decoding and support section/A11" "/Address decoding and support section/~ROMSEL" "/16bit IDE interface/~MRD" "/16bit IDE interface/~MWR" "/Address decoding and support section/~RAMSEL" "Net-(U4-Pad9)" "Net-(U4-Pad10)"
+    "Net-(U4-Pad11)" "Net-(U4-Pad12)" "/ACIA and MAX232/~7FEX" "/Address decoding and support section/~7FCX" "/Address decoding and support section/~7F8X" "/Address decoding and support section/~IOSEL" "/Address decoding and support section/~7FAX" "/16bit IDE interface/~7F6X"
+    /Audio/V2PA0 /Audio/V2PA1 /Audio/V2PA2 /Audio/V2PA3 /Audio/V2PA4 /Audio/V2PA5 /Audio/V2PA6 /Audio/V2PA7
+    /Audio/V2CA2 /Audio/V2CA1 "Net-(U15-Pad2)" "Net-(U15-Pad3)" "Net-(U16-Pad9)" "Net-(U16-Pad3)" "Net-(U16-Pad10)" "Net-(U16-Pad13)"
+    "Net-(U17-Pad11)" "Net-(U17-Pad4)" "Net-(U17-Pad5)" "Net-(U19-Pad3)"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class power
+    GND VCC +9V
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 1000.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)
