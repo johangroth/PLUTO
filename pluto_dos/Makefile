@@ -9,5 +9,9 @@ settime.bin.hex: settime.asm
 	64tass --mw65c02  -o settime.bin --no-monitor --line-numbers --list=settime.lst settime.asm
 	java -cp ..:. uk.org.linuxgrotto.BinToHex settime.bin
 
+irq_rtc.bin.hex: irq_rtc.asm
+	64tass --mw65c02  -o irq_rtc.bin --no-monitor --line-numbers --list=irq_rtc.lst irq_rtc.asm
+	java -cp ..:. uk.org.linuxgrotto.BinToHex irq_rtc.bin
+
 clean:
 	rm *.bin *.hex *.lst *~

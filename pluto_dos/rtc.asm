@@ -18,27 +18,27 @@
 ;
 ;       registers...
 ;
-rtcreg   .byte wr_crb          ;control B
-         .byte wr_seca         ;alarm sec
-         .byte wr_mina         ;alarm min
-         .byte wr_hrsa         ;alarm hour
-         .byte wr_dowa         ;alarm date/day
-         .byte wr_wdms         ;watchdog msecs * 10
-         .byte wr_wds          ;watchdog secs
-         .byte wr_crb          ;control B
+rtcreg   .byte wr_crb          ;control B               $0f
+         .byte wr_seca         ;alarm sec               $08
+         .byte wr_mina         ;alarm min               $09
+         .byte wr_hrsa         ;alarm hour              $0a
+         .byte wr_dowa         ;alarm date/day          $0b 
+         .byte wr_wdms         ;watchdog msecs * 10     $0c
+         .byte wr_wds          ;watchdog secs           $0d 
+         .byte wr_crb          ;control B               $0f 
 n_rtcreg =*-rtcreg
 ;
 ;
 ;       parameters...
 ;
-rtcparm  .byte wr_irqoff        ;updates on & WDT IRQs off
-         .byte wr_secap        ;no alarm secs IRQ
-         .byte wr_minap        ;no alarm min IRQ
-         .byte wr_hrsap        ;no alarm hour IRQ
-         .byte wr_dowap        ;no alarm date/day IRQ
-         .byte wr_wdmsp        ;10 ms underflows LSB
-         .byte wr_wdsp         ;10 ms underflows MSB
-         .byte wr_crbpa        ;updates & WDT IRQs off
+rtcparm  .byte wr_irqoff       ;updates on & WDT IRQs off   %10000000
+         .byte wr_secap        ;no alarm secs IRQ           %00000000
+         .byte wr_minap        ;no alarm min IRQ            %00000000
+         .byte wr_hrsap        ;no alarm hour IRQ           %00000000
+         .byte wr_dowap        ;no alarm date/day IRQ       %00000000
+         .byte wr_wdmsp        ;10 ms underflows LSB        %00000001
+         .byte wr_wdsp         ;10 ms underflows MSB        %00000000
+         .byte wr_crbpa        ;updates & WDT IRQs off      %00000000
 ;
         .if *-rtcparm < n_rtcreg
                 .error "!!! RTCREG & RTCPARM data tables don't match !!!"
@@ -50,10 +50,11 @@ rtcparm  .byte wr_irqoff        ;updates on & WDT IRQs off
 
 ;================================================================================
 ;
-; initrtc: Initiliase DS1511Y
+; initrtc: Initialise DS1511Y
 ;
 ;
 INITRTC .PROC
+        LDA  CRA_RTC            ;Interrupt request flag (IRQF) is cleared by reading the flag register CRA ($OE)
         LDY  #N_RTCREG-1
 L10
         LDA  RTCPARM,Y
@@ -61,6 +62,9 @@ L10
         STA  IO_RTC,X
         DEY
         BPL  L10
+        LDA  #$5A       ;A delay of 366us is needed
+        STA  DELLO      ;to ensure a user register update
+        JSR  DELAY1     ;$5A in DELLO will be a ~370us delay
         RTS
        .PEND
 
@@ -184,7 +188,7 @@ ALARM   .PROC
 ;
 ;constime: SET CONSOLE TIME
 ;
-CONSTIME    .PROC
+SET_CONSOLE_TIME .PROC
         .PEND
 
 ;
@@ -277,7 +281,7 @@ PUT_DATE_AND_TIME  .PROC
         PHP
         PHA
         PHX
-        PHY
+        PHY             ;Delay routine use Y so preserve it
         LDA  CRB_RTC    ;Load control register B
         PHA             ;Preserve control register B
         AND  #D11SUMSK  ;Turn off update of registers
@@ -285,9 +289,9 @@ PUT_DATE_AND_TIME  .PROC
         LDX  #WR_YRHI   ;Initialise index
 L1
         LDA  TODBUF,X
-        CPX  #WR_MON    ;IF X = month register
-        BNE  L2         ;  GOTO L1 (month register contains control bits)
-        LDA  IO_RTC,X   ;Read in month from RTC
+        CPX  #WR_MON    ;IF X != month register
+        BNE  L2         ;  GOTO L1 
+        LDA  IO_RTC,X   ;Read in month from RTC (month register contains control bits)
         AND  #D11ECMSK  ;Clear out month data
         ORA  TODBUF,X   ;Copy in month data from TODBUF
 L2
@@ -326,7 +330,7 @@ L2
 ;              +++++> entry value
 ;
 ;
-GETUTIM .PROC
+GET_SYSTEM_UP_TIME .PROC
         .PEND
 
 ;
