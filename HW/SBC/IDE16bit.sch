@@ -1216,7 +1216,7 @@ Wire Wire Line
 	7725 8225 7050 8225
 Text HLabel 7050 8225 0    60   Input ~ 0
 ~RES
-Text HLabel 7050 9950 0    60   Input ~ 0
+Text HLabel 7050 9950 0    60   Output ~ 0
 ~IRQ
 $Comp
 L GND #PWR60

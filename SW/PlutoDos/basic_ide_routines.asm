@@ -39,41 +39,36 @@
 ;
 ;-----------------------------------------------------------------------------
 
-ide_register0 = $7f80		; PLUTO IN/OUT addresses for IDE port
-ide_register1 = $7f81
-ide_register2 = $7f82
-ide_register3 = $7f83
-ide_register4 = $7f84
-ide_register5 = $7f85
-ide_register6 = $7f86
-ide_register7 = $7f87
-ide_high_byte = $7f88
+		.include "zp_variables.asm"
+		.include "ide_constants.asm"
+		ide_io = $7f80							; Change this to $7f60 when pcb arrives.
+		ide_drive_data_port = ide_io			; IDE data port
+		ide_drive_error_code = ide_io + 1		; Read: Error code
+		ide_sector_count = ide_io + 2			; number of sectors to transfer
+		ide_drive_lba0 = ide_io + 3				; lba 0:7
+		ide_drive_lba1 = ide_io + 4				; lba 8:15
+		ide_drive_lba2 = ide_io + 5				; lba 16:23
+		ide_drive_lba3_ms_lbamd = ide_io + 6 	; 0:3 lba 24:27, 4 master (0) slave (1), 6 = 1 for lba access
+		ide_drive_rdstatus_wrcmd = ide_io + 7	; Read -> status, Write -> command
+		ide_high_byte = ide_io + 8				; Control for read or write latch
 
-ide_read_sector_cmd = $20
-ide_write_sector_cmd = $30
+		ide_read_sector_cmd = $20
+		ide_write_sector_cmd = $30
 
-sector_buffer_ptr = $50
+		ide_id_drive_cmd = $ec
 
-ide_lba0 = $52			; LBA of desired sector LSB
-ide_lba1 = ide_lba0 + 1
-ide_lba2 = ide_lba1 + 1
-ide_lba3 = ide_lba2 + 1 	; - LBA of desired sector MSB
-
-ide_status = $58
-ide_id_drive_cmd = $ec
-
-tmp = $70
-tmp1 = tmp+1
-tmp2 = tmp+2
-tmp3 = tmp+3
+		tmp = $70
+		tmp1 = tmp+1
+		tmp2 = tmp+2
+		tmp3 = tmp+3
 
 ;;; --------------------------------------------------------------------------
 ;;; Initialise ide
 ide_init_devices .proc
-		lda #$00
-		sta sector_buffer_ptr
+		stz sector_buffer_ptr
 		lda #$04
 		sta sector_buffer_ptr+1
+		rts
 		.pend
 
 ;-----------------------------------------------------------------------------
@@ -90,7 +85,7 @@ ide_read_sector .proc
 		jsr ide_wait_busy_ready		;make sure drive is ready to proceed
 		bcc error 			;no carry means error
 		lda #ide_read_sector_cmd
-	  	sta ide_register7
+	  	sta ide_drive_rdstatus_wrcmd
 
 ide_srex
 	  	jsr ide_wait_busy_ready		;make sure drive is ready to proceed
@@ -113,7 +108,7 @@ ide_write_sector .proc
 	  	jsr ide_wait_busy_ready		;make sure drive is ready to proceed
 	  	bcc error
 	  	lda #ide_write_sector_cmd
-	  	sta ide_register7		;write $30 "write sector" command to reg 7
+	  	sta ide_drive_rdstatus_wrcmd		;write $30 "write sector" command to reg 7
 	  	jsr ide_wait_busy_ready
 	  	bcc error
 	  	jsr ide_test_error		;ensure no error was reported
@@ -133,11 +128,11 @@ error
 ide_get_id	.proc
 	  	lda #%10100000
 	  	jsr master_slave_select
-	  	sta ide_register6		;select device
+	  	sta ide_drive_lba3_ms_lbamd		;select device
 	  	jsr ide_wait_busy_ready
 	  	bcc error
 	  	lda #ide_id_drive_cmd		;$ec = ide 'id drive' command
-	  	sta ide_register7
+	  	sta ide_drive_rdstatus_wrcmd
 	  	bra ide_srex
 error
     	rts
@@ -146,9 +141,6 @@ error
 ;--------------------------------------------------------------------------------
 ; IDE internal subroutines
 ;--------------------------------------------------------------------------------
-
-master_slave=$81
-delay_counter=$82
 
 ide_wait_busy_ready	.proc
     	lda ide_status		;choose bit 1 or bit 2 to test for previous
@@ -171,9 +163,9 @@ ide_dlp
     	bne done
     	inc delay_counter+1
    		beq ide_time_out
-done   	lda ide_register7	;get status in A
-    	and #%11000000		;mask off busy and rdy bits
-    	eor #%01000000		;we want busy(7) to be 0 and rdy(6) to be 1
+done   	lda ide_drive_rdstatus_wrcmd	;get status in A
+    	and #ide_busy_ready_mask		;mask off busy and rdy bits
+    	eor #ide_ready_mask		;we want busy(7) to be 0 and rdy(6) to be 1
     	bne ide_wbsy
     	lda ide_status		;from first time a disk is ready, timeout is reduced
     	ora master_slave	;as spin-up is main reason for 5 second allowance
@@ -189,11 +181,11 @@ ide_time_out
 
 ide_test_error	.proc
     	sec			;carry set = all OK
-    	lda ide_register7	;get status in A
+    	lda ide_drive_rdstatus_wrcmd	;get status in A
 		sta tmp ; ZP tmp
 		bbr 0,tmp,ok		;test error bit
 		bbs 5,tmp,ide_err	;test write error bit
-		lda ide_register1	;read error report register
+		lda ide_drive_error_code	;read error report register
 ide_err
 		clc			;make carry flag zero = error!
 ok
@@ -219,7 +211,7 @@ ide_blp
 done
 		beq ide_to2
 notdone
-      	lda ide_register7
+      	lda ide_drive_rdstatus_wrcmd
 		sta tmp2
 		bbr 3,tmp2,ide_wdrq
     	;and #%100			;to fill (or ready to fill)
@@ -240,7 +232,7 @@ ide_read_buffer	.proc
 		ldy #0
 		ldx #2
 idebufrd
-		lda ide_register0	;get low byte of ide data word first
+		lda ide_drive_data_port	;get low byte of ide data word first
 		sta (sector_buffer_ptr),y
 		lda ide_high_byte	;get high byte of ide data word from latch
 		iny
@@ -265,7 +257,7 @@ idebufwt
     	sta ide_high_byte	;send high byte to latch
     	iny
     	lda (sector_buffer_ptr),y
-    	sta ide_register0 	;send low byte to output entire word
+    	sta ide_drive_data_port 	;send low byte to output entire word
     	cpy #0
 		bne idebufwt
     	inc sector_buffer_ptr+1
@@ -277,27 +269,26 @@ idebufwt
 ;-----------------------------------------------------------------------------
 
 ide_setup_lba	.proc
-
     	lda #1
-    	sta ide_register2	;set sector count to 1
+    	sta ide_sector_count	;set sector count to 1
     	lda ide_lba0
-    	sta ide_register3	;set lba 0:7
+    	sta ide_drive_lba0	;set lba 0:7
     	lda ide_lba1
-    	sta ide_register4	;set lba 8:15
+    	sta ide_drive_lba1	;set lba 8:15
     	lda ide_lba2
-    	sta ide_register5 	;set lba 16:23
+    	sta ide_drive_lba2 	;set lba 16:23
     	lda ide_lba3
     	and #%00001111		;lowest 4 bits used only
     	ora #%11100000		;to enable lba mode
     	jsr master_slave_select	;set bit 4 accordingly
-    	sta ide_register6	;set lba 24:27 + bits 5:7=111
+    	sta ide_drive_lba3_ms_lbamd	;set lba 24:27 + bits 5:7=111
     	rts
 		.pend
+
 
 ;----------------------------------------------------------------------------------------
 
 master_slave_select .proc
-
 		lda ide_status
 		bbr 0, ide_status, ide_mast
 		ora #16

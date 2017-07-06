@@ -1,9 +1,21 @@
+;IDE variables
+    master_slave = $9e
+    delay_counter = $9f
+    sector_buffer_ptr = $a0
+
+    ide_lba0 = $a1			; LBA of desired sector LSB
+    ide_lba1 = ide_lba0 + 1
+    ide_lba2 = ide_lba1 + 1
+    ide_lba3 = ide_lba2 + 1 	; - LBA of desired sector MSB
+
+    ide_status = $a5
+
 ;16-bit variables
     BCDNUM  = $A6       ;High byte BCD number to be converted
-    BCDNUML = BCDNUM+1  ;Low byte 
+    BCDNUML = BCDNUM+1  ;Low byte
     BINOUT  = $A8       ;High byte binary out after BCD conversion
     BINOUTL = BINOUT+1  ;Low byte
- 
+
 ;8-bit variables
     STATUSREGISTER = $AB
     VIATEMP  = $AC

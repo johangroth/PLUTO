@@ -1,4 +1,4 @@
-pluto.bin: main.asm zp_variables.asm rtc.asm 1511.asm 1511_constants.asm acia.asm via.asm utils.asm pluto_kernel.asm macros.asm
+pluto.bin: main.asm zp_variables.asm rtc.asm 1511.asm 1511_constants.asm acia.asm via.asm utils.asm pluto_kernel.asm
 	64tass --mw65c02  -o pluto.bin --flat --no-monitor --line-numbers --list=pluto.lst main.asm
 
 test.bin.hex: test.asm utils.asm 1511.asm 1511_constants.asm zp_variables.asm
