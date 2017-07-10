@@ -582,7 +582,7 @@ Wire Wire Line
 Wire Wire Line
 	5300 2450 7275 2450
 Wire Wire Line
-	6650 2300 7275 2300
+	5925 2300 7275 2300
 Wire Wire Line
 	5300 3050 6850 3050
 Wire Wire Line
@@ -599,8 +599,6 @@ Wire Wire Line
 	5300 2850 5925 2850
 Wire Wire Line
 	5925 2850 5925 2300
-Wire Wire Line
-	5925 2300 6650 2300
 Wire Wire Line
 	6650 2300 6650 2300
 Wire Wire Line
@@ -701,21 +699,7 @@ Text HLabel 9150 4050 2    60   Output ~ 0
 Text HLabel 9150 4175 2    60   Input ~ 0
 CLK
 Wire Bus Line
-	9250 2725 9250 2600
-Wire Bus Line
-	9250 2600 9250 2475
-Wire Bus Line
-	9250 2475 9250 2350
-Wire Bus Line
-	9250 2350 9250 2225
-Wire Bus Line
-	9250 2225 9250 2100
-Wire Bus Line
-	9250 2100 9250 1975
-Wire Bus Line
-	9250 1975 9250 1850
-Wire Bus Line
-	9250 1850 9250 1450
+	9250 1450 9250 2725
 Wire Bus Line
 	9250 1450 10000 1450
 Text Label 9250 1450 0    60   ~ 0

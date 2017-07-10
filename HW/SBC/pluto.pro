@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 update=Mon 10 Jul 2017 09:09:24 BST
+=======
+update=Fri 07 Jul 2017 17:07:57 BST
+>>>>>>> Stashed changes
 version=1
 last_client=kicad
 [pcbnew]
@@ -27,7 +31,11 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
+<<<<<<< Updated upstream
 LibDir=../../../KiCadLibraries/kicad-lib/components;../IDE_interface;../../../KiCadLibraries/kicad-library/library;../../../KiCadLibraries/kicad-library2/libs;../SBC;../../../KiCadLibraries/65xx_Library/KiCad
+=======
+LibDir=../../../../../C64/KiCadLibraries/65xx_Library/KiCad;../../../../../C64/KiCadLibraries/kicad-library/library;../../../../../C64/KiCadLibraries/kicad-library2/libs;../SBC
+>>>>>>> Stashed changes
 [eeschema/libraries]
 LibName1=pluto-rescue
 LibName2=power
@@ -301,3 +309,13 @@ LibName269=/home/jgroth/C64/KiCadLibraries/kicad-library/library/xilinx
 LibName270=/home/jgroth/C64/KiCadLibraries/kicad-library/library/zetex
 LibName271=/home/jgroth/C64/KiCadLibraries/kicad-library/library/Zilog
 LibName272=pluto
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60

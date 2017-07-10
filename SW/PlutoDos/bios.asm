@@ -1,23 +1,32 @@
 
         .include "include/bios_include.inc"
+nmi
+        nop
 
-coldstart .block
-        sei
+coldstart
+        sei                 ;Turn off interrupts
+        cld                 ;Make sure MPU is in binary mode
+        ldx  #0
+l1      stz  0,x            ;zero ZP
+        dex
+        bne  l1
         ldx  #n_soft_vectors    ;Initialise IRQ ISR soft vector table
-l1
+l2
         lda initial_soft_vectors-1,x
         sta soft_vector_table-1,x
         dex
-        bne l1
-        dex         ; ldx  #$ff :)
-        txs         ; Initialise stack pointer
-        cli         ; Turn on IRQ
-        .bend
+        bne l2
+        dex                 ;ldx #$ff :)
+        txs
+        jsr  rtc_init
+        jsr  acia_init
+        jsr  via1_init
+        jsr  via2_init
+        jsr  sound_init
+        cli
+        ; jmp monitor_init
 
-nmi .block
-    .bend
-
-irq .block
+irq     .block
         pha
         phx
         phy
