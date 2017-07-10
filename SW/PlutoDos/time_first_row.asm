@@ -1,142 +1,141 @@
 
         * = $500
-CHIN = $815A
-COUT = $817C
-COUT2 = $8179
-CROUT = $819A
-CR2 = $8197
-SPC2 = $83E9
-SPC4 = $83E6
-PRASC = $82EE
-DOLLAR = $8192
-PRBYTE = $82FB
-PRINDX = $830C
-PROMPT = $8319
-BEEP = $8130
-DELAY1 = $81A7
-DELAY2 = $81AB
-SET = $83C1
-TIMER = $83C3
-RDLINE = $8352
-BN2ASC = $8138
-ASC2BN = $8114
-HEXIN = $81BC
-SAVREGS = $83B3
-RESREGS = $83BA
-INCINDEX = $824E
-DECINDEX = $8189
-PROMPT2 = $8564
-HEXIN2 = $81B6
-HEXIN4 = $81BA
-NMON = $867D
-COLDSTART = $8613
-INTERRUPT = $876D
-ACIA6551 = $7FE0
-VIA6522 = $7FC0
-PRINT_DATE_AND_TIME = $801F 
-GET_DATE_AND_TIME  = $8072
-BCDOUTA = $80FF
+        chin = $815a
+        cout = $817c
+        cout2 = $8179
+        crout = $819a
+        cr2 = $8197
+        spc2 = $83e9
+        spc4 = $83e6
+        prasc = $82ee
+        dollar = $8192
+        prbyte = $82fb
+        prindx = $830c
+        prompt = $8319
+        beep = $8130
+        delay1 = $81a7
+        delay2 = $81ab
+        set = $83c1
+        timer = $83c3
+        rdline = $8352
+        bn2asc = $8138
+        asc2bn = $8114
+        hexin = $81bc
+        savregs = $83b3
+        resregs = $83ba
+        incindex = $824e
+        decindex = $8189
+        prompt2 = $8564
+        hexin2 = $81b6
+        hexin4 = $81ba
+        nmon = $867d
+        coldstart = $8613
+        interrupt = $876d
+        acia6551 = $7fe0
+        via6522 = $7fc0
+        print_date_and_time = $801f
+        get_date_and_time  = $8072
+        bcdouta = $80ff
 
 
-        ACIA = $7FE0
-        VIA = $7FC0
-        DS1511 = $7FA0
-        PUT_DATE_AND_TIME = $8095
+        acia = $7fe0
+        via = $7fc0
+        ds1511 = $7fa0
+        put_date_and_time = $8095
 
-        .include "zp_variables.asm"
+        .include "include/zp.inc"
         ;.include "utils.asm"
-        .include "1511_constants.asm"
-        .include "1511.asm"
+        .include "include/1511.inc"
 
 
-        SEI
-        LDA  INTERRUPTVECTOR
-        STA  INTERRUPTVECTOR+2
-        LDA  INTERRUPTVECTOR+1
-        STA  INTERRUPTVECTOR+3
-        LDA  #<TIMER1_INTERRUPT
-        STA  INTERRUPTVECTOR
-        LDA  #>TIMER1_INTERRUPT
-        STA  INTERRUPTVECTOR+1
-        CLI
+        sei
+        lda  interruptvector
+        sta  interruptvector+2
+        lda  interruptvector+1
+        sta  interruptvector+3
+        lda  #<timer1_interrupt
+        sta  interruptvector
+        lda  #>timer1_interrupt
+        sta  interruptvector+1
+        cli
 
-TIMER1_INTERRUPT
-        LDA  VIAIFR
-        AND  VIAIER
-        BNE  VIAINTERRUPT
-        JMP  (INTERRUPTVECTOR+2)   ;Execute normal ISR
+timer1_interrupt
+        lda  viaifr
+        and  viaier
+        bne  viainterrupt
+        jmp  (interruptvector+2)   ;execute normal isr
 
-VIAINTERRUPT
-        BIT  #%00100000
-        BNE  DECMSD
-        BRA  EXIT
-DECMSD
-        
-UPDATE_TOD_ON_CONSOLE .PROC 
-        JSR  SEND_ESCAPE
-        LDA  SAVE_CURSOR_POSITION_AND_ATTRIBUTES
-        JSR  COUT
-        JSR  SEND_ESCAPE
-        LDA  #'['
-        JSR  COUT
-        LDA  #'1'
-        JSR  COUT
-        LDA  #';'
-        JSR  COUT
-        LDA  #'6'
-        JSR  COUT
-        LDA  #'2'
-        JSR  COUT
-        LDA  #'H'
-        JSR  COUT
-        JSR  SEND_DATE_AND_TIME
-        JSR  SEND_ESCAPE
-        LDA  RESTORE_CURSOR_POSITION_AND_ATTRIBUTES
-        JSR  COUT
-        RTS
-        .PEND
+viainterrupt
+        bit  #%00100000
+        bne  decmsd
+        bra  exit
+decmsd
 
-SEND_ESCAPE
-        LDA  #27
-        JMP  COUT
+update_tod_on_console .proc
+        jsr  send_escape
+        lda  save_cursor_position_and_attributes
+        jsr  cout
+        jsr  send_escape
+        lda  #'['
+        jsr  cout
+        lda  #'1'
+        jsr  cout
+        lda  #';'
+        jsr  cout
+        lda  #'6'
+        jsr  cout
+        lda  #'2'
+        jsr  cout
+        lda  #'H'
+        jsr  cout
+        jsr  send_date_and_time
+        jsr  send_escape
+        lda  restore_cursor_position_and_attributes
+        jsr  cout
+        rts
+        .pend
 
-SEND_DATE_AND_TIME .PROC
-        PHA
-        PHX
-        PHY
-        JSR  GET_DATE_AND_TIME
-        LDA  TODBUF+WR_DATT
-        JSR  BCDOUTA
-        LDA  #'/'
-        JSR  COUT
-        LDA  TODBUF+WR_MON
-        JSR  BCDOUTA
-        LDA  #'/'
-        JSR  COUT
-        LDA  TODBUF+WR_YRHI
-        JSR  BCDOUTA
-        LDA  TODBUF+WR_YRLO
-        JSR  BCDOUTA
-        LDA  #' '
-        JSR  COUT
-        LDA  TODBUF+WR_HRST
-        JSR  BCDOUTA
-        LDA  #':'
-        JSR  COUT
-        LDA  TODBUF+WR_MINT
-        JSR  BCDOUTA
-        LDA  #':'
-        JSR  COUT
-        LDA  TODBUF+WR_SECT
-        JSR  BCDOUTA
-        JSR  CROUT
-        PLY
-        PLX
-        PLA
-        RTS
-        .PEND
+send_escape
+        lda  #27
+        jmp  cout
 
-CLEAR_ENTIRE_SCREEN .NULL "[2J"
-MOVE_CURSOR_TO_SCREEN_LOCATION_V_H  .NULL "[<v>;<h>H"
-SAVE_CURSOR_POSITION_AND_ATTRIBUTES .TEXT "7"
-RESTORE_CURSOR_POSITION_AND_ATTRIBUTES .TEXT "8"
+send_date_and_time .proc
+        pha
+        phx
+        phy
+        jsr  get_date_and_time
+        lda  todbuf+wr_datt
+        jsr  bcdouta
+        lda  #'/'
+        jsr  cout
+        lda  todbuf+wr_mon
+        jsr  bcdouta
+        lda  #'/'
+        jsr  cout
+        lda  todbuf+wr_yrhi
+        jsr  bcdouta
+        lda  todbuf+wr_yrlo
+        jsr  bcdouta
+        lda  #' '
+        jsr  cout
+        lda  todbuf+wr_hrst
+        jsr  bcdouta
+        lda  #':'
+        jsr  cout
+        lda  todbuf+wr_mint
+        jsr  bcdouta
+        lda  #':'
+        jsr  cout
+        lda  todbuf+wr_sect
+        jsr  bcdouta
+        jsr  crout
+        ply
+        plx
+        pla
+        rts
+        .pend
+
+clear_entire_screen .null "[2J"
+move_cursor_to_screen_location_v_h  .null "[<V>;<H>H"
+save_cursor_position_and_attributes .text "7"
+restore_cursor_position_and_attributes .text "8"

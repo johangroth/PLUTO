@@ -21,6 +21,8 @@
         via1timer1mask = 6
         via1timer2mask = 5
 
+        via_timer2_irq_mask = %00100000
+
 via1_init_table
         .byte   $00     ; PRB
         .byte   $00     ; PRA
