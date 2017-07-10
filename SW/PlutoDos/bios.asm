@@ -1,16 +1,22 @@
 
         .include "include/bios_include.inc"
 
-coldstart
+coldstart .block
         sei
-
-        ldx  #$ff
-        txs
-        cli
+        ldx  #n_soft_vectors    ;Initialise IRQ ISR soft vector table
+l1
+        lda initial_soft_vectors-1,x
+        sta soft_vector_table-1,x
+        dex
+        bne l1
+        dex         ; ldx  #$ff :)
+        txs         ; Initialise stack pointer
+        cli         ; Turn on IRQ
+        .bend
 
 nmi .block
     .bend
-    
+
 irq .block
         pha
         phx
@@ -19,7 +25,7 @@ irq .block
         lda $100+4,x            ;MPU status register
         and #brk_irq_mask       ;Has brk instruction triggered IRQ
         bne do_break            ;Yes, branch
-        jmp (irq_soft_vector)   ;  no, jump to soft vector irq routine
+        jmp (rtc_soft_vector)           ;  no, jump to rtc ISR routine
 do_break
         jmp (brk_soft_vector)   ;Handle brk instruction
         .bend
@@ -32,23 +38,24 @@ irq_end .block
         .bend
 
 brk_irq .block
-        jmp (rtc_irq)
+        jmp (rtc_soft_vector)
         .bend
 
 rtc_irq .block
-        jmp (acia_irq)
+        jmp (acia_soft_vector)
         .bend
 
 acia_irq .block
-        jmp (t1_irq)
+        .include "acia_isr.asm"
+        jmp (via1_soft_vector)
         .bend
 
-t1_irq .block
-        jmp (t2_irq)
+via1_irq .block
+        jmp (via2_soft_vector)
         .bend
 
-t2_irq  .block
-        rti
+via2_irq  .block
+        jmp irq_end
         .bend
 
         * = $FFFA
