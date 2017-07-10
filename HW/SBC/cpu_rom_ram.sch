@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:pluto-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -851,9 +852,11 @@ Text HLabel 4750 3100 0    60   Input ~ 0
 Text HLabel 4750 3200 0    60   Input ~ 0
 ~ROMSEL
 $Comp
-L 28C256 U2
+L 28C256-RESCUE-pluto U2
 U 1 1 59386D85
 P 5775 2300
+AR Path="/59386D85" Ref="U2"  Part="1" 
+AR Path="/58D5892B/59386D85" Ref="U2"  Part="1" 
 F 0 "U2" H 5975 3300 50  0000 C CNN
 F 1 "28C256" H 6075 1300 50  0000 C CNN
 F 2 "Housings_DIP:DIP-28_W15.24mm_Socket" H 5775 2300 50  0001 C CNN

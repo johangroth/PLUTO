@@ -1,4 +1,4 @@
-update=Thu 08 Jun 2017 17:39:58 BST
+update=Mon 10 Jul 2017 09:09:24 BST
 version=1
 last_client=kicad
 [pcbnew]
@@ -27,7 +27,7 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
-LibDir=../../../KiCadLibraries/kicad-lib/components;../IDE_interface;../../../KiCadLibraries/kicad-library/library;../../../KiCadLibraries/kicad-library2/libs;../SBC
+LibDir=../../../KiCadLibraries/kicad-lib/components;../IDE_interface;../../../KiCadLibraries/kicad-library/library;../../../KiCadLibraries/kicad-library2/libs;../SBC;../../../KiCadLibraries/65xx_Library/KiCad
 [eeschema/libraries]
 LibName1=pluto-rescue
 LibName2=power

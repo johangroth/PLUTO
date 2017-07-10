@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:pluto-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -382,7 +383,7 @@ F 3 "" H 3225 2025 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LM7805CT U11
+L LM7805CT-RESCUE-pluto U11
 U 1 1 58E10ED4
 P 2825 1700
 F 0 "U11" H 2625 1900 50  0000 C CNN
