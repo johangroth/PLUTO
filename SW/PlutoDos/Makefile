@@ -1,6 +1,7 @@
-pluto: bios.asm
+INCLUDE_SRCS = include/*.inc
+
+pluto: bios.asm acia.asm rtc.asm via.asm ${INCLUDE_SRCS}
 	64tass -o pluto --no-monitor --line-numbers --list=pluto.lst main.asm
-	# java -cp ../..:. uk.org.linuxgrotto.BinToHex pluto
 
 clean:
-	rm *.bin *.hex *.lst *~
+	rm  -f *.bin *.hex *.lst *~ pluto

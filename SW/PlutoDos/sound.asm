@@ -1,4 +1,4 @@
-        .include "include/sound_constants.inc"
+        .include "include/sound.inc"
 
 sound_init  .proc
         nop

@@ -1,5 +1,15 @@
 
-        .include "include/bios_include.inc"
+        .include "include/bios.inc"
+        .include "include/zp.inc"
+
+delay1 .proc
+        ldx delay_low
+l1
+        dex
+        bne l1
+        rts
+        .pend
+
 nmi
         nop
 
@@ -20,8 +30,7 @@ l2
         txs
         jsr  rtc_init
         jsr  acia_init
-        jsr  via1_init
-        jsr  via2_init
+        jsr  via_init
         jsr  sound_init
         cli
         ; jmp monitor_init
@@ -55,7 +64,6 @@ rtc_irq .block
         .bend
 
 acia_irq .block
-        .include "acia_isr.asm"
         jmp (via1_soft_vector)
         .bend
 
@@ -67,7 +75,7 @@ via2_irq  .block
         jmp irq_end
         .bend
 
-        * = $FFFA
-        .word   nmi         ;NMI soft vector
+        * = $fffa
+        .word   nmi         ;NMI
         .word   coldstart   ;RESET
-        .word   irq         ;IRQ soft vector
+        .word   irq         ;IRQ
