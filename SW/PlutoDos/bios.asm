@@ -52,7 +52,38 @@ irq_end .block
         .bend
 
 brk_irq .block
-        jmp (rtc_soft_vector)
+        ply
+        plx
+        pla
+        sta accumulator
+        stx x_register
+        sty y_register
+        pla                     ;Get MPU status register
+        sta mpu_status_register
+        tsx
+        stx stack_pointer
+        plx                     ;Pull low byte of return address
+        stx program_counter_low
+        stx index_low           ;For disassemble line
+        plx
+        stx program_counter_high
+        stx index_high          ;For disassemble line
+;
+; The following 3 subroutines are contained in the base Monitor and S/O/S code
+;	- if replaced with new code, either replace or remove these routines
+;
+		;jsr	decindex      ;decrement index to show brk flag byte in register display
+		;jsr	prstat1	      ;display contents of all preset/result memory locations
+		;jsr	disline       ;disassemble then display instruction at address pointed to by index
+
+        lda #0      ;clear all processor status flags
+        pha
+        plp
+        stz in_buffer_counter
+        stz in_buffer_tail
+        stz in_buffer_head
+
+        jmp (monitor_soft_vector)
         .bend
 
 rtc_irq .block
