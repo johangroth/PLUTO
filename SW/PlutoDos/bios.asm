@@ -87,19 +87,19 @@ brk_irq .block
         .bend
 
 rtc_irq .block
-        jmp (acia_soft_vector)
+        jmp (acia_soft_vector)          ;Jump to next ISR
         .bend
 
 acia_irq .block
-        jmp (via1_soft_vector)
+        jmp (via1_soft_vector)          ;Jump to next ISR
         .bend
 
 via1_irq .block
-        jmp (via2_soft_vector)
+        jmp (via2_soft_vector)          ;Jump to next ISR
         .bend
 
 via2_irq  .block
-        jmp irq_end
+        jmp irq_end                     ;Jump to the end of ISR
         .bend
 
         * = $fffa
