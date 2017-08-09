@@ -22,7 +22,7 @@ l2
         dex
         bne l2
         dex                 ;ldx #$ff :)
-        txs
+        txs                 ;Initialise stack pointer
         jsr rtc_init
         jsr acia_init
         jsr via_init

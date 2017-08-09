@@ -54,7 +54,6 @@ LIBS:stmicro-mcu
 LIBS:ti-ic
 LIBS:transistor
 LIBS:uln-ic
-LIBS:IDE_interface
 LIBS:+1.8V
 LIBS:+3.3V
 LIBS:+5V
@@ -297,7 +296,7 @@ F0 "VIAs and RTC" 60
 F1 "via_rtc.sch" 60
 F2 "V2PA[0..7]" B R 9275 2350 60 
 F3 "D[0..7]" B R 9275 1650 60 
-F4 "~7FCX" B L 7025 1475 60 
+F4 "~7FCX" I L 7025 1475 60 
 F5 "A[0..15]" I R 9275 1475 60 
 F6 "~PWR" O L 7025 1625 60 
 F7 "~RES" O R 9275 2500 60 
