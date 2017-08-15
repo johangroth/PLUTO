@@ -798,30 +798,166 @@ Wire Wire Line
 Wire Wire Line
 	4050 3850 5775 3850
 Wire Wire Line
-	4050 1050 4050 3850
+	4050 1050 4050 3000
+Wire Wire Line
+	4050 3000 4050 3850
 Wire Wire Line
 	4050 1050 5775 1050
 Wire Wire Line
 	5075 3000 4050 3000
 Connection ~ 4050 3000
 Wire Bus Line
-	3100 900  3100 2850
+	3100 900  3100 1350
 Wire Bus Line
-	4650 900  4650 2700
+	3100 1350 3100 1450
 Wire Bus Line
-	7550 900  7550 2750
+	3100 1450 3100 1550
 Wire Bus Line
-	1200 725  1200 2050
+	3100 1550 3100 1650
 Wire Bus Line
-	6750 725  6750 2000
+	3100 1650 3100 1750
 Wire Bus Line
-	9250 725  9250 2050
+	3100 1750 3100 1850
 Wire Bus Line
-	975  725  9250 725 
+	3100 1850 3100 1950
+Wire Bus Line
+	3100 1950 3100 2050
+Wire Bus Line
+	3100 2050 3100 2150
+Wire Bus Line
+	3100 2150 3100 2250
+Wire Bus Line
+	3100 2250 3100 2350
+Wire Bus Line
+	3100 2350 3100 2450
+Wire Bus Line
+	3100 2450 3100 2550
+Wire Bus Line
+	3100 2550 3100 2650
+Wire Bus Line
+	3100 2650 3100 2750
+Wire Bus Line
+	3100 2750 3100 2850
+Wire Bus Line
+	4650 900  4650 1300
+Wire Bus Line
+	4650 1300 4650 1400
+Wire Bus Line
+	4650 1400 4650 1500
+Wire Bus Line
+	4650 1500 4650 1600
+Wire Bus Line
+	4650 1600 4650 1700
+Wire Bus Line
+	4650 1700 4650 1800
+Wire Bus Line
+	4650 1800 4650 1900
+Wire Bus Line
+	4650 1900 4650 2000
+Wire Bus Line
+	4650 2000 4650 2100
+Wire Bus Line
+	4650 2100 4650 2200
+Wire Bus Line
+	4650 2200 4650 2300
+Wire Bus Line
+	4650 2300 4650 2400
+Wire Bus Line
+	4650 2400 4650 2500
+Wire Bus Line
+	4650 2500 4650 2600
+Wire Bus Line
+	4650 2600 4650 2700
+Wire Bus Line
+	7550 900  7550 1350
+Wire Bus Line
+	7550 1350 7550 1450
+Wire Bus Line
+	7550 1450 7550 1550
+Wire Bus Line
+	7550 1550 7550 1650
+Wire Bus Line
+	7550 1650 7550 1750
+Wire Bus Line
+	7550 1750 7550 1850
+Wire Bus Line
+	7550 1850 7550 1950
+Wire Bus Line
+	7550 1950 7550 2050
+Wire Bus Line
+	7550 2050 7550 2150
+Wire Bus Line
+	7550 2150 7550 2250
+Wire Bus Line
+	7550 2250 7550 2350
+Wire Bus Line
+	7550 2350 7550 2450
+Wire Bus Line
+	7550 2450 7550 2550
+Wire Bus Line
+	7550 2550 7550 2650
+Wire Bus Line
+	7550 2650 7550 2750
+Wire Bus Line
+	1200 725  1200 1350
+Wire Bus Line
+	1200 1350 1200 1450
+Wire Bus Line
+	1200 1450 1200 1550
+Wire Bus Line
+	1200 1550 1200 1650
+Wire Bus Line
+	1200 1650 1200 1750
+Wire Bus Line
+	1200 1750 1200 1850
+Wire Bus Line
+	1200 1850 1200 1950
+Wire Bus Line
+	1200 1950 1200 2050
+Wire Bus Line
+	6750 725  6750 1300
+Wire Bus Line
+	6750 1300 6750 1400
+Wire Bus Line
+	6750 1400 6750 1500
+Wire Bus Line
+	6750 1500 6750 1600
+Wire Bus Line
+	6750 1600 6750 1700
+Wire Bus Line
+	6750 1700 6750 1800
+Wire Bus Line
+	6750 1800 6750 1900
+Wire Bus Line
+	6750 1900 6750 2000
+Wire Bus Line
+	9250 725  9250 1350
+Wire Bus Line
+	9250 1350 9250 1450
+Wire Bus Line
+	9250 1450 9250 1550
+Wire Bus Line
+	9250 1550 9250 1650
+Wire Bus Line
+	9250 1650 9250 1750
+Wire Bus Line
+	9250 1750 9250 1850
+Wire Bus Line
+	9250 1850 9250 1950
+Wire Bus Line
+	9250 1950 9250 2050
+Wire Bus Line
+	975  725  6750 725 
+Wire Bus Line
+	6750 725  9250 725 
 Text HLabel 975  725  0    60   BiDi ~ 0
 D[0..7]
 Wire Bus Line
-	2725 900  7550 900 
+	2725 900  3100 900 
+Wire Bus Line
+	3100 900  4650 900 
+Wire Bus Line
+	4650 900  7550 900 
 Connection ~ 6750 725 
 Connection ~ 4650 900 
 Connection ~ 3100 900 
@@ -842,9 +978,9 @@ CLK
 NoConn ~ 2825 3150
 Text HLabel 9150 2400 2    60   Input ~ 0
 ~MRD
-Text HLabel 9150 2525 2    60   Input ~ 0
-~MWR
 Text HLabel 9150 2650 2    60   Input ~ 0
+~MWR
+Text HLabel 9150 2525 2    60   Input ~ 0
 ~RAMSEL
 Text HLabel 4750 3100 0    60   Input ~ 0
 ~MRD
