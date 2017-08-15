@@ -22,7 +22,7 @@ l2
         dex
         bne l2
         dex                 ;ldx #$ff :)
-        txs                 ;Initialise stack pointer
+        txs
         jsr rtc_init
         jsr acia_init
         jsr via_init
@@ -67,9 +67,9 @@ brk_irq .block
         stx index_low           ;For disassemble line
         plx
         stx program_counter_high
-        stx index_high          ;For disassemble ••••••••••line
+        stx index_high          ;For disassemble line
 ;
-; The following 3 subroutines are contained in the S/O/S code
+; The following 3 subroutines are contained in the base Monitor and S/O/S code
 ;	- if replaced with new code, either replace or remove these routines
 ;
 		;jsr	decindex      ;decrement index to show brk flag byte in register display
@@ -87,19 +87,19 @@ brk_irq .block
         .bend
 
 rtc_irq .block
-        jmp (acia_soft_vector)
+        jmp (acia_soft_vector)          ;Jump to next ISR
         .bend
 
 acia_irq .block
-        jmp (via1_soft_vector)
+        jmp (via1_soft_vector)          ;Jump to next ISR
         .bend
 
 via1_irq .block
-        jmp (via2_soft_vector)
+        jmp (via2_soft_vector)          ;Jump to next ISR
         .bend
 
 via2_irq  .block
-        jmp irq_end
+        jmp irq_end                     ;Jump to the end of ISR
         .bend
 
         * = $fffa
