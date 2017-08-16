@@ -18,4 +18,3 @@ initial_soft_vectors
 
         in_buffer = $200
         out_buffer = $280
-        

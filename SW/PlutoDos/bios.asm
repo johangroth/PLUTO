@@ -2,8 +2,43 @@
         .include "include/bios.inc"
         .include "include/zp.inc"
 
+;;; CHIN subroutine: Wait for a character in input buffer, return character in A register.
+;;; receive is interrupt driven and buffered with a size of 128 bytes.
+chin    .proc
+        lda in_buffer_counter       ; Get number of characters in buffer
+        beq chin                    ; If zero wait for characters
+        phy                         ; Preserve Y register
+        ldy in_buffer_head          ; Get in buffer head pointer
+        lda in_buffer,y             ; Get the character from the in buffer
+        dec in_buffer_counter       ; Decrement the character counter
+        iny                         ; Increment the buffer index
+        bpl l1                      ; Branch if not wrap-around ($80)
+        ldy #0                      ; Reset the buffer index
+l1      sty in_buffer_head          ; Update the pointer
+        ply                         ; Restore Y register
+        rts
+        .pend
+
+chout   .proc
+        phy                         ; Preserve Y register
+out_buffer_full
+        ldy out_buffer_counter      ; Get number of characters in buffer
+        bmi out_buffer_full         ; Loop back if buffer is full (ACIA ISR will empty buffer)
+        ldy out_buffer_tail         ; Get out buffer tail pointer
+        sta out_buffer,y            ; and store it in buffer
+        inc out_buffer_counter      ; Increment the counter
+        iny                         ; Increment the buffer index
+        bpl l1                      ; Branch if not wrap-around ($80)
+        ldy #0                      ; Reset the buffer index
+        sty out_buffer_tail         ; Update the pointer
+        ldy #acia_transmit_mask     ; Get the ACIA transmit mask
+        sty siocom                  ; Turn on transmit IRQ
+        ply                         ; Restore Y register
+        rts
+        .pend
+
 nmi
-        nop
+        rti
 
 ;;; coldstart - initialises all hardware
 ;; power up and reset procedure.
@@ -29,6 +64,10 @@ l2
         jsr sound_init
         cli
         ; jmp monitor_init
+again
+        jsr chin
+        jsr chout
+        bra again
         .bend
 
 irq     .block
@@ -82,16 +121,11 @@ brk_irq .block
         stz in_buffer_counter
         stz in_buffer_tail
         stz in_buffer_head
-
         jmp (monitor_soft_vector)
         .bend
 
 rtc_irq .block
         jmp (acia_soft_vector)          ;Jump to next ISR
-        .bend
-
-acia_irq .block
-        jmp (via1_soft_vector)          ;Jump to next ISR
         .bend
 
 via1_irq .block

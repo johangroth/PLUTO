@@ -179,19 +179,25 @@ utdelay	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/rtc.asm	/^utdelay .proc$
 via_init	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/via.asm	/^via_init .proc$/;"	label	line:3
 next	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/via.asm	/^next$/;"	label	line:5
 sound_init	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/sound.asm	/^sound_init  .proc$/;"	label	line:3
-acia_init	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^acia_init    .proc$/;"	label	line:4
-delay1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^delay1 .proc$/;"	label	line:5
-l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1$/;"	label	line:7
-nmi	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^nmi$/;"	label	line:13
-coldstart	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^coldstart$/;"	label	line:16
-l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1      stz  0,x            ;zero ZP$/;"	label	line:20
-l2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l2$/;"	label	line:24
-irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^irq     .block$/;"	label	line:38
-do_break	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^do_break$/;"	label	line:47
-irq_end	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^irq_end .block$/;"	label	line:51
-brk_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^brk_irq .block$/;"	label	line:58
-rtc_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^rtc_irq .block$/;"	label	line:62
-acia_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^acia_irq .block$/;"	label	line:66
-via1_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^via1_irq .block$/;"	label	line:70
-via2_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^via2_irq  .block$/;"	label	line:74
 -list	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/Makefile	/^	64tass -o pluto --no-monitor --line-numbers --list=pluto.lst main.asm$/;"	macro	line:2
+chin	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^chin    .proc$/;"	label	line:7
+l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1      sty in_buffer_head$/;"	label	line:17
+chout	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^chout   .proc$/;"	label	line:22
+nmi	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^nmi$/;"	label	line:26
+coldstart	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^coldstart .block$/;"	label	line:32
+l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1      stz  0,x                ;zero ZP$/;"	label	line:36
+l2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l2$/;"	label	line:40
+irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^irq     .block$/;"	label	line:56
+do_break	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^do_break$/;"	label	line:65
+irq_end	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^irq_end .block$/;"	label	line:69
+brk_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^brk_irq .block$/;"	label	line:76
+rtc_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^rtc_irq .block$/;"	label	line:110
+via1_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^via1_irq .block$/;"	label	line:114
+via2_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^via2_irq  .block$/;"	label	line:118
+acia_init	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^acia_init    .proc$/;"	label	line:4
+acia_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^acia_irq .block$/;"	label	line:14
+receive_char	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^receive_char$/;"	label	line:22
+l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^l1$/;"	label	line:32
+transmit_char	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^transmit_char$/;"	label	line:39
+l2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^l2$/;"	label	line:49
+exit	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^exit$/;"	label	line:52
