@@ -21,7 +21,7 @@
         out_buffer_tail     = zp_start + 14     ; Keeps track of where in the output buffer an outgoing char should be placed
 
 
-        index_high = zp_start + 15
-        index_low = zp_start + 16
+        index_low = zp_start + 15
+        index_high = zp_start + 16
 
         stack_page  = $100

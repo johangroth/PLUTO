@@ -19,17 +19,20 @@ l1      sty in_buffer_head          ; Update the pointer
         rts
         .pend
 
+;;; CHOUT subroutine: Place register A in output buffer, register A is preserved.
+;;; transmit is interrupt driven and buffered with a size of 128 bytes
 chout   .proc
         phy                         ; Preserve Y register
 out_buffer_full
         ldy out_buffer_counter      ; Get number of characters in buffer
         bmi out_buffer_full         ; Loop back if buffer is full (ACIA ISR will empty buffer)
-        ldy out_buffer_tail         ; Get out buffer tail pointer
+        ldy out_buffer_tail         ; Get buffer tail pointer
         sta out_buffer,y            ; and store it in buffer
         inc out_buffer_counter      ; Increment the counter
         iny                         ; Increment the buffer index
         bpl l1                      ; Branch if not wrap-around ($80)
         ldy #0                      ; Reset the buffer index
+l1
         sty out_buffer_tail         ; Update the pointer
         ldy #acia_transmit_mask     ; Get the ACIA transmit mask
         sty siocom                  ; Turn on transmit IRQ
