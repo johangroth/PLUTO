@@ -4,10 +4,20 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-acia_init	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^acia_init    .proc$/;"	label	line:4
-acia_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^acia_irq .block$/;"	label	line:14
-receive_char	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^receive_char$/;"	label	line:22
-l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^l1$/;"	label	line:32
-transmit_char	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^transmit_char$/;"	label	line:39
-l2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^l2$/;"	label	line:49
-exit	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^exit$/;"	label	line:52
+chin	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^chin    .proc$/;"	label	line:7
+l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1      sty in_buffer_head          ; Update the pointer$/;"	label	line:17
+chout	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^chout   .proc$/;"	label	line:26
+out_buffer_full	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^out_buffer_full$/;"	label	line:28
+l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1$/;"	label	line:37
+nmi	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^nmi$/;"	label	line:47
+coldstart	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^coldstart .block$/;"	label	line:53
+l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1      stz  0,x                ;zero ZP$/;"	label	line:57
+l2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l2$/;"	label	line:63
+again	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^again$/;"	label	line:75
+irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^irq     .block$/;"	label	line:81
+do_break	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^do_break$/;"	label	line:90
+irq_end	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^irq_end .block$/;"	label	line:94
+brk_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^brk_irq .block$/;"	label	line:101
+rtc_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^rtc_irq .block$/;"	label	line:135
+via1_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^via1_irq .block$/;"	label	line:139
+via2_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^via2_irq  .block$/;"	label	line:143

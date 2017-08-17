@@ -12,4 +12,4 @@
     siocon   = siodat+3     ;ACIA control REGISTER
 
     serial_port_param       = %00011111 ; 19.2K BAUD,no parity,8 data bits,1 stop bit,
-    rec_xmit_irq_enabled    = %00000101 ;receiver IRQ output enabled
+    rec_xmit_irq_enabled    = %00001001 ;receiver IRQ output enabled

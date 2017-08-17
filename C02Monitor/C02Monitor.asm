@@ -28,7 +28,7 @@
 ;*  - precision timer services 1ms accuracy        *
 ;*  - delays from 1ms to 49.71 days                *
 ;*  - basic port services for 6522 VIA             *
-;*                                                 * 
+;*                                                 *
 ;*   Note default HW system memory map as:         *
 ;*         RAM - $0000 - $7FFF                     *
 ;*         ROM - $8000 - $FDFF                     *
@@ -37,8 +37,8 @@
 ;*                                                 *
 ;***************************************************
 ;
-	PL	66	;Page Length
-	PW	132	;Page Width (# of char/line)
+;	PL	66	;Page Length
+;	PW	132	;Page Width (# of char/line)
 ;
 ;******************************************************************************
 ;*************************
@@ -48,129 +48,129 @@
 ;Note: locations $00 and $01 are used to zero RAM (calls CPU reset)
 ;NOTE: EEPROM Byte Write routine loaded into Page Zero at $00
 ;
-PGZERO8_ST	.EQU	$80	;8-bit start of Page Zero usage
-PGZERO16_ST	.EQU	$0080	;16-bit start of Page Zero usage
+PGZERO8_ST	=	$80	;8-bit start of Page Zero usage
+PGZERO16_ST	=	$0080	;16-bit start of Page Zero usage
 ;
 ;16-bit variables:
 ;HEXDATA MUST be located immediately below the HEXDATAH variable
-HEXDATA		.EQU PGZERO16_ST+15
-HEXDATAH	.EQU PGZERO8_ST+16
-HEXDATAL	.EQU PGZERO8_ST+17
+HEXDATA		= PGZERO16_ST+15
+HEXDATAH	= PGZERO8_ST+16
+HEXDATAL	= PGZERO8_ST+17
 ;
-BUFADRL		.EQU	PGZERO8_ST+18	;Input address
-BUFADRH		.EQU	PGZERO8_ST+19
-COMLO			.EQU	PGZERO8_ST+20	;User command address
-COMHI			.EQU	PGZERO8_ST+21
-INDEXL		.EQU	PGZERO8_ST+22	;Index for address
-INDEXH		.EQU	PGZERO8_ST+23
-TEMP1L		.EQU	PGZERO8_ST+24	;Index for word temp value used by Memdump
-TEMP1H		.EQU	PGZERO8_ST+25
-PROMPTL		.EQU	PGZERO8_ST+26	;Prompt string address
-PROMPTH		.EQU	PGZERO8_ST+27
-BINVALL		.EQU	PGZERO8_ST+28	;Binary Value for HEX2ASC
-BINVALH		.EQU	PGZERO8_ST+29
-MOD10L		.EQU	PGZERO8_ST+30	;Modulus Value for HEX2ASC
-MOD10H		.EQU	PGZERO8_ST+31
-SRCL			.EQU	PGZERO8_ST+32	;Source address for memory operations
-SRCH			.EQU	PGZERO8_ST+33
-TGTL			.EQU	PGZERO8_ST+34	;Target address for memory operations
-TGTH			.EQU	PGZERO8_ST+35
-LENL			.EQU	PGZERO8_ST+36	;Length address for memory operations
-LENH			.EQU	PGZERO8_ST+37
-CMPL			.EQU	PGZERO8_ST+38	;Compare address for memory operations
-CMPH			.EQU	PGZERO8_ST+39
+BUFADRL		=	PGZERO8_ST+18	;Input address
+BUFADRH		=	PGZERO8_ST+19
+COMLO			=	PGZERO8_ST+20	;User command address
+COMHI			=	PGZERO8_ST+21
+INDEXL		=	PGZERO8_ST+22	;Index for address
+INDEXH		=	PGZERO8_ST+23
+TEMP1L		=	PGZERO8_ST+24	;Index for word temp value used by Memdump
+TEMP1H		=	PGZERO8_ST+25
+PROMPTL		=	PGZERO8_ST+26	;Prompt string address
+PROMPTH		=	PGZERO8_ST+27
+BINVALL		=	PGZERO8_ST+28	;Binary Value for HEX2ASC
+BINVALH		=	PGZERO8_ST+29
+MOD10L		=	PGZERO8_ST+30	;Modulus Value for HEX2ASC
+MOD10H		=	PGZERO8_ST+31
+SRCL			=	PGZERO8_ST+32	;Source address for memory operations
+SRCH			=	PGZERO8_ST+33
+TGTL			=	PGZERO8_ST+34	;Target address for memory operations
+TGTH			=	PGZERO8_ST+35
+LENL			=	PGZERO8_ST+36	;Length address for memory operations
+LENH			=	PGZERO8_ST+37
+CMPL			=	PGZERO8_ST+38	;Compare address for memory operations
+CMPH			=	PGZERO8_ST+39
 ;
 ;8-bit variables and constants:
-BUFIDX		.EQU	PGZERO8_ST+40	;Buffer index
-BUFLEN		.EQU	PGZERO8_ST+41	;Buffer length
-SCNT			.EQU	PGZERO8_ST+42	;Input character count for HEXINPUT
-STMP			.EQU	PGZERO8_ST+43	;Temp for HEXINPUT routine
-IDX				.EQU	PGZERO8_ST+44	;Indexing for Memory Dump
-IDY				.EQU	PGZERO8_ST+45	;Indexing for Search Memory
-LOKOUT		.EQU	PGZERO8_ST+46	;Lokout flag for RDLINE routine
-POINTER		.EQU	PGZERO8_ST+47	;Stack Pointer for Go routine
-TEMP1			.EQU	PGZERO8_ST+48	;Temp value - Math routines
-TEMP2			.EQU	PGZERO8_ST+49	;Temp value - 16-bit Word convert
-TEMP3			.EQU	PGZERO8_ST+50	;Temp value - Fill/Move/Compare/Program routines
-TEMP4			.EQU	PGZERO8_ST+51	;Temp value - Program EEPROM routine
+BUFIDX		=	PGZERO8_ST+40	;Buffer index
+BUFLEN		=	PGZERO8_ST+41	;Buffer length
+SCNT			=	PGZERO8_ST+42	;Input character count for HEXINPUT
+STMP			=	PGZERO8_ST+43	;Temp for HEXINPUT routine
+IDX				=	PGZERO8_ST+44	;Indexing for Memory Dump
+IDY				=	PGZERO8_ST+45	;Indexing for Search Memory
+LOKOUT		=	PGZERO8_ST+46	;Lokout flag for RDLINE routine
+POINTER		=	PGZERO8_ST+47	;Stack Pointer for Go routine
+TEMP1			=	PGZERO8_ST+48	;Temp value - Math routines
+TEMP2			=	PGZERO8_ST+49	;Temp value - 16-bit Word convert
+TEMP3			=	PGZERO8_ST+50	;Temp value - Fill/Move/Compare/Program routines
+TEMP4			=	PGZERO8_ST+51	;Temp value - Program EEPROM routine
 ;
 ;Xmodem transfer variables
-VALUE			.EQU	PGZERO8_ST+52	;Data value for CRC calculation
-CRCHI			.EQU	PGZERO8_ST+53	;CRC lo byte  (two byte variable)
-CRCLO			.EQU	PGZERO8_ST+54	;CRC hi byte
-CRCCNT		.EQU	PGZERO8_ST+55	;CRC retry count
+VALUE			=	PGZERO8_ST+52	;Data value for CRC calculation
+CRCHI			=	PGZERO8_ST+53	;CRC lo byte  (two byte variable)
+CRCLO			=	PGZERO8_ST+54	;CRC hi byte
+CRCCNT		=	PGZERO8_ST+55	;CRC retry count
 ;
-PTRL			.EQU	PGZERO8_ST+56	;Data pointer lo byte (two byte variable)
-PTRH			.EQU	PGZERO8_ST+57	;Data pointer hi byte
-BLKNO			.EQU	PGZERO8_ST+58	;Block number
-RETRY			.EQU	PGZERO8_ST+59	;Retry counter 
+PTRL			=	PGZERO8_ST+56	;Data pointer lo byte (two byte variable)
+PTRH			=	PGZERO8_ST+57	;Data pointer hi byte
+BLKNO			=	PGZERO8_ST+58	;Block number
+RETRY			=	PGZERO8_ST+59	;Retry counter
 ;
 ;	Buffers used by the default Monitor code
-BUFF_PG0	.EQU	PGZERO8_ST+60	;Default Page zero location for Monitor buffers
+BUFF_PG0	=	PGZERO8_ST+60	;Default Page zero location for Monitor buffers
 ; - 6 byte ASCII output buffer
-ASCBUF		.EQU	BUFF_PG0+0	;6 bytes ($BC-$C1)
+ASCBUF		=	BUFF_PG0+0	;6 bytes ($BC-$C1)
 ;	- 14 byte input buffer
-INBUFF		.EQU	BUFF_PG0+6	;14 bytes ($C2-$CF)
+INBUFF		=	BUFF_PG0+6	;14 bytes ($C2-$CF)
 ;	- 16 byte buffer (notice that this variable MUST be expressed as
 ;a 16 bit address even though it references a zero-page address)
-SRCHBUFF	.EQU	BUFF_PG0+20	;16 bytes ($D0-$DF)
+SRCHBUFF	=	BUFF_PG0+20	;16 bytes ($D0-$DF)
 ;
 ;	BIOS variables, pointers, flags located at top of Page Zero.
-BIOS_PG0	.EQU	PGZERO8_ST+96	;Start of BIOS page zero use ($E0-$FF)
+BIOS_PG0	=	PGZERO8_ST+96	;Start of BIOS page zero use ($E0-$FF)
 ;	- BRK handler routine
-PCL				.EQU	BIOS_PG0+0	;Program Counter Low index
-PCH				.EQU	BIOS_PG0+1	;Program Counter High index
-PREG			.EQU	BIOS_PG0+2	;Temp Status reg
-SREG			.EQU	BIOS_PG0+3	;Temp Stack ptr
-YREG			.EQU	BIOS_PG0+4	;Temp Y reg
-XREG			.EQU	BIOS_PG0+5	;Temp X reg
-AREG			.EQU	BIOS_PG0+6	;Temp A reg
+PCL				=	BIOS_PG0+0	;Program Counter Low index
+PCH				=	BIOS_PG0+1	;Program Counter High index
+PREG			=	BIOS_PG0+2	;Temp Status reg
+SREG			=	BIOS_PG0+3	;Temp Stack ptr
+YREG			=	BIOS_PG0+4	;Temp Y reg
+XREG			=	BIOS_PG0+5	;Temp X reg
+AREG			=	BIOS_PG0+6	;Temp A reg
 ;
 ;	- 6551 IRQ handler pointers and status
-ICNT			.EQU	BIOS_PG0+7	;Input buffer count
-IHEAD			.EQU	BIOS_PG0+8	;Input buffer head pointer
-ITAIL			.EQU	BIOS_PG0+9	;Input buffer tail pointer
-OCNT			.EQU	BIOS_PG0+10	;Output buffer count
-OHEAD			.EQU	BIOS_PG0+11	;Output buffer head pointer
-OTAIL			.EQU	BIOS_PG0+12	;Output buffer tail pointer
-STTVAL		.EQU	BIOS_PG0+13	;6551 BIOS status byte
+ICNT			=	BIOS_PG0+7	;Input buffer count
+IHEAD			=	BIOS_PG0+8	;Input buffer head pointer
+ITAIL			=	BIOS_PG0+9	;Input buffer tail pointer
+OCNT			=	BIOS_PG0+10	;Output buffer count
+OHEAD			=	BIOS_PG0+11	;Output buffer head pointer
+OTAIL			=	BIOS_PG0+12	;Output buffer tail pointer
+STTVAL		=	BIOS_PG0+13	;6551 BIOS status byte
 ;
 ;	- Real-Time Clock variables
-TICKS			.EQU	BIOS_PG0+14	;# timer countdowns for 1 second (250)
-SECS			.EQU	BIOS_PG0+15	;Seconds: 0-59
-MINS			.EQU	BIOS_PG0+16	;Minutes: 0-59
-HOURS			.EQU	BIOS_PG0+17	;Hours: 0-23
-DAYSL			.EQU	BIOS_PG0+18	;Days: (2 bytes) 0-65535 >179 years
-DAYSH			.EQU	BIOS_PG0+19	;High order byte
+TICKS			=	BIOS_PG0+14	;# timer countdowns for 1 second (250)
+SECS			=	BIOS_PG0+15	;Seconds: 0-59
+MINS			=	BIOS_PG0+16	;Minutes: 0-59
+HOURS			=	BIOS_PG0+17	;Hours: 0-23
+DAYSL			=	BIOS_PG0+18	;Days: (2 bytes) 0-65535 >179 years
+DAYSH			=	BIOS_PG0+19	;High order byte
 ;
 ;	- Delay Timer variables
-MSDELAY		.EQU	BIOS_PG0+20	;Timer delay countdown byte (255 > 0)
-MATCH			.EQU	BIOS_PG0+21	;Delay Match flag, $FF is set, $00 is cleared
-SETIM			.EQU	BIOS_PG0+22	;Set timeout for delay routines - BIOS use only
-DELLO			.EQU	BIOS_PG0+23	;Delay value	BIOS use only
-DELHI			.EQU	BIOS_PG0+24	;	BIOS use only
-XDL				.EQU	BIOS_PG0+25	;XL Delay count
-STVVAL		.EQU	BIOS_PG0+26	;Status for VIA IRQ flags
+MSDELAY		=	BIOS_PG0+20	;Timer delay countdown byte (255 > 0)
+MATCH			=	BIOS_PG0+21	;Delay Match flag, $FF is set, $00 is cleared
+SETIM			=	BIOS_PG0+22	;Set timeout for delay routines - BIOS use only
+DELLO			=	BIOS_PG0+23	;Delay value	BIOS use only
+DELHI			=	BIOS_PG0+24	;	BIOS use only
+XDL				=	BIOS_PG0+25	;XL Delay count
+STVVAL		=	BIOS_PG0+26	;Status for VIA IRQ flags
 ;
 ;	- I/O port variables
-IO_DIR		.EQU	BIOS_PG0+27	;I/O port direction temp
-IO_IN			.EQU	BIOS_PG0+28	;I/O port Input temp
-IO_OUT		.EQU	BIOS_PG0+29	;I/O port Output temp
+IO_DIR		=	BIOS_PG0+27	;I/O port direction temp
+IO_IN			=	BIOS_PG0+28	;I/O port Input temp
+IO_OUT		=	BIOS_PG0+29	;I/O port Output temp
 ;
 ; - Xmodem variables
-XMFLAG		.EQU	BIOS_PG0+30	;Xmodem transfer active flag
-S19FLAG		.EQU	BIOS_PG0+31	;S-record transfer active flag
+XMFLAG		=	BIOS_PG0+30	;Xmodem transfer active flag
+S19FLAG		=	BIOS_PG0+31	;S-record transfer active flag
 ;
 ;******************************************************************************
 ;Character input buffer address: $0200-$027F - 128 bytes
 ;Character output buffer address: $0280-$02FF - 128 bytes
 ;Managed by full-duplex IRQ service routine.
 ;
-IBUF			.EQU	$0200	;INPUT BUFFER  128 BYTES - BIOS use only
-OBUF			.EQU	$0280	;OUTPUT BUFFER 128 BYTES - BIOS use only
+IBUF			=	$0200	;INPUT BUFFER  128 BYTES - BIOS use only
+OBUF			=	$0280	;OUTPUT BUFFER 128 BYTES - BIOS use only
 ;
 ;******************************************************************************
-SOFTVEC		.EQU	$0300	;Start of soft vectors
+SOFTVEC		=	$0300	;Start of soft vectors
 ;
 ;The Interrupt structure is vector based. During startup, Page $03 is loaded from ROM.
 ; The soft vectors are structured to allow inserting additional routines either before
@@ -185,28 +185,28 @@ SOFTVEC		.EQU	$0300	;Start of soft vectors
 ; there are a total of 8 Inserts which occupy 16 bytes.
 ; They can be used as required, note that the first is used for the 6522 timer routine
 ;
-NMIVEC0		.EQU	SOFTVEC	;NMI Interrupt Vector 0
-BRKVEC0		.EQU	SOFTVEC+2	;BRK Interrupt Vector 0
-IRQVEC0		.EQU	SOFTVEC+4	;INTERRUPT VECTOR 0
+NMIVEC0		=	SOFTVEC	;NMI Interrupt Vector 0
+BRKVEC0		=	SOFTVEC+2	;BRK Interrupt Vector 0
+IRQVEC0		=	SOFTVEC+4	;INTERRUPT VECTOR 0
 ;
-NMIRTVEC0	.EQU	SOFTVEC+6	;NMI Return Handler 0
-BRKRTVEC0	.EQU	SOFTVEC+8	;BRK Return Handler 0
-IRQRTVEC0	.EQU	SOFTVEC+10	;IRQ Return Handler 0
+NMIRTVEC0	=	SOFTVEC+6	;NMI Return Handler 0
+BRKRTVEC0	=	SOFTVEC+8	;BRK Return Handler 0
+IRQRTVEC0	=	SOFTVEC+10	;IRQ Return Handler 0
 ;
-CLDMNVEC0	.EQU	SOFTVEC+12	;Cold Monitor Entry Vector 0
-WRMMNVEC0	.EQU	SOFTVEC+14	;Warm Monitor Entry Vector 0
+CLDMNVEC0	=	SOFTVEC+12	;Cold Monitor Entry Vector 0
+WRMMNVEC0	=	SOFTVEC+14	;Warm Monitor Entry Vector 0
 ;
-VECINSRT0	.EQU	SOFTVEC+16	;1st Vector Insert
-VECINSRT1	.EQU	SOFTVEC+18	;1st Vector Insert
-VECINSRT2	.EQU	SOFTVEC+20	;1st Vector Insert
-VECINSRT3	.EQU	SOFTVEC+22	;1st Vector Insert
-VECINSRT4	.EQU	SOFTVEC+24	;1st Vector Insert
-VECINSRT5	.EQU	SOFTVEC+26	;1st Vector Insert
-VECINSRT6	.EQU	SOFTVEC+28	;1st Vector Insert
-VECINSRT7	.EQU	SOFTVEC+30	;1st Vector Insert
+VECINSRT0	=	SOFTVEC+16	;1st Vector Insert
+VECINSRT1	=	SOFTVEC+18	;1st Vector Insert
+VECINSRT2	=	SOFTVEC+20	;1st Vector Insert
+VECINSRT3	=	SOFTVEC+22	;1st Vector Insert
+VECINSRT4	=	SOFTVEC+24	;1st Vector Insert
+VECINSRT5	=	SOFTVEC+26	;1st Vector Insert
+VECINSRT6	=	SOFTVEC+28	;1st Vector Insert
+VECINSRT7	=	SOFTVEC+30	;1st Vector Insert
 ;
 ;******************************************************************************
-SOFTCFG		.EQU SOFTVEC+32	;Start of hardware config parameters
+SOFTCFG		= SOFTVEC+32	;Start of hardware config parameters
 ;
 ;Soft Config values below are loaded from ROM and are the default I/O setup
 ;configuration data that the INIT_65xx routines use. As a result, you can write a
@@ -216,11 +216,11 @@ SOFTCFG		.EQU SOFTVEC+32	;Start of hardware config parameters
 ;
 ;There are a total of 32 Bytes configuration data reserved starting at $0320
 ;
-LOAD_6551	.EQU	SOFTCFG	;6551 SOFT config data start
-LOAD_6522	.EQU	SOFTCFG+2	;6522 SOFT config data start
+LOAD_6551	=	SOFTCFG	;6551 SOFT config data start
+LOAD_6522	=	SOFTCFG+2	;6522 SOFT config data start
 ;
 ;Defaults for RTC ticks - number of IRQs for 1 second
-DF_TICKS	.EQU	#250	;clock timer set for 4 milliseconds, so 250 x 4ms = 1 second
+DF_TICKS	=	250	;clock timer set for 4 milliseconds, so 250 x 4ms = 1 second
 ;
 ; Xmodem/CRC Loader also provides Motorola S19 Record sense and load
 ; Designed to handle the S19 records from the WDC Assembler/Linker package
@@ -233,57 +233,57 @@ DF_TICKS	.EQU	#250	;clock timer set for 4 milliseconds, so 250 x 4ms = 1 second
 ; S9 record is always the last record with no data
 ; WDC Linker also appends a CR/LF to the end of each record for a total 44 bytes
 ;
-SRBUFF		.EQU	$0350	;Start of Motorola S-record buffer, 44 bytes in length
+SRBUFF		=	$0350	;Start of Motorola S-record buffer, 44 bytes in length
 ;
 ; Xmodem frame buffer. The entire Xmodem frame is buffered here and then checked
 ; for proper header and frame number, CRC-16 on the data, then moved to user RAM.
 ;
-RBUFF			.EQU	$037C	;Xmodem temp 132 byte receive buffer
+RBUFF			=	$037C	;Xmodem temp 132 byte receive buffer
 ;
 ;Additional Xmodem variables, etc.
 ;
 ; XMODEM Control Character Constants
-SOH				.EQU	$01	;Start of Block Header
-EOT				.EQU	$04	;End of Text marker
-ACK				.EQU	$06	;Good Block Acknowledge
-NAK				.EQU	$15	;Bad Block acknowledged
-CAN				.EQU	$18	;Cancel character
+SOH				=	$01	;Start of Block Header
+EOT				=	$04	;End of Text marker
+ACK				=	$06	;Good Block Acknowledge
+NAK				=	$15	;Bad Block acknowledged
+CAN				=	$18	;Cancel character
 ;
 ;******************************************************************************
 ;
-BURN_BYTE	.EQU	$0000	;Location in RAM for BYTE write routine
+BURN_BYTE	=	$0000	;Location in RAM for BYTE write routine
 ;
 ;******************************************************************************
 ;I/O Page Base Address
-IOPAGE		.EQU	$FE00  
+IOPAGE		=	$7F00
 ;
 ;ACIA device address:
-SIOBase		.EQU	IOPAGE+$20	;6551 Base HW address
-SIODAT		.EQU	SIOBase+0	;ACIA data register
-SIOSTAT		.EQU	SIOBase+1	;ACIA status register
-SIOCOM		.EQU	SIOBase+2 ;ACIA command register
-SIOCON		.EQU	SIOBase+3 ;ACIA control register
+SIOBase		=	IOPAGE+$E0	;6551 Base HW address
+SIODAT		=	SIOBase+0	;ACIA data register
+SIOSTAT		=	SIOBase+1	;ACIA status register
+SIOCOM		=	SIOBase+2 ;ACIA command register
+SIOCON		=	SIOBase+3 ;ACIA control register
 ;
 ;VIA device address:
-Via1Base	.EQU	IOPAGE	;65C22 VIA base address here
-Via1PRB		.EQU  Via1Base+0
-Via1PRA		.EQU  Via1Base+1
-Via1DDRB	.EQU  Via1Base+2
-Via1DDRA  .EQU  Via1Base+3
-Via1T1CL  .EQU  Via1Base+4
-Via1T1CH  .EQU  Via1Base+5
-Via1T1LL  .EQU  Via1Base+6
-Via1TALH  .EQU  Via1Base+7
-Via1T2CL  .EQU  Via1Base+8
-Via1T2CH  .EQU  Via1Base+9
-Via1SR    .EQU  Via1Base+10
-Via1ACR   .EQU  Via1Base+11
-Via1PCR   .EQU  Via1Base+12
-Via1IFR   .EQU  Via1Base+13
-Via1IER   .EQU  Via1Base+14
-Via1PRA1  .EQU  Via1Base+15
+Via1Base	=	IOPAGE+$C0	;65C22 VIA base address here
+Via1PRB		=  Via1Base+0
+Via1PRA		=  Via1Base+1
+Via1DDRB	=  Via1Base+2
+Via1DDRA  =  Via1Base+3
+Via1T1CL  =  Via1Base+4
+Via1T1CH  =  Via1Base+5
+Via1T1LL  =  Via1Base+6
+Via1TALH  =  Via1Base+7
+Via1T2CL  =  Via1Base+8
+Via1T2CH  =  Via1Base+9
+Via1SR    =  Via1Base+10
+Via1ACR   =  Via1Base+11
+Via1PCR   =  Via1Base+12
+Via1IFR   =  Via1Base+13
+Via1IER   =  Via1Base+14
+Via1PRA1  =  Via1Base+15
 ;******************************************************************************
-	.ORG $F000    ;Target address range $F000 through $FDFF will be used
+	* =  $F000    ;Target address range $F000 through $FDFF will be used
 ;******************************************************************************
 ;START OF MONITOR CODE
 ;
@@ -294,7 +294,7 @@ Via1PRA1  .EQU  Via1Base+15
 ;ASC2BIN subroutine: Convert 2 ASCII HEX digits to a binary (byte) value.
 ;Routine optimized for execution speed over size (2 bytes larger)
 ;Enter: A register = high digit, Y register = low digit
-;Return: A register = binary value 
+;Return: A register = binary value
 ASC2BIN		SEC	;Set carry for subtraction
 					SBC	#$30	;Subtract $30 from ASCII Hex digit
 					CMP	#$0A	;Check for result < 10
@@ -349,7 +349,7 @@ HEX2ASC		STX	BINVALL	;Save Low byte
 ;
 					STZ	ASCBUF,X	;Zero last buffer byte for null end
 CNVERT		STZ	MOD10L	;Clear 16-bit work area low byte
-					STZ	MOD10H	;And high byte 
+					STZ	MOD10H	;And high byte
 ;
 					LDX	#16	;Set count for 16-bits
 					CLC	;Clear Carry flag for rotate
@@ -359,7 +359,7 @@ DVLOOP		ROL	BINVALL	;Shift carry into dividend
 					ROL	MOD10H	;At the same time
 ;A,Y = DIVIDEND - DIVISOR
 					SEC	;Set Carry for subtraction
-					LDA	MOD10L	;Get low byte modulus 
+					LDA	MOD10L	;Get low byte modulus
 					SBC	#10	;And divide by ten
 					TAY	;Save the Low byte in Y register
 					LDA	MOD10H	;Get the High byte
@@ -432,7 +432,7 @@ ASCTOHEX	STZ	HEXDATAH	;Clear MS HEX digits
 ASCLOOP		STY	STMP	;Save HEX input buffer index
 					LDA	INBUFF-1,X	;Read indexed ASCII HEX digit from buffer
 					TAY	;Copy digit to Y Reg: least significant digit
-					LDA	#$30	;Make A reg = ASCII "0": MS digit 
+					LDA	#$30	;Make A reg = ASCII "0": MS digit
 					JSR	ASC2BIN	;Convert ASCII digits to binary value
 					LDY	STMP	;Read saved HEX input buffer index
 					STA	HEXDATA,Y	;Write byte to indexed HEX input buffer location
@@ -565,8 +565,8 @@ AOK				RTS	;Character received, return to caller
 ;IF variable LOKOUT = $FF then allow only ASCII DECIMAL numeral input: 0123456789
 ;IF variable LOKOUT = $01 through $FE then allow only valid ASCII HEX numeral input: (0-9,A-F)
 ;[BACKSPACE] key removes keystrokes from buffer.
-;[ESCAPE] key aborts then re-enters monitor. 
-RDLINE		STX	BUFLEN	;Store buffer length   
+;[ESCAPE] key aborts then re-enters monitor.
+RDLINE		STX	BUFLEN	;Store buffer length
 					STZ	BUFIDX	;Zero buffer index
 RDLOOP		JSR	RDCHAR	;Get keystroke input from terminal, convert LC2UC
 					CMP	#$1B	;Check for ESC key
@@ -576,7 +576,7 @@ NOTESC		CMP	#$0D	;Check for C/R
 					BEQ	EXITRD	;Exit is yes
 					CMP	#$08	;Check for Backspace
 					BEQ	BACK	;Branch if yes
-					LDX	LOKOUT	;Check Lokout flag 
+					LDX	LOKOUT	;Check Lokout flag
 					BEQ	FULTST	;Branch is 00 (all characters)
 					CMP	#$30	;Else, filter enabled
 					BCC	INERR	;Branch to error
@@ -620,7 +620,7 @@ TRY_AGN		JSR	RDCHAR	;Get keystroke from terminal
 DONTCNT		PLA	;Else remove return address
 					PLA	;and discard, then return
 DOCONT		RTS	;Return
-;					
+;
 ;******************************
 ;* Monitor command processors *
 ;******************************
@@ -629,7 +629,7 @@ DOCONT		RTS	;Return
 ;are 128 keystrokes in the keystroke input buffer. The monitor will process these
 ;as if they were received from the terminal (typed-in by the user). Because the
 ;last keystroke stored in the keystroke buffer was ")", this will loop continuously.
-;Use [BREAK] to exit loop  
+;Use [BREAK] to exit loop
 RUNMACRO	LDA	#$7F	;Set keystroke buffer tail pointer to $7F
 					STA	ITAIL	;Push tail pointer to end
 					INC	A	;Increment to $80 for buffer count (full)
@@ -659,11 +659,11 @@ USERFILL	LDX	LENH	;Get current length hi byte
 					BEQ	FILEFT	;Branch if zero (no pages to fill)
 					LDY	#$00	;Else, reset page byte address index
 PGFILL		STA	(TGTL),Y	;Store fill value at current page address
-					INY	;Increment page address index 
+					INY	;Increment page address index
 					BNE	PGFILL	;Loop back to fille the page
-					INC	TGTH	;Increment page address high byte 
+					INC	TGTH	;Increment page address high byte
 					DEX	;Decrement page counter
-					BNE	PGFILL	;Loop back to fill all pages 
+					BNE	PGFILL	;Loop back to fill all pages
 FILEFT		LDX	LENL	;Get current length lo byte
 					BEQ	DONEFILL	;Exit if no partial pages to fill
 					LDY	#$00	;Initialize page byte address index
@@ -699,7 +699,7 @@ PRNXT			JSR	SPC2	;Send 2 Spaces to terminal
 ; Display in HEX followed by TEXT the contents of 256 consecutive memory addresses
 ;
 MDUMP			JSR	SETUP	;Request HEX address input from terminal
-					JSR	DMPGR	;Send address offsets to terminal 
+					JSR	DMPGR	;Send address offsets to terminal
 					JSR	GLINE	;Send horizontal line to terminal
 					JSR	CROUT	;Send CR,LF to terminal
 					LDA	SCNT	;Check for new address entered
@@ -727,7 +727,7 @@ GETBYT2		LDA	(INDEXL),Y	;Read indexed byte
 					JSR	PRASC	;Print ASCII character
 					INY	;Increment index
 					CPY	#$10	;Check for all 16
-					BNE	GETBYT2	;loop back until 16 bytes have been displayed					
+					BNE	GETBYT2	;loop back until 16 bytes have been displayed
 					JSR	CROUT	;else, send CR,LF to terminal
 					CLC	;Add $10 to line base address, save result in
 					LDA	INDEXL	;Get index lo
@@ -766,7 +766,7 @@ MTLOOP		TXA	;Xfer to A reg
 					JSR	CHOUT	;Send least significant HEX to terminal
 					INX	;Increment to next HEX character
 					CPX	#$10	;Reach $10 yet
-					BNE	MTLOOP	:branch back till done
+					BNE	MTLOOP	;branch back till done
 					JMP	CROUT	;Do a CR/LF and return
 ;
 ;[G] GO command: Begin executing program code at a specified address
@@ -838,11 +838,11 @@ STBR3			STA	SRCHBUFF,Y	;Store character in buffer location
 SRCHBYT		LDA	#$09	;Get msg " find bin:"
 					JSR	PROMPT	;Send to terminal
 SBYTSTR		LDY	#$00	;Initialize index
-SBLOOP		STY	IDY	;Save index 
+SBLOOP		STY	IDY	;Save index
 					JSR	HEXIN2	;Request HEX byte
 					JSR	SPC	;Send space to terminal
 					LDY	IDY	;Restore index/byte counter
-					LDX	SCNT	;Get # of characters entered 
+					LDX	SCNT	;Get # of characters entered
 					BEQ	SRCHRDY ;Branch if no characters
 					STA	SRCHBUFF,Y ;Else, store in buffer
 					INY	;Increment index
@@ -894,7 +894,7 @@ SENGBR1		JSR	SINCPTR	;Increment address pointer, test for end of memory
 					BRA	SENGBR2	;Branch back and continue till done
 ;
 ;Increment memory address pointer. If pointer high byte = 00 (end of searchable ROM memory),
-;send "not found" to terminal then return to monitor 
+;send "not found" to terminal then return to monitor
 SINCPTR		CLC	;Clear carry for addition
 					LDA	INDEXL	;Get Index low byte
 					ADC	#$01	;Increment by one
@@ -1037,7 +1037,7 @@ RIGHT			LDX	LENH	;Get the length hi byte count
 					ADC	SRCH	;Add in source hi byte
 					STA	SRCH	;Store in source hi byte
 					CLC	;Clear carry for add
-					TXA	;Xfer High page to A reg 
+					TXA	;Xfer High page to A reg
 					ADC	TGTH	;Add to target hi byte
 					STA	TGTH	;Store to target hi byte
 					INX	;Increment high page value for use below in loop
@@ -1167,7 +1167,7 @@ PROMPT		ASL	A	;Multiply by two for msg table index
 					STA	PROMPTL	;Store in Buffer pointer
 					LDA	MSG_TABLE+1,Y	;Get high byte address
 					STA	PROMPTH	;Store in Buffer pointer
-;					
+;
 PROMPT2		LDY	#$00	;Zero index
 PROMPT2L	LDA	(PROMPTL),Y	;Get string data
 					BEQ	NOMULT	;If null character, exit (borrowed RTS)
@@ -1206,7 +1206,7 @@ OC_LOOP		LDA	OCNT	;Check output buffer count
 ;Xfer byte write code to RAM for execution
 					LDX	#BYTE_WRE-BYTE_WRS+1	;Get length of byte write code
 BYTE_XFER	LDA	BYTE_WRS-1,X	;Get code
-					STA	BURN_BYTE-1,X	;Write code to RAM
+					STA	$FFFF,X	;Write code to RAM
 					DEX	;Decrement index
 					BNE	BYTE_XFER	;Loop back till done
 ;
@@ -1415,7 +1415,7 @@ BLK_OKAY	STZ	CRCLO	;Reset the CRC value by (3)
 CALCCRC		LDA	RBUFF+2,Y	;Get first data byte (4)
 					STA	VALUE	;Store it for CRC calculation (3)
 GENCRC		PHP	;Save registers (3)
-					PHY (3)
+					PHY ; (3)
 					LDX	#$08	;Load index for 8 bits (2)
 CRCLOOP		ASL	VALUE	;Shift (next) bit to carry (5)
 					ROR	A	;Get bit into bit 7 (2)
@@ -1434,7 +1434,7 @@ CRCLP1		STA	CRCHI	;Store CRC hi (3)
 					DEX	;Decrement index (2)
 					BNE	CRCLOOP	;Loop back for all 8 bits (2/3)
 					PLY	;Restore registers (4)
-					PLP (4)
+					PLP ; (4)
 					INY	;Increment index to the next data byte (2)
 					BPL	CALCCRC	;Branch back until all 128 fed to CRC routine (2/3)
 					LDA	RBUFF+2,Y	;Get received CRC hi byte (4)
@@ -1576,7 +1576,7 @@ SR_CMPLP	PHY	;Save Y reg index
 SR_CHKSM	CLC	;Clear carry for add
 					LDA	SRBUFF,Y	;Get first byte
 					ADC	TEMP2	;Add in checksum Temp
-					STA	TEMP2	:Update checksum Temp
+					STA	TEMP2	;Update checksum Temp
 					INY	;Increment offset
 					DEX	;Decrement count
 					BNE	SR_CHKSM	;Branch back until done
@@ -1730,220 +1730,220 @@ CMD_DEC		DEX	;Decrement index count
 ; first is the list of commands, which are one byte each. Alpha command characters are upper case
 ; second is the 16-bit address table that correspond to the command routines for each command character
 ;
-MONCMD		.DB	$0C	;[CNTRL-L]	Xmodem/CRC Loader
-					.DB	$10	;[CNTRL-P]	Program EEPROM
-					.DB	$12	;[CNTRL-R]	Reset - same as power up
-					.DB	$14	;[CNTRL-T]	Uptime display since reset
-					.DB	$16	;[CNTRL-V]	Display Monitor Version
-					.DB	$1A	;[CNTRL-Z]	Zero Memory - calls reset
-					.DB	$28	;(	Init Macro
-					.DB	$29	;)	Run Macro
-					.DB	$2C	;,	Setup Delay parameters	
-					.DB	$2E	;.	Execute Millisecond Delay
-					.DB	$2F	;/	Execute Long Delay
-					.DB	$5C	;\	Load and Go Extra Long Delay
-					.DB	$41	;A	Display/Edit A register
-					.DB	$43	;C	Compare memory block
-					.DB	$44	;D	Display Memory contents in HEX/TEXT
-					.DB	$45	;E	Examine/Edit memory
-					.DB	$46	;F	Fill memory block
-					.DB	$47	;G	Go execute to <addr>
-					.DB	$48	;H	Hex byte string search
-					.DB	$4D	;M	Move memory block
-					.DB	$50	;P	Display/Edit CPU status reg
-					.DB	$52	;R	Display Registers
-					.DB	$53	;S	Display/Edit stack pointer
-					.DB	$54	;T	Text character string search
-					.DB	$58	;X	Display/Edit X register
-					.DB	$59	;Y	Display/Edit Y register
+MONCMD		.TEXT	$0C	;[CNTRL-L]	Xmodem/CRC Loader
+					.TEXT	$10	;[CNTRL-P]	Program EEPROM
+					.TEXT	$12	;[CNTRL-R]	Reset - same as power up
+					.TEXT	$14	;[CNTRL-T]	Uptime display since reset
+					.TEXT	$16	;[CNTRL-V]	Display Monitor Version
+					.TEXT	$1A	;[CNTRL-Z]	Zero Memory - calls reset
+					.TEXT	$28	;(	Init Macro
+					.TEXT	$29	;)	Run Macro
+					.TEXT	$2C	;,	Setup Delay parameters
+					.TEXT	$2E	;.	Execute Millisecond Delay
+					.TEXT	$2F	;/	Execute Long Delay
+					.TEXT	$5C	;\	Load and Go Extra Long Delay
+					.TEXT	$41	;A	Display/Edit A register
+					.TEXT	$43	;C	Compare memory block
+					.TEXT	$44	;D	Display Memory contents in HEX/TEXT
+					.TEXT	$45	;E	Examine/Edit memory
+					.TEXT	$46	;F	Fill memory block
+					.TEXT	$47	;G	Go execute to <addr>
+					.TEXT	$48	;H	Hex byte string search
+					.TEXT	$4D	;M	Move memory block
+					.TEXT	$50	;P	Display/Edit CPU status reg
+					.TEXT	$52	;R	Display Registers
+					.TEXT	$53	;S	Display/Edit stack pointer
+					.TEXT	$54	;T	Text character string search
+					.TEXT	$58	;X	Display/Edit X register
+					.TEXT	$59	;Y	Display/Edit Y register
 ;
-MONTAB		.DW	XMODEM	;[CNTL-L]	$0C	Xmodem download, use send from terminal program
-					.DW	PROGEE ;[CNTL-P]	$10	Program the EEPROM
-					.DW	SYS_RST	;[CNTL-R]	$12	Reset CO2Monitor
-					.DW	UPTIME	;[CNTL-T]	$14	System uptime from Reset - sec/min/hr/days
-					.DW	VER	;[CNTL-V]	$16	Display Monitor Version level
-					.DW	ZERO	;[CNTL-Z]	$1A	Zero memory ($0100-$7FFF) then Reset
-					.DW	INIMACRO	; (	$28	Clear keystroke input buffer, reset buffer pointer
-					.DW	RUNMACRO	; )	$29	Run keystroke macro from start of keystroke buffer
-					.DW	SET_DELAY	; .	$2C	Setup Delay Parameters
-					.DW	EXE_MSDLY	; ,	$2E	Perform Millisecond Delay
-					.DW	EXE_LGDLY	;	/	$2F Execute Long Delay
-					.DW	SET_XLDLY	;	\	$5C Load and Go Extra Long Delay
-					.DW	ARG	; A	$41	Examine/change ACCUMULATOR preset/result
-					.DW	COMPARE	; C	$43	Compare command - new
-					.DW	MDUMP	; D	$44	HEX/TEXT dump from specified memory address
-					.DW	CHANGE	; E	$45	Examine/change a memory location's contents
-					.DW	MFILL	; F	$46	Fill a specified memory range with a specified value
-					.DW	GO	; G	$47	Begin program code execution at a specified address
-					.DW	SRCHBYT	; H	$48	Search memory for a specified byte string
-					.DW	COMPARE	; M	$4D	Copy a specified memory range to a specified target address
-					.DW	PRG	; P	$50	Examine/change PROCESSOR STATUS REGISTER preset/result
-					.DW	PRSTAT	; R	$52	Display all preset/result contents
-					.DW	SRG	; S	$53	Examine/change STACK POINTER preset/result
-					.DW	SRCHTXT	; T	$54	Search memory for a specified text string
-					.DW	XRG	; X	$58	Examine/change X-REGISTER preset/result
-					.DW	YRG	; Y	$59	Examine/change Y-REGISTER preset/result
+MONTAB		.WORD	XMODEM	;[CNTL-L]	$0C	Xmodem download, use send from terminal program
+					.WORD	PROGEE ;[CNTL-P]	$10	Program the EEPROM
+					.WORD	SYS_RST	;[CNTL-R]	$12	Reset CO2Monitor
+					.WORD	UPTIME	;[CNTL-T]	$14	System uptime from Reset - sec/min/hr/days
+					.WORD	VER	;[CNTL-V]	$16	Display Monitor Version level
+					.WORD	ZERO	;[CNTL-Z]	$1A	Zero memory ($0100-$7FFF) then Reset
+					.WORD	INIMACRO	; (	$28	Clear keystroke input buffer, reset buffer pointer
+					.WORD	RUNMACRO	; )	$29	Run keystroke macro from start of keystroke buffer
+					.WORD	SET_DELAY	; .	$2C	Setup Delay Parameters
+					.WORD	EXE_MSDLY	; ,	$2E	Perform Millisecond Delay
+					.WORD	EXE_LGDLY	;	/	$2F Execute Long Delay
+					.WORD	SET_XLDLY	;	\	$5C Load and Go Extra Long Delay
+					.WORD	ARG	; A	$41	Examine/change ACCUMULATOR preset/result
+					.WORD	COMPARE	; C	$43	Compare command - new
+					.WORD	MDUMP	; D	$44	HEX/TEXT dump from specified memory address
+					.WORD	CHANGE	; E	$45	Examine/change a memory location's contents
+					.WORD	MFILL	; F	$46	Fill a specified memory range with a specified value
+					.WORD	GO	; G	$47	Begin program code execution at a specified address
+					.WORD	SRCHBYT	; H	$48	Search memory for a specified byte string
+					.WORD	COMPARE	; M	$4D	Copy a specified memory range to a specified target address
+					.WORD	PRG	; P	$50	Examine/change PROCESSOR STATUS REGISTER preset/result
+					.WORD	PRSTAT	; R	$52	Display all preset/result contents
+					.WORD	SRG	; S	$53	Examine/change STACK POINTER preset/result
+					.WORD	SRCHTXT	; T	$54	Search memory for a specified text string
+					.WORD	XRG	; X	$58	Examine/change X-REGISTER preset/result
+					.WORD	YRG	; Y	$59	Examine/change Y-REGISTER preset/result
 ;
 ;******************************************************************************
 ;C02Monitor message strings used with PROMPT routine, terminated with $00
 ;
-MSG_00		.DB " cont?"
-MSG_01		.DB	"(y/n)"
-					.DB $00
-MSG_02		.DB $0D,$0A
-					.DB	"   "
-MSG_03		.DB	" addr:"
-					.DB $00
-MSG_04		.DB " len:"
-					.DB $00
-MSG_05		.DB " val:"
-					.DB $00
-MSG_06		.DB " src:"
-					.DB $00
-MSG_07		.DB " tgt:"
-					.DB $00
-MSG_08		.DB " find txt:"
-					.DB $00
-MSG_09		.DB " find bin:"
-					.DB $00
-MSG_0A		.DB "not "
-MSG_0B		.DB "found"
-					.DB $00
-MSG_0C		.DB ":$"
-					.DB $00
-MSG_0D		.DB $0D,$0A
-					.DB "search- "
-					.DB $00
-MSG_0E		.DB $0D,$0A
-					.DB "(n)ext? "
-					.DB $00
-MSG_0F		.DB "SP:$"
-					.DB $00
-MSG_10		.DB "SR:$"
-					.DB $00
-MSG_11		.DB "YR:$"
-					.DB $00
-MSG_12		.DB "XR:$"
-					.DB $00
-MSG_13		.DB "AC:$"
-					.DB $00
-MSG_14		.DB	#$0D,#$0A
-					.DB "   PC   AC  XR  YR  SP  NV-BDIZC",$0D,$0A
-					.DB "; "
-					.DB $00
-MSG_15		.DB $0D,$0A,$0A
-					.DB "C02Monitor (c)2015 K.E. Maier"
-					.DB $0D,$0A
-MSG_16		.DB "Version 1.0"
-					.DB $00
-MSG_17		.DB $0D,$0A
-					.DB ";-"
-					.DB $00
-MSG_18		.DB	" delay ms:"
-					.DB	$00
-MSG_19		.DB	" mult:"
-					.DB	$00
-MSG_1A		.DB	" delay xl:"
-					.DB	$00
-MSG_1B		.DB	"Uptime: "
-					.DB	$00
-MSG_1C		.DB	" Days, "
-					.DB	$00
-MSG_1D		.DB	" Hours, "
-					.DB	$00
-MSG_1E		.DB	" Minutes, "
-					.DB	$00
-MSG_1F		.DB	" Seconds"
-					.DB	$00
-MSG_20		.DB "Zero RAM/"
-MSG_21		.DB	"Reset System,"
-					.DB	$00
-MSG_22		.DB	"Program EEPROM",$0D,$0A
-					.DB	$00
-MSG_23		.DB	$0D,$0A
-					.DB	"Are you sure? "
-					.DB	$00
-MSG_24		.DB	$0D,$0A
-					.DB	"Are you really sure? "
-					.DB	$00
-MSG_25		.DB	$0D,$0A
-					.DB	"Writing EEPROM... wait"
-					.DB	$00
-MSG_26		.DB	$0D,$0A
-					.DB	"EEPROM Write Complete!"
-					.DB	$00
-MSG_27		.DB	$0D,$0A
-					.DB	"EEPROM Write Failed!",$0D,$0A
-					.DB	"Check Hardware or EEPROM problem!"
-MSG_28		.DB	$0D,$0A
-					.DB	"RTC may lose time, check/reset!"
-					.DB	$00
-MSG_29		.DB	"XMODEM Loader, <Esc> to abort, or",$0D,$0A
-					.DB	"Load address/S-Record Offset:"
-					.DB	$00
-MSG_2A		.DB	$0D,$0A
-					.DB	"Download Complete!",$0D,$0A
-					.DB	$00
-MSG_2B		.DB	$0D,$0A
-					.DB	"Download Error!",$0D,$0A
-					.DB	$00
-MSG_2C		.DB $0D,$0A
-					.DB "S-Record load at:$"
-					.DB $00
+MSG_00		.TEXT " cont?"
+MSG_01		.TEXT	"(y/n)"
+					.TEXT $00
+MSG_02		.TEXT $0D,$0A
+					.TEXT	"   "
+MSG_03		.TEXT	" addr:"
+					.TEXT $00
+MSG_04		.TEXT " len:"
+					.TEXT $00
+MSG_05		.TEXT " val:"
+					.TEXT $00
+MSG_06		.TEXT " src:"
+					.TEXT $00
+MSG_07		.TEXT " tgt:"
+					.TEXT $00
+MSG_08		.TEXT " find txt:"
+					.TEXT $00
+MSG_09		.TEXT " find bin:"
+					.TEXT $00
+MSG_0A		.TEXT "not "
+MSG_0B		.TEXT "found"
+					.TEXT $00
+MSG_0C		.TEXT ":$"
+					.TEXT $00
+MSG_0D		.TEXT $0D,$0A
+					.TEXT "search- "
+					.TEXT $00
+MSG_0E		.TEXT $0D,$0A
+					.TEXT "(n)ext? "
+					.TEXT $00
+MSG_0F		.TEXT "SP:$"
+					.TEXT $00
+MSG_10		.TEXT "SR:$"
+					.TEXT $00
+MSG_11		.TEXT "YR:$"
+					.TEXT $00
+MSG_12		.TEXT "XR:$"
+					.TEXT $00
+MSG_13		.TEXT "AC:$"
+					.TEXT $00
+MSG_14		.TEXT	$0D,$0A
+					.TEXT "   PC   AC  XR  YR  SP  NV-BDIZC",$0D,$0A
+					.TEXT "; "
+					.TEXT $00
+MSG_15		.TEXT $0D,$0A,$0A
+					.TEXT "C02Monitor (c)2015 K.E. Maier"
+					.TEXT $0D,$0A
+MSG_16		.TEXT "Version 1.0"
+					.TEXT $00
+MSG_17		.TEXT $0D,$0A
+					.TEXT ";-"
+					.TEXT $00
+MSG_18		.TEXT	" delay ms:"
+					.TEXT	$00
+MSG_19		.TEXT	" mult:"
+					.TEXT	$00
+MSG_1A		.TEXT	" delay xl:"
+					.TEXT	$00
+MSG_1B		.TEXT	"Uptime: "
+					.TEXT	$00
+MSG_1C		.TEXT	" Days, "
+					.TEXT	$00
+MSG_1D		.TEXT	" Hours, "
+					.TEXT	$00
+MSG_1E		.TEXT	" Minutes, "
+					.TEXT	$00
+MSG_1F		.TEXT	" Seconds"
+					.TEXT	$00
+MSG_20		.TEXT "Zero RAM/"
+MSG_21		.TEXT	"Reset System,"
+					.TEXT	$00
+MSG_22		.TEXT	"Program EEPROM",$0D,$0A
+					.TEXT	$00
+MSG_23		.TEXT	$0D,$0A
+					.TEXT	"Are you sure? "
+					.TEXT	$00
+MSG_24		.TEXT	$0D,$0A
+					.TEXT	"Are you really sure? "
+					.TEXT	$00
+MSG_25		.TEXT	$0D,$0A
+					.TEXT	"Writing EEPROM... wait"
+					.TEXT	$00
+MSG_26		.TEXT	$0D,$0A
+					.TEXT	"EEPROM Write Complete!"
+					.TEXT	$00
+MSG_27		.TEXT	$0D,$0A
+					.TEXT	"EEPROM Write Failed!",$0D,$0A
+					.TEXT	"Check Hardware or EEPROM problem!"
+MSG_28		.TEXT	$0D,$0A
+					.TEXT	"RTC may lose time, check/reset!"
+					.TEXT	$00
+MSG_29		.TEXT	"XMODEM Loader, <Esc> to abort, or",$0D,$0A
+					.TEXT	"Load address/S-Record Offset:"
+					.TEXT	$00
+MSG_2A		.TEXT	$0D,$0A
+					.TEXT	"Download Complete!",$0D,$0A
+					.TEXT	$00
+MSG_2B		.TEXT	$0D,$0A
+					.TEXT	"Download Error!",$0D,$0A
+					.TEXT	$00
+MSG_2C		.TEXT $0D,$0A
+					.TEXT "S-Record load at:$"
+					.TEXT $00
 ;
 MSG_TABLE	;Message table - contains addresses as words of each message sent via the PROMPT routine
-					.DW MSG_00
-					.DW	MSG_01
-					.DW	MSG_02
-					.DW	MSG_03
-					.DW	MSG_04
-					.DW	MSG_05
-					.DW	MSG_06
-					.DW	MSG_07
-					.DW	MSG_08
-					.DW	MSG_09
-					.DW	MSG_0A
-					.DW	MSG_0B
-					.DW	MSG_0C
-					.DW	MSG_0D
-					.DW	MSG_0E
-					.DW	MSG_0F
-					.DW	MSG_10
-					.DW	MSG_11
-					.DW	MSG_12
-					.DW	MSG_13
-					.DW	MSG_14
-					.DW	MSG_15
-					.DW	MSG_16
-					.DW	MSG_17
-					.DW	MSG_18
-					.DW	MSG_19
-					.DW	MSG_1A
-					.DW	MSG_1B
-					.DW	MSG_1C
-					.DW	MSG_1D
-					.DW	MSG_1E
-					.DW	MSG_1F
-					.DW	MSG_20
-					.DW	MSG_21
-					.DW	MSG_22
-					.DW	MSG_23
-					.DW	MSG_24
-					.DW	MSG_25
-					.DW	MSG_26
-					.DW	MSG_27
-					.DW	MSG_28
-					.DW	MSG_29					
-					.DW	MSG_2A
-					.DW	MSG_2B
-					.DW	MSG_2C
+					.WORD MSG_00
+					.WORD	MSG_01
+					.WORD	MSG_02
+					.WORD	MSG_03
+					.WORD	MSG_04
+					.WORD	MSG_05
+					.WORD	MSG_06
+					.WORD	MSG_07
+					.WORD	MSG_08
+					.WORD	MSG_09
+					.WORD	MSG_0A
+					.WORD	MSG_0B
+					.WORD	MSG_0C
+					.WORD	MSG_0D
+					.WORD	MSG_0E
+					.WORD	MSG_0F
+					.WORD	MSG_10
+					.WORD	MSG_11
+					.WORD	MSG_12
+					.WORD	MSG_13
+					.WORD	MSG_14
+					.WORD	MSG_15
+					.WORD	MSG_16
+					.WORD	MSG_17
+					.WORD	MSG_18
+					.WORD	MSG_19
+					.WORD	MSG_1A
+					.WORD	MSG_1B
+					.WORD	MSG_1C
+					.WORD	MSG_1D
+					.WORD	MSG_1E
+					.WORD	MSG_1F
+					.WORD	MSG_20
+					.WORD	MSG_21
+					.WORD	MSG_22
+					.WORD	MSG_23
+					.WORD	MSG_24
+					.WORD	MSG_25
+					.WORD	MSG_26
+					.WORD	MSG_27
+					.WORD	MSG_28
+					.WORD	MSG_29
+					.WORD	MSG_2A
+					.WORD	MSG_2B
+					.WORD	MSG_2C
 ;
 ;******************************************************************************
 ;END OF MONITOR DATA
 ;******************************************************************************
 ;
 ;******************************************************************************
-					.org	$FC00	;Last 1KB used for BIOS and I/O device selects
+					* = 	$FC00	;Last 1KB used for BIOS and I/O device selects
 ;******************************************************************************
 ;START OF BIOS CODE
 ;******************************************************************************
@@ -2107,7 +2107,7 @@ EXE_XLDLY	JSR	EXE_LGDLY	;Call the Long Delay routine
 					DEC	XDL	;Decrement count
 					BNE	EXE_XLDLY	;Loop back until X reg times out
 					RTS	;Done, return to caller
-;	
+;
 ;******************************************************************************
 ; I/O PORT routines for 6522
 ;	- Allows port A or B setup for input or output
@@ -2184,7 +2184,7 @@ NMI_VECTOR	;This is the ROM start for NMI Panic handler
 					STA	AREG	;Save A Reg
 					STX	XREG	;Save X Reg
 					STY	YREG	;Save Y Reg
-					PLA	;Get Processor Status 	        
+					PLA	;Get Processor Status
 					STA	PREG	;Save in PROCESSOR STATUS preset/result
 					TSX	;Get Stack pointer
 					STX	SREG	;Save STACK POINTER
@@ -2209,8 +2209,8 @@ PLP0			LDA	($00),Y	;get byte
 					INC	$01	;Increment page address
 					DEX	;Decrement page index
 					BNE	PLP0	;Branch back and do next page
-;					
-IO_LOOP		LDA	$FE00,X	;Get I/O Page (X reg already at #$00)
+;
+IO_LOOP		LDA	$7F00,X	;Get I/O Page (X reg already at #$00)
 					STA	$0780,X	;Overlay I/O page to Vector Save
 					INX	;Increment index
 					BPL	IO_LOOP	;Loop back until done (128 bytes)
@@ -2254,7 +2254,7 @@ BRKINSTR0	PLY	;Restore Y reg
 					STA	AREG	;Save A Reg
 					STX	XREG	;Save X Reg
 					STY	YREG	;Save Y Reg
-					PLA	;Get Processor Status 	        
+					PLA	;Get Processor Status
 					STA	PREG	;Save in PROCESSOR STATUS preset/result
 					TSX	;Xfrer STACK pointer to X reg
 					STX	SREG	;Save STACK pointer
@@ -2315,7 +2315,7 @@ RCV0			LDY ICNT	;get buffer counter (3)
 					LDY #$00 ;else, reset pointer (2)
 RCV1			STY ITAIL ;update buffer tail pointer (3)
 					INC ICNT ;increment character count (5)
-;	
+;
 					LDA SIOSTAT ;get 6551 status reg (4)
 					AND #%00010000 ;check for xmit (2)
 					BEQ REGEXT	;exit (2/3) (40 if exit, else 39 and drop to XMT)
@@ -2472,12 +2472,12 @@ RET				RTS	;Return to caller
 ;END OF BIOS CODE
 ;
 ;******************************************************************************
-					.ORG	$FE00	;Reserved for I/O page - do NOT put code here
+					* = 	$FE00	;Reserved for I/O page - do NOT put code here
 ;******************************************************************************
 ;
 ;START OF TOP PAGE - DO NOT MOVE FROM THIS ADDRESS!!
-; 
-					.ORG	$FF00	;JMP Table, HW Vectors, Cold Init and Vector handlers
+;
+					* = 	$FF00	;JMP Table, HW Vectors, Cold Init and Vector handlers
 ;
 ;JUMP Table starts here:
 ;	- BIOS calls are from the top down - total of 16
@@ -2577,35 +2577,35 @@ NMIHNDLR0	RTI	;Return from IRQ/BRK routine (6) (18 clock cycles from vector jump
 ;
 VEC_TABLE	;Vector table data for default ROM handlers
 ;Vector set 0
-					.DW	NMI_VECTOR	;NMI Location in ROM
-					.DW	BRKINSTR0	;BRK Location in ROM
-					.DW	INTERUPT1	;IRQ Location in ROM
+					.WORD	NMI_VECTOR	;NMI Location in ROM
+					.WORD	BRKINSTR0	;BRK Location in ROM
+					.WORD	INTERUPT1	;IRQ Location in ROM
 ;
-					.DW	NMIHNDLR0	;NMI return handler in ROM
-					.DW	IRQ_EXIT0	;BRK return handler in ROM
-					.DW	IRQ_EXIT0	;IRQ return handler in ROM
+					.WORD	NMIHNDLR0	;NMI return handler in ROM
+					.WORD	IRQ_EXIT0	;BRK return handler in ROM
+					.WORD	IRQ_EXIT0	;IRQ return handler in ROM
 ;
-					.DW	MONITOR	;Monitor Cold start
-					.DW	NMON	;Monitor Warm start
+					.WORD	MONITOR	;Monitor Cold start
+					.WORD	NMON	;Monitor Warm start
 ;
 ;Vector Inserts (total of 8)
 ; these can be used as required, one is used by default for the 6522
 ; as NMI/BRK/IRQ and the Monitor are vectored, all can be extended
-; by using these reserved vectors. 
-					.DW	INTERUPT0	;Insert 0 Location - for 6522 timer1
-					.DW	INTERUPT0	;Insert 1 Location - for 6522 timer2
-					.DW	$FFFF	;Insert 2 Location
-					.DW	$FFFF	;Insert 3 Location
-					.DW	$FFFF	;Insert 4 Location
-					.DW	$FFFF	;Insert 5 Location
-					.DW	$FFFF	;Insert 6 Location
-					.DW	$FFFF	;Insert 7 Location
+; by using these reserved vectors.
+					.WORD	INTERUPT0	;Insert 0 Location - for 6522 timer1
+					.WORD	INTERUPT0	;Insert 1 Location - for 6522 timer2
+					.WORD	$FFFF	;Insert 2 Location
+					.WORD	$FFFF	;Insert 3 Location
+					.WORD	$FFFF	;Insert 4 Location
+					.WORD	$FFFF	;Insert 5 Location
+					.WORD	$FFFF	;Insert 6 Location
+					.WORD	$FFFF	;Insert 7 Location
 ;
 CFG_TABLE	;Configuration table for hardware devices
 ;
 CFG_6551	;2 bytes required for 6551
-					.DB	#$09	;Default 65C51 Command register, transmit/receiver IRQ output enabled)
-					.DB	#$1F	;Default 65C51 Control register, (19.2K,no parity,8 data bits,1 stop bit)
+					.TEXT	$09	;Default 65C51 Command register, transmit/receiver IRQ output enabled)
+					.TEXT	$1F	;Default 65C51 Control register, (19.2K,no parity,8 data bits,1 stop bit)
 ;
 CFG_6522	;13 bytes required for 6522
 ;Timer 1 load value is based on CPU clock frequency for 4 milliseconds - RTC use
@@ -2621,36 +2621,36 @@ CFG_6522	;13 bytes required for 6522
 ;
 ; only the ports that are needed for config are shown below:
 ;
-					.DB	#$00	;Data Direction register Port B
-					.DB	#$00	;Data Direction register Port A
-					.DB	#$80	;T1CL - set for CPU clock as above - $04
-					.DB	#$3E	;T1CH - to 4ms (250 interupts per second) - $05
-					.DB	#$00	;T1LL - T1 counter latch low
-					.DB	#$00	;T1LH - T1 counter latch high
-					.DB	#$64	;T2CL - T2 counter low count - set for 1ms (adjusted)
-					.DB	#$0F	;T2CH - T2 counter high count - used for delay timer
-					.DB	#$00	;SR - Shift register
-					.DB	#$40	;ACR - Aux control register
-					.DB	#$00	;PCR - Peripheral control register
-					.DB	#$7F	;IFR - Interrupt flag register (clear all)
-					.DB	#$E0	;IER - Interrupt enable register (enable T1/T2)
-					.DB	#$00	;Free filler byte
+					.TEXT	$00	;Data Direction register Port B
+					.TEXT	$00	;Data Direction register Port A
+					.TEXT	$80	;T1CL - set for CPU clock as above - $04
+					.TEXT	$3E	;T1CH - to 4ms (250 interupts per second) - $05
+					.TEXT	$00	;T1LL - T1 counter latch low
+					.TEXT	$00	;T1LH - T1 counter latch high
+					.TEXT	$64	;T2CL - T2 counter low count - set for 1ms (adjusted)
+					.TEXT	$0F	;T2CH - T2 counter high count - used for delay timer
+					.TEXT	$00	;SR - Shift register
+					.TEXT	$40	;ACR - Aux control register
+					.TEXT	$00	;PCR - Peripheral control register
+					.TEXT	$7F	;IFR - Interrupt flag register (clear all)
+					.TEXT	$E0	;IER - Interrupt enable register (enable T1/T2)
+					.TEXT	$00	;Free filler byte
 ;
 ;Reserved for additional I/O devices (16 bytes total)
-					.DB	#$FF,#$FF,#$FF,#$FF,#$FF,#$FF,#$FF,#$FF
-					.DB	#$FF,#$FF,#$FF,#$FF,#$FF,#$FF,#$FF,#$FF
+					.TEXT	$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
+					.TEXT	$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
 ;
 ;END OF BIOS VECTOR DATA AND HARDWARE DEFAULT CONFIGURATION DATA
 ;******************************************************************************
 ;BIOS init message - sent before jumping to the monitor coldstart vector
-BIOS_MSG	.DB	$0D,$0A
-					.DB	"BIOS 1.2 "
-					.DB	"4MHz"
-					.DB	#$00	;Terminate string
+BIOS_MSG	.TEXT	$0D,$0A
+					.TEXT	"BIOS 1.2 "
+					.TEXT	"4MHz"
+					.TEXT	$00	;Terminate string
 ;
 ;65C02 Vectors:
-					.ORG	$FFFA
-					.DW	NMIVEC0	;NMI
-					.DW	COLDSTRT	;RESET
-					.DW	IRQ_VECTOR	;IRQ
+					* = 	$FFFA
+					.WORD	NMIVEC0	;NMI
+					.WORD	COLDSTRT	;RESET
+					.WORD	IRQ_VECTOR	;IRQ
 					.END

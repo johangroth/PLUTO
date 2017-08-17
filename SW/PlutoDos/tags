@@ -100,6 +100,7 @@ acia	time_first_row.asm	/^        acia = $7fe0$/;"	d
 acia6551	time_first_row.asm	/^        acia6551 = $7fe0$/;"	d
 acia_init	acia.asm	/^acia_init    .proc$/;"	l
 acia_irq	acia.asm	/^acia_irq .block$/;"	l
+again	bios.asm	/^again$/;"	l
 alarm	rtc.asm	/^alarm   .proc$/;"	l
 asc2bn	time_first_row.asm	/^        asc2bn = $8114$/;"	d
 bcdouta	time_first_row.asm	/^        bcdouta = $80ff$/;"	d
@@ -146,7 +147,9 @@ interrupt	time_first_row.asm	/^        interrupt = $876d$/;"	d
 irq	bios.asm	/^irq     .block$/;"	l
 irq_end	bios.asm	/^irq_end .block$/;"	l
 l1	acia.asm	/^l1$/;"	l
+l1	bios.asm	/^l1      sty in_buffer_head          ; Update the pointer$/;"	l
 l1	bios.asm	/^l1      stz  0,x                ;zero ZP$/;"	l
+l1	bios.asm	/^l1$/;"	l
 l1	rtc.asm	/^l1$/;"	l
 l10	rtc.asm	/^l10$/;"	l
 l2	acia.asm	/^l2$/;"	l
@@ -159,6 +162,8 @@ n_rtcreg	rtc.asm	/^n_rtcreg =*-rtcreg$/;"	l
 next	via.asm	/^next$/;"	l
 nmi	bios.asm	/^nmi$/;"	l
 nmon	time_first_row.asm	/^        nmon = $867d$/;"	d
+nodata	acia.asm	/^nodata$/;"	l
+out_buffer_full	bios.asm	/^out_buffer_full$/;"	l
 prasc	time_first_row.asm	/^        prasc = $82ee$/;"	d
 prbyte	time_first_row.asm	/^        prbyte = $82fb$/;"	d
 prindx	time_first_row.asm	/^        prindx = $830c$/;"	d

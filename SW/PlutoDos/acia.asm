@@ -25,12 +25,12 @@ receive_char
         bmi exit                ; Branch if buffer is full
         ldy in_buffer_tail      ; Get pointer in input buffer
         sta in_buffer,y         ; Store character in input buffer
-        inc in_buffer_counter   ; Increment character count
         iny                     ; Increment tail pointer
         bpl l1                  ; Branch if not wrap-around ($80)
         ldy #0                  ; Reset pointer
 l1
         sty in_buffer_tail      ; Update input buffer tail pointer
+        inc in_buffer_counter   ; Increment character count
 
         lda siostat             ; Read status register
         and #acia_transmit_mask ; Check transmit bit
@@ -38,17 +38,20 @@ l1
 
 transmit_char
         lda out_buffer_counter  ; Get output buffer counter
-        beq exit                ; If nothing to transmit branch
+        beq nodata              ; If nothing to transmit branch
         ldy out_buffer_head     ; Get pointer in output buffer
-        lda out_buffer,y        ; Get character to transmit from output buffered
+        lda out_buffer,y        ; Get character to transmit from output buffer
         sta siodat              ; Send character
-        dec out_buffer_counter  ; Decrement character count
         iny                     ; Increment head pointer
         bpl l2                  ; Branch if not wrap-around ($80)
         ldy #0                  ; Reset pointer
 l2
         sty out_buffer_head     ; Update output buffer head pointer
-
+        dec out_buffer_counter  ; Decrement character count
+        bne exit
+nodata
+        ldy #9
+        sty siocom
 exit
         jmp (via1_soft_vector)  ; Jump to next ISR
         .bend

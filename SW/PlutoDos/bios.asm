@@ -8,13 +8,15 @@ chin    .proc
         lda in_buffer_counter       ; Get number of characters in buffer
         beq chin                    ; If zero wait for characters
         phy                         ; Preserve Y register
+        php                         ; Preserve MPU state
         ldy in_buffer_head          ; Get in buffer head pointer
         lda in_buffer,y             ; Get the character from the in buffer
-        dec in_buffer_counter       ; Decrement the character counter
         iny                         ; Increment the buffer index
         bpl l1                      ; Branch if not wrap-around ($80)
         ldy #0                      ; Reset the buffer index
 l1      sty in_buffer_head          ; Update the pointer
+        dec in_buffer_counter       ; Decrement the character counter
+        plp                         ; Restore MPU state
         ply                         ; Restore Y register
         rts
         .pend
@@ -26,16 +28,18 @@ chout   .proc
 out_buffer_full
         ldy out_buffer_counter      ; Get number of characters in buffer
         bmi out_buffer_full         ; Loop back if buffer is full (ACIA ISR will empty buffer)
+        php                         ; Preserve MPU state
         ldy out_buffer_tail         ; Get buffer tail pointer
         sta out_buffer,y            ; and store it in buffer
-        inc out_buffer_counter      ; Increment the counter
         iny                         ; Increment the buffer index
         bpl l1                      ; Branch if not wrap-around ($80)
         ldy #0                      ; Reset the buffer index
 l1
         sty out_buffer_tail         ; Update the pointer
-        ldy #acia_transmit_mask     ; Get the ACIA transmit mask
-        sty siocom                  ; Turn on transmit IRQ
+        inc out_buffer_counter      ; Increment the counter
+        ;ldy #rec_xmit_irq_enabled   ; Get the ACIA xmit/recv irq enable
+        ;sty siocom                  ; Enable transmit IRQ
+        plp                         ; Restore MPU state
         ply                         ; Restore Y register
         rts
         .pend
@@ -53,20 +57,21 @@ coldstart .block
 l1      stz  0,x                ;zero ZP
         dex
         bne  l1
+        dex                 ;ldx #$ff :)
+        txs
         ldx  #n_soft_vectors    ;Initialise IRQ ISR soft vector table
 l2
         lda initial_soft_vectors-1,x
         sta soft_vector_table-1,x
         dex
         bne l2
-        dex                 ;ldx #$ff :)
-        txs
-        jsr rtc_init
         jsr acia_init
         jsr via_init
+        jsr rtc_init
         jsr sound_init
         cli
         ; jmp monitor_init
+
 again
         jsr chin
         jsr chout
@@ -83,7 +88,7 @@ irq     .block
         bne do_break            ;Yes, branch
         jmp (rtc_soft_vector)   ;  no, jump to rtc ISR routine
 do_break
-        jmp (brk_soft_vector)   ;Handle brk instruction
+        ;jmp (brk_soft_vector)   ;Handle brk instruction
         .bend
 
 irq_end .block
