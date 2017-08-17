@@ -4,7 +4,7 @@
 
 ;;; CHIN subroutine: Wait for a character in input buffer, return character in A register.
 ;;; receive is interrupt driven and buffered with a size of 128 bytes.
-chin    .proc
+chin:    .proc
         lda in_buffer_counter       ; Get number of characters in buffer
         beq chin                    ; If zero wait for characters
         phy                         ; Preserve Y register
@@ -14,7 +14,8 @@ chin    .proc
         iny                         ; Increment the buffer index
         bpl l1                      ; Branch if not wrap-around ($80)
         ldy #0                      ; Reset the buffer index
-l1      sty in_buffer_head          ; Update the pointer
+l1:
+        sty in_buffer_head          ; Update the pointer
         dec in_buffer_counter       ; Decrement the character counter
         plp                         ; Restore MPU state
         ply                         ; Restore Y register
@@ -23,9 +24,9 @@ l1      sty in_buffer_head          ; Update the pointer
 
 ;;; CHOUT subroutine: Place register A in output buffer, register A is preserved.
 ;;; transmit is interrupt driven and buffered with a size of 128 bytes
-chout   .proc
+chout:   .proc
         phy                         ; Preserve Y register
-out_buffer_full
+out_buffer_full:
         ldy out_buffer_counter      ; Get number of characters in buffer
         bmi out_buffer_full         ; Loop back if buffer is full (ACIA ISR will empty buffer)
         php                         ; Preserve MPU state
@@ -34,7 +35,7 @@ out_buffer_full
         iny                         ; Increment the buffer index
         bpl l1                      ; Branch if not wrap-around ($80)
         ldy #0                      ; Reset the buffer index
-l1
+l1:
         sty out_buffer_tail         ; Update the pointer
         inc out_buffer_counter      ; Increment the counter
         ;ldy #rec_xmit_irq_enabled   ; Get the ACIA xmit/recv irq enable
@@ -44,23 +45,24 @@ l1
         rts
         .pend
 
-nmi
+nmi:
         rti
 
 ;;; coldstart - initialises all hardware
 ;; power up and reset procedure.
 ;;;
-coldstart .block
+coldstart: .block
         sei                     ;Turn off interrupts
         cld                     ;Make sure MPU is in binary mode
         ldx  #0
-l1      stz  0,x                ;zero ZP
+l1:
+        stz  0,x                ;zero ZP
         dex
         bne  l1
         dex                 ;ldx #$ff :)
         txs
         ldx  #n_soft_vectors    ;Initialise IRQ ISR soft vector table
-l2
+l2:
         lda initial_soft_vectors-1,x
         sta soft_vector_table-1,x
         dex
@@ -72,13 +74,14 @@ l2
         cli
         ; jmp monitor_init
 
-again
-        jsr chin
+again:
         jsr chout
+        jsr chin
         bra again
         .bend
 
-irq     .block
+irq:
+        .block
         pha
         phx
         phy
@@ -87,18 +90,18 @@ irq     .block
         and #brk_irq_mask       ;Has brk instruction triggered IRQ
         bne do_break            ;Yes, branch
         jmp (rtc_soft_vector)   ;  no, jump to rtc ISR routine
-do_break
+do_break:
         ;jmp (brk_soft_vector)   ;Handle brk instruction
         .bend
 
-irq_end .block
+irq_end: .block
         ply
         plx
         pla
         rti
         .bend
 
-brk_irq .block
+brk_irq: .block
         ply
         plx
         pla
@@ -132,15 +135,15 @@ brk_irq .block
         jmp (monitor_soft_vector)
         .bend
 
-rtc_irq .block
+rtc_irq: .block
         jmp (acia_soft_vector)          ;Jump to next ISR
         .bend
 
-via1_irq .block
+via1_irq: .block
         jmp (via2_soft_vector)          ;Jump to next ISR
         .bend
 
-via2_irq  .block
+via2_irq:  .block
         jmp irq_end                     ;Jump to the end of ISR
         .bend
 

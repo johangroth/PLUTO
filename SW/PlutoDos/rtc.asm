@@ -16,7 +16,7 @@
 ;
 ;       registers...
 ;
-rtcreg  .byte wr_crb          ;control B               $0f
+rtcreg: .byte wr_crb          ;control B               $0f
         .byte wr_seca         ;alarm sec               $08
         .byte wr_mina         ;alarm min               $09
         .byte wr_hrsa         ;alarm hour              $0a
@@ -29,7 +29,7 @@ n_rtcreg =*-rtcreg
 ;
 ;       parameters...
 ;
-rtcparm .byte wr_irqoff       ;updates on & WDT IRQs off   %10000000
+rtcparm:.byte wr_irqoff       ;updates on & WDT IRQs off   %10000000
         .byte wr_secap        ;no alarm secs IRQ           %00000000
         .byte wr_minap        ;no alarm min IRQ            %00000000
         .byte wr_hrsap        ;no alarm hour IRQ           %00000000
@@ -50,10 +50,10 @@ rtcparm .byte wr_irqoff       ;updates on & WDT IRQs off   %10000000
 ;; rtc_init: Initialise DS1511Y
 ;;
 ;;;
-rtc_init .proc
+rtc_init: .proc
         lda  cra_rtc            ;interrupt request flag (irqf) is cleared by reading the flag register cra ($oe)
         ldy  #n_rtcreg-1
-l10
+l10:
         lda  rtcparm,y
         ldx  rtcreg,y
         sta  io_rtc,x
@@ -81,7 +81,7 @@ l10
 ;   example: jsr print_date_and_time
 ;
 ;
-print_date_and_time .proc
+print_date_and_time: .proc
         pha
         phx
         phy
@@ -159,7 +159,7 @@ print_date_and_time .proc
 ;             jsr alarm       ;set the alarm
 ;
 ;
-alarm   .proc
+alarm:  .proc
         .pend
 
 ;
@@ -167,7 +167,7 @@ alarm   .proc
 ;
 ;constime: SET CONSOLE TIME
 ;
-set_console_time .proc
+set_console_time: .proc
         .pend
 
 ;
@@ -200,7 +200,7 @@ set_console_time .proc
 ;   Example: JSR GET_DATE_AND_TIME
 ;
 ;
-get_date_and_time   .proc
+get_date_and_time: .proc
         pha
         phx
         lda  crb_rtc    ;load control register b
@@ -208,12 +208,12 @@ get_date_and_time   .proc
         and  #d11sumsk  ;turn off update of registers
         sta  crb_rtc
         ldx  #wr_yrhi   ;initialise index
-l1
+l1:
         lda  io_rtc,x   ;read time data
         cpx  #wr_mon    ;month byte contains control bits
         bne  l2
         and  #d11emmsk  ;get rid of control bits
-l2
+l2:
         sta  todbuf,x
         dex
         bpl  l1         ;  goto l1, next register
@@ -256,7 +256,7 @@ l2
 ;              ++++++++> entry values
 ;
 ;
-put_date_and_time  .proc
+put_date_and_time:  .proc
         php
         pha
         phx
@@ -266,14 +266,14 @@ put_date_and_time  .proc
         and  #d11sumsk  ;turn off update of registers
         sta  crb_rtc
         ldx  #wr_yrhi   ;initialise index
-l1
+l1:
         lda  todbuf,x
         cpx  #wr_mon    ;if x != month register
         bne  l2         ;  goto l2
         lda  io_rtc,x   ;read in month from rtc (month register contains control bits)
         and  #d11ecmsk  ;clear out month data
         ora  todbuf,x   ;copy in month data from todbuf
-l2
+l2:
         sta  io_rtc,x   ;update register
         dex
         bpl  l1         ;take care of next register
@@ -309,7 +309,7 @@ l2
 ;              +++++> entry value
 ;
 ;
-get_system_up_time .proc
+get_system_up_time: .proc
         .pend
 
 ;
@@ -346,5 +346,5 @@ get_system_up_time .proc
 ;             jsr utdelay
 ;
 ;
-utdelay .proc
+utdelay: .proc
         .pend

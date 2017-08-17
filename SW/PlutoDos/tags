@@ -98,22 +98,22 @@ XModemReceive	xmodem.asm	/^XModemReceive .proc$/;"	l
 XModemSend	xmodem.asm	/^XModemSend:$/;"	l
 acia	time_first_row.asm	/^        acia = $7fe0$/;"	d
 acia6551	time_first_row.asm	/^        acia6551 = $7fe0$/;"	d
-acia_init	acia.asm	/^acia_init    .proc$/;"	l
-acia_irq	acia.asm	/^acia_irq .block$/;"	l
-again	bios.asm	/^again$/;"	l
-alarm	rtc.asm	/^alarm   .proc$/;"	l
+acia_init	acia.asm	/^acia_init: .proc$/;"	l
+acia_irq	acia.asm	/^acia_irq: .block$/;"	l
+again	bios.asm	/^again:$/;"	l
+alarm	rtc.asm	/^alarm:  .proc$/;"	l
 asc2bn	time_first_row.asm	/^        asc2bn = $8114$/;"	d
 bcdouta	time_first_row.asm	/^        bcdouta = $80ff$/;"	d
 beep	time_first_row.asm	/^        beep = $8130$/;"	d
 bflag	xmodem.asm	/^        bflag = $a7         ; block flag$/;"	d
 blkno	xmodem.asm	/^        blkno = $a6         ; block number$/;"	d
 bn2asc	time_first_row.asm	/^        bn2asc = $8138$/;"	d
-brk_irq	bios.asm	/^brk_irq .block$/;"	l
-chin	bios.asm	/^chin    .proc$/;"	l
+brk_irq	bios.asm	/^brk_irq: .block$/;"	l
+chin	bios.asm	/^chin:    .proc$/;"	l
 chin	time_first_row.asm	/^        chin = $815a$/;"	d
-chout	bios.asm	/^chout   .proc$/;"	l
+chout	bios.asm	/^chout:   .proc$/;"	l
 clear_entire_screen	time_first_row.asm	/^clear_entire_screen .null "[2J"$/;"	l
-coldstart	bios.asm	/^coldstart .block$/;"	l
+coldstart	bios.asm	/^coldstart: .block$/;"	l
 coldstart	time_first_row.asm	/^        coldstart = $8613$/;"	d
 cout	time_first_row.asm	/^        cout = $817c$/;"	d
 cout2	time_first_row.asm	/^        cout2 = $8179$/;"	d
@@ -126,84 +126,81 @@ crout	time_first_row.asm	/^        crout = $819a$/;"	d
 decindex	time_first_row.asm	/^        decindex = $8189$/;"	d
 decmsd	time_first_row.asm	/^decmsd$/;"	l
 delay1	time_first_row.asm	/^        delay1 = $81a7$/;"	d
-delay1	via.asm	/^delay1$/;"	l
+delay1	via.asm	/^delay1:$/;"	l
 delay2	time_first_row.asm	/^        delay2 = $81ab$/;"	d
-delay2	via.asm	/^delay2  .proc$/;"	l
-do_break	bios.asm	/^do_break$/;"	l
+delay2	via.asm	/^delay2:  .proc$/;"	l
+do_break	bios.asm	/^do_break:$/;"	l
 dollar	time_first_row.asm	/^        dollar = $8192$/;"	d
 ds1511	time_first_row.asm	/^        ds1511 = $7fa0$/;"	d
 eofp	xmodem.asm	/^        eofp = TEMP2        ; end of file address pointer (2 bytes)$/;"	d
 eofph	xmodem.asm	/^        eofph = TEMP2H      ;  "    "   "   "$/;"	d
 errcnt	xmodem.asm	/^        errcnt = $a7        ; error counter 10 is the limit$/;"	d
-exit	acia.asm	/^exit$/;"	l
-get_date_and_time	rtc.asm	/^get_date_and_time   .proc$/;"	l
+exit	acia.asm	/^exit:$/;"	l
+get_date_and_time	rtc.asm	/^get_date_and_time: .proc$/;"	l
 get_date_and_time	time_first_row.asm	/^        get_date_and_time  = $8072$/;"	d
-get_system_up_time	rtc.asm	/^get_system_up_time .proc$/;"	l
+get_system_up_time	rtc.asm	/^get_system_up_time: .proc$/;"	l
 hexin	time_first_row.asm	/^        hexin = $81bc$/;"	d
 hexin2	time_first_row.asm	/^        hexin2 = $81b6$/;"	d
 hexin4	time_first_row.asm	/^        hexin4 = $81ba$/;"	d
 incindex	time_first_row.asm	/^        incindex = $824e$/;"	d
 interrupt	time_first_row.asm	/^        interrupt = $876d$/;"	d
-irq	bios.asm	/^irq     .block$/;"	l
-irq_end	bios.asm	/^irq_end .block$/;"	l
-l1	acia.asm	/^l1$/;"	l
-l1	bios.asm	/^l1      sty in_buffer_head          ; Update the pointer$/;"	l
-l1	bios.asm	/^l1      stz  0,x                ;zero ZP$/;"	l
-l1	bios.asm	/^l1$/;"	l
-l1	rtc.asm	/^l1$/;"	l
-l10	rtc.asm	/^l10$/;"	l
-l2	acia.asm	/^l2$/;"	l
-l2	bios.asm	/^l2$/;"	l
-l2	rtc.asm	/^l2$/;"	l
+irq	bios.asm	/^irq:$/;"	l
+irq_end	bios.asm	/^irq_end: .block$/;"	l
+l1	acia.asm	/^l1:$/;"	l
+l1	bios.asm	/^l1:$/;"	l
+l1	rtc.asm	/^l1:$/;"	l
+l10	rtc.asm	/^l10:$/;"	l
+l2	acia.asm	/^l2:$/;"	l
+l2	bios.asm	/^l2:$/;"	l
+l2	rtc.asm	/^l2:$/;"	l
 lastblk	xmodem.asm	/^        lastblk = $a5       ; flag for last block$/;"	d
-loop	via.asm	/^loop$/;"	l
+loop	via.asm	/^loop:$/;"	l
 move_cursor_to_screen_location_v_h	time_first_row.asm	/^move_cursor_to_screen_location_v_h  .null "[<V>;<H>H"$/;"	l
 n_rtcreg	rtc.asm	/^n_rtcreg =*-rtcreg$/;"	l
-next	via.asm	/^next$/;"	l
-nmi	bios.asm	/^nmi$/;"	l
+next	via.asm	/^next:$/;"	l
+nmi	bios.asm	/^nmi:$/;"	l
 nmon	time_first_row.asm	/^        nmon = $867d$/;"	d
-nodata	acia.asm	/^nodata$/;"	l
-out_buffer_full	bios.asm	/^out_buffer_full$/;"	l
+nodata	acia.asm	/^nodata:$/;"	l
+out_buffer_full	bios.asm	/^out_buffer_full:$/;"	l
 prasc	time_first_row.asm	/^        prasc = $82ee$/;"	d
 prbyte	time_first_row.asm	/^        prbyte = $82fb$/;"	d
 prindx	time_first_row.asm	/^        prindx = $830c$/;"	d
-print_date_and_time	rtc.asm	/^print_date_and_time .proc$/;"	l
+print_date_and_time	rtc.asm	/^print_date_and_time: .proc$/;"	l
 print_date_and_time	time_first_row.asm	/^        print_date_and_time = $801f$/;"	d
 prompt	time_first_row.asm	/^        prompt = $8319$/;"	d
 prompt2	time_first_row.asm	/^        prompt2 = $8564$/;"	d
 ptr	xmodem.asm	/^        ptr = INDEX         ; data pointer (two byte variable)$/;"	d
 ptrh	xmodem.asm	/^        ptrh = INDEXH       ;   "    "$/;"	d
-put_date_and_time	rtc.asm	/^put_date_and_time  .proc$/;"	l
+put_date_and_time	rtc.asm	/^put_date_and_time:  .proc$/;"	l
 put_date_and_time	time_first_row.asm	/^        put_date_and_time = $8095$/;"	d
 rdline	time_first_row.asm	/^        rdline = $8352$/;"	d
-receive_char	acia.asm	/^receive_char$/;"	l
+receive_char	acia.asm	/^receive_char:$/;"	l
 resregs	time_first_row.asm	/^        resregs = $83ba$/;"	d
 restore_cursor_position_and_attributes	time_first_row.asm	/^restore_cursor_position_and_attributes .text "8"$/;"	l
 retry	xmodem.asm	/^        retry = $ae         ; retry counter$/;"	d
 retry2	xmodem.asm	/^        retry2 = $af        ; 2nd counter$/;"	d
-rtc_init	rtc.asm	/^rtc_init .proc$/;"	l
-rtc_irq	bios.asm	/^rtc_irq .block$/;"	l
-rtcparm	rtc.asm	/^rtcparm .byte wr_irqoff       ;updates on & WDT IRQs off   %10000000$/;"	l
-rtcreg	rtc.asm	/^rtcreg  .byte wr_crb          ;control B               $0f$/;"	l
+rtc_init	rtc.asm	/^rtc_init: .proc$/;"	l
+rtc_irq	bios.asm	/^rtc_irq: .block$/;"	l
+rtcreg	rtc.asm	/^rtcreg: .byte wr_crb          ;control B               $0f$/;"	l
 save_cursor_position_and_attributes	time_first_row.asm	/^save_cursor_position_and_attributes .text "7"$/;"	l
 savregs	time_first_row.asm	/^        savregs = $83b3$/;"	d
 send_date_and_time	time_first_row.asm	/^send_date_and_time .proc$/;"	l
 send_escape	time_first_row.asm	/^send_escape$/;"	l
 set	time_first_row.asm	/^        set = $83c1$/;"	d
-set_console_time	rtc.asm	/^set_console_time .proc$/;"	l
-sound_init	sound.asm	/^sound_init  .proc$/;"	l
+set_console_time	rtc.asm	/^set_console_time: .proc$/;"	l
+sound_init	sound.asm	/^sound_init:  .proc$/;"	l
 spc2	time_first_row.asm	/^        spc2 = $83e9$/;"	d
 spc4	time_first_row.asm	/^        spc4 = $83e6$/;"	d
 timer	time_first_row.asm	/^        timer = $83c3$/;"	d
 timer1_interrupt	time_first_row.asm	/^timer1_interrupt$/;"	l
-transmit_char	acia.asm	/^transmit_char$/;"	l
+transmit_char	acia.asm	/^transmit_char:$/;"	l
 update_tod_on_console	time_first_row.asm	/^update_tod_on_console .proc$/;"	l
-utdelay	rtc.asm	/^utdelay .proc$/;"	l
+utdelay	rtc.asm	/^utdelay: .proc$/;"	l
 via	time_first_row.asm	/^        via = $7fc0$/;"	d
-via1_init	via.asm	/^via1_init .proc$/;"	l
-via1_irq	bios.asm	/^via1_irq .block$/;"	l
-via2_init	via.asm	/^via2_init .proc$/;"	l
-via2_irq	bios.asm	/^via2_irq  .block$/;"	l
+via1_init	via.asm	/^via1_init: .proc$/;"	l
+via1_irq	bios.asm	/^via1_irq: .block$/;"	l
+via2_init	via.asm	/^via2_init: .proc$/;"	l
+via2_irq	bios.asm	/^via2_irq:  .block$/;"	l
 via6522	time_first_row.asm	/^        via6522 = $7fc0$/;"	d
-via_init	via.asm	/^via_init .proc$/;"	l
+via_init	via.asm	/^via_init: .proc$/;"	l
 viainterrupt	time_first_row.asm	/^viainterrupt$/;"	l
