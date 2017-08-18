@@ -38,8 +38,6 @@ out_buffer_full:
 l1:
         sty out_buffer_tail         ; Update the pointer
         inc out_buffer_counter      ; Increment the counter
-        ;ldy #rec_xmit_irq_enabled   ; Get the ACIA xmit/recv irq enable
-        ;sty siocom                  ; Enable transmit IRQ
         plp                         ; Restore MPU state
         ply                         ; Restore Y register
         rts
@@ -48,7 +46,8 @@ l1:
 nmi:
         rti
 
-;;; coldstart - initialises all hardware
+;;;
+;; coldstart - initialises all hardware
 ;; power up and reset procedure.
 ;;;
 coldstart: .block
@@ -59,7 +58,7 @@ l1:
         stz  0,x                ;zero ZP
         dex
         bne  l1
-        dex                 ;ldx #$ff :)
+        dex                     ;ldx #$ff :)
         txs
         ldx  #n_soft_vectors    ;Initialise IRQ ISR soft vector table
 l2:
@@ -74,12 +73,25 @@ l2:
         cli
         ; jmp monitor_init
 
-again:
+        ldx #0
+next:   lda hello,x
+        beq again
         jsr chout
+        inx
+        bra next
+again:
         jsr chin
+        cmp #$0d
+        bne notcr
+        jsr chout
+        lda #$0a
+notcr:
+        jsr clear
+        jsr chout
         bra again
         .bend
-
+hello:
+        .null "Hello World", $0a, $0d
 irq:
         .block
         pha

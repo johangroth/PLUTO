@@ -112,6 +112,7 @@ brk_irq	bios.asm	/^brk_irq: .block$/;"	l
 chin	bios.asm	/^chin:    .proc$/;"	l
 chin	time_first_row.asm	/^        chin = $815a$/;"	d
 chout	bios.asm	/^chout:   .proc$/;"	l
+clear	screen.asm	/^clear   .proc$/;"	l
 clear_entire_screen	time_first_row.asm	/^clear_entire_screen .null "[2J"$/;"	l
 coldstart	bios.asm	/^coldstart: .block$/;"	l
 coldstart	time_first_row.asm	/^        coldstart = $8613$/;"	d
@@ -123,6 +124,7 @@ crch	xmodem.asm	/^        crch = $a9          ; CRC hi byte$/;"	d
 crchi	xmodem.asm	/^crchi:$/;"	l
 crclo	xmodem.asm	/^crclo:$/;"	l
 crout	time_first_row.asm	/^        crout = $819a$/;"	d
+data	screen.asm	/^data        #bg$/;"	l
 decindex	time_first_row.asm	/^        decindex = $8189$/;"	d
 decmsd	time_first_row.asm	/^decmsd$/;"	l
 delay1	time_first_row.asm	/^        delay1 = $81a7$/;"	d
@@ -139,6 +141,7 @@ exit	acia.asm	/^exit:$/;"	l
 get_date_and_time	rtc.asm	/^get_date_and_time: .proc$/;"	l
 get_date_and_time	time_first_row.asm	/^        get_date_and_time  = $8072$/;"	d
 get_system_up_time	rtc.asm	/^get_system_up_time: .proc$/;"	l
+hello	bios.asm	/^hello:$/;"	l
 hexin	time_first_row.asm	/^        hexin = $81bc$/;"	d
 hexin2	time_first_row.asm	/^        hexin2 = $81b6$/;"	d
 hexin4	time_first_row.asm	/^        hexin4 = $81ba$/;"	d
@@ -157,10 +160,11 @@ lastblk	xmodem.asm	/^        lastblk = $a5       ; flag for last block$/;"	d
 loop	via.asm	/^loop:$/;"	l
 move_cursor_to_screen_location_v_h	time_first_row.asm	/^move_cursor_to_screen_location_v_h  .null "[<V>;<H>H"$/;"	l
 n_rtcreg	rtc.asm	/^n_rtcreg =*-rtcreg$/;"	l
+next	bios.asm	/^next:   lda hello,x$/;"	l
 next	via.asm	/^next:$/;"	l
 nmi	bios.asm	/^nmi:$/;"	l
 nmon	time_first_row.asm	/^        nmon = $867d$/;"	d
-nodata	acia.asm	/^nodata:$/;"	l
+notcr	bios.asm	/^notcr:$/;"	l
 out_buffer_full	bios.asm	/^out_buffer_full:$/;"	l
 prasc	time_first_row.asm	/^        prasc = $82ee$/;"	d
 prbyte	time_first_row.asm	/^        prbyte = $82fb$/;"	d

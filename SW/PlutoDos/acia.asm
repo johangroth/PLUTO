@@ -1,16 +1,33 @@
         .include "include/acia.inc"
 
-;;; Initialise ACIA
+;;;
+;; Initialise ACIA
+;;  Initialises the ACIA.
+;;  Communication will be set to 19.2kBAUD, no parity, 8 bits, 1 stop bit.
+;;  Transmit and receive interrupt are enabled.
+;;
+;;   Preparatory Ops: none
+;;
+;;   Returned Values: a: destroyed
+;;;
 acia_init: .proc
         lda  #serial_port_param             ; Initialize serial port (terminal I/O) 6551/65c51 ACIA
         sta  siocon                         ; (19.2K BAUD,no parity,8 data bits,1 stop bit,
-        lda  #rec_xmit_irq_enabled          ; receiver and transitter IRQ output enabled)
+        lda  #rec_xmit_irq_enabled          ; receiver and transmitter IRQ output enabled)
         sta  siocom
         rts
         .pend
-;;; End init ACIA
 
-;;; ACIA ISR
+;;;
+;;  acia_irq: ACIA ISR
+;;   This block is responsible for receving and transmitting characters using
+;;   two fixed 128 byte buffers.
+;;   The block is part of the ISR (interrupt service routine) so no registers are preserved here.
+;;   They have already been pushed to the stack by the main ISR.
+;;
+;;   Returned Values: none
+;;
+;;;
 acia_irq: .block
         lda siostat             ; Read status register
         bpl exit                ; Check if acia caused interrupt, clear exit else handle IRQ
@@ -38,7 +55,7 @@ l1:
 
 transmit_char:
         lda out_buffer_counter  ; Get output buffer counter
-        beq nodata              ; If nothing to transmit branch
+        beq exit              ; If nothing to transmit branch
         ldy out_buffer_head     ; Get pointer in output buffer
         lda out_buffer,y        ; Get character to transmit from output buffer
         sta siodat              ; Send character
@@ -49,9 +66,6 @@ l2:
         sty out_buffer_head     ; Update output buffer head pointer
         dec out_buffer_counter  ; Decrement character count
         bne exit
-nodata:
-        ;ldy #9
-        ;sty siocom
 exit:
         jmp (via1_soft_vector)  ; Jump to next ISR
         .bend

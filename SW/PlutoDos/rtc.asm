@@ -4,7 +4,7 @@
 ;
 ;MAXIM DS1511 WATCHDOG TIMER INITIALIZATION DATA
 ;
-;       These tables consist of register initialization bit patterns & corresp-
+;       These tables consist of register initialisation bit patterns & corresp-
 ;       onding register offsets, & are read backwards,  requiring that register
 ;       values be in the reverse order in which they should be set up.
 ;
