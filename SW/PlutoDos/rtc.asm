@@ -86,29 +86,29 @@ print_date_and_time: .proc
         phx
         phy
         jsr  get_date_and_time
-        jsr  crout
+        jsr  chout
         lda  todbuf+wr_datt
         jsr  bcdouta
         lda  #'/'
-        jsr  cout
+        jsr  chout
         lda  todbuf+wr_mon
         jsr  bcdouta
         lda  #'/'
-        jsr  cout
+        jsr  chout
         lda  todbuf+wr_yrhi
         jsr  bcdouta
         lda  todbuf+wr_yrlo
         jsr  bcdouta
         lda  #' '
-        jsr  cout
+        jsr  chout
         lda  todbuf+wr_hrst
         jsr  bcdouta
         lda  #':'
-        jsr  cout
+        jsr  chout
         lda  todbuf+wr_mint
         jsr  bcdouta
         lda  #':'
-        jsr  cout
+        jsr  chout
         lda  todbuf+wr_sect
         jsr  bcdouta
         jsr  crout

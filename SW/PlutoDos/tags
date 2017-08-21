@@ -124,7 +124,6 @@ crch	xmodem.asm	/^        crch = $a9          ; CRC hi byte$/;"	d
 crchi	xmodem.asm	/^crchi:$/;"	l
 crclo	xmodem.asm	/^crclo:$/;"	l
 crout	time_first_row.asm	/^        crout = $819a$/;"	d
-data	screen.asm	/^data        #bg$/;"	l
 decindex	time_first_row.asm	/^        decindex = $8189$/;"	d
 decmsd	time_first_row.asm	/^decmsd$/;"	l
 delay1	time_first_row.asm	/^        delay1 = $81a7$/;"	d
@@ -138,6 +137,7 @@ eofp	xmodem.asm	/^        eofp = TEMP2        ; end of file address pointer (2 b
 eofph	xmodem.asm	/^        eofph = TEMP2H      ;  "    "   "   "$/;"	d
 errcnt	xmodem.asm	/^        errcnt = $a7        ; error counter 10 is the limit$/;"	d
 exit	acia.asm	/^exit:$/;"	l
+exit	bios.asm	/^exit:$/;"	l
 get_date_and_time	rtc.asm	/^get_date_and_time: .proc$/;"	l
 get_date_and_time	time_first_row.asm	/^        get_date_and_time  = $8072$/;"	d
 get_system_up_time	rtc.asm	/^get_system_up_time: .proc$/;"	l
@@ -160,7 +160,6 @@ lastblk	xmodem.asm	/^        lastblk = $a5       ; flag for last block$/;"	d
 loop	via.asm	/^loop:$/;"	l
 move_cursor_to_screen_location_v_h	time_first_row.asm	/^move_cursor_to_screen_location_v_h  .null "[<V>;<H>H"$/;"	l
 n_rtcreg	rtc.asm	/^n_rtcreg =*-rtcreg$/;"	l
-next	bios.asm	/^next:   lda hello,x$/;"	l
 next	via.asm	/^next:$/;"	l
 nmi	bios.asm	/^nmi:$/;"	l
 nmon	time_first_row.asm	/^        nmon = $867d$/;"	d
@@ -173,6 +172,7 @@ print_date_and_time	rtc.asm	/^print_date_and_time: .proc$/;"	l
 print_date_and_time	time_first_row.asm	/^        print_date_and_time = $801f$/;"	d
 prompt	time_first_row.asm	/^        prompt = $8319$/;"	d
 prompt2	time_first_row.asm	/^        prompt2 = $8564$/;"	d
+prout	bios.asm	/^prout   .proc$/;"	l
 ptr	xmodem.asm	/^        ptr = INDEX         ; data pointer (two byte variable)$/;"	d
 ptrh	xmodem.asm	/^        ptrh = INDEXH       ;   "    "$/;"	d
 put_date_and_time	rtc.asm	/^put_date_and_time:  .proc$/;"	l
@@ -188,6 +188,7 @@ rtc_irq	bios.asm	/^rtc_irq: .block$/;"	l
 rtcreg	rtc.asm	/^rtcreg: .byte wr_crb          ;control B               $0f$/;"	l
 save_cursor_position_and_attributes	time_first_row.asm	/^save_cursor_position_and_attributes .text "7"$/;"	l
 savregs	time_first_row.asm	/^        savregs = $83b3$/;"	d
+scr_clear	screen.asm	/^scr_clear       #ed2$/;"	l
 send_date_and_time	time_first_row.asm	/^send_date_and_time .proc$/;"	l
 send_escape	time_first_row.asm	/^send_escape$/;"	l
 set	time_first_row.asm	/^        set = $83c1$/;"	d

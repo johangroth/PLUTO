@@ -2,6 +2,41 @@
         .include "include/bios.inc"
         .include "include/zp.inc"
 
+;;;
+;; PROUT subroutine: Send a zero terminated string to terminal.
+;;      Preparation:
+;;              index_low  low byte address to string
+;;              index_high high byte address to string
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;          text    .null "hello world"
+;;                  lda #<text
+;;                  sta index_low
+;;                  lda #>text
+;;                  sta index_high
+;;                  jsr prout
+;;;
+prout   .proc
+        pha                         ;Preserve A
+        phy                         ;Preserve Y
+        ldy #0                      ;Initialise index
+l1:
+        lda (index_low),y           ;Get character
+        beq exit                    ;If eq zero, branch
+        jsr chout                   ;Send character to termnial
+        iny                         ;Next character
+        bra l1                      ;Loop back
+exit:
+        ply                         ;Restore Y
+        pla                         ;Restore A
+        rts
+        .pend
+
 ;;; CHIN subroutine: Wait for a character in input buffer, return character in A register.
 ;;; receive is interrupt driven and buffered with a size of 128 bytes.
 chin:    .proc
@@ -73,12 +108,12 @@ l2:
         cli
         ; jmp monitor_init
 
-        ldx #0
-next:   lda hello,x
-        beq again
-        jsr chout
-        inx
-        bra next
+        jsr clear
+        lda #<hello
+        sta index_low
+        lda #>hello
+        sta index_high
+        jsr prout
 again:
         jsr chin
         cmp #$0d
@@ -86,7 +121,6 @@ again:
         jsr chout
         lda #$0a
 notcr:
-        jsr clear
         jsr chout
         bra again
         .bend
@@ -103,7 +137,7 @@ irq:
         bne do_break            ;Yes, branch
         jmp (rtc_soft_vector)   ;  no, jump to rtc ISR routine
 do_break:
-        ;jmp (brk_soft_vector)   ;Handle brk instruction
+        jmp (brk_soft_vector)   ;Handle brk instruction
         .bend
 
 irq_end: .block

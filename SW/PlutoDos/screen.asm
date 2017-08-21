@@ -1,8 +1,15 @@
-        .include "include/screen.inc"
+        .include "include/ansi_macros.inc"
 
-dc_bg   #bg
+scr_clear       #ed2
+                .byte 0
 
 clear   .proc
-        ldx #<dc_bg
-        ldy #>dc_bg
+        pha
+        lda #<scr_clear
+        sta index_low
+        lda #>scr_clear
+        sta index_high
+        jsr prout
+        pla
+        rts
         .pend

@@ -2,7 +2,7 @@
 ;
 ;MAXIM DS1511 REAL-TIME CLOCK DEFINITIONS
 ;
-nr_rtc   =32                   ;total registers ($14-$1F reserved)
+no_rtc   =32                   ;total registers ($14-$1F reserved)
 ;
 ;
 ;	register offsets...
