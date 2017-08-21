@@ -6,18 +6,18 @@
 
         .include "ascii.inc"
 
-ansi_cs .macro
-        .text a_esc, "["
-        .endm
+ansi_cs         .macro
+                .text a_esc, "["
+                .endm
 
-decawm         .macro
-		#ansi_cs
-		.text "?7h"	; auto-wrap mode on (default)
+decawm          .macro
+		        #ansi_cs
+		        .text "?7h"	; auto-wrap mode on (default)
                 .endm
 
 decawmo         .macro
-		#ansi_cs
-		.text "?7l"	; auto-wrap mode off
+        		#ansi_cs
+        		.text "?7l"	; auto-wrap mode off
                 .endm
 
 declrg          .macro
@@ -31,13 +31,13 @@ decsml          .macro
                 .endm
 
 sgr0            .macro
-		#ansi_cs
-		.text "m"	;turn off character attributes
+		        #ansi_cs
+		        .text "m"	;turn off character attributes
                 .endm
 
 sgr0m           .macro
-		#ansi_cs
-		.text "0m"	;turn off character attributes
+		        #ansi_cs
+		        .text "0m"	;turn off character attributes
                 .endm
 
 sgr3            .macro
@@ -46,79 +46,78 @@ sgr3            .macro
                 .endm
 
 sgr4            .macro
-		#ansi_cs
-		.text "4m"	;turn underline mode on
+		        #ansi_cs
+                .text "4m"	;turn underline mode on
                 .endm
 
 sgr6            .macro
-		#ansi_cs
-		.text "6m"	;select font 2 (jumbo characters)
+                #ansi_cs
+                .text "6m"	;select font 2 (jumbo characters)
                 .endm
 
 sgr7            .macro
-		#ansi_cs
-		.text "7m"	;turn reverse video on
+		        #ansi_cs
+                .text "7m"	;turn reverse video on
                 .endm
 
 sgr8            .macro
-		#ansi_cs
-		.text "8m"	;turn invisible text mode on
+		        #ansi_cs
+                .text "8m"	;turn invisible text mode on
                 .endm
 
 cuu             .macro
-		#ansi_cs
-		.text \1, "A"   ; move cursor up n lines
+                #ansi_cs
+                .text \1, "A"   ; move cursor up n lines
                 .endm
 
 cud             .macro
-		#ansi_cs
-		.text \1, "B"	; move cursor down n lines
+                #ansi_cs
+                .text \1, "B"	; move cursor down n lines
                 .endm
 
 cuf             .macro
-		#ansi_cs
-		.text \1, "C"	;move cursor right n lines
+                #ansi_cs
+                .text \1, "C"	;move cursor right n lines
                 .endm
 
 cub             .macro
-		#ansi_cs
-		.text \1, "D"	;move cursor left n lines
+                #ansi_cs
+                .text \1, "D"	;move cursor left n lines
                 .endm
 
 cursorhome      .macro
-		#ansi_cs
-		.text "H"	;move cursor to upper left corner
+		        #ansi_cs
+                .text "H"	;move cursor to upper left corner
                 .endm
 
 cursorhome1     .macro
-		#ansi_cs
-		.text ";H"	;move cursor to upper left corner
+                #ansi_cs
+                .text ";H"	;move cursor to upper left corner
                 .endm
 
 cup             .macro
-		#ansi_cs
-		.text \1, ";", \2, "H"	;move cursor to screen location v,h
+                #ansi_cs
+                .text \2, ";", \1, "H"	;move cursor to screen location v,h
                 .endm
 
 hvhome          .macro
-		#ansi_cs
-		.text "f"	;move cursor to upper left corner
+                #ansi_cs
+                .text "f"	;move cursor to upper left corner
                 .endm
 
 hvhome1          .macro
-		#ansi_cs
-		.text ";f"	;move cursor to upper left corner
+                 #ansi_cs
+                 .text ";f"	;move cursor to upper left corner
                 .endm
 
 cup1            .macro
-		#ansi_cs
-		.text \1, ";", \2, "f"	;move cursor to screen location v,h
+                #ansi_cs
+                .text \1, ";", \2, "f"	;move cursor to screen location v,h
                 .endm
 
 ind             .macro
                 .text a_esc, "D"	;move/scroll window up one line
                 .endm
-
 
 ri              .macro
                 .text a_esc, "M"	;move/scroll window down one line
@@ -136,45 +135,45 @@ decscr          .macro
                 .text a_esc, "8"	;restore cursor position and attributes
                 .endm
 
-el01 .macro
-		#ansi_cs
-		.text "K"	;clear line from cursor right
+el01            .macro
+                #ansi_cs
+                .text "K"	;clear line from cursor right
                 .endm
 
-el02 .macro
-		#ansi_cs
-		.text "0K"	;clear line from cursor right
+el02            .macro
+                #ansi_cs
+                .text "0K"	;clear line from cursor right
                 .endm
 
-el1 .macro
-		#ansi_cs
-		.text "1K"	;clear line from cursor left
+el1             .macro
+                #ansi_cs
+                .text "1K"	;clear line from cursor left
                 .endm
 
-el2 .macro
-		#ansi_cs
-		.text "2K"	;clear entire line
+el2             .macro
+                #ansi_cs
+                .text "2K"	;clear entire line
                 .endm
 
 
-ed01 .macro
-		#ansi_cs
-		.text "J"	;clear screen from cursor down
+ed01            .macro
+                #ansi_cs
+                .text "J"	;clear screen from cursor down
                 .endm
 
-ed02 .macro
-		#ansi_cs
-		.text "0J"	;clear screen from cursor down
+ed02            .macro
+                #ansi_cs
+                .text "0J"	;clear screen from cursor down
                 .endm
 
-ed1 .macro
-		#ansi_cs
-		.text "1J"	;clear screen from cursor up
+ed1             .macro
+                #ansi_cs
+                .text "1J"	;clear screen from cursor up
                 .endm
 
-ed2 .macro
-		#ansi_cs
-		.text "2J"	;clear entire screen
+ed2             .macro
+                #ansi_cs
+                .text "2J"	;clear entire screen
                 .endm
 
 

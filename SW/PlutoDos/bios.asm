@@ -1,6 +1,89 @@
-
         .include "include/bios.inc"
         .include "include/zp.inc"
+        .include "include/strings.inc"
+
+
+bin2asc:    .proc
+
+        .pend
+
+;;;
+;; DOLLAR subroutine: Send dollar sign to terminal.
+;;      Preparation:
+;;              none
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;              jsr crout
+;;;
+dollar: .proc
+        pha
+        lda #'$'
+        bra crout.sendit
+        .pend
+
+;;;
+;; CR2 subroutine: Send CR/LF twice to terminal.
+;;      Preparation:
+;;              none
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;              jsr cr2
+;;;
+cr2:    .proc
+        jsr crout
+        .pend
+
+;;;
+;; CROUT subroutine: Send CR/LF to terminal.
+;;      Preparation:
+;;              none
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;              jsr crout
+;;;
+crout:   .proc
+        pha
+        lda #a_cr
+        jsr chout
+        lda #a_lf
+sendit:
+        jsr chout
+        pla
+        rts
+        .pend
+
+;;;
+;; BELL subroutine: Send a bell sound to terminal.
+;;      Preparation:
+;;              none
+;;
+;;      Effect on registers:
+;;              a - destroyed
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;             jsr bell
+;;;
+bell:   .proc
+        lda #a_bel
+        jmp chout
+        .pend
 
 ;;;
 ;; PROUT subroutine: Send a zero terminated string to terminal.
@@ -21,7 +104,7 @@
 ;;                  sta index_high
 ;;                  jsr prout
 ;;;
-prout   .proc
+prout:   .proc
         pha                         ;Preserve A
         phy                         ;Preserve Y
         ldy #0                      ;Initialise index
@@ -93,7 +176,7 @@ l1:
         stz  0,x                ;zero ZP
         dex
         bne  l1
-        dex                     ;ldx #$ff :)
+        dex                     ;effectively ldx #$ff
         txs
         ldx  #n_soft_vectors    ;Initialise IRQ ISR soft vector table
 l2:
@@ -106,12 +189,16 @@ l2:
         jsr rtc_init
         jsr sound_init
         cli
-        ; jmp monitor_init
 
-        jsr clear
-        lda #<hello
+        jsr bell
+        lda #<clear_screen
         sta index_low
-        lda #>hello
+        lda #>clear_screen
+        sta index_high
+        jsr prout
+        lda #<welcome
+        sta index_low
+        lda #>welcome
         sta index_high
         jsr prout
 again:
@@ -123,9 +210,11 @@ again:
 notcr:
         jsr chout
         bra again
+        ; jmp monitor_init
         .bend
-hello:
-        .null "Hello World", $0a, $0d
+
+
+
 irq:
         .block
         pha

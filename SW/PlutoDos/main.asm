@@ -39,10 +39,6 @@
 .include "sound.asm"
 
 ; =============================================================================
-; screen subroutines
-.include "screen.asm"
-
-; =============================================================================
 ; utils subroutines (bcd->bin>bcd and out)
 ;.include "utils.asm"
 

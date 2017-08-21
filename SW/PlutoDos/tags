@@ -105,24 +105,27 @@ alarm	rtc.asm	/^alarm:  .proc$/;"	l
 asc2bn	time_first_row.asm	/^        asc2bn = $8114$/;"	d
 bcdouta	time_first_row.asm	/^        bcdouta = $80ff$/;"	d
 beep	time_first_row.asm	/^        beep = $8130$/;"	d
+bell	bios.asm	/^bell:   .proc$/;"	l
 bflag	xmodem.asm	/^        bflag = $a7         ; block flag$/;"	d
+bin2asc	bios.asm	/^bin2asc:    .proc$/;"	l
 blkno	xmodem.asm	/^        blkno = $a6         ; block number$/;"	d
 bn2asc	time_first_row.asm	/^        bn2asc = $8138$/;"	d
 brk_irq	bios.asm	/^brk_irq: .block$/;"	l
 chin	bios.asm	/^chin:    .proc$/;"	l
 chin	time_first_row.asm	/^        chin = $815a$/;"	d
 chout	bios.asm	/^chout:   .proc$/;"	l
-clear	screen.asm	/^clear   .proc$/;"	l
 clear_entire_screen	time_first_row.asm	/^clear_entire_screen .null "[2J"$/;"	l
 coldstart	bios.asm	/^coldstart: .block$/;"	l
 coldstart	time_first_row.asm	/^        coldstart = $8613$/;"	d
 cout	time_first_row.asm	/^        cout = $817c$/;"	d
 cout2	time_first_row.asm	/^        cout2 = $8179$/;"	d
+cr2	bios.asm	/^cr2:    .proc$/;"	l
 cr2	time_first_row.asm	/^        cr2 = $8197$/;"	d
 crc	xmodem.asm	/^        crc = $a8           ; CRC lo byte  (two byte variable)$/;"	d
 crch	xmodem.asm	/^        crch = $a9          ; CRC hi byte$/;"	d
 crchi	xmodem.asm	/^crchi:$/;"	l
 crclo	xmodem.asm	/^crclo:$/;"	l
+crout	bios.asm	/^crout:   .proc$/;"	l
 crout	time_first_row.asm	/^        crout = $819a$/;"	d
 decindex	time_first_row.asm	/^        decindex = $8189$/;"	d
 decmsd	time_first_row.asm	/^decmsd$/;"	l
@@ -131,6 +134,7 @@ delay1	via.asm	/^delay1:$/;"	l
 delay2	time_first_row.asm	/^        delay2 = $81ab$/;"	d
 delay2	via.asm	/^delay2:  .proc$/;"	l
 do_break	bios.asm	/^do_break:$/;"	l
+dollar	bios.asm	/^dollar: .proc$/;"	l
 dollar	time_first_row.asm	/^        dollar = $8192$/;"	d
 ds1511	time_first_row.asm	/^        ds1511 = $7fa0$/;"	d
 eofp	xmodem.asm	/^        eofp = TEMP2        ; end of file address pointer (2 bytes)$/;"	d
@@ -141,7 +145,6 @@ exit	bios.asm	/^exit:$/;"	l
 get_date_and_time	rtc.asm	/^get_date_and_time: .proc$/;"	l
 get_date_and_time	time_first_row.asm	/^        get_date_and_time  = $8072$/;"	d
 get_system_up_time	rtc.asm	/^get_system_up_time: .proc$/;"	l
-hello	bios.asm	/^hello:$/;"	l
 hexin	time_first_row.asm	/^        hexin = $81bc$/;"	d
 hexin2	time_first_row.asm	/^        hexin2 = $81b6$/;"	d
 hexin4	time_first_row.asm	/^        hexin4 = $81ba$/;"	d
@@ -172,7 +175,7 @@ print_date_and_time	rtc.asm	/^print_date_and_time: .proc$/;"	l
 print_date_and_time	time_first_row.asm	/^        print_date_and_time = $801f$/;"	d
 prompt	time_first_row.asm	/^        prompt = $8319$/;"	d
 prompt2	time_first_row.asm	/^        prompt2 = $8564$/;"	d
-prout	bios.asm	/^prout   .proc$/;"	l
+prout	bios.asm	/^prout:   .proc$/;"	l
 ptr	xmodem.asm	/^        ptr = INDEX         ; data pointer (two byte variable)$/;"	d
 ptrh	xmodem.asm	/^        ptrh = INDEXH       ;   "    "$/;"	d
 put_date_and_time	rtc.asm	/^put_date_and_time:  .proc$/;"	l
@@ -188,9 +191,9 @@ rtc_irq	bios.asm	/^rtc_irq: .block$/;"	l
 rtcreg	rtc.asm	/^rtcreg: .byte wr_crb          ;control B               $0f$/;"	l
 save_cursor_position_and_attributes	time_first_row.asm	/^save_cursor_position_and_attributes .text "7"$/;"	l
 savregs	time_first_row.asm	/^        savregs = $83b3$/;"	d
-scr_clear	screen.asm	/^scr_clear       #ed2$/;"	l
 send_date_and_time	time_first_row.asm	/^send_date_and_time .proc$/;"	l
 send_escape	time_first_row.asm	/^send_escape$/;"	l
+sendit	bios.asm	/^sendit:$/;"	l
 set	time_first_row.asm	/^        set = $83c1$/;"	d
 set_console_time	rtc.asm	/^set_console_time: .proc$/;"	l
 sound_init	sound.asm	/^sound_init:  .proc$/;"	l
