@@ -26,3 +26,7 @@ welcome:
 clear_screen:
         #ed2
         .byte 0
+
+destuctive_backspace:
+        .null a_bs, " ", a_bs
+        

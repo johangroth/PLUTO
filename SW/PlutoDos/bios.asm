@@ -3,8 +3,165 @@
         .include "include/strings.inc"
 
 
-bin2asc:    .proc
+;;;
+;; READ_LINE subroutine: Read characters from terminal until CR is found or maximum characters have been read.
+;                        READ_LINE recognises BS and CR and CTRL-X.
+;;                       BS - deletes the previous character
+;;                       CTRL-X - deletes all characters
+;;                       CR - subroutine done
+;;      Preparation:
+;;              a - high byte of input address
+;;              y - low byte of input address
+;;              x - maximum length of input line
+;;
+;;      Effect on registers:
+;;              a - altered
+;;              x - number of characters entered
+;;              y - altered
+;;
+;;      Example:
+;;              jsr dec_index
+;;;
+read_line:  .proc
+        sta buffer_address_high     ;Save high byte of input buffer address
+        sty buffer_address_low      ;Save low byte of input buffer address
+        stx buffer_length           ;Save maximum length
+init:
+        stz buffer_index            ;Initialise buffer index to zero
+read_loop:
+        jsr read_character          ;Read character from terminal (no echo)
+        cmp #a_cr                   ;Is character CR
+        beq exit_read_line          ;Exit if it is
+        cmp #a_bs                   ;Is character BS
+        bne l1                      ;No, branch
+        jsr backspace               ;Yes remove character from buffer and send destuctive backspace to terminal
+        bra read_loop
+l1:
+        cmp #a_can                  ;Cancel character received (aka CTRL-X)
+        bne l2                      ;If not CTRL-X, branch
+l3:
+        jsr backspace               ;Remove character from buffer and send BS to terminal
+        lda buffer_index            ;Is buffer empty
+        bne l3                      ;No, continue deleting
+        bra read_loop               ;Read next character
+        ;Not a special character
+        ; Check if buffer full
+        ; If not store character and echo
+l2:
+        ldy buffer_index            ;Is buffer
+        cpy buffer_length           ;full
+        bcc store_character         ;Branch if notcr
+        jsr bell                    ;Ring the bell, buffer is full
+        bra read_loop               ;Continue
+store_character:
+        sta (buffer_address_low),y  ;Store the character
+        jsr chout
+        inc buffer_index
+        bra read_loop
+exit_read_line:
+        jsr crout
+        ldx buffer_index
+        .pend
 
+;;;
+;; BACKSPACE subroutine: Send BS, SPC, BS to terminal and decrement the readline input buffer index.
+;;      NOTE: This subroutine should only be used by read_line as the buffer is private
+;;            to read_line.
+;;
+;;          BS - deletes the previous character
+;;      Preparation:
+;;              none
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;              jsr dec_index
+;;;
+backspace: .proc
+        pha
+        lda buffer_index            ;Check for empty buffer
+        beq bell                    ;If no characters in buffer, branch
+        dec buffer_index            ;Decrement the buffer index
+        lda #<destuctive_backspace  ;Get low byte of BS string
+        sta index_low               ;Store it in index_low
+        lda #>destuctive_backspace  ;Get high byte of BS string
+        sta index_high              ;Store it in index_high
+        jsr prout                   ;Send string to terminal
+        bra exit
+bell:
+        jsr bell
+exit:
+        pla
+        rts
+        .pend
+
+;;;
+;; READ_CHARACTER subroutine: Read a character from terminal and convert it to uppercase.
+;;
+;;      Preparation:
+;;              none
+;;
+;;      Effect on registers:
+;;              a - character in uppercase
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;              jsr read_character
+;;;
+read_character: .proc
+        jsr chin
+        and #extended_ascii_mask        ;Remove all ASCII codes over $7f
+        and #upper_to_lower_case_mask   ;Mask away lower case bit
+        rts
+        .pend
+
+
+;;;
+;; DEC_INDEX subroutine: Decrement 16 bit variable index_low, index_high
+;;      Preparation:
+;;              none
+;;
+;;      Effect on registers:
+;;              a - destroyed
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;              jsr dec_index
+;;;
+dec_index:  .proc
+        dec index_low       ;Decrement low
+        lda index_low       ;Check if decrement
+        cmp #$ff            ;wrapped around from $00 to $ff
+        bne done            ;if not, branch
+        dec index_high      ;  yes, decrement high
+done:
+        rts
+        .pend
+
+;;;
+;; INC_INDEX subroutine: Increment 16 bit variable index_low, index_high.
+;;      Preparation:
+;;              none
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;              jsr inc_index
+;;;
+inc_index:  .proc
+        inc index_low       ;Increment low
+        bne done            ;if no wrap-around from $ff to $00 take branch
+        inc index_high      ;  yes, wrap-around so increment high
+done:
+        rts
         .pend
 
 ;;;
@@ -82,7 +239,7 @@ sendit:
 ;;;
 bell:   .proc
         lda #a_bel
-        jmp chout
+        bra chout
         .pend
 
 ;;;
@@ -190,6 +347,9 @@ l2:
         jsr sound_init
         cli
 
+;;;
+;; init code of termnial
+;;;
         jsr bell
         lda #<clear_screen
         sta index_low
@@ -201,6 +361,11 @@ l2:
         lda #>welcome
         sta index_high
         jsr prout
+        lda #>input_buffer
+        ldy #<input_buffer
+        ldx #6
+        jsr read_line
+
 again:
         jsr chin
         cmp #$0d
