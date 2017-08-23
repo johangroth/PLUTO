@@ -233,7 +233,7 @@ sendit:
 ;;              none
 ;;
 ;;      Effect on registers:
-;;              a - destroyed
+;;              a - not preserved
 ;;              x - entry value
 ;;              y - entry value
 ;;
