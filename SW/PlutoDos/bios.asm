@@ -15,12 +15,15 @@
 ;;              x - maximum length of input line
 ;;
 ;;      Effect on registers:
-;;              a - altered
+;;              a - not preserved
 ;;              x - number of characters entered
-;;              y - altered
+;;              y - not preserved
 ;;
 ;;      Example:
-;;              jsr dec_index
+;;              lda #>in_buffer
+;;              ldy #<in_buffer
+;;              ldx #4
+;;              jsr read_line
 ;;;
 read_line:  .proc
         sta buffer_address_high     ;Save high byte of input buffer address
@@ -37,7 +40,7 @@ read_loop:
         jsr backspace               ;Yes remove character from buffer and send destuctive backspace to terminal
         bra read_loop
 l1:
-        cmp #a_can                  ;Cancel character received (aka CTRL-X)
+        cmp #a_can                  ;Cancel character(s) received (aka CTRL-X)
         bne l2                      ;If not CTRL-X, branch
 l3:
         jsr backspace               ;Remove character from buffer and send BS to terminal
@@ -50,7 +53,7 @@ l3:
 l2:
         ldy buffer_index            ;Is buffer
         cpy buffer_length           ;full
-        bcc store_character         ;Branch if notcr
+        bcc store_character         ;Branch if room in buffer
         jsr bell                    ;Ring the bell, buffer is full
         bra read_loop               ;Continue
 store_character:
@@ -83,7 +86,7 @@ exit_read_line:
 backspace: .proc
         pha
         lda buffer_index            ;Check for empty buffer
-        beq bell                    ;If no characters in buffer, branch
+        beq sound_bell              ;If no characters in buffer, branch
         dec buffer_index            ;Decrement the buffer index
         lda #<destuctive_backspace  ;Get low byte of BS string
         sta index_low               ;Store it in index_low
@@ -91,7 +94,7 @@ backspace: .proc
         sta index_high              ;Store it in index_high
         jsr prout                   ;Send string to terminal
         bra exit
-bell:
+sound_bell:
         jsr bell
 exit:
         pla
