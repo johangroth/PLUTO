@@ -5,7 +5,7 @@
 ;;;
 ;;  DISPLAY_HEX: Sends to terminal 4 binary numbers converted to ASCII hex, supressing any leading zeroes.
 ;;
-;;   Preparatory Ops: number_buffer contains binary numbers to display in hex.
+;;       Preparation: number_buffer contains binary numbers to display in hex.
 ;;
 ;;   Returned Values: a: entry value
 ;;                    x: entry value
@@ -20,6 +20,7 @@ display_hex: .proc
         pha                     ;Preserve a
         phx                     ;Preserve x
         phy                     ;Preserve y
+        rmb 0,leading_zero      ;Flag for leading zeroes in number_buffer
         ldx #0                  ;Initialise index in number_buffer
 next_number:
         lda number_buffer,x     ;Get first number
@@ -44,7 +45,7 @@ next_number:
 ;;;
 ;;  HEX_TO_ASCII: Converts a binary number $0-$f to its ASCII equivalent and sends it to the terminal.
 ;;
-;;   Preparatory Ops: a contains number to be converted
+;;       Preparation: a contains number to be converted
 ;;
 ;;   Returned Values: a: used
 ;;                    x: entry value
@@ -57,16 +58,19 @@ next_number:
 ;;
 ;;;
 hex_to_ascii: .proc
-        beq exit    ;a is zero so supress any output
-        tay         ;Preserve original number
+        bbs 0, leading_zero, convert    ;Branch if bit 1 in leading_zero is set, ie no more leading zeroes.
+        beq exit                        ;Branch if leading_zero is clear and a is zero to supress any output
+        smb 0, leading_zero                ;end of leading zeroes
+convert:
+        tay                             ;Preserve original number
         clc
-        adc #$30    ;Binary 0-9 to ASCII 0-9
-        cpy #$0a    ;If number < $0a ...
-        bcc done    ;branch
+        adc #$30                        ;Binary 0-9 to ASCII 0-9
+        cpy #$0a                        ;If number < $0a ...
+        bcc done                        ;branch
         clc
-        adc #$07    ;Add $7 so $a - $f becomes ASCII A-F
+        adc #$07                        ;Add $7 so $a - $f becomes ASCII A-F
 done:
-        jsr chout
+        jsr chout                       ;Send to terminal
 exit:
         rts
         .pend

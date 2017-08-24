@@ -117,6 +117,7 @@ chout	bios.asm	/^chout:   .proc$/;"	l
 clear_entire_screen	time_first_row.asm	/^clear_entire_screen .null "[2J"$/;"	l
 coldstart	bios.asm	/^coldstart: .block$/;"	l
 coldstart	time_first_row.asm	/^        coldstart = $8613$/;"	d
+convert	bios.asm	/^convert:$/;"	l
 cout	time_first_row.asm	/^        cout = $817c$/;"	d
 cout2	time_first_row.asm	/^        cout2 = $8179$/;"	d
 cr2	bios.asm	/^cr2:    .proc$/;"	l
