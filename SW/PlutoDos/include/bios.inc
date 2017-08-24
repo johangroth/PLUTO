@@ -19,4 +19,3 @@ initial_soft_vectors:
         out_buffer = $280
 
         extended_ascii_mask = %01111111
-        upper_to_lower_case_mask = %11011111

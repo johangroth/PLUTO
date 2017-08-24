@@ -28,5 +28,7 @@
         buffer_address_high = zp_start + $22    ; High address pointer to input buffer. Used by read_line.
         buffer_length = zp_start + $23          ; Number of characters read_line should read (max = 16)
         buffer_index = zp_start + $24           ; Pointer to current character in input buffer. Used by read_line.
+
+        number_buffer = zp_start + $25          ; An 4 byte buffer for number conversion
         
         stack_page  = $100

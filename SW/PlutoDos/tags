@@ -134,6 +134,7 @@ delay1	time_first_row.asm	/^        delay1 = $81a7$/;"	d
 delay1	via.asm	/^delay1:$/;"	l
 delay2	time_first_row.asm	/^        delay2 = $81ab$/;"	d
 delay2	via.asm	/^delay2:  .proc$/;"	l
+display_hex	bios.asm	/^display_hex: .proc$/;"	l
 do_break	bios.asm	/^do_break:$/;"	l
 dollar	bios.asm	/^dollar: .proc$/;"	l
 dollar	time_first_row.asm	/^        dollar = $8192$/;"	d
@@ -148,6 +149,7 @@ exit_read_line	bios.asm	/^exit_read_line:$/;"	l
 get_date_and_time	rtc.asm	/^get_date_and_time: .proc$/;"	l
 get_date_and_time	time_first_row.asm	/^        get_date_and_time  = $8072$/;"	d
 get_system_up_time	rtc.asm	/^get_system_up_time: .proc$/;"	l
+hex_to_ascii	bios.asm	/^hex_to_ascii: .proc$/;"	l
 hexin	time_first_row.asm	/^        hexin = $81bc$/;"	d
 hexin2	time_first_row.asm	/^        hexin2 = $81b6$/;"	d
 hexin4	time_first_row.asm	/^        hexin4 = $81ba$/;"	d
@@ -167,9 +169,11 @@ l2	rtc.asm	/^l2:$/;"	l
 l3	bios.asm	/^l3:$/;"	l
 lastblk	xmodem.asm	/^        lastblk = $a5       ; flag for last block$/;"	d
 loop	via.asm	/^loop:$/;"	l
+more	bios.asm	/^more:$/;"	l
 move_cursor_to_screen_location_v_h	time_first_row.asm	/^move_cursor_to_screen_location_v_h  .null "[<V>;<H>H"$/;"	l
 n_rtcreg	rtc.asm	/^n_rtcreg =*-rtcreg$/;"	l
 next	via.asm	/^next:$/;"	l
+next_number	bios.asm	/^next_number:$/;"	l
 nmi	bios.asm	/^nmi:$/;"	l
 nmon	time_first_row.asm	/^        nmon = $867d$/;"	d
 notcr	bios.asm	/^notcr:$/;"	l

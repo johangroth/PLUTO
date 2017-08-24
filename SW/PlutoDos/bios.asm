@@ -2,10 +2,79 @@
         .include "include/zp.inc"
         .include "include/strings.inc"
 
+;;;
+;;  DISPLAY_HEX: Sends to terminal 4 binary numbers converted to ASCII hex, supressing any leading zeroes.
+;;
+;;   Preparatory Ops: number_buffer contains binary numbers to display in hex.
+;;
+;;   Returned Values: a: entry value
+;;                    x: entry value
+;;                    y: entry value
+;;
+;;
+;;   Examples:
+;;             jsr display_hex  ;call subroutine
+;;
+;;;
+display_hex: .proc
+        pha                     ;Preserve a
+        phx                     ;Preserve x
+        phy                     ;Preserve y
+        ldx #0                  ;Initialise index in number_buffer
+next_number:
+        lda number_buffer,x     ;Get first number
+        pha                     ;Remember original number
+        lsr                     ;Move high nybble to low nybble
+        lsr
+        lsr
+        lsr
+        jsr hex_to_ascii        ;Convert and send ASCII equivalent of digit to terminal
+        pla                     ;Restore original number
+        and #$f                 ;Get rid of high nybble
+        jsr hex_to_ascii        ;Convert and send ASCII equivalent of digit to terminal
+        inx                     ;Increment index
+        cpx #4                  ;Last number?
+        bne next_number         ;Branch if not
+        ply                     ;Restore y
+        plx                     ;Restore x
+        pla                     ;Restore a
+        rts
+        .pend
+
+;;;
+;;  HEX_TO_ASCII: Converts a binary number $0-$f to its ASCII equivalent and sends it to the terminal.
+;;
+;;   Preparatory Ops: a contains number to be converted
+;;
+;;   Returned Values: a: used
+;;                    x: entry value
+;;                    y: used
+;;
+;;
+;;   Examples:
+;;              lda #$0a
+;;              jsr hex_to_ascii  ;convert and send ASCII character to terminal
+;;
+;;;
+hex_to_ascii: .proc
+        beq exit    ;a is zero so supress any output
+        tay         ;Preserve original number
+        clc
+        adc #$30    ;Binary 0-9 to ASCII 0-9
+        cpy #$0a    ;If number < $0a ...
+        bcc done    ;branch
+        clc
+        adc #$07    ;Add $7 so $a - $f becomes ASCII A-F
+done:
+        jsr chout
+exit:
+        rts
+        .pend
+
 
 ;;;
 ;; READ_LINE subroutine: Read characters from terminal until CR is found or maximum characters have been read.
-;                        READ_LINE recognises BS and CR and CTRL-X.
+;;                       READ_LINE recognises BS and CR and CTRL-X.
 ;;                       BS - deletes the previous character
 ;;                       CTRL-X - deletes all characters
 ;;                       CR - subroutine done
@@ -19,7 +88,7 @@
 ;;              x - number of characters entered
 ;;              y - not preserved
 ;;
-;;      Example:
+;;      Example: Read four characters from terminal and place them in in_buffer.
 ;;              lda #>in_buffer
 ;;              ldy #<in_buffer
 ;;              ldx #4
@@ -118,7 +187,11 @@ exit:
 read_character: .proc
         jsr chin
         and #extended_ascii_mask        ;Remove all ASCII codes over $7f
-        and #upper_to_lower_case_mask   ;Mask away lower case bit
+        cmp #'a'                        ;Is character less 'a'
+        bcc exit                        ;branch if yes, ie number, symbol, uppercase or control character
+        sec
+        sbc #$20                        ;Otherwise substract $20 to convert character to uppercase
+exit:
         rts
         .pend
 
@@ -364,11 +437,15 @@ l2:
         lda #>welcome
         sta index_high
         jsr prout
-        lda #>input_buffer
-        ldy #<input_buffer
-        ldx #6
-        jsr read_line
-
+        ldx #$4
+        lda #$ff
+more:
+        sta number_buffer-1,x
+        dex
+        bne more
+        jsr display_hex
+        jsr crout
+        jsr dollar
 again:
         jsr chin
         cmp #$0d

@@ -1,7 +1,7 @@
 ;;;
 ;;  subroutine: EXPLANATION
 ;;
-;;   Preparatory Ops: x: inparameter
+;;   Preparation:     x: inparameter
 ;;                    y: inparameter
 ;;
 ;;   Returned Values: a: entry value
