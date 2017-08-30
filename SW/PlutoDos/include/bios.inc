@@ -1,10 +1,10 @@
         brk_irq_mask = %00010000
         soft_vector_table = $300
         brk_soft_vector = soft_vector_table
-        rtc_soft_vector = soft_vector_table + 2
-        via1_soft_vector = soft_vector_table + 4
-        via2_soft_vector = soft_vector_table + 6
-        acia_soft_vector = soft_vector_table + 8
+        rtc_soft_vector = soft_vector_table + $2
+        via1_soft_vector = soft_vector_table + $4
+        via2_soft_vector = soft_vector_table + $6
+        acia_soft_vector = soft_vector_table + $8
         monitor_soft_vector = soft_vector_table + $a
 
 initial_soft_vectors:

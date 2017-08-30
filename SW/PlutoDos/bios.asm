@@ -3,6 +3,31 @@
         .include "include/strings.inc"
 
 ;;;
+;;  INPUT_HEX: Request 1-8 ASCII hex numbers and convert to binary.
+;;
+;;       Preparation:
+;;
+;;   Returned Values: a: entry value
+;;                    x: entry value
+;;                    y: entry value
+;;
+;;
+;;   Examples:
+;;             jsr input_hex  ;call subroutine
+;;
+;;;
+input_hex:  .proc
+        pha
+        phy
+        phx
+        ;; TODO there should be some code here!
+        ;; TODO
+        plx
+        ply
+        pla
+        .pend
+
+;;;
 ;;  DISPLAY_HEX: Sends to terminal 4 binary numbers converted to ASCII hex, supressing any leading zeroes.
 ;;
 ;;       Preparation: number_buffer contains binary numbers to display in hex.
@@ -20,7 +45,7 @@ display_hex: .proc
         pha                     ;Preserve a
         phx                     ;Preserve x
         phy                     ;Preserve y
-        rmb 0,leading_zero      ;Flag for leading zeroes in number_buffer
+        rmb 0,control_flags     ;Flag for leading zeroes in number_buffer
         ldx #0                  ;Initialise index in number_buffer
 next_number:
         lda number_buffer,x     ;Get first number
@@ -43,7 +68,8 @@ next_number:
         .pend
 
 ;;;
-;;  HEX_TO_ASCII: Converts a binary number $0-$f to its ASCII equivalent and sends it to the terminal.
+;;  HEX_TO_ASCII: Converts a binary number $0-$f to its ASCII equivalent and sends it to the terminal
+;;                provided it is not a leading zero.
 ;;
 ;;       Preparation: a contains number to be converted
 ;;
@@ -58,9 +84,9 @@ next_number:
 ;;
 ;;;
 hex_to_ascii: .proc
-        bbs 0, leading_zero, convert    ;Branch if bit 1 in leading_zero is set, ie no more leading zeroes.
+        bbs 0, control_flags, convert   ;Branch if bit 0 in leading_zero is set, ie no more leading zeroes.
         beq exit                        ;Branch if leading_zero is clear and a is zero to supress any output
-        smb 0, leading_zero                ;end of leading zeroes
+        smb 0, control_flags            ;end of leading zeroes
 convert:
         tay                             ;Preserve original number
         clc
@@ -75,9 +101,9 @@ exit:
         rts
         .pend
 
-
 ;;;
 ;; READ_LINE subroutine: Read characters from terminal until CR is found or maximum characters have been read.
+;;                       Derived work from "6502 ASSEMBLY LANGUAGE SUBROUTINES", ISBN: 0-931988-59-4
 ;;                       READ_LINE recognises BS and CR and CTRL-X.
 ;;                       BS - deletes the previous character
 ;;                       CTRL-X - deletes all characters
@@ -88,9 +114,9 @@ exit:
 ;;              x - maximum length of input line
 ;;
 ;;      Effect on registers:
-;;              a - not preserved
-;;              x - number of characters entered
-;;              y - not preserved
+;;              a - used
+;;              x - will hold number of characters entered at exit
+;;              y - used
 ;;
 ;;      Example: Read four characters from terminal and place them in in_buffer.
 ;;              lda #>in_buffer
@@ -445,6 +471,7 @@ l2:
         lda #$ff
 more:
         sta number_buffer-1,x
+        eor #$ff
         dex
         bne more
         jsr display_hex

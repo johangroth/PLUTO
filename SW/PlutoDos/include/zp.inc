@@ -30,6 +30,17 @@
         buffer_index = zp_start + $24           ; Pointer to current character in input buffer. Used by read_line.
 
         number_buffer = zp_start + $25          ; A 4 byte buffer for number conversion
-        leading_zero = number_buffer + $4       ; Flag for leading zeroes in number buffer
+
+        ;; This flag byte holds boolean flags for various subroutines.
+        ;; bit 0    - checked by display_hex (also hex_to_ascii which is a private proc of display_hex).
+        ;;              0 indicates supression of leading zeroes
+        ;;              1 indicates display hex number, ie no more leading zeroes
+        ;;          - checked by read_line
+        ;;              0 indicates
+        ;;              1 indicates
+        ;; bit 1    - checked by read_line
+        ;;              0 indicates
+        ;;              1 indicates
+        control_flags = zp_start + $29
 
         stack_page  = $100

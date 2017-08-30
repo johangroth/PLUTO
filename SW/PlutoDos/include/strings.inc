@@ -16,9 +16,7 @@ welcome:
         #cup "4", "7"
         .text "Hardware Version: "
         .text "1.0"
-        .text " ("
-        .text "13/06/2017"
-        .text ")"
+        .text " (13/06/2017)"
         #cup "0","36"
         .text "$ "
         .byte 0
@@ -27,5 +25,5 @@ clear_screen:
         #ed2
         .byte 0
 
-destuctive_backspace:
+destructive_backspace:
         .null a_bs, " ", a_bs

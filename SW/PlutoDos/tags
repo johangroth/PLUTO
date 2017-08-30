@@ -157,6 +157,7 @@ hexin4	time_first_row.asm	/^        hexin4 = $81ba$/;"	d
 inc_index	bios.asm	/^inc_index:  .proc$/;"	l
 incindex	time_first_row.asm	/^        incindex = $824e$/;"	d
 init	bios.asm	/^init:$/;"	l
+input_hex	bios.asm	/^input_hex:  .proc$/;"	l
 interrupt	time_first_row.asm	/^        interrupt = $876d$/;"	d
 irq	bios.asm	/^irq:$/;"	l
 irq_end	bios.asm	/^irq_end: .block$/;"	l
