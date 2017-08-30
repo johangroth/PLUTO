@@ -3,7 +3,7 @@
         .include "include/strings.inc"
 
 ;;;
-;;  INPUT_HEX: Request 1-8 ASCII hex numbers and convert to binary.
+;;  PRINT_SPACE: Send a space character to terminal.
 ;;
 ;;       Preparation:
 ;;
@@ -13,20 +13,78 @@
 ;;
 ;;
 ;;   Examples:
+;;             jsr print_space  ;call subroutine
+;;
+;;;
+print_space:    .proc
+            pha
+            lda #' '
+            jsr chout
+            pla
+            rts
+            .pend
+
+;;;
+;;  INPUT_HEX: Request 1-8 ASCII hex numbers and convert to binary.
+;;
+;;       Preparation:
+;;                    x: number of hex characters to read. Max 8.
+;;
+;;   Returned Values: a: used
+;;                    x: number of characters read
+;;                    y: used
+;;
+;;
+;;   Examples:
+;;             ldx #2         ;read two characters, ie one byte
 ;;             jsr input_hex  ;call subroutine
 ;;
 ;;;
 input_hex:  .proc
-        pha
-        phy
-        phx
-        ;; TODO there should be some code here!
-        ;; TODO
-        plx
-        ply
-        pla
+        lda #>input_buffer
+        ldy #<input_buffer
+        rmb 0,control_flags     ;Set flags
+        rmb 1,control_flags     ;for hex input
+        jsr read_line           ;x will contain number of characters read
+        beq exit                ;Branch if buffer is empty
+        jsr input_buffer_to_binary  ;ASCII in input_buffer -> binary in number_buffer
+exit:
+        rts
         .pend
 
+;;;
+;;  INPUT_BUFFER_TO_BINARY: Convert ASCII numbers in input_buffer and convert to binary.
+;;
+;;       Preparation:
+;;                    x: number of characters in input_buffer.
+;;
+;;   Returned Values: a: used
+;;                    x: number of characters read
+;;                    y: used
+;;
+;;
+;;   Examples:
+;;             ldx #2         ;convert two characters, ie one byte
+;;             jsr input_hex  ;call subroutine
+;;
+;;;
+input_buffer_to_binary: .proc
+        phx
+        lda input_buffer,x
+        jsr ascii_to_binary
+        sta number_buffer,y
+        dex
+        plx
+        rts
+ascii_to_binary:
+        sec
+        sbc #'0'
+        cmp #$a
+        bcc done
+        sbc #$7
+done:
+        rts
+        .pend
 ;;;
 ;;  DISPLAY_HEX: Sends to terminal 4 binary numbers converted to ASCII hex, supressing any leading zeroes.
 ;;
@@ -118,7 +176,9 @@ exit:
 ;;              x - will hold number of characters entered at exit
 ;;              y - used
 ;;
-;;      Example: Read four characters from terminal and place them in in_buffer.
+;;      Example: Read four hex characters from terminal and place them in in_buffer.
+;;              rmb 0,control_flags
+;;              rmb 0,control_flags
 ;;              lda #>in_buffer
 ;;              ldy #<in_buffer
 ;;              ldx #4
@@ -146,13 +206,27 @@ l3:
         lda buffer_index            ;Is buffer empty
         bne l3                      ;No, continue deleting
         bra read_loop               ;Read next character
-        ;Not a special character
+        ; Not a special character
         ; Check if buffer full
         ; If not store character and echo
 l2:
+        bbs 1,control_flags,check_buffer    ;Bit 1 is set which means any character is allowed, so try to store it
+        bbs 0,control_flags,decimal_input   ;Bit 0 is set which means decimal input
+        ; Hexdecimal input
+        cmp #'A'
+        bcc decimal_input           ;Branch if character is < 'A' (check 0-9)
+        cmp #'F'+1
+        bcc check_buffer            ;Branch if character is < 'F'+1
+decimal_input:
+        cmp #'0'
+        bcc ring_bell               ;Branch if character is < '0'
+        cmp #'9'+1
+        bcs ring_bell               ;Branch if character is >= '9'+1
+check_buffer:
         ldy buffer_index            ;Is buffer
         cpy buffer_length           ;full
         bcc store_character         ;Branch if room in buffer
+ring_bell:
         jsr bell                    ;Ring the bell, buffer is full
         bra read_loop               ;Continue
 store_character:
@@ -163,6 +237,7 @@ store_character:
 exit_read_line:
         jsr crout
         ldx buffer_index
+        rts
         .pend
 
 ;;;
@@ -187,9 +262,9 @@ backspace: .proc
         lda buffer_index            ;Check for empty buffer
         beq sound_bell              ;If no characters in buffer, branch
         dec buffer_index            ;Decrement the buffer index
-        lda #<destuctive_backspace  ;Get low byte of BS string
+        lda #<destructive_backspace ;Get low byte of BS string
         sta index_low               ;Store it in index_low
-        lda #>destuctive_backspace  ;Get high byte of BS string
+        lda #>destructive_backspace ;Get high byte of BS string
         sta index_high              ;Store it in index_high
         jsr prout                   ;Send string to terminal
         bra exit
@@ -477,6 +552,9 @@ more:
         jsr display_hex
         jsr crout
         jsr dollar
+        jsr print_space
+        ldx #2
+        jsr input_hex
 again:
         jsr chin
         cmp #$0d

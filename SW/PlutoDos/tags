@@ -103,6 +103,7 @@ acia_irq	acia.asm	/^acia_irq: .block$/;"	l
 again	bios.asm	/^again:$/;"	l
 alarm	rtc.asm	/^alarm:  .proc$/;"	l
 asc2bn	time_first_row.asm	/^        asc2bn = $8114$/;"	d
+ascii_to_binary	bios.asm	/^ascii_to_binary:$/;"	l
 backspace	bios.asm	/^backspace: .proc$/;"	l
 bcdouta	time_first_row.asm	/^        bcdouta = $80ff$/;"	d
 beep	time_first_row.asm	/^        beep = $8130$/;"	d
@@ -111,6 +112,7 @@ bflag	xmodem.asm	/^        bflag = $a7         ; block flag$/;"	d
 blkno	xmodem.asm	/^        blkno = $a6         ; block number$/;"	d
 bn2asc	time_first_row.asm	/^        bn2asc = $8138$/;"	d
 brk_irq	bios.asm	/^brk_irq: .block$/;"	l
+check_buffer	bios.asm	/^check_buffer:$/;"	l
 chin	bios.asm	/^chin:    .proc$/;"	l
 chin	time_first_row.asm	/^        chin = $815a$/;"	d
 chout	bios.asm	/^chout:   .proc$/;"	l
@@ -129,6 +131,7 @@ crclo	xmodem.asm	/^crclo:$/;"	l
 crout	bios.asm	/^crout:   .proc$/;"	l
 crout	time_first_row.asm	/^        crout = $819a$/;"	d
 dec_index	bios.asm	/^dec_index:  .proc$/;"	l
+decimal_input	bios.asm	/^decimal_input:$/;"	l
 decindex	time_first_row.asm	/^        decindex = $8189$/;"	d
 decmsd	time_first_row.asm	/^decmsd$/;"	l
 delay1	time_first_row.asm	/^        delay1 = $81a7$/;"	d
@@ -157,6 +160,7 @@ hexin4	time_first_row.asm	/^        hexin4 = $81ba$/;"	d
 inc_index	bios.asm	/^inc_index:  .proc$/;"	l
 incindex	time_first_row.asm	/^        incindex = $824e$/;"	d
 init	bios.asm	/^init:$/;"	l
+input_buffer_to_binary	bios.asm	/^input_buffer_to_binary: .proc$/;"	l
 input_hex	bios.asm	/^input_hex:  .proc$/;"	l
 interrupt	time_first_row.asm	/^        interrupt = $876d$/;"	d
 irq	bios.asm	/^irq:$/;"	l
@@ -185,6 +189,7 @@ prbyte	time_first_row.asm	/^        prbyte = $82fb$/;"	d
 prindx	time_first_row.asm	/^        prindx = $830c$/;"	d
 print_date_and_time	rtc.asm	/^print_date_and_time: .proc$/;"	l
 print_date_and_time	time_first_row.asm	/^        print_date_and_time = $801f$/;"	d
+print_space	bios.asm	/^print_space:    .proc$/;"	l
 prompt	time_first_row.asm	/^        prompt = $8319$/;"	d
 prompt2	time_first_row.asm	/^        prompt2 = $8564$/;"	d
 prout	bios.asm	/^prout:   .proc$/;"	l
@@ -201,6 +206,7 @@ resregs	time_first_row.asm	/^        resregs = $83ba$/;"	d
 restore_cursor_position_and_attributes	time_first_row.asm	/^restore_cursor_position_and_attributes .text "8"$/;"	l
 retry	xmodem.asm	/^        retry = $ae         ; retry counter$/;"	d
 retry2	xmodem.asm	/^        retry2 = $af        ; 2nd counter$/;"	d
+ring_bell	bios.asm	/^ring_bell:$/;"	l
 rtc_init	rtc.asm	/^rtc_init: .proc$/;"	l
 rtc_irq	bios.asm	/^rtc_irq: .block$/;"	l
 rtcreg	rtc.asm	/^rtcreg: .byte wr_crb          ;control B               $0f$/;"	l
