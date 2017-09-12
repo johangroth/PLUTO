@@ -36,6 +36,8 @@ print_space:    .proc
 ;;
 ;;
 ;;   Examples:
+;;             rmb 0,control_flags
+;;             rmb 1,control_flags
 ;;             ldx #2         ;read two characters, ie one byte
 ;;             jsr input_hex  ;call subroutine
 ;;
@@ -43,10 +45,10 @@ print_space:    .proc
 input_hex:  .proc
         lda #>input_buffer
         ldy #<input_buffer
-        rmb 0,control_flags     ;Set flags
-        rmb 1,control_flags     ;for hex input
-        jsr read_line           ;x will contain number of characters read
-        beq exit                ;Branch if buffer is empty
+        rmb 0,control_flags         ;Set flags
+        rmb 1,control_flags         ;for hex input
+        jsr read_line               ;x will contain number of characters read
+        beq exit                    ;Branch if buffer is empty
         jsr input_buffer_to_binary  ;ASCII in input_buffer -> binary in number_buffer
 exit:
         rts
@@ -58,9 +60,9 @@ exit:
 ;;       Preparation:
 ;;                    x: number of characters in input_buffer.
 ;;
-;;   Returned Values: a: used
-;;                    x: number of characters read
-;;                    y: used
+;;   Returned Values: a: entry value
+;;                    x: entry value
+;;                    y: entry value
 ;;
 ;;
 ;;   Examples:
@@ -69,20 +71,39 @@ exit:
 ;;
 ;;;
 input_buffer_to_binary: .proc
-        phx
-        lda input_buffer,x
-        jsr ascii_to_binary
+        pha                                 ;Preserve A
+        phx                                 ;Preserve X
+        phy                                 ;Preserve Y
+        rmb 2,control_flags                 ;Reset flag whether we are converting low or high nybble
+        txa                                 ;Transfer number of characters to A
+        lsr                                 ;Half it to get number of bytes
+        tay                                 ;Store the index to number buffer in Y
+more:
+        lda input_buffer,x                  ;Get first character
+        jsr ascii_to_binary                 ;Convert it to binary
+        bbs 2,control_flags,high_nybble     ;Branch if we need to ORA the low nybble into the high nybble
+        bra done                            ; if no, we're dealing with low nybble
+high_nybble:
+        ora number_buffer,y                 ;OR in high nybble into low nybble
+        dey                                 ;decrease the index to the number
+        dex                                 ;decrease the index to the input buffer
+done:
         sta number_buffer,y
+
         dex
+        bne more
+        ply
         plx
+        pla
         rts
-ascii_to_binary:
+        .pend
+ascii_to_binary: .proc
         sec
         sbc #'0'
         cmp #$a
-        bcc done
+        bcc exit
         sbc #$7
-done:
+exit:
         rts
         .pend
 ;;;
@@ -411,7 +432,7 @@ sendit:
 ;;              none
 ;;
 ;;      Effect on registers:
-;;              a - not preserved
+;;              a - used
 ;;              x - entry value
 ;;              y - entry value
 ;;

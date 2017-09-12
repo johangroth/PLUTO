@@ -103,7 +103,7 @@ acia_irq	acia.asm	/^acia_irq: .block$/;"	l
 again	bios.asm	/^again:$/;"	l
 alarm	rtc.asm	/^alarm:  .proc$/;"	l
 asc2bn	time_first_row.asm	/^        asc2bn = $8114$/;"	d
-ascii_to_binary	bios.asm	/^ascii_to_binary:$/;"	l
+ascii_to_binary	bios.asm	/^ascii_to_binary: .proc$/;"	l
 backspace	bios.asm	/^backspace: .proc$/;"	l
 bcdouta	time_first_row.asm	/^        bcdouta = $80ff$/;"	d
 beep	time_first_row.asm	/^        beep = $8130$/;"	d
@@ -157,6 +157,7 @@ hex_to_ascii	bios.asm	/^hex_to_ascii: .proc$/;"	l
 hexin	time_first_row.asm	/^        hexin = $81bc$/;"	d
 hexin2	time_first_row.asm	/^        hexin2 = $81b6$/;"	d
 hexin4	time_first_row.asm	/^        hexin4 = $81ba$/;"	d
+high_nybble	bios.asm	/^high_nybble:$/;"	l
 inc_index	bios.asm	/^inc_index:  .proc$/;"	l
 incindex	time_first_row.asm	/^        incindex = $824e$/;"	d
 init	bios.asm	/^init:$/;"	l
