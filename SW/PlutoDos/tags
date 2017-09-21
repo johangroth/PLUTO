@@ -133,6 +133,7 @@ crout	bios.asm	/^crout:   .proc$/;"	l
 crout	time_first_row.asm	/^        crout = $819a$/;"	d
 dec_index	bios.asm	/^dec_index:  .proc$/;"	l
 decimal_input	bios.asm	/^decimal_input:$/;"	l
+decimal_input_buffer_to_binary	bios.asm	/^decimal_input_buffer_to_binary: .proc$/;"	l
 decindex	time_first_row.asm	/^        decindex = $8189$/;"	d
 decmsd	time_first_row.asm	/^decmsd$/;"	l
 delay1	time_first_row.asm	/^        delay1 = $81a7$/;"	d
@@ -162,6 +163,7 @@ inc_index	bios.asm	/^inc_index:  .proc$/;"	l
 incindex	time_first_row.asm	/^        incindex = $824e$/;"	d
 init	bios.asm	/^init:$/;"	l
 input_buffer_to_binary	bios.asm	/^input_buffer_to_binary: .proc$/;"	l
+input_dec	bios.asm	/^input_dec: .proc$/;"	l
 input_hex	bios.asm	/^input_hex:  .proc$/;"	l
 interrupt	time_first_row.asm	/^        interrupt = $876d$/;"	d
 irq	bios.asm	/^irq:$/;"	l

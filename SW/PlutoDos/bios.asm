@@ -25,6 +25,54 @@ print_space:    .proc
             .pend
 
 ;;;
+;;  INPUT_DEC: Request 1-8 ASCII decimal numbers and convert to binary.
+;;
+;;       Preparation:
+;;                    x: number of decimal characters to read. Max 8.
+;;
+;;   Returned Values: a: used
+;;                    x: number of characters read
+;;                    y: used
+;;
+;;
+;;   Examples:
+;;             ldx #2         ;read two characters, ie one byte
+;;             jsr input_dec  ;call subroutine
+;;
+;;;
+input_dec: .proc
+        smb 0,control_flags
+        rmb 1,control_flags
+        lda #>input_buffer
+        ldy #<input_buffer
+        jsr read_line
+        beq exit
+        jsr decimal_input_buffer_to_binary
+exit:
+        rts
+        .pend
+
+;;;
+;;  DECIMAL_INPUT_BUFFER_TO_BINARY: Convert decimal ASCII numbers in input_buffer to binary.
+;;
+;;       Preparation:
+;;                    x: number of characters in input_buffer..
+;;
+;;   Returned Values: a: entry value
+;;                    x: entry value
+;;                    y: entry value
+;;        number_buffer: binary numbers
+;;
+;;   Examples:
+;;             ldx #2                                   ;convert two characters, ie one byte
+;;             jsr decimal_input_buffer_to_binary       ;call subroutine
+;;
+;;;
+decimal_input_buffer_to_binary: .proc
+
+        .pend
+
+;;;
 ;;  INPUT_HEX: Request 1-8 ASCII hex numbers and convert to binary.
 ;;
 ;;       Preparation:
@@ -36,20 +84,18 @@ print_space:    .proc
 ;;
 ;;
 ;;   Examples:
-;;             rmb 0,control_flags
-;;             rmb 1,control_flags
 ;;             ldx #2         ;read two characters, ie one byte
 ;;             jsr input_hex  ;call subroutine
 ;;
 ;;;
 input_hex:  .proc
-        lda #>input_buffer
-        ldy #<input_buffer
         rmb 0,control_flags         ;Set flags
         rmb 1,control_flags         ;for hex input
+        lda #>input_buffer
+        ldy #<input_buffer
         jsr read_line               ;x will contain number of characters read
         beq exit                    ;Branch if buffer is empty
-        jsr input_buffer_to_binary  ;ASCII in input_buffer -> binary in number_buffer
+        jsr input_buffer_to_binary  ;ASCII hex in input_buffer -> binary in number_buffer
 exit:
         rts
         .pend
