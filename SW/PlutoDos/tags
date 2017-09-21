@@ -109,6 +109,7 @@ bcdouta	time_first_row.asm	/^        bcdouta = $80ff$/;"	d
 beep	time_first_row.asm	/^        beep = $8130$/;"	d
 bell	bios.asm	/^bell:   .proc$/;"	l
 bflag	xmodem.asm	/^        bflag = $a7         ; block flag$/;"	d
+binary_to_hex_ascii	bios.asm	/^binary_to_hex_ascii: .proc$/;"	l
 blkno	xmodem.asm	/^        blkno = $a6         ; block number$/;"	d
 bn2asc	time_first_row.asm	/^        bn2asc = $8138$/;"	d
 brk_irq	bios.asm	/^brk_irq: .block$/;"	l
@@ -153,7 +154,6 @@ exit_read_line	bios.asm	/^exit_read_line:$/;"	l
 get_date_and_time	rtc.asm	/^get_date_and_time: .proc$/;"	l
 get_date_and_time	time_first_row.asm	/^        get_date_and_time  = $8072$/;"	d
 get_system_up_time	rtc.asm	/^get_system_up_time: .proc$/;"	l
-hex_to_ascii	bios.asm	/^hex_to_ascii: .proc$/;"	l
 hexin	time_first_row.asm	/^        hexin = $81bc$/;"	d
 hexin2	time_first_row.asm	/^        hexin2 = $81b6$/;"	d
 hexin4	time_first_row.asm	/^        hexin4 = $81ba$/;"	d
@@ -166,6 +166,7 @@ input_hex	bios.asm	/^input_hex:  .proc$/;"	l
 interrupt	time_first_row.asm	/^        interrupt = $876d$/;"	d
 irq	bios.asm	/^irq:$/;"	l
 irq_end	bios.asm	/^irq_end: .block$/;"	l
+jmp_table	bios.asm	/^jmp_table:$/;"	l
 l1	acia.asm	/^l1:$/;"	l
 l1	bios.asm	/^l1:$/;"	l
 l1	rtc.asm	/^l1:$/;"	l
@@ -176,6 +177,7 @@ l2	rtc.asm	/^l2:$/;"	l
 l3	bios.asm	/^l3:$/;"	l
 lastblk	xmodem.asm	/^        lastblk = $a5       ; flag for last block$/;"	d
 loop	via.asm	/^loop:$/;"	l
+low_nybble	bios.asm	/^low_nybble:$/;"	l
 more	bios.asm	/^more:$/;"	l
 move_cursor_to_screen_location_v_h	time_first_row.asm	/^move_cursor_to_screen_location_v_h  .null "[<V>;<H>H"$/;"	l
 n_rtcreg	rtc.asm	/^n_rtcreg =*-rtcreg$/;"	l

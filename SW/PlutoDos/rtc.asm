@@ -51,7 +51,7 @@ rtcparm:.byte wr_irqoff       ;updates on & WDT IRQs off   %10000000
 ;;
 ;;;
 rtc_init: .proc
-        lda  cra_rtc            ;interrupt request flag (irqf) is cleared by reading the flag register cra ($oe)
+        lda  cra_rtc        ;interrupt request flag (irqf) is cleared by reading the flag register cra ($oe)
         ldy  #n_rtcreg-1
 l10:
         lda  rtcparm,y
@@ -59,11 +59,11 @@ l10:
         sta  io_rtc,x
         dey
         bpl  l10
-        lda  #$5       ;a delay of 366us is needed
+        lda  #$5            ;a delay of 366us is needed
         sta  delay_high
         lda  #$b8
-        sta  delay_low  ;to ensure a user register update
-        jsr  delay2     ;$5b8 will be a ~366µs delay if system clock is 4MHz
+        sta  delay_low      ;to ensure a user register update
+        jsr  delay2         ;$5b8 will be a ~366µs delay if system clock is 4MHz
         rts
        .pend
 ;

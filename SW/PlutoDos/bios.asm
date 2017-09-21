@@ -55,7 +55,7 @@ exit:
         .pend
 
 ;;;
-;;  INPUT_BUFFER_TO_BINARY: Convert ASCII numbers in input_buffer and convert to binary.
+;;  INPUT_BUFFER_TO_BINARY: Convert ASCII numbers in input_buffer to binary.
 ;;
 ;;       Preparation:
 ;;                    x: number of characters in input_buffer.
@@ -63,34 +63,45 @@ exit:
 ;;   Returned Values: a: entry value
 ;;                    x: entry value
 ;;                    y: entry value
-;;
+;;        number_buffer: binary numbers
 ;;
 ;;   Examples:
-;;             ldx #2         ;convert two characters, ie one byte
-;;             jsr input_hex  ;call subroutine
+;;             ldx #2                       ;convert two characters, ie one byte
+;;             jsr input_buffer_to_binary   ;call subroutine
 ;;
 ;;;
 input_buffer_to_binary: .proc
         pha                                 ;Preserve A
         phx                                 ;Preserve X
         phy                                 ;Preserve Y
-        rmb 2,control_flags                 ;Reset flag whether we are converting low or high nybble
-        txa                                 ;Transfer number of characters to A
-        lsr                                 ;Half it to get number of bytes
-        tay                                 ;Store the index to number buffer in Y
-more:
-        lda input_buffer,x                  ;Get first character
-        jsr ascii_to_binary                 ;Convert it to binary
-        bbs 2,control_flags,high_nybble     ;Branch if we need to ORA the low nybble into the high nybble
-        bra done                            ; if no, we're dealing with low nybble
-high_nybble:
-        ora number_buffer,y                 ;OR in high nybble into low nybble
-        dey                                 ;decrease the index to the number
-        dex                                 ;decrease the index to the input buffer
-done:
-        sta number_buffer,y
-
+        txa                                 ;Temporary store number of characters in buffer in A
+        ldx #3                              ;Zero number_buffer
+l1:
+        stz number_buffer,x
         dex
+        bne l1
+        rmb 2,control_flags                 ;Reset flag whether we are converting low or high nybble
+        tax                                 ;Transfer number of characters to X
+        ldy #0                              ;Set index to number buffer in Y
+more:
+        lda input_buffer-1,x                ;Get character
+        jsr ascii_to_binary                 ;Convert it to binary
+        bbr 2,control_flags,low_nybble      ;Branch if we're dealing with low nybble
+high_nybble:
+        asl                                 ;Move number to high nyble.
+        asl
+        asl
+        asl
+        ora number_buffer,y                 ;OR in high nybble into low nybble
+        sta number_buffer,y
+        iny                                 ;Increase the index in the number_buffer
+        rmb 2,control_flags                 ;Reset flag to convert low nybble
+        bra done
+low_nybble:
+        smb 2,control_flags                 ;Set flag to convert high nybble
+        sta number_buffer,y                 ;Store binary number in buffer
+done:
+        dex                                 ;decrease the index to the input buffer
         bne more
         ply
         plx
@@ -108,8 +119,8 @@ exit:
         .pend
 ;;;
 ;;  DISPLAY_HEX: Sends to terminal 4 binary numbers converted to ASCII hex, supressing any leading zeroes.
-;;
-;;       Preparation: number_buffer contains binary numbers to display in hex.
+;;       The byte sequence 12 34 00 00 will display as 3412
+;;       Preparation: number_buffer contains binary numbers (in little endian) to be displayed in hex.
 ;;
 ;;   Returned Values: a: entry value
 ;;                    x: entry value
@@ -123,9 +134,8 @@ exit:
 display_hex: .proc
         pha                     ;Preserve a
         phx                     ;Preserve x
-        phy                     ;Preserve y
         rmb 0,control_flags     ;Flag for leading zeroes in number_buffer
-        ldx #0                  ;Initialise index in number_buffer
+        ldx #3                  ;Initialise index in number_buffer
 next_number:
         lda number_buffer,x     ;Get first number
         pha                     ;Remember original number
@@ -133,28 +143,26 @@ next_number:
         lsr
         lsr
         lsr
-        jsr hex_to_ascii        ;Convert and send ASCII equivalent of digit to terminal
+        jsr binary_to_hex_ascii ;Convert and send ASCII equivalent of digit to terminal
         pla                     ;Restore original number
         and #$f                 ;Get rid of high nybble
-        jsr hex_to_ascii        ;Convert and send ASCII equivalent of digit to terminal
-        inx                     ;Increment index
-        cpx #4                  ;Last number?
-        bne next_number         ;Branch if not
-        ply                     ;Restore y
+        jsr binary_to_hex_ascii ;Convert and send ASCII equivalent of digit to terminal
+        dex                     ;Decrement index
+        bpl next_number         ;Branch if not negative
         plx                     ;Restore x
         pla                     ;Restore a
         rts
         .pend
 
 ;;;
-;;  HEX_TO_ASCII: Converts a binary number $0-$f to its ASCII equivalent and sends it to the terminal
+;;  BINARY_TO_HEX_ASCII: Converts a binary number $0-$f to its ASCII equivalent and sends it to the terminal
 ;;                provided it is not a leading zero.
 ;;
-;;       Preparation: a contains number to be converted
+;;       Preparation: A contains number to be converted
 ;;
 ;;   Returned Values: a: used
 ;;                    x: entry value
-;;                    y: used
+;;                    y: entry value
 ;;
 ;;
 ;;   Examples:
@@ -162,9 +170,10 @@ next_number:
 ;;              jsr hex_to_ascii  ;convert and send ASCII character to terminal
 ;;
 ;;;
-hex_to_ascii: .proc
+binary_to_hex_ascii: .proc
+        phy                             ;Preserve y
         bbs 0, control_flags, convert   ;Branch if bit 0 in leading_zero is set, ie no more leading zeroes.
-        beq exit                        ;Branch if leading_zero is clear and a is zero to supress any output
+        beq exit                        ;Branch if leading_zero is clear and A is zero to supress any output
         smb 0, control_flags            ;end of leading zeroes
 convert:
         tay                             ;Preserve original number
@@ -177,6 +186,7 @@ convert:
 done:
         jsr chout                       ;Send to terminal
 exit:
+        ply                             ;Restore y
         rts
         .pend
 
@@ -199,7 +209,7 @@ exit:
 ;;
 ;;      Example: Read four hex characters from terminal and place them in in_buffer.
 ;;              rmb 0,control_flags
-;;              rmb 0,control_flags
+;;              rmb 1,control_flags
 ;;              lda #>in_buffer
 ;;              ldy #<in_buffer
 ;;              ldx #4
@@ -252,12 +262,12 @@ ring_bell:
         bra read_loop               ;Continue
 store_character:
         sta (buffer_address_low),y  ;Store the character
-        jsr chout
+        jsr chout                   ;Send character to terminal
         inc buffer_index
-        bra read_loop
+        bra read_loop               ;Read next character
 exit_read_line:
-        jsr crout
-        ldx buffer_index
+        jsr crout                   ;Send CR/LF to terminal
+        ldx buffer_index            ;Exit with X containing amount of characters read
         rts
         .pend
 
@@ -315,7 +325,6 @@ read_character: .proc
         and #extended_ascii_mask        ;Remove all ASCII codes over $7f
         cmp #'a'                        ;Is character less 'a'
         bcc exit                        ;branch if yes, ie number, symbol, uppercase or control character
-        sec
         sbc #$20                        ;Otherwise substract $20 to convert character to uppercase
 exit:
         rts
@@ -550,7 +559,7 @@ l2:
         cli
 
 ;;;
-;; init code of termnial
+;; Initialise termnial
 ;;;
         jsr bell
         lda #<clear_screen
@@ -563,19 +572,13 @@ l2:
         lda #>welcome
         sta index_high
         jsr prout
-        ldx #$4
-        lda #$ff
-more:
-        sta number_buffer-1,x
-        eor #$ff
-        dex
-        bne more
-        jsr display_hex
-        jsr crout
-        jsr dollar
-        jsr print_space
-        ldx #2
+
+        ;test code
+        ldx #3
         jsr input_hex
+        jsr crout
+        jsr display_hex
+        jsr cr2
 again:
         jsr chin
         cmp #$0d
@@ -656,6 +659,17 @@ via1_irq: .block
 via2_irq:  .block
         jmp irq_end                     ;Jump to the end of ISR
         .bend
+
+        * = $ff00
+jmp_table:
+        jmp input_hex
+        jmp read_line
+        jmp chout
+        jmp chin
+        jmp crout
+        jmp cr2
+        jmp prout
+        jmp bell
 
         * = $fffa
         .word   nmi         ;NMI

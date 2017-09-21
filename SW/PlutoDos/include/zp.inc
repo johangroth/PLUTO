@@ -1,4 +1,5 @@
 
+        .dsection zp
         zp_start    = $80
         ; Variables for storing MPU state after a BRK instruction
         delay_low               = zp_start
@@ -29,7 +30,8 @@
         buffer_length = zp_start + $23          ; Number of characters read_line should read (max = 16)
         buffer_index = zp_start + $24           ; Pointer to current character in input buffer. Used by read_line.
 
-        number_buffer = zp_start + $25          ; A 4 byte buffer for number conversion
+        ;number_buffer = zp_start + $25          ; A 4 byte buffer for number conversion
+        number_buffer = $a5          ; A 4 byte buffer for number conversion
 
         ;; This flag byte holds boolean flags for various subroutines.
         ;; bit 0    - checked by display_hex (also hex_to_ascii which is a private proc of display_hex).
