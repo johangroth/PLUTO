@@ -251,3 +251,81 @@ rtc_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^rtc_irq: .blo
 via1_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^via1_irq: .block$/;"	label	line:655
 via2_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^via2_irq:  .block$/;"	label	line:659
 jmp_table	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^jmp_table:$/;"	label	line:664
+a_maskuc	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^a_maskuc = %01011111    ;case conversion mask$/;"	define	line:74
+a_hexnum	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^a_hexnum = 'A'-'9'-1    ;hex to decimal difference$/;"	define	line:75
+n_radix	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^n_radix = 4             ;number of supported radixes$/;"	define	line:76
+s_fac	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^s_fac = 4              ;binary accumulator size$/;"	define	line:77
+ptr01	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^ptr01  = $00            ;input string pointer$/;"	define	line:83
+stridx	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^stridx = ptr01+2        ;string index$/;"	define	line:84
+pfac	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^pfac   = stridx+1       ;primary accumulator$/;"	define	line:85
+sfac	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^sfac   = pfac+s_fac     ;secondary accumulator$/;"	define	line:86
+strbin	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin: .proc$/;"	label	line:102
+strbin01	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin01:$/;"	label	line:108
+strbin02	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin02:$/;"	label	line:124
+strbin03	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin03:$/;"	label	line:127
+strbin04	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin04:$/;"	label	line:137
+strbin05	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin05:$/;"	label	line:147
+strbin06	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin06:$/;"	label	line:154
+strbin07	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin07:$/;"	label	line:168
+strbin08	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin08:$/;"	label	line:171
+strbin09	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin09:$/;"	label	line:180
+strbin10	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin10:$/;"	label	line:203
+strbin11	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin11:$/;"	label	line:213
+strbin12	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin12:$/;"	label	line:216
+strbin13	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin13:$/;"	label	line:236
+strbin14	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin14:$/;"	label	line:250
+strbin15	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin15:$/;"	label	line:258
+strbin16	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin16:$/;"	label	line:279
+strbin17	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^strbin17:$/;"	label	line:282
+basetab	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^basetab: .byte 10,2,8,16    ;number bases per radix$/;"	label	line:289
+bitstab	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^bitstab: .byte 3,1,3,4  ;bits per digit per radix$/;"	label	line:290
+radxtab	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^radxtab: .byte " %@$"   ;valid radix symbols$/;"	label	line:291
+bitsdig	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^bitsdig: *=*+1          ;bits per digit$/;"	label	line:297
+curntnum	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^curntnum: *=*+1         ;numeral being processed$/;"	label	line:298
+radxflag	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^radxflag: *=*+1         ;$80 = processing base-10$/;"	label	line:299
+valdnum	/home/jgroth/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^valdnum: *=*+1          ;valid range +1 for selected radix$/;"	label	line:300
+_zpage_	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^_zpage_ = $00           ;start of ZP storage$/;"	define	line:94
+a_hexdec	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^a_hexdec = 'A'-'9'-2    ;hex to decimal difference$/;"	define	line:100
+m_bits	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^m_bits = 32             ;operand bit size$/;"	define	line:101
+m_cbits	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^m_cbits = 48            ;workspace bit size$/;"	define	line:102
+m_strlen	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^m_strlen = m_bits+1     ;maximum printable string length$/;"	define	line:103
+n_radix	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^n_radix = 4             ;number of supported radices$/;"	define	line:104
+s_pfac	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^s_pfac = m_bits\/8       ;primary accumulator size$/;"	define	line:105
+s_ptr	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^s_ptr  = 2              ;pointer size$/;"	define	line:106
+s_wrkspc	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^s_wrkspc = m_cbits\/8    ;conversion workspace size$/;"	define	line:107
+ptr01	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^ptr01  = _zpage_        ;string storage pointer$/;"	define	line:113
+pfac	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^pfac   = ptr01+s_ptr    ;primary accumulator$/;"	define	line:120
+wrkspc01	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^wrkspc01 = pfac+s_pfac  ;conversion...$/;"	define	line:121
+wrkspc02	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^wrkspc02 = wrkspc01+s_wrkspc    ;workspace$/;"	define	line:122
+formflag	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^formflag = wrkspc02+s_wrkspc    ;string format flag$/;"	define	line:123
+radix	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^radix  = formflag+1     ;radix index$/;"	define	line:124
+stridx	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^stridx = radix+1        ;string buffer index$/;"	define	line:125
+binstr	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr: .proc$/;"	label	line:140
+binstr01	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr01:$/;"	label	line:146
+binstr03	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr03:$/;"	label	line:165
+binstr04	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr04:$/;"	label	line:176
+binstr05	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr05: $/;"	label	line:193
+binstr06	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr06:$/;"	label	line:201
+binstr07	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr07:$/;"	label	line:205
+binstr08	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr08:$/;"	label	line:215
+binstr09	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr09:$/;"	label	line:224
+binstr10	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr10:$/;"	label	line:238
+binstr11	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr11:$/;"	label	line:242
+binstr12	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr12:$/;"	label	line:246
+binstr13	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr13:$/;"	label	line:265
+binstr14	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr14:$/;"	label	line:271
+binstr15	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr15:$/;"	label	line:278
+facbcd	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd:$/;"	label	line:304
+facbcd01	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd01:$/;"	label	line:307
+facbcd02	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd02:$/;"	label	line:316
+facbcd03	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd03:$/;"	label	line:328
+facbcd04	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd04:$/;"	label	line:332
+facbcd05	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd05:$/;"	label	line:342
+facbcd06	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd06:$/;"	label	line:351
+facbcd07	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd07:$/;"	label	line:354
+facbcd08	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd08:$/;"	label	line:367
+bitstab	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^bitstab: .byte 4,1,3,4  ;bits per numeral$/;"	label	line:380
+lzsttab	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^lzsttab: .byte 2,9,2,3  ;leading zero suppression thresholds$/;"	label	line:381
+numstab	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^numstab: .byte 12,48,16,12    ;maximum numerals$/;"	label	line:382
+radxtab	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^radxtab: .byte 0,"%@$"  ;recognized symbols$/;"	label	line:383
+strbuf	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^strbuf: *=*+m_strlen+1  ;conversion string buffer$/;"	label	line:389
