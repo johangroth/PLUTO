@@ -65,7 +65,6 @@ transmit_char:
 l2:
         sty out_buffer_head     ; Update output buffer head pointer
         dec out_buffer_counter  ; Decrement character count
-        bne exit
 exit:
         jmp (via1_soft_vector)  ; Jump to next ISR
         .bend
