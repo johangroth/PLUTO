@@ -329,8 +329,6 @@ lzsttab	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^lzsttab: .byte 2,9,2,3
 numstab	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^numstab: .byte 12,48,16,12    ;maximum numerals$/;"	label	line:382
 radxtab	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^radxtab: .byte 0,"%@$"  ;recognized symbols$/;"	label	line:383
 strbuf	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^strbuf: *=*+m_strlen+1  ;conversion string buffer$/;"	label	line:389
-INCLUDE_SRCS	/home/jgroth/PLUTO/SW/PlutoDos/Makefile	/^INCLUDE_SRCS = include\/*.inc$/;"	macro	line:1
-ASM_SRCS	/home/jgroth/PLUTO/SW/PlutoDos/Makefile	/^ASM_SRCS = *.asm$/;"	macro	line:2
 ide_io	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_io = $7f60							; Change this to $7f60 when pcb arrives.$/;"	define	line:42
 ide_drive_data_port	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_drive_data_port = ide_io			; IDE data port$/;"	define	line:43
 ide_drive_error_code	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_drive_error_code = ide_io + 1		; Read: Error code$/;"	define	line:44
@@ -378,3 +376,8 @@ idebufwt	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^idebufwt:$/;"	label	l
 ide_setup_lba	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_setup_lba:	.proc$/;"	label	line:270
 master_slave_select	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^master_slave_select: .proc$/;"	label	line:290
 ide_mast	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_mast:$/;"	label	line:294
+find_boot_sector	/home/jgroth/PLUTO/SW/PlutoDos/cfs.asm	/^find_boot_sector: 	.proc$/;"	label	line:381
+done	/home/jgroth/PLUTO/SW/PlutoDos/cfs.asm	/^done:$/;"	label	line:387
+compress	/home/jgroth/PLUTO/SW/PlutoDos/cfs.asm	/^compress:    .proc$/;"	label	line:407
+INCLUDE_SRCS	/home/jgroth/PLUTO/SW/PlutoDos/Makefile	/^INCLUDE_SRCS = include\/*.inc$/;"	macro	line:1
+ASM_SRCS	/home/jgroth/PLUTO/SW/PlutoDos/Makefile	/^ASM_SRCS = *.asm$/;"	macro	line:2

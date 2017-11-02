@@ -14,7 +14,6 @@ BegBlk	xmodem.asm	/^BegBlk:$/;"	l
 CAN	xmodem.asm	/^        CAN = $18       ; cancel (not STAndard, not supported)$/;"	d
 CHIN	settime.asm	/^        CHIN = $8164$/;"	d
 COLDSTART	settime.asm	/^        COLDSTART = $861D$/;"	d
-COMPRESS	cfs.asm	/^COMPRESS    .PROC$/;"	l
 COUT	settime.asm	/^        COUT = $8186$/;"	d
 COUT2	settime.asm	/^        COUT2 = $8183$/;"	d
 CR	xmodem.asm	/^        CR = $0d        ; carriage return$/;"	d
@@ -29,7 +28,6 @@ DECINDEX	settime.asm	/^        DECINDEX = $8193$/;"	d
 DELAY1	settime.asm	/^        DELAY1 = $81B1$/;"	d
 DELAY2	settime.asm	/^        DELAY2 = $81B5$/;"	d
 DOLLAR	settime.asm	/^        DOLLAR = $819C$/;"	d
-DONE	cfs.asm	/^DONE			RTS$/;"	l
 DOUPLOAD	xmodem.asm	/^DOUPLOAD:$/;"	l
 DS1511	settime.asm	/^        DS1511 = $7FA0$/;"	d
 Done	xmodem.asm	/^Done:$/;"	l
@@ -37,7 +35,6 @@ EOT	xmodem.asm	/^        EOT = $04       ; end of text marker$/;"	d
 ESC	xmodem.asm	/^        ESC = $1b       ; ESC to exit$/;"	d
 EXITUPLOAD	xmodem.asm	/^EXITUPLOAD:$/;"	l
 ErrMsg	xmodem.asm	/^ErrMsg:$/;"	l
-FIND_BOOT_SECTOR	cfs.asm	/^FIND_BOOT_SECTOR 	.PROC$/;"	l
 Flush	xmodem.asm	/^Flush   .proc$/;"	l
 GetBlk	xmodem.asm	/^GetBlk:$/;"	l
 GetBlk2	xmodem.asm	/^GetBlk2:$/;"	l
@@ -143,6 +140,7 @@ chout	bios.asm	/^chout:   .proc$/;"	l
 clear_entire_screen	time_first_row.asm	/^clear_entire_screen .null "[2J"$/;"	l
 coldstart	bios.asm	/^coldstart: .block$/;"	l
 coldstart	time_first_row.asm	/^        coldstart = $8613$/;"	d
+compress	cfs.asm	/^compress:    .proc$/;"	l
 convert	bios.asm	/^convert:$/;"	l
 cout	time_first_row.asm	/^        cout = $817c$/;"	d
 cout2	time_first_row.asm	/^        cout2 = $8179$/;"	d
@@ -169,6 +167,7 @@ do_break	bios.asm	/^do_break:$/;"	l
 dollar	bios.asm	/^dollar: .proc$/;"	l
 dollar	time_first_row.asm	/^        dollar = $8192$/;"	d
 done	bios.asm	/^done:$/;"	l
+done	cfs.asm	/^done:$/;"	l
 done	ide_routines.asm	/^done:$/;"	l
 ds1511	time_first_row.asm	/^        ds1511 = $7fa0$/;"	d
 eofp	xmodem.asm	/^        eofp = TEMP2        ; end of file address pointer (2 bytes)$/;"	d
@@ -187,6 +186,7 @@ facbcd05	bin_to_ascii.asm	/^facbcd05:$/;"	l
 facbcd06	bin_to_ascii.asm	/^facbcd06:$/;"	l
 facbcd07	bin_to_ascii.asm	/^facbcd07:$/;"	l
 facbcd08	bin_to_ascii.asm	/^facbcd08:$/;"	l
+find_boot_sector	cfs.asm	/^find_boot_sector: 	.proc$/;"	l
 formflag	bin_to_ascii.asm	/^formflag = wrkspc02+s_wrkspc    ;string format flag$/;"	d
 get_date_and_time	rtc.asm	/^get_date_and_time: .proc$/;"	l
 get_date_and_time	time_first_row.asm	/^        get_date_and_time  = $8072$/;"	d
