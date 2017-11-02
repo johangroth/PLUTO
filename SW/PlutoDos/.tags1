@@ -4,48 +4,50 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-_zpage_	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^_zpage_ = $00           ;start of ZP storage$/;"	define	line:94
-a_hexdec	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^a_hexdec = 'A'-'9'-2    ;hex to decimal difference$/;"	define	line:100
-m_bits	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^m_bits = 32             ;operand bit size$/;"	define	line:101
-m_cbits	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^m_cbits = 48            ;workspace bit size$/;"	define	line:102
-m_strlen	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^m_strlen = m_bits+1     ;maximum printable string length$/;"	define	line:103
-n_radix	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^n_radix = 4             ;number of supported radices$/;"	define	line:104
-s_pfac	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^s_pfac = m_bits\/8       ;primary accumulator size$/;"	define	line:105
-s_ptr	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^s_ptr  = 2              ;pointer size$/;"	define	line:106
-s_wrkspc	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^s_wrkspc = m_cbits\/8    ;conversion workspace size$/;"	define	line:107
-ptr01	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^ptr01  = _zpage_        ;string storage pointer$/;"	define	line:113
-pfac	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^pfac   = ptr01+s_ptr    ;primary accumulator$/;"	define	line:120
-wrkspc01	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^wrkspc01 = pfac+s_pfac  ;conversion...$/;"	define	line:121
-wrkspc02	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^wrkspc02 = wrkspc01+s_wrkspc    ;workspace$/;"	define	line:122
-formflag	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^formflag = wrkspc02+s_wrkspc    ;string format flag$/;"	define	line:123
-radix	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^radix  = formflag+1     ;radix index$/;"	define	line:124
-stridx	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^stridx = radix+1        ;string buffer index$/;"	define	line:125
-binstr	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr: .proc$/;"	label	line:140
-binstr01	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr01:$/;"	label	line:146
-binstr03	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr03:$/;"	label	line:165
-binstr04	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr04:$/;"	label	line:176
-binstr05	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr05: $/;"	label	line:193
-binstr06	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr06:$/;"	label	line:201
-binstr07	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr07:$/;"	label	line:205
-binstr08	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr08:$/;"	label	line:215
-binstr09	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr09:$/;"	label	line:224
-binstr10	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr10:$/;"	label	line:238
-binstr11	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr11:$/;"	label	line:242
-binstr12	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr12:$/;"	label	line:246
-binstr13	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr13:$/;"	label	line:265
-binstr14	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr14:$/;"	label	line:271
-binstr15	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binstr15:$/;"	label	line:278
-facbcd	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd:$/;"	label	line:304
-facbcd01	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd01:$/;"	label	line:307
-facbcd02	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd02:$/;"	label	line:316
-facbcd03	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd03:$/;"	label	line:328
-facbcd04	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd04:$/;"	label	line:332
-facbcd05	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd05:$/;"	label	line:342
-facbcd06	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd06:$/;"	label	line:351
-facbcd07	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd07:$/;"	label	line:354
-facbcd08	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facbcd08:$/;"	label	line:367
-bitstab	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^bitstab: .byte 4,1,3,4  ;bits per numeral$/;"	label	line:380
-lzsttab	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^lzsttab: .byte 2,9,2,3  ;leading zero suppression thresholds$/;"	label	line:381
-numstab	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^numstab: .byte 12,48,16,12    ;maximum numerals$/;"	label	line:382
-radxtab	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^radxtab: .byte 0,"%@$"  ;recognized symbols$/;"	label	line:383
-strbuf	/home/jgroth/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^strbuf: *=*+m_strlen+1  ;conversion string buffer$/;"	label	line:389
+ide_io	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_io = $7f60							; Change this to $7f60 when pcb arrives.$/;"	define	line:42
+ide_drive_data_port	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_drive_data_port = ide_io			; IDE data port$/;"	define	line:43
+ide_drive_error_code	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_drive_error_code = ide_io + 1		; Read: Error code$/;"	define	line:44
+ide_sector_count	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_sector_count = ide_io + 2			; number of sectors to transfer$/;"	define	line:45
+ide_drive_lba0	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_drive_lba0 = ide_io + 3				; lba 0:7$/;"	define	line:46
+ide_drive_lba1	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_drive_lba1 = ide_io + 4				; lba 8:15$/;"	define	line:47
+ide_drive_lba2	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_drive_lba2 = ide_io + 5				; lba 16:23$/;"	define	line:48
+ide_drive_lba3_ms_lbamd	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_drive_lba3_ms_lbamd = ide_io + 6 	; 0:3 lba 24:27, 4 master (0) slave (1), 6 = 1 for lba access$/;"	define	line:49
+ide_drive_rdstatus_wrcmd	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_drive_rdstatus_wrcmd = ide_io + 7	; Read -> status, Write -> command$/;"	define	line:50
+ide_high_byte	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_high_byte = ide_io + 8				; Control for read or write latch$/;"	define	line:51
+ide_read_sector_cmd	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_read_sector_cmd = $20$/;"	define	line:53
+ide_write_sector_cmd	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_write_sector_cmd = $30$/;"	define	line:54
+ide_id_drive_cmd	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		ide_id_drive_cmd = $ec$/;"	define	line:56
+tmp	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		tmp = $70$/;"	define	line:58
+tmp1	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		tmp1 = tmp+1$/;"	define	line:59
+tmp2	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		tmp2 = tmp+2$/;"	define	line:60
+tmp3	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^		tmp3 = tmp+3$/;"	define	line:61
+ide_init_devices	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_init_devices: .proc$/;"	label	line:65
+ide_init_status	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_init_status: .proc$/;"	label	line:74
+ide_read_sector	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_read_sector: .proc$/;"	label	line:81
+ide_srex	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_srex:$/;"	label	line:88
+error	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^error:$/;"	label	line:97
+ide_write_sector	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_write_sector: .proc$/;"	label	line:103
+error	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^error:$/;"	label	line:120
+ide_get_id	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_get_id:	.proc$/;"	label	line:126
+error	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^error:$/;"	label	line:135
+ide_wait_busy_ready	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_wait_busy_ready:	.proc$/;"	label	line:143
+ide_wbsy	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_wbsy:$/;"	label	line:151
+ide_dlp	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_dlp:$/;"	label	line:157
+done	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^done:$/;"	label	line:164
+ide_time_out	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_time_out:$/;"	label	line:174
+ide_test_error	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_test_error:	.proc$/;"	label	line:181
+ide_err	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_err:$/;"	label	line:188
+ok	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ok:$/;"	label	line:190
+ide_wait_buffer	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_wait_buffer: .proc$/;"	label	line:196
+ide_wdrq	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_wdrq:$/;"	label	line:199
+ide_blp	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_blp:$/;"	label	line:204
+done	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^done:$/;"	label	line:210
+notdone	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^notdone:$/;"	label	line:212
+ide_to2	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_to2:$/;"	label	line:220
+ide_read_buffer	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_read_buffer:	.proc$/;"	label	line:227
+idebufrd	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^idebufrd:$/;"	label	line:233
+ide_write_buffer	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_write_buffer:	.proc$/;"	label	line:248
+idebufwt	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^idebufwt:$/;"	label	line:254
+ide_setup_lba	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_setup_lba:	.proc$/;"	label	line:270
+master_slave_select	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^master_slave_select: .proc$/;"	label	line:290
+ide_mast	/home/jgroth/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_mast:$/;"	label	line:294

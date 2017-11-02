@@ -169,10 +169,12 @@ do_break	bios.asm	/^do_break:$/;"	l
 dollar	bios.asm	/^dollar: .proc$/;"	l
 dollar	time_first_row.asm	/^        dollar = $8192$/;"	d
 done	bios.asm	/^done:$/;"	l
+done	ide_routines.asm	/^done:$/;"	l
 ds1511	time_first_row.asm	/^        ds1511 = $7fa0$/;"	d
 eofp	xmodem.asm	/^        eofp = TEMP2        ; end of file address pointer (2 bytes)$/;"	d
 eofph	xmodem.asm	/^        eofph = TEMP2H      ;  "    "   "   "$/;"	d
 errcnt	xmodem.asm	/^        errcnt = $a7        ; error counter 10 is the limit$/;"	d
+error	ide_routines.asm	/^error:$/;"	l
 exit	acia.asm	/^exit:$/;"	l
 exit	bios.asm	/^exit:$/;"	l
 exit_read_line	bios.asm	/^exit_read_line:$/;"	l
@@ -193,6 +195,41 @@ hexin	time_first_row.asm	/^        hexin = $81bc$/;"	d
 hexin2	time_first_row.asm	/^        hexin2 = $81b6$/;"	d
 hexin4	time_first_row.asm	/^        hexin4 = $81ba$/;"	d
 high_nybble	bios.asm	/^high_nybble:$/;"	l
+ide_blp	ide_routines.asm	/^ide_blp:$/;"	l
+ide_dlp	ide_routines.asm	/^ide_dlp:$/;"	l
+ide_drive_data_port	ide_routines.asm	/^		ide_drive_data_port = ide_io			; IDE data port$/;"	d
+ide_drive_error_code	ide_routines.asm	/^		ide_drive_error_code = ide_io + 1		; Read: Error code$/;"	d
+ide_drive_lba0	ide_routines.asm	/^		ide_drive_lba0 = ide_io + 3				; lba 0:7$/;"	d
+ide_drive_lba1	ide_routines.asm	/^		ide_drive_lba1 = ide_io + 4				; lba 8:15$/;"	d
+ide_drive_lba2	ide_routines.asm	/^		ide_drive_lba2 = ide_io + 5				; lba 16:23$/;"	d
+ide_drive_lba3_ms_lbamd	ide_routines.asm	/^		ide_drive_lba3_ms_lbamd = ide_io + 6 	; 0:3 lba 24:27, 4 master (0) slave (1), 6 = 1 for lba access$/;"	d
+ide_drive_rdstatus_wrcmd	ide_routines.asm	/^		ide_drive_rdstatus_wrcmd = ide_io + 7	; Read -> status, Write -> command$/;"	d
+ide_err	ide_routines.asm	/^ide_err:$/;"	l
+ide_get_id	ide_routines.asm	/^ide_get_id:	.proc$/;"	l
+ide_high_byte	ide_routines.asm	/^		ide_high_byte = ide_io + 8				; Control for read or write latch$/;"	d
+ide_id_drive_cmd	ide_routines.asm	/^		ide_id_drive_cmd = $ec$/;"	d
+ide_init_devices	ide_routines.asm	/^ide_init_devices: .proc$/;"	l
+ide_init_status	ide_routines.asm	/^ide_init_status: .proc$/;"	l
+ide_io	ide_routines.asm	/^		ide_io = $7f60							; Change this to $7f60 when pcb arrives.$/;"	d
+ide_mast	ide_routines.asm	/^ide_mast:$/;"	l
+ide_read_buffer	ide_routines.asm	/^ide_read_buffer:	.proc$/;"	l
+ide_read_sector	ide_routines.asm	/^ide_read_sector: .proc$/;"	l
+ide_read_sector_cmd	ide_routines.asm	/^		ide_read_sector_cmd = $20$/;"	d
+ide_sector_count	ide_routines.asm	/^		ide_sector_count = ide_io + 2			; number of sectors to transfer$/;"	d
+ide_setup_lba	ide_routines.asm	/^ide_setup_lba:	.proc$/;"	l
+ide_srex	ide_routines.asm	/^ide_srex:$/;"	l
+ide_test_error	ide_routines.asm	/^ide_test_error:	.proc$/;"	l
+ide_time_out	ide_routines.asm	/^ide_time_out:$/;"	l
+ide_to2	ide_routines.asm	/^ide_to2:$/;"	l
+ide_wait_buffer	ide_routines.asm	/^ide_wait_buffer: .proc$/;"	l
+ide_wait_busy_ready	ide_routines.asm	/^ide_wait_busy_ready:	.proc$/;"	l
+ide_wbsy	ide_routines.asm	/^ide_wbsy:$/;"	l
+ide_wdrq	ide_routines.asm	/^ide_wdrq:$/;"	l
+ide_write_buffer	ide_routines.asm	/^ide_write_buffer:	.proc$/;"	l
+ide_write_sector	ide_routines.asm	/^ide_write_sector: .proc$/;"	l
+ide_write_sector_cmd	ide_routines.asm	/^		ide_write_sector_cmd = $30$/;"	d
+idebufrd	ide_routines.asm	/^idebufrd:$/;"	l
+idebufwt	ide_routines.asm	/^idebufwt:$/;"	l
 inc_index	bios.asm	/^inc_index:  .proc$/;"	l
 incindex	time_first_row.asm	/^        incindex = $824e$/;"	d
 init	bios.asm	/^init:$/;"	l
@@ -218,6 +255,7 @@ lzsttab	bin_to_ascii.asm	/^lzsttab: .byte 2,9,2,3  ;leading zero suppression thr
 m_bits	bin_to_ascii.asm	/^m_bits = 32             ;operand bit size$/;"	d
 m_cbits	bin_to_ascii.asm	/^m_cbits = 48            ;workspace bit size$/;"	d
 m_strlen	bin_to_ascii.asm	/^m_strlen = m_bits+1     ;maximum printable string length$/;"	d
+master_slave_select	ide_routines.asm	/^master_slave_select: .proc$/;"	l
 more	bios.asm	/^more:$/;"	l
 move_cursor_to_screen_location_v_h	time_first_row.asm	/^move_cursor_to_screen_location_v_h  .null "[<V>;<H>H"$/;"	l
 n_radix	ascii_to_bin.asm	/^n_radix = 4             ;number of supported radixes$/;"	d
@@ -228,7 +266,9 @@ next_number	bios.asm	/^next_number:$/;"	l
 nmi	bios.asm	/^nmi:$/;"	l
 nmon	time_first_row.asm	/^        nmon = $867d$/;"	d
 notcr	bios.asm	/^notcr:$/;"	l
+notdone	ide_routines.asm	/^notdone:$/;"	l
 numstab	bin_to_ascii.asm	/^numstab: .byte 12,48,16,12    ;maximum numerals$/;"	l
+ok	ide_routines.asm	/^ok:$/;"	l
 out_buffer_full	bios.asm	/^out_buffer_full:$/;"	l
 pfac	ascii_to_bin.asm	/^pfac   = stridx+1       ;primary accumulator$/;"	d
 pfac	bin_to_ascii.asm	/^pfac   = ptr01+s_ptr    ;primary accumulator$/;"	d
@@ -304,6 +344,10 @@ stridx	ascii_to_bin.asm	/^stridx = ptr01+2        ;string index$/;"	d
 stridx	bin_to_ascii.asm	/^stridx = radix+1        ;string buffer index$/;"	d
 timer	time_first_row.asm	/^        timer = $83c3$/;"	d
 timer1_interrupt	time_first_row.asm	/^timer1_interrupt$/;"	l
+tmp	ide_routines.asm	/^		tmp = $70$/;"	d
+tmp1	ide_routines.asm	/^		tmp1 = tmp+1$/;"	d
+tmp2	ide_routines.asm	/^		tmp2 = tmp+2$/;"	d
+tmp3	ide_routines.asm	/^		tmp3 = tmp+3$/;"	d
 transmit_char	acia.asm	/^transmit_char:$/;"	l
 update_tod_on_console	time_first_row.asm	/^update_tod_on_console .proc$/;"	l
 utdelay	rtc.asm	/^utdelay: .proc$/;"	l

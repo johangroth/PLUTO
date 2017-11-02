@@ -1,5 +1,4 @@
 
-        .dsection zp
         zp_start    = $80
         ; Variables for storing MPU state after a BRK instruction
         delay_low               = zp_start

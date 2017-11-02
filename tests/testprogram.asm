@@ -29,8 +29,8 @@ start 	ldx #$ff
 ;	    bra again	; put $55 on out port of the via1
 
 ; if not, indicate this with another pattern.
-l3	    lda #%10101010
-again 	; output A to the via1 ports
+l3:	    lda #%10101010
+again; 	; output A to the via1 ports
       	jsr via1out
         jsr via2out
         jsr delay
@@ -46,21 +46,21 @@ again 	; output A to the via1 ports
         ;jsr delay
         bra l3
 
-delay
+delay:
         ldx #$ff
-inner   ldy #$00
-loop    dey
+inner:   ldy #$00
+loop:    dey
         bne loop
         dex
         bne inner
         rts
 
-via1out
+via1out:
         sta via1
         sta via1+1
         rts
 
-via2out
+via2out:
         sta via2
         rts
 
