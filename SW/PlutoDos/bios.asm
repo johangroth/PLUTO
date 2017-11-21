@@ -17,12 +17,12 @@
 ;;
 ;;;
 print_space:    .proc
-            pha
-            lda #' '
-            jsr chout
-            pla
-            rts
-            .pend
+        pha
+        lda #' '
+        jsr chout
+        pla
+        rts
+        .pend
 
 ;;;
 ;;  INPUT_DEC: Request 1-8 ASCII decimal numbers and convert to binary.
@@ -395,7 +395,7 @@ dec_index:  .proc
         bne done            ;if not, branch
         dec index_high      ;  yes, decrement high
 done:
-        dec index_low       ;decrement index low
+        dec index_low       ;decrement low
         rts
         .pend
 
