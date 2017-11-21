@@ -19,9 +19,8 @@ Connected Programmers: 1
     Split option: All
     Chip memory number: 0
     Memory used: True
-    Buffer first used byte: 32768
     Real time clock option: NoChanges
-    Real time clock date time: 16/08/2017 18:33:18
+    Real time clock date time: 07/11/2017 21:46:21
     Real time clock calibration: 0
 
  ; Serial number settings:
@@ -96,14 +95,14 @@ Connected Programmers: 1
     Source chip name: Atmel AT28C256-15PU
 
  ; File dialog:
-    FileName: /home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/pluton.rom
+    FileName: /home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/pluto.rom
 
  ; Chip option settings:
     Split option: All
     Chip memory number: 0
     Memory used: True
     Real time clock option: NoChanges
-    Real time clock date time: 16/08/2017 18:33:18
+    Real time clock date time: 07/11/2017 21:46:52
     Real time clock calibration: 0
 
  ; Serial number settings:
@@ -203,13 +202,13 @@ Connected Programmers: 1
     Hex-Editor chip name: AT28C256
 
  ; Open Files:
-    Hex-Editor file: /home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/pluton.rom
+    Hex-Editor file: /home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/pluto.rom
  ; Chip option settings:
     Split option: All
     Chip memory number: 0
     Memory used: True
     Real time clock option: NoChanges
-    Real time clock date time: 16/08/2017 18:33:42
+    Real time clock date time: 07/11/2017 21:47:19
     Real time clock calibration: 0
 
  ; Serial number settings:

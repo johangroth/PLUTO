@@ -17,12 +17,12 @@
 ;;
 ;;;
 print_space:    .proc
-            pha
-            lda #' '
-            jsr chout
-            pla
-            rts
-            .pend
+        pha
+        lda #' '
+        jsr chout
+        pla
+        rts
+        .pend
 
 ;;;
 ;;  INPUT_DEC: Request 1-8 ASCII decimal numbers and convert to binary.
@@ -391,12 +391,11 @@ exit:
 ;;              jsr dec_index
 ;;;
 dec_index:  .proc
-        dec index_low       ;Decrement low
         lda index_low       ;Check if decrement
-        cmp #$ff            ;wrapped around from $00 to $ff
         bne done            ;if not, branch
         dec index_high      ;  yes, decrement high
 done:
+        dec index_low       ;decrement low
         rts
         .pend
 
@@ -520,16 +519,13 @@ bell:   .proc
 ;;;
 prout:   .proc
         pha                         ;Preserve A
-        phy                         ;Preserve Y
-        ldy #0                      ;Initialise index
 l1:
-        lda (index_low),y           ;Get character
+        lda (index_low)             ;Get character
         beq exit                    ;If eq zero, branch
         jsr chout                   ;Send character to termnial
-        iny                         ;Next character
+        jsr inc_index               ;Next character
         bra l1                      ;Loop back
 exit:
-        ply                         ;Restore Y
         pla                         ;Restore A
         rts
         .pend
@@ -637,8 +633,9 @@ notcr:
         ; jmp monitor_init
         .bend
 
-
-
+;;;
+;; IRQ interrupt service routine
+;;;
 irq:
         .block
         pha

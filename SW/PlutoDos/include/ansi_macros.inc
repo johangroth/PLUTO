@@ -97,7 +97,7 @@ cursorhome1     .macro
 
 cup             .macro
                 #ansi_cs
-                .text \2, ";", \1, "H"	;move cursor to screen location v,h
+                .text \2, ";", \1, "H"	;move cursor to screen location x,y
                 .endm
 
 hvhome          .macro

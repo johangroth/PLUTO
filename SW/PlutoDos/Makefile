@@ -6,4 +6,4 @@ pluto.bin: cfs.asm main.asm bios.asm acia.asm rtc.asm via.asm ide_routines.asm $
 	ctags *.asm
 
 clean:
-	rm  -f *.bin *.hex *.lst *~ pluto
+	rm  -f *.bin *.hex *.lst *~ pluto.bin

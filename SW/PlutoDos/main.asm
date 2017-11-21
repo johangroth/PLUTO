@@ -27,6 +27,10 @@
 ; .include "xmodem.asm"
 
 ; =============================================================================
+; ascii_to_binary subroutines
+;.include "ascii_to_bin.asm"
+
+; =============================================================================
 ; acia subroutines
 .include "acia.asm"
 

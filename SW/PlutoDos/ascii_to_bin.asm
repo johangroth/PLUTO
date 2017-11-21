@@ -67,23 +67,23 @@
 ;
 
 ;
-;    ------------------------------------------
-;    Define the above to suit your application.
-;    ------------------------------------------
-;
-a_maskuc = %01011111    ;case conversion mask
 a_hexnum = 'A'-'9'-1    ;hex to decimal difference
 n_radix = 4             ;number of supported radixes
 s_fac = 4              ;binary accumulator size
+
 ;
 ;================================================================================
 ;
-;ZERO PAGE STORAGE
+;CONVERSION TABLES
 ;
-ptr01  = $00            ;input string pointer
-stridx = ptr01+2        ;string index
-pfac   = stridx+1       ;primary accumulator
-sfac   = pfac+s_fac     ;secondary accumulator
+basetab: .byte 10,2,8,16    ;number bases per radix
+bits_per_digit_table: .byte 3,1,3,4  ;bits per digit per radix
+radix_table: .text " %@$"   ;valid radix symbols
+;
+;
+;================================================================================
+
+;
 ;
 ;    ------------------------------------------------------
 ;    Define the above to suit your application.  Moving the
@@ -99,7 +99,7 @@ sfac   = pfac+s_fac     ;secondary accumulator
 ;
 
 ;
-strbin: .proc
+ascii_to_bin: .proc
         stx ptr01       ;save string pointer LSB
         sty ptr01+1     ;save string pointer MSB
         lda #0
@@ -125,7 +125,7 @@ strbin02:
         ldx #n_radix-1
 ;
 strbin03:
-        cmp radxtab,x   ;recognized radix?
+        cmp radix_table,x   ;recognized radix?
         beq strbin04    ;yes
 ;
         dex
@@ -136,9 +136,9 @@ strbin03:
 ;
 strbin04:
         lda basetab,x   ;number bases table
-        sta valdnum     ;set valid numeral range
-        lda bitstab,x   ;get bits per digit
-        sta bitsdig     ;store
+        sta valid_numeral_range     ;set valid numeral range
+        lda bits_per_digit_table,x   ;get bits per digit
+        sta bits_per_digit     ;store
         txa             ;was radix specified?
         beq strbin06    ;no
 ;
@@ -157,17 +157,14 @@ strbin06:
         beq strbin17    ;end of string
 ;
         inc stridx      ;point to next
-        cmp #'a'        ;check char range
+        cmp #'A'        ;check char range
         bcc strbin07    ;not ASCII LC
 ;
-        cmp #'z'+1
+        cmp #'Z'+1
         bcs strbin08    ;not ASCII LC
 ;
-        and #a_maskuc   ;do case conversion
-;
 strbin07:
-        sec
-;
+        sec             ;
 strbin08:
         sbc #'0'        ;change numeral to binary
         bcc strbin16    ;numeral > 0
@@ -178,8 +175,9 @@ strbin08:
         sbc #a_hexnum   ;do a hex adjust
 ;
 strbin09:
-        cmp valdnum     ;check range
-        bcs strbin17    ;out of range
+        ; cannot happen as read_line will only accept hex or decimal input.
+        ;cmp valid_numeral_range     ;check range
+        ;bcs strbin17    ;out of range
 ;
         sta curntnum    ;save processed numeral
         bit radxflag    ;working in base 10?
@@ -211,7 +209,7 @@ strbin10:
         bcs strbin17    ;overflow = error
 ;
 strbin11:
-        ldx bitsdig     ;bits per digit
+        ldx bits_per_digit     ;bits per digit
 ;
 strbin12:
         asl pfac        ;compute N*base for binary,...
@@ -281,23 +279,4 @@ strbin16:
 ;
 strbin17:
         rts             ;done
-;
-;================================================================================
-;
-;CONVERSION TABLES
-;
-basetab: .byte 10,2,8,16    ;number bases per radix
-bitstab: .byte 3,1,3,4  ;bits per digit per radix
-radxtab: .byte " %@$"   ;valid radix symbols
-;
-;================================================================================
-;
-;DYNAMIC STORAGE
-;
-bitsdig: *=*+1          ;bits per digit
-curntnum: *=*+1         ;numeral being processed
-radxflag: *=*+1         ;$80 = processing base-10
-valdnum: *=*+1          ;valid range +1 for selected radix
-;
-;================================================================================
         .pend

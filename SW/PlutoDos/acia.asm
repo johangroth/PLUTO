@@ -13,7 +13,7 @@
 acia_init: .proc
         lda  #serial_port_param             ; Initialize serial port (terminal I/O) 6551/65c51 ACIA
         sta  siocon                         ; (19.2K BAUD,no parity,8 data bits,1 stop bit,
-        lda  #rec_xmit_irq_enabled          ; receiver and transmitter IRQ output enabled)
+        lda  #rec_xmit_irq_enabled          ; receiver and transmitter IRQ enabled)
         sta  siocom
         rts
         .pend
@@ -35,7 +35,8 @@ acia_irq: .block
         bne receive_char        ; Receive character
         bit #acia_transmit_mask ; Check transmit bit
         bne transmit_char       ; Transmit character
-        bra exit                ; IRQ and no receive/transmit bits means /CTS went HIGH so branch
+        bra exit                ; IRQ and no receive/transmit bits could mean /CTS went HIGH
+                                ; but it usually means ACIA has nothing to transmit so branch.
 receive_char:
         lda siodat              ; Get character from ACIA
         ldy in_buffer_counter   ; Get current number of characters in input buffer
@@ -48,14 +49,13 @@ receive_char:
 l1:
         sty in_buffer_tail      ; Update input buffer tail pointer
         inc in_buffer_counter   ; Increment character count
-
         lda siostat             ; Read status register
         and #acia_transmit_mask ; Check transmit bit
         beq exit                ; Branch if nothing to transmit or still transmitting
 
 transmit_char:
         lda out_buffer_counter  ; Get output buffer counter
-        beq exit              ; If nothing to transmit branch
+        beq exit                ; If nothing to transmit branch
         ldy out_buffer_head     ; Get pointer in output buffer
         lda out_buffer,y        ; Get character to transmit from output buffer
         sta siodat              ; Send character
