@@ -53,30 +53,10 @@ exit:
         .pend
 
 ;;;
-;;  DECIMAL_INPUT_BUFFER_TO_BINARY: Convert decimal ASCII numbers in input_buffer to binary.
-;;
-;;       Preparation:
-;;                    x: number of characters in input_buffer..
-;;
-;;   Returned Values: a: entry value
-;;                    x: entry value
-;;                    y: entry value
-;;        number_buffer: binary numbers
-;;
-;;   Examples:
-;;             ldx #2                                   ;convert two characters, ie one byte
-;;             jsr decimal_input_buffer_to_binary       ;call subroutine
-;;
-;;;
-decimal_input_buffer_to_binary: .proc
-
-        .pend
-
-;;;
 ;;  INPUT_HEX: Request 1-8 ASCII hex numbers and convert to binary.
 ;;
 ;;       Preparation:
-;;                    x: number of hex characters to read. Max 8.
+;;                    x: number of hex characters to get from termnial. Max 8.
 ;;
 ;;   Returned Values: a: used
 ;;                    x: number of characters read
