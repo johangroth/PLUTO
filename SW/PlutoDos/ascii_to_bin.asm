@@ -158,10 +158,10 @@ strbin06:
 ;
         inc stridx      ;point to next
         cmp #'A'        ;check char range
-        bcc strbin07    ;not ASCII LC
+        bcc strbin07    ;not ASCII
 ;
         cmp #'Z'+1
-        bcs strbin08    ;not ASCII LC
+        bcs strbin08    ;not ASCII 
 ;
 strbin07:
         sec             ;

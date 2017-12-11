@@ -363,7 +363,7 @@ exit:
 ;;              none
 ;;
 ;;      Effect on registers:
-;;              a - destroyed
+;;              a - used
 ;;              x - entry value
 ;;              y - entry value
 ;;
@@ -371,11 +371,11 @@ exit:
 ;;              jsr dec_index
 ;;;
 dec_index:  .proc
-        lda index_low       ;Check if decrement
-        bne done            ;if not, branch
-        dec index_high      ;  yes, decrement high
+        lda index_low       ;Is index_low being decremented from $00 to $ff?
+        bne done            ;No, branch
+        dec index_high      ;  Yes, decrement high
 done:
-        dec index_low       ;decrement low
+        dec index_low       ;Decrement low
         rts
         .pend
 
