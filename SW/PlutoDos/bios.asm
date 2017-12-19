@@ -69,13 +69,13 @@ exit:
 ;;
 ;;;
 input_hex:  .proc
-        rmb 0,control_flags         ;Set flags
-        rmb 1,control_flags         ;for hex input
+        rmb 0,control_flags         ;Set flags ...
+        rmb 1,control_flags         ;... for hex input
         lda #>input_buffer
         ldy #<input_buffer
         jsr read_line               ;x will contain number of characters read
         beq exit                    ;Branch if buffer is empty
-        jsr input_buffer_to_binary  ;ASCII hex in input_buffer -> binary in number_buffer
+        jsr input_buffer_to_binary  ;Place ASCII hex in input_buffer in number_buffer
 exit:
         rts
         .pend
@@ -85,6 +85,10 @@ exit:
 ;;
 ;;       Preparation:
 ;;                    x: number of characters in input_buffer.
+;;        control_flags: 00, hex input
+;;                       01, decimal input
+;;                       10, binary
+;;                       11, ASCII text
 ;;
 ;;   Returned Values: a: entry value
 ;;                    x: entry value
@@ -193,7 +197,7 @@ next_number:
 ;;
 ;;   Examples:
 ;;              lda #$0a
-;;              jsr hex_to_ascii  ;convert and send ASCII character to terminal
+;;              jsr binary_to_hex_ascii  ;convert and send ASCII character to terminal
 ;;
 ;;;
 binary_to_hex_ascii: .proc
@@ -219,23 +223,36 @@ exit:
 ;;;
 ;; READ_LINE subroutine: Read characters from terminal until CR is found or maximum characters have been read.
 ;;                       Derived work from "6502 ASSEMBLY LANGUAGE SUBROUTINES", ISBN: 0-931988-59-4
+;;                       Input is filtered so when hex input is set only hex characters will be allowed.
+;;                       If a disallowed character is pressed, a bell sound will be sent to console.
+;;                       The filter is active for all but 1 input modes ASCII text where all characters are allowed.
 ;;                       READ_LINE recognises BS and CR and CTRL-X.
 ;;                       BS - deletes the previous character
 ;;                       CTRL-X - deletes all characters
 ;;                       CR - subroutine done
 ;;      Preparation:
-;;              a - high byte of input address
-;;              y - low byte of input address
-;;              x - maximum length of input line
-;;
+;;                           a: high byte of input address
+;;                           y: low byte of input address
+;;                           x: maximum length of input line
+;;               control_flags: 00, hex input
+;;                              01, decimal input
+;;                              10, binary          TODO
+;;                              11, ASCII text
 ;;      Effect on registers:
 ;;              a - used
 ;;              x - will hold number of characters entered at exit
 ;;              y - used
 ;;
 ;;      Example: Read four hex characters from terminal and place them in in_buffer.
-;;              rmb 0,control_flags
-;;              rmb 1,control_flags
+;;              rmb 0,control_flags     ; can be replaced with lda #0
+;;              rmb 1,control_flags     ; and sta control_flags
+;;              lda #>in_buffer
+;;              ldy #<in_buffer
+;;              ldx #4
+;;              jsr read_line
+;;
+;;              smb 0,control_flags     ; can be replaced with lda #1
+;;              rmb 1,control_flags     ; and sta control_flags
 ;;              lda #>in_buffer
 ;;              ldy #<in_buffer
 ;;              ldx #4

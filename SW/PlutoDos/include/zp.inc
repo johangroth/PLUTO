@@ -36,8 +36,11 @@
         ;;              0 indicates supression of leading zeroes
         ;;              1 indicates display hex number, ie no more leading zeroes
         ;;          - checked by read_line
-        ;;              0 indicates hex input
-        ;;              1 indicates decimal input
+        ;;              00, hex input
+        ;;              01, decimal input
+        ;;              10, binary          TODO
+        ;;              11, ASCII text
+        ;;
         ;; bit 1    - checked by read_line
         ;;              0 indicates bit 0 determines type of input
         ;;              1 indicates any character
