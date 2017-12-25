@@ -71,11 +71,37 @@ exit:
 input_hex:  .proc
         rmb 0,control_flags         ;Set flags ...
         rmb 1,control_flags         ;... for hex input
+        jsr input
+exit:
+        rts
+        .pend
+
+;;;
+;;  INPUT: Input characters from console, filtered by control_flags.
+;;
+;;   Preparation:     control_flags set to input mode.
+;;
+;;   Returned Values: a: Used
+;;                    x: Will contain number of characters read
+;;                    y: Used
+;;
+;;   MPU Flags: NVmxDIZC
+;;              ||||||||
+;;              ||||||||
+;;              ||||||||
+;;
+;;
+;;   Examples: ldx value       ;value
+;;             ldy $60         ;value
+;;             jsr subroutine  ;call subroutine
+;;
+;;;
+input:  .proc
         lda #>input_buffer
         ldy #<input_buffer
         jsr read_line               ;x will contain number of characters read
         beq exit                    ;Branch if buffer is empty
-        jsr input_buffer_to_binary  ;Place ASCII hex in input_buffer in number_buffer
+        jsr ascii_to_bin            ;Convert ASCII in input_buffer to binary in number_buffer
 exit:
         rts
         .pend
@@ -96,7 +122,9 @@ exit:
 ;;        number_buffer: binary numbers
 ;;
 ;;   Examples:
-;;             ldx #2                       ;convert two characters, ie one byte
+;;             rmb 0, control_flags
+;;             rmb 1, control_flags
+;;             ldx #2                       ;convert two hex characters, ie one byte
 ;;             jsr input_buffer_to_binary   ;call subroutine
 ;;
 ;;;
