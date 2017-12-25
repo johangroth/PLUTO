@@ -1,5 +1,40 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP 74HC08
+D Quad And2
+K TTL and2
+$ENDCMP
+#
+$CMP 74HC139
+D Dual Decoder 1 of 4, Active low outputs
+K TTL DECOD4
+$ENDCMP
+#
+$CMP 74HC32
+D Quad Or 2 inputs
+K TTL Or2
+$ENDCMP
+#
+$CMP 74HC574
+D 8 bits Register, 3 state Out
+K TTL REG DFF DFF8 3State
+$ENDCMP
+#
+$CMP 74LS09
+D Quad And2 Open Collect
+K TTL and2 OpenCol
+$ENDCMP
+#
+$CMP 74LS138
+D Decoder 3 to 8 (active low outputs)
+K TTL DECOD DECOD8
+$ENDCMP
+#
+$CMP 74LS30
+D Nand 8 inputs
+K TTL Nand8
+$ENDCMP
+#
 $CMP AS6C62256A
 D 32768 x 8bit static CMOS RAM 70ns 
 $ENDCMP

@@ -1,13 +1,43 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP 74HC08
+D Quad And2
+K TTL and2
+$ENDCMP
+#
+$CMP 74HC139
+D Dual Decoder 1 of 4, Active low outputs
+K TTL DECOD4
+$ENDCMP
+#
+$CMP 74HC32
+D Quad Or 2 inputs
+K TTL Or2
+$ENDCMP
+#
+$CMP 74HC574
+D 8 bits Register, 3 state Out
+K TTL REG DFF DFF8 3State
+$ENDCMP
+#
+$CMP 74LS09
+D Quad And2 Open Collect
+K TTL and2 OpenCol
+$ENDCMP
+#
+$CMP 74LS30
+D Nand 8 inputs
+K TTL Nand8
+$ENDCMP
+#
 $CMP AS6C62256A
 D 32768 x 8bit static CMOS RAM 70ns 
 $ENDCMP
 #
 $CMP MAX238
-D Quad RS232 driver/receiver, 5V supply, 120kb/s, 0C-70C
+D +5V-Powered, Multichannel RS-232 Drivers/Receivers
 K RS232 uart transceiver line-driver
-F http://www.ti.com/lit/ds/symlink/max238.pdf
+F https://datasheets.maximintegrated.com/en/ds/MAX220-MAX249.pdf
 $ENDCMP
 #
 $CMP SC26C92
