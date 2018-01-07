@@ -32,16 +32,13 @@
 ;        bcs error
 ;
 ;    All registers are modified.  The result of the conversion is left in
-;    location PFAC in unsigned, little-endian format (see source code).
-;    The contents of PFAC are undefined if strbin exits with an error.
+;    location number_buffer in unsigned, little-endian format (see source code).
+;    The contents of number_buffer are undefined if ascii_to_bin exits with an error.
 ;    The maximum number that can be converted is 4,294,967,295 or (2^32)-1.
 ;
-;    numstr must point to a null-terminated character string in the format:
+;    A null-terminated character string stored at input_buffer is in the format:
 ;
-;        [%|@|$]DDD...DDD
-;
-;    where %, @ or $ are optional radices specifying, respectively, base-2,
-;    base-8 or base-16.  If no radix is specified, base-10 is assumed.
+;        DDD...DDD
 ;
 ;    DDD...DDD represents the characters that comprise the number that is
 ;    to be converted.  Permissible values for each instance of D are:
@@ -68,7 +65,8 @@
 
 ;
 a_hexnum = 'A'-'9'-1    ;hex to decimal difference
-n_radix = 4             ;number of supported radixes
+n_radix = 3             ;number of supported radixes
+radix_mask = 3          ;bit 0 and 1 in control flags holds the radix
 s_fac = 4              ;binary accumulator size
 
 ;
@@ -76,14 +74,12 @@ s_fac = 4              ;binary accumulator size
 ;
 ;CONVERSION TABLES
 ;
-basetab: .byte 10,2,8,16    ;number bases per radix
-bits_per_digit_table: .byte 3,1,3,4  ;bits per digit per radix
-radix_table: .text " %@$"   ;valid radix symbols
+basetab:                .byte 16,10,2   ;number bases per radix, HEX, DEC, BIN
+bits_per_digit_table:   .byte 4,3,1     ;bits per digit per radix
+
 ;
 ;
 ;================================================================================
-
-;
 ;
 ;    ------------------------------------------------------
 ;    Define the above to suit your application.  Moving the
@@ -95,57 +91,36 @@ radix_table: .text " %@$"   ;valid radix symbols
 ;
 ;================================================================================
 ;
-;CONVERT NULL-TERMINATED STRING TO 32 BIT BINARY
+;CONVERT STRING TO 32 BIT BINARY
 ;
 
 ;
 ascii_to_bin: .proc
-        stx ptr01       ;save string pointer LSB
-        sty ptr01+1     ;save string pointer MSB
-        lda #0
-        ldx #s_fac-1    ;accumulator size
+        cpx #0          ; if x != 0 then
+        bne convert     ; convert characters to binary, so branch
+        rts             ; else no characters to convert so return to caller.
+
+convert:
+        stz input_buffer,x  ;Zero terminate input string.
+        ldx #s_fac-1        ;accumulator size
 ;
 strbin01:
-        sta pfac,x      ;clear
+        stz number_buffer,x     ;clear the result buffer
         dex
         bpl strbin01
+        stz stridx              ;save string index
 ;
-;    ------------------------
-;    process radix if present
-;    ------------------------
-;
-        tay             ;starting string index
-        clc             ;assume no error for now
-        lda (ptr01),y   ;get a char
-        bne strbin02
-;
-        rts             ;null string, so exit
 ;
 strbin02:
-        ldx #n_radix-1
 ;
-strbin03:
-        cmp radix_table,x   ;recognized radix?
-        beq strbin04    ;yes
-;
-        dex
-        bpl strbin03    ;try next
-;
-        stx radxflag    ;assuming decimal...
-        inx             ;which might be wrong
-;
+        lda control_flags           ; 0=>HEX, 1=>DEC, 2=>BIN
+        and #radix_mask             ; Mask away everything but radix bits.
+        tax                         ;Put base in X
+        stx radxflag                ;Store radix
+
 strbin04:
-        lda basetab,x   ;number bases table
-        sta valid_numeral_range     ;set valid numeral range
-        lda bits_per_digit_table,x   ;get bits per digit
-        sta bits_per_digit     ;store
-        txa             ;was radix specified?
-        beq strbin06    ;no
-;
-        iny             ;move past radix
-;
-strbin05:
-        sty stridx    ;save string index
+        lda bits_per_digit_table,x  ;get bits per digit
+        sta bits_per_digit          ;store
 ;
 ;    --------------------------------
 ;    process number portion of string
@@ -153,7 +128,7 @@ strbin05:
 ;
 strbin06:
         clc             ;assume no error for now
-        lda (ptr01),y   ;get numeral
+        lda input_buffer,y   ;get numeral
         beq strbin17    ;end of string
 ;
         inc stridx      ;point to next
@@ -161,7 +136,7 @@ strbin06:
         bcc strbin07    ;not ASCII
 ;
         cmp #'Z'+1
-        bcs strbin08    ;not ASCII 
+        bcs strbin08    ;not ASCII
 ;
 strbin07:
         sec             ;
@@ -175,9 +150,6 @@ strbin08:
         sbc #a_hexnum   ;do a hex adjust
 ;
 strbin09:
-        ; cannot happen as read_line will only accept hex or decimal input.
-        ;cmp valid_numeral_range     ;check range
-        ;bcs strbin17    ;out of range
 ;
         sta curntnum    ;save processed numeral
         bit radxflag    ;working in base 10?
@@ -190,7 +162,7 @@ strbin09:
 ;    where N is the partial result & base is the number base.
 ;    N*base with binary, octal & hex is a simple repetitive
 ;    shift.  A simple shift won't do with decimal, necessitating
-;    an (N*8)+(N*2) operation.  PFAC is copied to SFAC to gener-
+;    an (N*8)+(N*2) operation.  number_buffer is copied to SFAC to gener-
 ;    ate the N*2 term.
 ;    -----------------------------------------------------------
 ;
@@ -199,7 +171,7 @@ strbin09:
         clc
 ;
 strbin10:
-        lda pfac,x      ;N
+        lda number_buffer,x      ;N
         rol             ;N=N*2
         sta sfac,x
         inx
@@ -212,10 +184,10 @@ strbin11:
         ldx bits_per_digit     ;bits per digit
 ;
 strbin12:
-        asl pfac        ;compute N*base for binary,...
-        rol pfac+1      ;octal &...
-        rol pfac+2      ;hex or...
-        rol pfac+3      ;N*8 for decimal
+        asl number_buffer        ;compute N*base for binary,...
+        rol number_buffer+1      ;octal &...
+        rol number_buffer+2      ;hex or...
+        rol number_buffer+3      ;N*8 for decimal
         bcs strbin17    ;overflow
 ;
         dex
@@ -232,9 +204,9 @@ strbin12:
         ldy #s_fac
 ;
 strbin13:
-        lda pfac,x      ;N*8
+        lda number_buffer,x      ;N*8
         adc sfac,x      ;N*2
-        sta pfac,x      ;now N*10
+        sta number_buffer,x      ;now N*10
         inx
         dey
         bne strbin13
@@ -247,16 +219,16 @@ strbin13:
 ;
 strbin14:
         clc
-        lda pfac        ;N
+        lda number_buffer        ;N
         adc curntnum    ;N=N+D
-        sta pfac
+        sta number_buffer
         ldx #1
         ldy #s_fac-1
 ;
 strbin15:
-        lda pfac,x
+        lda number_buffer,x
         adc #0          ;account for carry
-        sta pfac,x
+        sta number_buffer,x
         inx
         dey
         bne strbin15

@@ -49,7 +49,7 @@
         ;
         ;DYNAMIC STORAGE
         ;
-        bitsdig = zp_start + $2a          ;bits per digit
+        bits_per_digit = zp_start + $2a          ;bits per digit
         curntnum = zp_start + $2b         ;numeral being processed
         radxflag = zp_start + $2c         ;$80 = processing base-10
         valdnum = zp_start + $2d          ;valid range +1 for selected radix
@@ -57,9 +57,7 @@
         ;
         ;ZERO PAGE STORAGE
         ;
-        ptr01 = zp_start + $2e          ;input string pointer
         stridx = zp_start + $2f         ;string index
-        pfac = zp_start + $30           ;primary accumulator
-        sfac = zp_start + $31           ;secondary accumulator
+        sfac = zp_start + $30           ;secondary accumulator
 
         stack_page  = $100

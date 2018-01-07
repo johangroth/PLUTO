@@ -36,20 +36,14 @@ print_space:    .proc
 ;;
 ;;
 ;;   Examples:
-;;             ldx #2         ;read two characters, ie one byte
+;;             ldx #3         ;read up to three characters, ie one byte
 ;;             jsr input_dec  ;call subroutine
 ;;
 ;;;
 input_dec: .proc
         smb 0,control_flags
         rmb 1,control_flags
-        lda #>input_buffer
-        ldy #<input_buffer
-        jsr read_line
-        beq exit
-        jsr decimal_input_buffer_to_binary
-exit:
-        rts
+        jmp input
         .pend
 
 ;;;
@@ -64,16 +58,14 @@ exit:
 ;;
 ;;
 ;;   Examples:
-;;             ldx #2         ;read two characters, ie one byte
+;;             ldx #2         ;read up to two characters, ie one byte
 ;;             jsr input_hex  ;call subroutine
 ;;
 ;;;
 input_hex:  .proc
         rmb 0,control_flags         ;Set flags ...
         rmb 1,control_flags         ;... for hex input
-        jsr input
-exit:
-        rts
+        jmp input
         .pend
 
 ;;;
@@ -84,16 +76,11 @@ exit:
 ;;   Returned Values: a: Used
 ;;                    x: Will contain number of characters read
 ;;                    y: Used
+;;        number_buffer: Contains the binary number if x > 0
 ;;
-;;   MPU Flags: NVmxDIZC
-;;              ||||||||
-;;              ||||||||
-;;              ||||||||
-;;
-;;
-;;   Examples: ldx value       ;value
-;;             ldy $60         ;value
-;;             jsr subroutine  ;call subroutine
+;;   Examples: rmb 0,control_flags      ;Set flags ...
+;;             rmb 1,control_flags      ;... for hex input
+;;             jsr input                ;call input
 ;;
 ;;;
 input:  .proc
@@ -177,7 +164,7 @@ exit:
         .pend
 ;;;
 ;;  DISPLAY_HEX: Sends to terminal 4 binary numbers converted to ASCII hex, supressing any leading zeroes.
-;;       The byte sequence 12 34 00 00 will display as 3412
+;;       The byte sequence 12 34 00 00 will be displayed as 3412
 ;;       Preparation: number_buffer contains binary numbers (in little endian) to be displayed in hex.
 ;;
 ;;   Returned Values: a: entry value
@@ -279,6 +266,7 @@ exit:
 ;;              ldx #4
 ;;              jsr read_line
 ;;
+;;      Exampl: Read four decimal characters from terminal and place them in in_buffer.
 ;;              smb 0,control_flags     ; can be replaced with lda #1
 ;;              rmb 1,control_flags     ; and sta control_flags
 ;;              lda #>in_buffer

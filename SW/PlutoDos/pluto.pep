@@ -1,5 +1,5 @@
 PEP-Version: 2.42
-Active Prog-Express mode: Program
+Active Prog-Express mode: HexEditor
 Connected Programmers: 1
 
 ;**************************************
@@ -20,7 +20,7 @@ Connected Programmers: 1
     Chip memory number: 0
     Memory used: True
     Real time clock option: NoChanges
-    Real time clock date time: 07/11/2017 21:46:21
+    Real time clock date time: 06/01/2018 00:26:43
     Real time clock calibration: 0
 
  ; Serial number settings:
@@ -102,7 +102,7 @@ Connected Programmers: 1
     Chip memory number: 0
     Memory used: True
     Real time clock option: NoChanges
-    Real time clock date time: 07/11/2017 21:46:52
+    Real time clock date time: 06/01/2018 00:14:40
     Real time clock calibration: 0
 
  ; Serial number settings:
@@ -208,7 +208,7 @@ Connected Programmers: 1
     Chip memory number: 0
     Memory used: True
     Real time clock option: NoChanges
-    Real time clock date time: 07/11/2017 21:47:19
+    Real time clock date time: 06/01/2018 00:27:20
     Real time clock calibration: 0
 
  ; Serial number settings:
