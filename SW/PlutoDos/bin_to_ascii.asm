@@ -91,7 +91,7 @@
 ;ATOMIC CONSTANTS
 ;
 
-_zpage_ = $00           ;start of ZP storage
+_zpage_ = $80+$40           ;start of ZP storage
 ;
 ;    ------------------------------------------
 ;    Modify the above to suit your application.
@@ -101,7 +101,6 @@ a_hexdec = 'A'-'9'-2    ;hex to decimal difference
 m_bits = 32             ;operand bit size
 m_cbits = 48            ;workspace bit size
 m_strlen = m_bits+1     ;maximum printable string length
-n_radix = 4             ;number of supported radices
 s_pfac = m_bits/8       ;primary accumulator size
 s_ptr  = 2              ;pointer size
 s_wrkspc = m_cbits/8    ;conversion workspace size
@@ -122,7 +121,7 @@ wrkspc01 = pfac+s_pfac  ;conversion...
 wrkspc02 = wrkspc01+s_wrkspc    ;workspace
 formflag = wrkspc02+s_wrkspc    ;string format flag
 radix  = formflag+1     ;radix index
-stridx = radix+1        ;string buffer index
+
 ;
 ;================================================================================
 ;
@@ -340,16 +339,16 @@ facbcd08:
 ;
 ;PER RADIX CONVERSION TABLES
 ;
-bitstab: .byte 4,1,3,4  ;bits per numeral
-lzsttab: .byte 2,9,2,3  ;leading zero suppression thresholds
-numstab: .byte 12,48,16,12    ;maximum numerals
-radxtab: .byte 0,"%@$"  ;recognized symbols
+bitstab: .byte 4,1,4  ;bits per numeral
+lzsttab: .byte 2,9,3  ;leading zero suppression thresholds
+numstab: .byte 12,48,12    ;maximum numerals
+radxtab: .text 0,"%$"  ;recognized symbols
 ;
 ;================================================================================
 ;
 ;STATIC STORAGE
 ;
-strbuf: *=*+m_strlen+1  ;conversion string buffer
+strbuf = m_strlen+1  ;conversion string buffer
 ;
 ;================================================================================
         .pend

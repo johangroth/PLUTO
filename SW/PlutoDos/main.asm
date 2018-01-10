@@ -31,6 +31,10 @@
 .include "ascii_to_bin.asm"
 
 ; =============================================================================
+; binary to ascii subroutines
+.include "bin_to_ascii.asm"
+
+; =============================================================================
 ; acia subroutines
 .include "acia.asm"
 
