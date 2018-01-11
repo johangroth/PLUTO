@@ -90,12 +90,6 @@
 ;
 ;ATOMIC CONSTANTS
 ;
-
-_zpage_ = $80+$40           ;start of ZP storage
-;
-;    ------------------------------------------
-;    Modify the above to suit your application.
-;    ------------------------------------------
 ;
 a_hexdec = 'A'-'9'-2    ;hex to decimal difference
 m_bits = 32             ;operand bit size
@@ -108,107 +102,53 @@ s_wrkspc = m_cbits/8    ;conversion workspace size
 ;================================================================================
 ;
 ;ZERO PAGE ASSIGNMENTS
+;All ZP assignments are in include/zp.inc.
 ;
-ptr01  = _zpage_        ;string storage pointer
-;
-;    ---------------------------------
-;    The following may be relocated to
-;    absolute storage if desired.
-;    ---------------------------------
-;
-pfac   = ptr01+s_ptr    ;primary accumulator
-wrkspc01 = number_buffer+s_pfac  ;conversion...
-wrkspc02 = wrkspc01+s_wrkspc    ;workspace
-formflag = wrkspc02+s_wrkspc    ;string format flag
-radix  = formflag+1     ;radix index
 
 ;
 ;================================================================================
 ;
 ;CONVERT 32-BIT BINARY TO NULL-TERMINATED ASCII NUMBER STRING
 ;
-;    ----------------------------------------------------------------
-;    WARNING! If this code is run on an NMOS MPU it will be necessary
-;             to disable IRQs during binary to BCD conversion unless
-;             the target system's IRQ handler clears decimal mode.
-;             Refer to the FACBCD subroutine.
-;    ----------------------------------------------------------------
-;
 binary_to_ascii: .proc
-        ;stx ptr01       ;operand pointer LSB
-        ;sty ptr01+1     ;operand pointer MSB
-        ;the number to be converted is in number_buffer
-        ;tax             ;protect radix
-        lda control_flags       ;get radix, 0=>HEX, 1=>DEC, 2=>BIN
-        and #radix_mask
-        tax                     ;protect radix
-        ldy #0
-        stz stridx      ;initialize string index
-;
-;    --------------
-;    evaluate radix
-;    --------------
-;
-        txa             ;radix character
-        asl             ;extract format flag &...
-        ror formflag    ;save it
-        lsr             ;extract radix character
-        ldx #n_radix-1  ;total radices
-binstr03:
-        cmp radxtab,x   ;recognized radix?
-        beq binstr04    ;yes
-        dex
-        bne binstr03    ;try next
-;
-;    ------------------------------------
-;    radix not recognized, assume decimal
-;    ------------------------------------
-;
-binstr04:
-        stx radix       ;save radix index for later
-        txa             ;converting to decimal?
-        bne binstr05    ;no
+        lda control_flags       ;get radix, 00=>HEX, 01=>DEC, 10=>BIN
+        and #radix_mask         ;keep only radix bits
+        sta radix               ;save radix index for later
+        stz stridx              ;initialise string index
+        bbr 0,radix,l06    ;branch if not converting to decimal
 ;
 ;    ------------------------------
 ;    prepare for decimal conversion
 ;    ------------------------------
 ;
         jsr facbcd      ;convert operand to BCD
-        lda #0
-        beq binstr09    ;skip binary stuff
+        bra l09         ;skip binary stuff
 ;
 ;    -------------------------------------------
 ;    prepare for binary, octal or hex conversion
 ;    -------------------------------------------
 ;
-binstr05:
-        bit formflag
-        bmi binstr06    ;no radix symbol wanted
-        lda radxtab,x   ;radix table
-        sta strbuf      ;prepend to string
-        inc stridx      ;bump string index
-binstr06:
-        ldx #0          ;operand index
-        ldy #s_wrkspc-1 ;workspace index
-binstr07:
-        lda number_buffer,x      ;copy operand to...
-        sta wrkspc01,y  ;workspace in...
-        dey             ;big-endian order
-        inx
-        cpx #s_pfac
-        bne binstr07
-        lda #0
-binstr08:
-        sta wrkspc01,y  ;pad workspace
-        dey
-        bpl binstr08
+l06:
+        ldy #0                  ;operand index
+        ldx #s_wrkspc-1         ;workspace index
+l07:
+        lda number_buffer,y     ;copy operand to...
+        sta wrkspc01,x          ;workspace in...
+        dex                     ;big-endian order
+        iny
+        cpy #s_pfac
+        bne l07
+l08:
+        stz wrkspc01,x  ;pad workspace
+        dex
+        bpl l08
 ;
 ;    ----------------------------
 ;    set up conversion parameters
 ;    ----------------------------
 ;
-binstr09:
-        sta wrkspc02    ;initialize byte counter
+l09:
+        stz wrkspc02    ;initialize byte counter
         ldy radix       ;radix index
         lda numstab,y   ;numerals in string
         sta wrkspc02+1  ;set remaining numeral count
@@ -221,47 +161,46 @@ binstr09:
 ;    generate conversion string
 ;    --------------------------
 ;
-binstr10:
+l10:
         lda #0
         ldy wrkspc02+2  ;bits per numeral
-binstr11:
+l11:
         ldx #s_wrkspc-1 ;workspace size
         clc             ;avoid starting carry
-binstr12:
+l12:
         rol wrkspc01,x  ;shift out a bit...
         dex             ;from the operand or...
-        bpl binstr12    ;BCD conversion result
-        rol             ;bit to .A
+        bpl l12         ;BCD conversion result
+        rol             ;bit to A
         dey
-        bne binstr11    ;more bits to grab
+        bne l11         ;more bits to grab
         tay             ;if numeral isn't zero...
-        bne binstr13    ;skip leading zero tests
+        bne l13         ;skip leading zero tests
         ldx wrkspc02+1  ;remaining numerals
         cpx wrkspc02+3  ;leading zero threshold
-        bcc binstr13    ;below it, must convert
+        bcc l13         ;below it, must convert
         ldx wrkspc02    ;processed byte count
-        beq binstr15    ;discard leading zero
-binstr13:
+        beq l15         ;discard leading zero
+l13:
         cmp #10         ;check range
-        bcc binstr14    ;is 0-9
+        bcc l14         ;is 0-9
         adc #a_hexdec   ;apply hex adjust
-binstr14:
+l14:
         adc #'0'        ;change to ASCII
         ldy stridx      ;string index
         sta strbuf,y    ;save numeral in buffer
         inc stridx      ;next buffer position
         inc wrkspc02    ;bytes=bytes+1
-binstr15:
+l15:
         dec wrkspc02+1  ;numerals=numerals-1
-        bne binstr10    ;not done
+        bne l10         ;not done
 ;
 ;    -----------------------
 ;    terminate string & exit
 ;    -----------------------
 ;
-        lda #0
         ldx stridx      ;printable string length
-        sta strbuf,x    ;terminate string
+        stz strbuf,x    ;terminate string
         txa
         ldx #<strbuf    ;converted string LSB
         ldy #>strbuf    ;converted string MSB
@@ -270,12 +209,7 @@ binstr15:
 ;
 ;================================================================================
 ;
-;CONVERT number_buffer INTO BCD
-;
-;    ---------------------------------------------------------------
-;    Uncomment noted instructions if this code is to be used  on  an
-;    NMOS system whose interrupt handlers do not clear decimal mode.
-;    ---------------------------------------------------------------
+;CONVERT number_buffer into BCD
 ;
 facbcd:
         ldx #s_pfac-1   ;primary accumulator size -1
@@ -292,8 +226,6 @@ facbcd02:
         dex
         bpl facbcd02
         inc wrkspc02+s_wrkspc-1
-        ;php                   ;!!! uncomment for NMOS MPU !!!
-        ;sei                   ;!!! uncomment for NMOS MPU !!!
         sed             ;select decimal mode
         ldy #m_bits-1   ;bits to convert -1
 facbcd03:
@@ -323,7 +255,6 @@ facbcd07:
         bpl facbcd07
         dey
         bpl facbcd03    ;next operand bit
-        ;plp                   ;!!! uncomment for NMOS MPU !!!
         ldx #0
 facbcd08:
         pla             ;operand
@@ -337,10 +268,10 @@ facbcd08:
 ;
 ;PER RADIX CONVERSION TABLES
 ;
+; Order of tables is hex, dec, bin
 bitstab: .byte 4,4,1  ;bits per numeral
 lzsttab: .byte 3,2,9  ;leading zero suppression thresholds
 numstab: .byte 12,12,48    ;maximum numerals
-radxtab: .text "$",0,"%"  ;recognized symbols
 ;
 ;================================================================================
 ;

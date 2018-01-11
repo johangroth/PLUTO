@@ -488,11 +488,9 @@ l2:
         ;test code
         ldx #5
         jsr input_dec
-        jsr crout
-        ;jsr display_hex
-        lda #'$' | $80
-        ldx #<number_buffer
-        ldy #>number_buffer
+        jsr crout        
+        rmb 0,control_flags     ;Hex output
+        rmb 1,control_flags
         jsr binary_to_ascii
         stx index_low
         sty index_high

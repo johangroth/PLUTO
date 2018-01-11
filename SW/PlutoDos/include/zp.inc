@@ -46,12 +46,15 @@
         bits_per_digit = zp_start + $2a          ;bits per digit
         curntnum = zp_start + $2b         ;numeral being processed
         radxflag = zp_start + $2c         ;$80 = processing base-10
-        ;valdnum = zp_start + $2d          ;valid range +1 for selected radix
         ;================================================================================
         ;
         ;ZERO PAGE STORAGE
         ;
         stridx = zp_start + $2f         ;string index
         sfac = zp_start + $30           ;secondary accumulator
+        wrkspc01 = sfac+s_pfac  ;conversion...
+        wrkspc02 = wrkspc01+s_wrkspc    ;workspace
+        ;formflag = wrkspc02+s_wrkspc    ;string format flag
+        radix  = wrkspc02+s_wrkspc     ;radix index
 
         stack_page  = $100
