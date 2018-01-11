@@ -64,7 +64,7 @@
 ;
 a_hexnum = 'A'-'9'-1    ;hex to decimal difference
 n_radix = 3             ;number of supported radixes
-radix_mask = 3          ;bit 0 and 1 in control flags holds the radix
+radix_mask = 3          ;bit 0 and 1 in control_flags holds the radix
 s_fac = 4              ;binary accumulator size
 
 ;
@@ -140,8 +140,7 @@ l08:
 l09:
 ;
         sta curntnum    ;save processed numeral
-        bit radxflag    ;working in base 10?
-        bpl l11    ;no
+        bbr 0,control_flags,l11 ;branch if not working in base 10
 ;
 ;    -----------------------------------------------------------
 ;    Prior to combining the most recent numeral with the partial
@@ -155,34 +154,33 @@ l09:
 ;    -----------------------------------------------------------
 ;
         ldx #0
-        ldy #s_fac      ;accumulator size
+        ldy #s_fac              ;accumulator size
         clc
 ;
 l10:
-        lda number_buffer,x      ;N
-        rol             ;N=N*2
+        lda number_buffer,x     ;N
+        rol                     ;N=N*2
         sta sfac,x
         inx
         dey
         bne l10
 ;
-        bcs l17    ;overflow = error
+        bcs l17                 ;overflow = error
 ;
 l11:
-        ldx bits_per_digit     ;bits per digit
+        ldx bits_per_digit      ;bits per digit
 ;
 l12:
-        asl number_buffer        ;compute N*base for binary,...
-        rol number_buffer+1      ;octal &...
-        rol number_buffer+2      ;hex or...
-        rol number_buffer+3      ;N*8 for decimal
-        bcs l17    ;overflow
+        asl number_buffer       ;compute N*base for binary,...
+        rol number_buffer+1     ;octal &...
+        rol number_buffer+2     ;hex or...
+        rol number_buffer+3     ;N*8 for decimal
+        bcs l17                 ;overflow
 ;
         dex
-        bne l12    ;next shift
+        bne l12                 ;next shift
 ;
-        bit radxflag    ;check base
-        bpl l14    ;not decimal
+        bbr 0,control_flags,l14 ;branch if not working in base 10
 ;
 ;    -------------------
 ;    compute (N*8)+(N*2)
@@ -192,9 +190,9 @@ l12:
         ldy #s_fac
 ;
 l13:
-        lda number_buffer,x      ;N*8
-        adc sfac,x      ;N*2
-        sta number_buffer,x      ;now N*10
+        lda number_buffer,x     ;N*8
+        adc sfac,x              ;N*2
+        sta number_buffer,x     ;now N*10
         inx
         dey
         bne l13
@@ -207,28 +205,28 @@ l13:
 ;
 l14:
         clc
-        lda number_buffer        ;N
-        adc curntnum    ;N=N+D
+        lda number_buffer   ;N
+        adc curntnum        ;N=N+D
         sta number_buffer
         ldx #1
         ldy #s_fac-1
 ;
 l15:
         lda number_buffer,x
-        adc #0          ;account for carry
+        adc #0                  ;account for carry
         sta number_buffer,x
         inx
         dey
         bne l15
 ;
-        bcs l17    ;overflow
+        bcs l17                 ;overflow
 ;
 ;    ----------------------
 ;    ready for next numeral
 ;    ----------------------
 ;
         ldy stridx      ;string index
-        bpl l06    ;get another numeral
+        bpl l06         ;get another numeral
 ;
 ;    ----------------------------------------------
 ;    if string length > 127 fall through with error

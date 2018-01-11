@@ -398,23 +398,30 @@ exit:
         rts
         .pend
 
+;;;
+;; chin_no_wait subroutine: Get character from buffer. If no character is available
+;; carry is cleared, otherwise set. Returns character in A register.
+chin_no_wait: .proc
+        clc                         ; Indicate no character is available
+        lda in_buffer_counter
+        bne chin.get_char
+        rts
+        .pend
+
 ;;; CHIN subroutine: Wait for a character in input buffer, return character in A register.
 ;;; receive is interrupt driven and buffered with a size of 128 bytes.
 chin:    .proc
         lda in_buffer_counter       ; Get number of characters in buffer
         beq chin                    ; If zero wait for characters
+get_char:
         phy                         ; Preserve Y register
-        php                         ; Preserve MPU state
         ldy in_buffer_head          ; Get in buffer head pointer
         lda in_buffer,y             ; Get the character from the in buffer
-        iny                         ; Increment the buffer index
-        bpl l1                      ; Branch if not wrap-around ($80)
-        ldy #0                      ; Reset the buffer index
-l1:
-        sty in_buffer_head          ; Update the pointer
+        inc in_buffer_head          ; Increment the buffer index
+        rmb 7,in_buffer_head        ; Reset bit 7 as buffer is only 128 bytes
         dec in_buffer_counter       ; Decrement the character counter
-        plp                         ; Restore MPU state
         ply                         ; Restore Y register
+        sec                         ; Indicate character is available
         rts
         .pend
 
@@ -425,16 +432,11 @@ chout:   .proc
 out_buffer_full:
         ldy out_buffer_counter      ; Get number of characters in buffer
         bmi out_buffer_full         ; Loop back if buffer is full (ACIA ISR will empty buffer)
-        php                         ; Preserve MPU state
         ldy out_buffer_tail         ; Get buffer tail pointer
         sta out_buffer,y            ; and store it in buffer
-        iny                         ; Increment the buffer index
-        bpl l1                      ; Branch if not wrap-around ($80)
-        ldy #0                      ; Reset the buffer index
-l1:
-        sty out_buffer_tail         ; Update the pointer
+        inc out_buffer_tail         ; Increment the buffer index
+        rmb 7,out_buffer_tail       ; Reset bit 7 as buffer is only 128 bytes
         inc out_buffer_counter      ; Increment the counter
-        plp                         ; Restore MPU state
         ply                         ; Restore Y register
         rts
         .pend
@@ -485,10 +487,10 @@ l2:
 
         ;test code
         ldx #5
-        jsr input_hex
+        jsr input_dec
         jsr crout
         ;jsr display_hex
-        lda #'$'
+        lda #'$' | $80
         ldx #<number_buffer
         ldy #>number_buffer
         jsr binary_to_ascii

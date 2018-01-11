@@ -133,6 +133,7 @@ brk_irq	bios.asm	/^brk_irq: .block$/;"	l
 check_buffer	bios.asm	/^check_buffer:$/;"	l
 chin	bios.asm	/^chin:    .proc$/;"	l
 chin	time_first_row.asm	/^        chin = $815a$/;"	d
+chin_no_wait	bios.asm	/^chin_no_wait: .proc$/;"	l
 chout	bios.asm	/^chout:   .proc$/;"	l
 clear_entire_screen	time_first_row.asm	/^clear_entire_screen .null "[2J"$/;"	l
 coldstart	bios.asm	/^coldstart: .block$/;"	l
@@ -182,6 +183,7 @@ facbcd07	bin_to_ascii.asm	/^facbcd07:$/;"	l
 facbcd08	bin_to_ascii.asm	/^facbcd08:$/;"	l
 find_boot_sector	cfs.asm	/^find_boot_sector: 	.proc$/;"	l
 formflag	bin_to_ascii.asm	/^formflag = wrkspc02+s_wrkspc    ;string format flag$/;"	d
+get_char	bios.asm	/^get_char:$/;"	l
 get_date_and_time	rtc.asm	/^get_date_and_time: .proc$/;"	l
 get_date_and_time	time_first_row.asm	/^        get_date_and_time  = $8072$/;"	d
 get_system_up_time	rtc.asm	/^get_system_up_time: .proc$/;"	l
@@ -290,7 +292,7 @@ ptrh	xmodem.asm	/^        ptrh = INDEXH       ;   "    "$/;"	d
 put_date_and_time	rtc.asm	/^put_date_and_time:  .proc$/;"	l
 put_date_and_time	time_first_row.asm	/^        put_date_and_time = $8095$/;"	d
 radix	bin_to_ascii.asm	/^radix  = formflag+1     ;radix index$/;"	d
-radix_mask	ascii_to_bin.asm	/^radix_mask = 3          ;bit 0 and 1 in control flags holds the radix$/;"	d
+radix_mask	ascii_to_bin.asm	/^radix_mask = 3          ;bit 0 and 1 in control_flags holds the radix$/;"	d
 radxtab	bin_to_ascii.asm	/^radxtab: .text 0,"%$"  ;recognized symbols$/;"	l
 rdline	time_first_row.asm	/^        rdline = $8352$/;"	d
 read_character	bios.asm	/^read_character: .proc$/;"	l

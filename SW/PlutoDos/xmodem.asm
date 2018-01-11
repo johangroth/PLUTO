@@ -309,7 +309,7 @@ GotByte1:
 
 StartBlk:
         JSR CHIN        ; get first byte of block
-        
+
 BegBlk:
         LDX #$00
 
@@ -398,7 +398,7 @@ RDoneNow:
         JSR Flush       ; get leftover characters, if any
         JSR Print_Good  ;
         RTS
-       .pend     
+       .pend
 ;
 ;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;======================================================================
@@ -430,12 +430,12 @@ RDoneNow:
 
 ;
 ;========================================================================
-; Flush: In case of any error, or we are done, flush the input buffer 
+; Flush: In case of any error, or we are done, flush the input buffer
 ;        by making both INCNT and OUTCNT zero. CHIN will then loop until
 ;        a character is recevied.
 ;
 Flush   .proc
-        STZ INCNT       ; If INCNT equals OUTCNT there are no characters to read  
+        STZ INCNT       ; If INCNT equals OUTCNT there are no characters to read
         STZ OUTCNT      ; so CHIN will loop until a character is received.
         RTS
         .pend
@@ -516,6 +516,7 @@ CalcCRC1:
 ; then just delete them and define the two labels: crclo & crchi.
 ; low byte CRC lookup table (should be page aligned for speed)
     ;;      *= $DE00
+        .align $100,$ea
 crclo:
         .byte $00,$21,$42,$63,$84,$A5,$C6,$E7,$08,$29,$4A,$6B,$8C,$AD,$CE,$EF
         .byte $31,$10,$73,$52,$B5,$94,$F7,$D6,$39,$18,$7B,$5A,$BD,$9C,$FF,$DE
