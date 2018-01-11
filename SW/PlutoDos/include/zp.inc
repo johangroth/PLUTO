@@ -32,18 +32,12 @@
         number_buffer = zp_start + $25          ; A 4 byte buffer for number conversion
 
         ;; This flag byte holds boolean flags for various subroutines.
-        ;; bit 0    - checked by display_hex (also hex_to_ascii which is a private proc of display_hex).
-        ;;              0 indicates supression of leading zeroes
-        ;;              1 indicates display hex number, ie no more leading zeroes
-        ;;          - checked by read_line
+        ;; bit 0 and 1    - checked by read_line
         ;;              00, hex input
         ;;              01, decimal input
         ;;              10, binary          TODO
         ;;              11, ASCII text
         ;;
-        ;; bit 1    - checked by read_line
-        ;;              0 indicates bit 0 determines type of input
-        ;;              1 indicates any character
         control_flags = zp_start + $29
         ;================================================================================
         ;
@@ -52,7 +46,7 @@
         bits_per_digit = zp_start + $2a          ;bits per digit
         curntnum = zp_start + $2b         ;numeral being processed
         radxflag = zp_start + $2c         ;$80 = processing base-10
-        valdnum = zp_start + $2d          ;valid range +1 for selected radix
+        ;valdnum = zp_start + $2d          ;valid range +1 for selected radix
         ;================================================================================
         ;
         ;ZERO PAGE STORAGE

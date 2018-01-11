@@ -126,7 +126,7 @@ binstr13	bin_to_ascii.asm	/^binstr13:$/;"	l
 binstr14	bin_to_ascii.asm	/^binstr14:$/;"	l
 binstr15	bin_to_ascii.asm	/^binstr15:$/;"	l
 bits_per_digit_table	ascii_to_bin.asm	/^bits_per_digit_table:   .byte 4,3,1     ;bits per digit per radix$/;"	l
-bitstab	bin_to_ascii.asm	/^bitstab: .byte 4,1,4  ;bits per numeral$/;"	l
+bitstab	bin_to_ascii.asm	/^bitstab: .byte 4,4,1  ;bits per numeral$/;"	l
 blkno	xmodem.asm	/^        blkno = $a6         ; block number$/;"	d
 bn2asc	time_first_row.asm	/^        bn2asc = $8138$/;"	d
 brk_irq	bios.asm	/^brk_irq: .block$/;"	l
@@ -260,7 +260,7 @@ l2	rtc.asm	/^l2:$/;"	l
 l3	bios.asm	/^l3:$/;"	l
 lastblk	xmodem.asm	/^        lastblk = $a5       ; flag for last block$/;"	d
 loop	via.asm	/^loop:$/;"	l
-lzsttab	bin_to_ascii.asm	/^lzsttab: .byte 2,9,3  ;leading zero suppression thresholds$/;"	l
+lzsttab	bin_to_ascii.asm	/^lzsttab: .byte 3,2,9  ;leading zero suppression thresholds$/;"	l
 m_bits	bin_to_ascii.asm	/^m_bits = 32             ;operand bit size$/;"	d
 m_cbits	bin_to_ascii.asm	/^m_cbits = 48            ;workspace bit size$/;"	d
 m_strlen	bin_to_ascii.asm	/^m_strlen = m_bits+1     ;maximum printable string length$/;"	d
@@ -273,7 +273,7 @@ nmi	bios.asm	/^nmi:$/;"	l
 nmon	time_first_row.asm	/^        nmon = $867d$/;"	d
 notcr	bios.asm	/^notcr:$/;"	l
 notdone	ide_routines.asm	/^notdone:$/;"	l
-numstab	bin_to_ascii.asm	/^numstab: .byte 12,48,12    ;maximum numerals$/;"	l
+numstab	bin_to_ascii.asm	/^numstab: .byte 12,12,48    ;maximum numerals$/;"	l
 ok	ide_routines.asm	/^ok:$/;"	l
 out_buffer_full	bios.asm	/^out_buffer_full:$/;"	l
 pfac	bin_to_ascii.asm	/^pfac   = ptr01+s_ptr    ;primary accumulator$/;"	d
@@ -293,7 +293,7 @@ put_date_and_time	rtc.asm	/^put_date_and_time:  .proc$/;"	l
 put_date_and_time	time_first_row.asm	/^        put_date_and_time = $8095$/;"	d
 radix	bin_to_ascii.asm	/^radix  = formflag+1     ;radix index$/;"	d
 radix_mask	ascii_to_bin.asm	/^radix_mask = 3          ;bit 0 and 1 in control_flags holds the radix$/;"	d
-radxtab	bin_to_ascii.asm	/^radxtab: .text 0,"%$"  ;recognized symbols$/;"	l
+radxtab	bin_to_ascii.asm	/^radxtab: .text "$",0,"%"  ;recognized symbols$/;"	l
 rdline	time_first_row.asm	/^        rdline = $8352$/;"	d
 read_character	bios.asm	/^read_character: .proc$/;"	l
 read_line	bios.asm	/^read_line:  .proc$/;"	l

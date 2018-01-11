@@ -117,7 +117,7 @@ ptr01  = _zpage_        ;string storage pointer
 ;    ---------------------------------
 ;
 pfac   = ptr01+s_ptr    ;primary accumulator
-wrkspc01 = pfac+s_pfac  ;conversion...
+wrkspc01 = number_buffer+s_pfac  ;conversion...
 wrkspc02 = wrkspc01+s_wrkspc    ;workspace
 formflag = wrkspc02+s_wrkspc    ;string format flag
 radix  = formflag+1     ;radix index
@@ -135,17 +135,15 @@ radix  = formflag+1     ;radix index
 ;    ----------------------------------------------------------------
 ;
 binary_to_ascii: .proc
-        stx ptr01       ;operand pointer LSB
-        sty ptr01+1     ;operand pointer MSB
-        tax             ;protect radix
-        ldy #s_pfac-1   ;operand size
-binstr01:
-        lda (ptr01),y   ;copy operand to...
-        sta pfac,y      ;workspace
-        dey
-        bpl binstr01
-        iny
-        sty stridx      ;initialize string index
+        ;stx ptr01       ;operand pointer LSB
+        ;sty ptr01+1     ;operand pointer MSB
+        ;the number to be converted is in number_buffer
+        ;tax             ;protect radix
+        lda control_flags       ;get radix, 0=>HEX, 1=>DEC, 2=>BIN
+        and #radix_mask
+        tax                     ;protect radix
+        ldy #0
+        stz stridx      ;initialize string index
 ;
 ;    --------------
 ;    evaluate radix
@@ -193,7 +191,7 @@ binstr06:
         ldx #0          ;operand index
         ldy #s_wrkspc-1 ;workspace index
 binstr07:
-        lda pfac,x      ;copy operand to...
+        lda number_buffer,x      ;copy operand to...
         sta wrkspc01,y  ;workspace in...
         dey             ;big-endian order
         inx
@@ -272,7 +270,7 @@ binstr15:
 ;
 ;================================================================================
 ;
-;CONVERT PFAC INTO BCD
+;CONVERT number_buffer INTO BCD
 ;
 ;    ---------------------------------------------------------------
 ;    Uncomment noted instructions if this code is to be used  on  an
@@ -282,7 +280,7 @@ binstr15:
 facbcd:
         ldx #s_pfac-1   ;primary accumulator size -1
 facbcd01:
-        lda pfac,x      ;value to be converted
+        lda number_buffer,x      ;value to be converted
         pha             ;protect
         dex
         bpl facbcd01    ;next
@@ -302,7 +300,7 @@ facbcd03:
         ldx #s_pfac-1   ;operand size
         clc             ;no carry at start
 facbcd04:
-        ror pfac,x      ;grab LS bit in operand
+        ror number_buffer,x      ;grab LS bit in operand
         dex
         bpl facbcd04
         bcc facbcd06    ;LS bit clear
@@ -329,7 +327,7 @@ facbcd07:
         ldx #0
 facbcd08:
         pla             ;operand
-        sta pfac,x      ;restore
+        sta number_buffer,x      ;restore
         inx
         cpx #s_pfac
         bne facbcd08    ;next
@@ -339,10 +337,10 @@ facbcd08:
 ;
 ;PER RADIX CONVERSION TABLES
 ;
-bitstab: .byte 4,1,4  ;bits per numeral
-lzsttab: .byte 2,9,3  ;leading zero suppression thresholds
-numstab: .byte 12,48,12    ;maximum numerals
-radxtab: .text 0,"%$"  ;recognized symbols
+bitstab: .byte 4,4,1  ;bits per numeral
+lzsttab: .byte 3,2,9  ;leading zero suppression thresholds
+numstab: .byte 12,12,48    ;maximum numerals
+radxtab: .text "$",0,"%"  ;recognized symbols
 ;
 ;================================================================================
 ;
