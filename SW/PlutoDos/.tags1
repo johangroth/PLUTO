@@ -35,3 +35,9 @@ bitstab	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^bitst
 lzsttab	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^lzsttab: .byte 3,2,9  ;leading zero suppression thresholds$/;"	label	line:273
 numstab	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^numstab: .byte 12,12,48    ;maximum numerals$/;"	label	line:274
 strbuf	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^strbuf = m_strlen+1  ;conversion string buffer$/;"	define	line:280
+binbcd32	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^binbcd32:$/;"	label	line:283
+bin	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^        bin = $10$/;"	define	line:284
+bcd	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^        bcd = $20$/;"	define	line:285
+l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^l1:$/;"	label	line:288
+cnvbit	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^cnvbit:$/;"	label	line:294
+l2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^l2:$/;"	label	line:301

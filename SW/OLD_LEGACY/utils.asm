@@ -1,21 +1,21 @@
 ;Table for BCD -> BIN -> BCD conversion
 ;BCD representations of 1,2,4,8,16,32,64,128
-TABLE1: .BYTE  $01
-        .BYTE  $02
-        .BYTE  $04
-        .BYTE  $08
-        .BYTE  $16
-        .BYTE  $32
-        .BYTE  $64
-        .BYTE  $28
-TABLE2: .BYTE  $00
-        .BYTE  $00
-        .BYTE  $00
-        .BYTE  $00
-        .BYTE  $00
-        .BYTE  $00
-        .BYTE  $00
-        .BYTE  $01
+table1: .byte  $01
+        .byte  $02
+        .byte  $04
+        .byte  $08
+        .byte  $16
+        .byte  $32
+        .byte  $64
+        .byte  $28
+table2: .byte  $00
+        .byte  $00
+        .byte  $00
+        .byte  $00
+        .byte  $00
+        .byte  $00
+        .byte  $00
+        .byte  $01
 
 ;
 ;==============================================================================
@@ -90,7 +90,7 @@ l1:
 
 ; Convert an 16 bit binary value to BCD
 ;
-; This function converts a 16 bit binary value into a 24 bit BCD. It
+; This function converts a 32 bit binary value into a 40 bit BCD. It
 ; works by transferring one bit a time from the source and adding it
 ; into a BCD value that is being doubled on each iteration. As all the
 ; arithmetic is being done in BCD the result is a binary to decimal
@@ -100,31 +100,50 @@ l1:
 ;
 ; Andrew Jacobs, 28-Feb-2004
 
+binbcd32: .proc
+        sed             ; switch to decimal mode
+        ldx #4
+l1:
+        stz bcd,x       ; ensure the result is clear
+        dex
+        bpl l1
+        ldx #32         ; the number of source bits
 
-binbcd16: .proc
-	   sed		; switch to decimal mode
-		lda #0		; ensure the result is clear
-		sta bcd+0
-		sta bcd+1
-		sta bcd+2
-		ldx #16		; the number of source bits
+cnvbit:
+        asl bin+0       ; shift out one bit
+        rol bin+1
+        rol bin+2
+        rol bin+3
+        lda bcd+0       ; and add into result
+        adc bcd+0
+        sta bcd+0
+        lda bcd+1       ; propagating any carry
+        adc bcd+1
+        sta bcd+1
+        lda bcd+2
+        adc bcd+2
+        sta bcd+2
+        lda bcd+3
+        adc bcd+3
+        sta bcd+3
+        lda bcd+4       ; ... thru whole result
+        adc bcd+4
+        sta bcd+4
 
-cnvbit:		asl bin+0	; shift out one bit
-		rol bin+1
-		lda bcd+0	; and add into result
-		adc bcd+0
-		sta bcd+0
-		lda bcd+1	; propagating any carry
-		adc bcd+1
-		sta bcd+1
-		lda bcd+2	; ... thru whole result
-		adc bcd+2
-		sta bcd+2
-		dex		; and repeat for next bit
-		bne cnvbit
-		cld		; back to binary
+        ldy #0
+l2:
+        lda bcd,y
+        adc bcd,y
+        sta bcd,y
+        iny
+        cpy #5
+        bne l2
 
-		brk		; all done.
+        dex             ; and repeat for next bit
+        bne cnvbit
+        cld             ; back to binary
+
+        brk             ; all done.
         .pend
 
 ;Send BCD number in A to terminal

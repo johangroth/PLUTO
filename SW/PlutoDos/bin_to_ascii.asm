@@ -115,7 +115,7 @@ binary_to_ascii: .proc
         and #radix_mask         ;keep only radix bits
         sta radix               ;save radix index for later
         stz stridx              ;initialise string index
-        bbr 0,radix,l06    ;branch if not converting to decimal
+        bbr 0,radix,l06         ;branch if not converting to decimal
 ;
 ;    ------------------------------
 ;    prepare for decimal conversion
@@ -139,7 +139,7 @@ l07:
         cpy #s_pfac
         bne l07
 l08:
-        stz wrkspc01,x  ;pad workspace
+        stz wrkspc01,x          ;pad workspace
         dex
         bpl l08
 ;
@@ -212,56 +212,56 @@ l15:
 ;CONVERT number_buffer into BCD
 ;
 facbcd:
-        ldx #s_pfac-1   ;primary accumulator size -1
+        ldx #s_pfac-1           ;primary accumulator size -1
 facbcd01:
-        lda number_buffer,x      ;value to be converted
-        pha             ;protect
+        lda number_buffer,x     ;store value to be converted...
+        pha                     ;...on the stack
         dex
-        bpl facbcd01    ;next
+        bpl facbcd01            ;next
         lda #0
-        ldx #s_wrkspc-1 ;workspace size
+        ldx #s_wrkspc-1         ;workspace size
 facbcd02:
-        sta wrkspc01,x  ;clear final result
-        sta wrkspc02,x  ;clear scratchpad
+        stz wrkspc01,x          ;clear final result
+        stz wrkspc02,x          ;clear scratchpad
         dex
         bpl facbcd02
         inc wrkspc02+s_wrkspc-1
-        sed             ;select decimal mode
-        ldy #m_bits-1   ;bits to convert -1
+        sed                     ;select decimal mode
+        ldy #m_bits-1           ;bits to convert -1
 facbcd03:
-        ldx #s_pfac-1   ;operand size
-        clc             ;no carry at start
+        ldx #s_pfac-1           ;operand size
+        clc                     ;no carry at start
 facbcd04:
         ror number_buffer,x      ;grab LS bit in operand
         dex
         bpl facbcd04
-        bcc facbcd06    ;LS bit clear
+        bcc facbcd06            ;LS bit clear
         clc
         ldx #s_wrkspc-1
 facbcd05:
-        lda wrkspc01,x  ;partial result
-        adc wrkspc02,x  ;scratchpad
-        sta wrkspc01,x  ;new partial result
+        lda wrkspc01,x          ;partial result
+        adc wrkspc02,x          ;scratchpad
+        sta wrkspc01,x          ;new partial result
         dex
         bpl facbcd05
         clc
 facbcd06:
         ldx #s_wrkspc-1
 facbcd07:
-        lda wrkspc02,x  ;scratchpad
-        adc wrkspc02,x  ;double &...
-        sta wrkspc02,x  ;save
+        lda wrkspc02,x          ;scratchpad
+        adc wrkspc02,x          ;double &...
+        sta wrkspc02,x          ;save
         dex
         bpl facbcd07
         dey
-        bpl facbcd03    ;next operand bit
+        bpl facbcd03            ;next operand bit
         ldx #0
 facbcd08:
-        pla             ;operand
-        sta number_buffer,x      ;restore
+        pla                     ;operand
+        sta number_buffer,x     ;restore
         inx
         cpx #s_pfac
-        bne facbcd08    ;next
+        bne facbcd08            ;next
         rts
 ;
 ;================================================================================
@@ -280,4 +280,36 @@ numstab: .byte 12,12,48    ;maximum numerals
 strbuf = m_strlen+1  ;conversion string buffer
 ;
 ;================================================================================
+binbcd32:
+        bin = $10
+        bcd = $20
+        sed             ; switch to decimal mode
+        ldx #4
+l1:
+        stz bcd,x       ; ensure the result is clear
+        dex
+        bpl l1
+        ldx #32         ; the number of source bits
+
+cnvbit:
+        asl bin+0       ; shift out one bit
+        rol bin+1
+        rol bin+2
+        rol bin+3
+
+        ldy #0
+l2:
+        lda bcd,y       ; and add into result
+        adc bcd,y       ; propagating any carry
+        sta bcd,y
+        iny
+        cpy #5
+        bne l2
+
+        dex             ; and repeat for next bit
+        bne cnvbit
+        cld             ; back to binary
+
+        brk             ; all done.
+
         .pend
