@@ -127,6 +127,8 @@ clear_entire_screen	time_first_row.asm	/^clear_entire_screen .null "[2J"$/;"	l
 cnvbit	bin_to_ascii.asm	/^cnvbit:$/;"	l
 coldstart	bios.asm	/^coldstart: .block$/;"	l
 coldstart	time_first_row.asm	/^        coldstart = $8613$/;"	d
+command_pointers	monitor.asm	/^command_pointers:$/;"	l
+command_table	monitor.asm	/^command_table:$/;"	l
 compress	cfs.asm	/^compress:    .proc$/;"	l
 convert	ascii_to_bin.asm	/^convert:$/;"	l
 cout	time_first_row.asm	/^        cout = $817c$/;"	d
@@ -154,6 +156,7 @@ done	bios.asm	/^done:$/;"	l
 done	cfs.asm	/^done:$/;"	l
 done	ide_routines.asm	/^done:$/;"	l
 ds1511	time_first_row.asm	/^        ds1511 = $7fa0$/;"	d
+dump_memory	monitor.asm	/^dump_memory: .proc$/;"	l
 eofp	xmodem.asm	/^        eofp = TEMP2        ; end of file address pointer (2 bytes)$/;"	d
 eofph	xmodem.asm	/^        eofph = TEMP2H      ;  "    "   "   "$/;"	d
 errcnt	xmodem.asm	/^        errcnt = $a7        ; error counter 10 is the limit$/;"	d
@@ -175,6 +178,7 @@ get_char	bios.asm	/^get_char:$/;"	l
 get_date_and_time	rtc.asm	/^get_date_and_time: .proc$/;"	l
 get_date_and_time	time_first_row.asm	/^        get_date_and_time  = $8072$/;"	d
 get_system_up_time	rtc.asm	/^get_system_up_time: .proc$/;"	l
+help_text	monitor.asm	/^help_text:$/;"	l
 hexin	time_first_row.asm	/^        hexin = $81bc$/;"	d
 hexin2	time_first_row.asm	/^        hexin2 = $81b6$/;"	d
 hexin4	time_first_row.asm	/^        hexin4 = $81ba$/;"	d
@@ -265,6 +269,8 @@ m_bits	bin_to_ascii.asm	/^m_bits = 32             ;operand bit size$/;"	d
 m_cbits	bin_to_ascii.asm	/^m_cbits = 48            ;workspace bit size$/;"	d
 m_strlen	bin_to_ascii.asm	/^m_strlen = m_bits+1     ;maximum printable string length$/;"	d
 master_slave_select	ide_routines.asm	/^master_slave_select: .proc$/;"	l
+monitor_initialise	monitor.asm	/^monitor_initialise: .proc$/;"	l
+monitor_main_loop	monitor.asm	/^monitor_main_loop: .proc$/;"	l
 move_cursor_to_screen_location_v_h	time_first_row.asm	/^move_cursor_to_screen_location_v_h  .null "[<V>;<H>H"$/;"	l
 n_radix	ascii_to_bin.asm	/^n_radix = 3             ;number of supported radixes$/;"	d
 n_rtcreg	rtc.asm	/^n_rtcreg =*-rtcreg$/;"	l
