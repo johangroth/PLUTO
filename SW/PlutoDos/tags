@@ -163,6 +163,7 @@ errcnt	xmodem.asm	/^        errcnt = $a7        ; error counter 10 is the limit$
 error	ide_routines.asm	/^error:$/;"	l
 exit	acia.asm	/^exit:$/;"	l
 exit	bios.asm	/^exit:$/;"	l
+exit	via.asm	/^exit:$/;"	l
 exit_read_line	bios.asm	/^exit_read_line:$/;"	l
 facbcd	bin_to_ascii.asm	/^facbcd:$/;"	l
 facbcd01	bin_to_ascii.asm	/^facbcd01:$/;"	l
@@ -338,6 +339,7 @@ utdelay	rtc.asm	/^utdelay: .proc$/;"	l
 via	time_first_row.asm	/^        via = $7fc0$/;"	d
 via1_init	via.asm	/^via1_init: .proc$/;"	l
 via1_irq	bios.asm	/^via1_irq: .block$/;"	l
+via1_irq_service_routine	via.asm	/^via1_irq_service_routine: .proc$/;"	l
 via2_init	via.asm	/^via2_init: .proc$/;"	l
 via2_irq	bios.asm	/^via2_irq:  .block$/;"	l
 via6522	time_first_row.asm	/^        via6522 = $7fc0$/;"	d

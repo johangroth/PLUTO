@@ -44,3 +44,16 @@ loop:
         lda via2t2cl      ;clear timer 2 interrupt
         rts
         .pend
+
+;;;
+;; VIA IRS
+;;
+via1_irq_service_routine: .proc
+        lda via1isr
+        and via1ier
+        bne exit
+        ;; service via
+exit:
+        jmp (via2irs)
+        .pend
+
