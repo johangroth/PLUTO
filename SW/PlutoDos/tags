@@ -93,8 +93,8 @@ VIA	settime.asm	/^        VIA = $7FC0$/;"	d
 Wait4CRC	xmodem.asm	/^Wait4CRC:$/;"	l
 XModemReceive	xmodem.asm	/^XModemReceive .proc$/;"	l
 XModemSend	xmodem.asm	/^XModemSend:$/;"	l
-a_hexdec	bin_to_ascii.asm	/^a_hexdec = 'A'-'9'-2    ;hex to decimal difference$/;"	d
-a_hexnum	ascii_to_bin.asm	/^a_hexnum = 'A'-'9'-1    ;hex to decimal difference$/;"	d
+a_hexdec	bin_to_ascii.asm	/^a_hexdec: = 'A'-'9'-2                   ;hex to decimal difference$/;"	d
+a_hexnum	ascii_to_bin.asm	/^a_hexnum: = 'A'-'9'-1                   ;hex to decimal difference$/;"	d
 acia	time_first_row.asm	/^        acia = $7fe0$/;"	d
 acia6551	time_first_row.asm	/^        acia6551 = $7fe0$/;"	d
 acia_init	acia.asm	/^acia_init: .proc$/;"	l
@@ -104,17 +104,14 @@ alarm	rtc.asm	/^alarm:  .proc$/;"	l
 asc2bn	time_first_row.asm	/^        asc2bn = $8114$/;"	d
 ascii_to_bin	ascii_to_bin.asm	/^ascii_to_bin: .proc$/;"	l
 backspace	bios.asm	/^backspace: .proc$/;"	l
-basetab	ascii_to_bin.asm	/^basetab:                .byte 16,10,2   ;number bases per radix, HEX, DEC, BIN$/;"	l
-bcd	bin_to_ascii.asm	/^        bcd = $20$/;"	d
+basetab	ascii_to_bin.asm	/^basetab: .byte 16,10,2                  ;number bases per radix, HEX, DEC, BIN$/;"	l
 bcdouta	time_first_row.asm	/^        bcdouta = $80ff$/;"	d
 beep	time_first_row.asm	/^        beep = $8130$/;"	d
 bell	bios.asm	/^bell:   .proc$/;"	l
 bflag	xmodem.asm	/^        bflag = $a7         ; block flag$/;"	d
-bin	bin_to_ascii.asm	/^        bin = $10$/;"	d
 binary_to_ascii	bin_to_ascii.asm	/^binary_to_ascii: .proc$/;"	l
-binbcd32	bin_to_ascii.asm	/^binbcd32:$/;"	l
-bits_per_digit_table	ascii_to_bin.asm	/^bits_per_digit_table:   .byte 4,3,1     ;bits per digit per radix$/;"	l
-bitstab	bin_to_ascii.asm	/^bitstab: .byte 4,4,1  ;bits per numeral$/;"	l
+bits_per_digit_table	ascii_to_bin.asm	/^bits_per_digit_table: .byte 4,3,1       ;bits per digit per radix$/;"	l
+bitstab	bin_to_ascii.asm	/^bitstab: .byte 4,4,1                    ;bits per numeral$/;"	l
 blkno	xmodem.asm	/^        blkno = $a6         ; block number$/;"	d
 bn2asc	time_first_row.asm	/^        bn2asc = $8138$/;"	d
 brk_irq	bios.asm	/^brk_irq: .block$/;"	l
@@ -124,7 +121,6 @@ chin	time_first_row.asm	/^        chin = $815a$/;"	d
 chin_no_wait	bios.asm	/^chin_no_wait: .proc$/;"	l
 chout	bios.asm	/^chout:   .proc$/;"	l
 clear_entire_screen	time_first_row.asm	/^clear_entire_screen .null "[2J"$/;"	l
-cnvbit	bin_to_ascii.asm	/^cnvbit:$/;"	l
 coldstart	bios.asm	/^coldstart: .block$/;"	l
 coldstart	time_first_row.asm	/^        coldstart = $8613$/;"	d
 command_pointers	monitor.asm	/^command_pointers:$/;"	l
@@ -229,8 +225,6 @@ irq	bios.asm	/^irq:$/;"	l
 irq_end	bios.asm	/^irq_end: .block$/;"	l
 jmp_table	bios.asm	/^jmp_table:$/;"	l
 l01	ascii_to_bin.asm	/^l01:$/;"	l
-l02	ascii_to_bin.asm	/^l02:$/;"	l
-l04	ascii_to_bin.asm	/^l04:$/;"	l
 l06	ascii_to_bin.asm	/^l06:$/;"	l
 l06	bin_to_ascii.asm	/^l06:$/;"	l
 l07	ascii_to_bin.asm	/^l07:$/;"	l
@@ -240,7 +234,6 @@ l08	bin_to_ascii.asm	/^l08:$/;"	l
 l09	ascii_to_bin.asm	/^l09:$/;"	l
 l09	bin_to_ascii.asm	/^l09:$/;"	l
 l1	acia.asm	/^l1:$/;"	l
-l1	bin_to_ascii.asm	/^l1:$/;"	l
 l1	bios.asm	/^l1:$/;"	l
 l1	rtc.asm	/^l1:$/;"	l
 l10	ascii_to_bin.asm	/^l10:$/;"	l
@@ -259,28 +252,27 @@ l15	bin_to_ascii.asm	/^l15:$/;"	l
 l16	ascii_to_bin.asm	/^l16:$/;"	l
 l17	ascii_to_bin.asm	/^l17:$/;"	l
 l2	acia.asm	/^l2:$/;"	l
-l2	bin_to_ascii.asm	/^l2:$/;"	l
 l2	bios.asm	/^l2:$/;"	l
 l2	rtc.asm	/^l2:$/;"	l
 l3	bios.asm	/^l3:$/;"	l
 lastblk	xmodem.asm	/^        lastblk = $a5       ; flag for last block$/;"	d
 loop	via.asm	/^loop:$/;"	l
-lzsttab	bin_to_ascii.asm	/^lzsttab: .byte 3,2,9  ;leading zero suppression thresholds$/;"	l
-m_bits	bin_to_ascii.asm	/^m_bits = 32             ;operand bit size$/;"	d
-m_cbits	bin_to_ascii.asm	/^m_cbits = 48            ;workspace bit size$/;"	d
-m_strlen	bin_to_ascii.asm	/^m_strlen = m_bits+1     ;maximum printable string length$/;"	d
+lzsttab	bin_to_ascii.asm	/^lzsttab: .byte 3,2,9                    ;leading zero suppression thresholds$/;"	l
+m_bits	bin_to_ascii.asm	/^m_bits: = 32                            ;operand bit size$/;"	d
+m_cbits	bin_to_ascii.asm	/^m_cbits: = 48                           ;workspace bit size$/;"	d
+m_strlen	bin_to_ascii.asm	/^m_strlen: = m_bits+1                    ;maximum printable string length$/;"	d
 master_slave_select	ide_routines.asm	/^master_slave_select: .proc$/;"	l
 monitor_initialise	monitor.asm	/^monitor_initialise: .proc$/;"	l
 monitor_main_loop	monitor.asm	/^monitor_main_loop: .proc$/;"	l
 move_cursor_to_screen_location_v_h	time_first_row.asm	/^move_cursor_to_screen_location_v_h  .null "[<V>;<H>H"$/;"	l
-n_radix	ascii_to_bin.asm	/^n_radix = 3             ;number of supported radixes$/;"	d
+n_radix	ascii_to_bin.asm	/^n_radix: = 3                            ;number of supported radixes$/;"	d
 n_rtcreg	rtc.asm	/^n_rtcreg =*-rtcreg$/;"	l
 next	via.asm	/^next:$/;"	l
 nmi	bios.asm	/^nmi:$/;"	l
 nmon	time_first_row.asm	/^        nmon = $867d$/;"	d
 notcr	bios.asm	/^notcr:$/;"	l
 notdone	ide_routines.asm	/^notdone:$/;"	l
-numstab	bin_to_ascii.asm	/^numstab: .byte 12,12,48    ;maximum numerals$/;"	l
+numstab	bin_to_ascii.asm	/^numstab: .byte 12,12,48                 ;maximum numerals$/;"	l
 ok	ide_routines.asm	/^ok:$/;"	l
 out_buffer_full	bios.asm	/^out_buffer_full:$/;"	l
 prasc	time_first_row.asm	/^        prasc = $82ee$/;"	d
@@ -296,7 +288,7 @@ ptr	xmodem.asm	/^        ptr = INDEX         ; data pointer (two byte variable)$
 ptrh	xmodem.asm	/^        ptrh = INDEXH       ;   "    "$/;"	d
 put_date_and_time	rtc.asm	/^put_date_and_time:  .proc$/;"	l
 put_date_and_time	time_first_row.asm	/^        put_date_and_time = $8095$/;"	d
-radix_mask	ascii_to_bin.asm	/^radix_mask = 3          ;bit 0 and 1 in control_flags holds the radix$/;"	d
+radix_mask	ascii_to_bin.asm	/^radix_mask: = 3                         ;bit 0 and 1 in control_flags holds the radix$/;"	d
 rdline	time_first_row.asm	/^        rdline = $8352$/;"	d
 read_character	bios.asm	/^read_character: .proc$/;"	l
 read_line	bios.asm	/^read_line:  .proc$/;"	l
@@ -310,10 +302,10 @@ ring_bell	bios.asm	/^ring_bell:$/;"	l
 rtc_init	rtc.asm	/^rtc_init: .proc$/;"	l
 rtc_irq	bios.asm	/^rtc_irq: .block$/;"	l
 rtcreg	rtc.asm	/^rtcreg: .byte wr_crb          ;control B               $0f$/;"	l
-s_fac	ascii_to_bin.asm	/^s_fac = 4              ;binary accumulator size$/;"	d
-s_pfac	bin_to_ascii.asm	/^s_pfac = m_bits\/8       ;primary accumulator size$/;"	d
-s_ptr	bin_to_ascii.asm	/^s_ptr  = 2              ;pointer size$/;"	d
-s_wrkspc	bin_to_ascii.asm	/^s_wrkspc = m_cbits\/8    ;conversion workspace size$/;"	d
+s_fac	ascii_to_bin.asm	/^s_fac:  = 4                             ;binary accumulator size$/;"	d
+s_pfac	bin_to_ascii.asm	/^s_pfac: = m_bits\/8                      ;primary accumulator size$/;"	d
+s_ptr	bin_to_ascii.asm	/^s_ptr:  = 2                             ;pointer size$/;"	d
+s_wrkspc	bin_to_ascii.asm	/^s_wrkspc: = m_cbits\/8                   ;conversion workspace size$/;"	d
 save_cursor_position_and_attributes	time_first_row.asm	/^save_cursor_position_and_attributes .text "7"$/;"	l
 savregs	time_first_row.asm	/^        savregs = $83b3$/;"	d
 send_date_and_time	time_first_row.asm	/^send_date_and_time .proc$/;"	l
@@ -326,7 +318,6 @@ sound_init	sound.asm	/^sound_init:  .proc$/;"	l
 spc2	time_first_row.asm	/^        spc2 = $83e9$/;"	d
 spc4	time_first_row.asm	/^        spc4 = $83e6$/;"	d
 store_character	bios.asm	/^store_character:$/;"	l
-strbuf	bin_to_ascii.asm	/^strbuf = m_strlen+1  ;conversion string buffer$/;"	d
 timer	time_first_row.asm	/^        timer = $83c3$/;"	d
 timer1_interrupt	time_first_row.asm	/^timer1_interrupt$/;"	l
 tmp	ide_routines.asm	/^		tmp = $70$/;"	d

@@ -153,7 +153,7 @@ l3:
         bra read_loop               ;Read next character
         ; Not a special character
         ; Check if buffer full
-        ; If not store character and echo
+        ; If not, store character and echo
 l2:
         bbs 1,control_flags,check_buffer    ;Bit 1 is set which means any character is allowed, so try to store it
         bbs 0,control_flags,decimal_input   ;Bit 0 is set which means decimal input
@@ -488,8 +488,8 @@ l2:
         ;test code
         ldx #5
         jsr input_dec
-        jsr crout        
-        rmb 0,control_flags     ;Hex output
+        jsr crout
+        smb 0,control_flags     ;Dec output
         rmb 1,control_flags
         jsr binary_to_ascii
         stx index_low

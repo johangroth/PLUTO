@@ -6,3 +6,4 @@ a.out
 *bak
 *.hex
 .tags*
+*.labels

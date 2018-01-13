@@ -24,8 +24,10 @@
 ;*                                                                             *
 ;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 ;
-;    Calling Syntax:
-;
+;    Calling Syntax for HEX ASCII to bin:
+;        rmb 0,control_flags
+;        rmb 1,control_flags
+;        ldx #number_of_char_to_convert
 ;        jsr ascii_to_bin
 ;        bcs error
 ;
@@ -41,14 +43,14 @@
 ;    DDD...DDD represents the characters that comprise the number that is
 ;    to be converted.  Permissible values for each instance of D are:
 ;
-;        Radix  Description  D - D
-;        -------------------------
-;          %    Binary       0 - 1
-;          @    Octal        0 - 7
-;         None  Decimal      0 - 9
-;          $    Hexadecimal  0 - 9
-;                            A - F
-;        -------------------------
+;        Description  D - D
+;        ------------------
+;        Binary       0 - 1
+;        Octal        0 - 7
+;        Decimal      0 - 9
+;        Hexadecimal  0 - 9
+;                     A - F
+;        ------------------
 ;
 ;    Conversion is not case-sensitive.  Leading zeros are permissible, but
 ;    not leading blanks.  The maximum string length including the null
@@ -62,18 +64,18 @@
 ;
 
 ;
-a_hexnum = 'A'-'9'-1    ;hex to decimal difference
-n_radix = 3             ;number of supported radixes
-radix_mask = 3          ;bit 0 and 1 in control_flags holds the radix
-s_fac = 4              ;binary accumulator size
+a_hexnum: = 'A'-'9'-1                   ;hex to decimal difference
+n_radix: = 3                            ;number of supported radixes
+radix_mask: = 3                         ;bit 0 and 1 in control_flags holds the radix
+s_fac:  = 4                             ;binary accumulator size
 
 ;
 ;================================================================================
 ;
 ;CONVERSION TABLES
 ;
-basetab:                .byte 16,10,2   ;number bases per radix, HEX, DEC, BIN
-bits_per_digit_table:   .byte 4,3,1     ;bits per digit per radix
+basetab: .byte 16,10,2                  ;number bases per radix, HEX, DEC, BIN
+bits_per_digit_table: .byte 4,3,1       ;bits per digit per radix
 
 ;
 ;================================================================================
@@ -83,64 +85,59 @@ bits_per_digit_table:   .byte 4,3,1     ;bits per digit per radix
 
 ;
 ascii_to_bin: .proc
-        cpx #0          ; if x != 0 then
-        bne convert     ; convert characters to binary, so branch
-        rts             ; else no characters to convert so return to caller.
+        cpx #0                          ; if x != 0 then
+        bne convert                     ; convert characters to binary, so branch
+        rts                             ; else no characters to convert so return to caller.
 
 convert:
-        stz input_buffer,x  ;Zero terminate input string.
-        ldx #s_fac-1        ;accumulator size
+        stz input_buffer,x              ;Zero terminate input string.
+        ldx #s_fac-1                    ;accumulator size
 ;
 l01:
-        stz number_buffer,x     ;clear the result buffer
+        stz number_buffer,x             ;clear the result buffer
         dex
         bpl l01
-        stz stridx              ;save string index
+        stz stridx                      ;save string index
 ;
 ;
-l02:
-;
-        lda control_flags           ; 0=>HEX, 1=>DEC, 2=>BIN
-        and #radix_mask             ; Mask away everything but radix bits.
-        tax                         ;Put base in X
-        stx radxflag                ;Store radix
-
-l04:
-        lda bits_per_digit_table,x  ;get bits per digit
-        sta bits_per_digit          ;store
+        lda control_flags               ;0=>HEX, 1=>DEC, 2=>BIN
+        and #radix_mask                 ;Mask away everything but radix bits.
+        tax                             ;Put base in X
+        lda bits_per_digit_table,x      ;get bits per digit
+        sta bits_per_digit              ;store
 ;
 ;    --------------------------------
 ;    process number portion of string
 ;    --------------------------------
 ;
-        ldy #0          ;Y holds index in input_buffer.
+        ldy #0                          ;Y holds index in input_buffer.
 l06:
-        clc             ;assume no error for now
-        lda input_buffer,y   ;get numeral
-        beq l17    ;end of string
+        clc                             ;assume no error for now
+        lda input_buffer,y              ;get numeral
+        beq l17                         ;end of string
 ;
-        inc stridx      ;point to next
-        cmp #'A'        ;check char range
-        bcc l07    ;not ASCII
+        inc stridx                      ;point to next
+        cmp #'A'                        ;check char range
+        bcc l07                         ;not ASCII
 ;
         cmp #'Z'+1
-        bcs l08    ;not ASCII
+        bcs l08                         ;not ASCII
 ;
 l07:
-        sec             ;
+        sec
 l08:
-        sbc #'0'        ;change numeral to binary
-        bcc l16    ;numeral > 0
+        sbc #'0'                        ;change numeral to binary
+        bcc l16                         ;numeral > 0
 ;
         cmp #10
-        bcc l09    ;numeral is 0-9
+        bcc l09                         ;numeral is 0-9
 ;
-        sbc #a_hexnum   ;do a hex adjust
+        sbc #a_hexnum                   ;do a hex adjust
 ;
 l09:
 ;
-        sta curntnum    ;save processed numeral
-        bbr 0,control_flags,l11 ;branch if not working in base 10
+        sta curntnum                    ;save processed numeral
+        bbr 0,control_flags,l11         ;branch if not working in base 10
 ;
 ;    -----------------------------------------------------------
 ;    Prior to combining the most recent numeral with the partial
@@ -154,50 +151,50 @@ l09:
 ;    -----------------------------------------------------------
 ;
         ldx #0
-        ldy #s_fac              ;accumulator size
+        ldy #s_fac                      ;accumulator size
         clc
 ;
 l10:
-        lda number_buffer,x     ;N
-        rol                     ;N=N*2
+        lda number_buffer,x             ;N
+        rol                             ;N=N*2
         sta sfac,x
         inx
         dey
         bne l10
 ;
-        bcs l17                 ;overflow = error
+        bcs l17                         ;overflow = error
 ;
 l11:
-        ldx bits_per_digit      ;bits per digit
+        ldx bits_per_digit              ;bits per digit
 ;
 l12:
-        asl number_buffer       ;compute N*base for binary,...
-        rol number_buffer+1     ;octal &...
-        rol number_buffer+2     ;hex or...
-        rol number_buffer+3     ;N*8 for decimal
-        bcs l17                 ;overflow
+        asl number_buffer               ;compute N*base for binary,...
+        rol number_buffer+1             ;octal &...
+        rol number_buffer+2             ;hex or...
+        rol number_buffer+3             ;N*8 for decimal
+        bcs l17                         ;overflow
 ;
         dex
-        bne l12                 ;next shift
+        bne l12                         ;next shift
 ;
-        bbr 0,control_flags,l14 ;branch if not working in base 10
+        bbr 0,control_flags,l14         ;branch if not working in base 10
 ;
 ;    -------------------
 ;    compute (N*8)+(N*2)
 ;    -------------------
 ;
-        ldx #0          ;accumulator index
+        ldx #0                          ;accumulator index
         ldy #s_fac
 ;
 l13:
-        lda number_buffer,x     ;N*8
-        adc sfac,x              ;N*2
-        sta number_buffer,x     ;now N*10
+        lda number_buffer,x             ;N*8
+        adc sfac,x                      ;N*2
+        sta number_buffer,x             ;now N*10
         inx
         dey
         bne l13
 ;
-        bcs l17    ;overflow
+        bcs l17                         ;overflow
 ;
 ;    -------------------------------------
 ;    add current numeral to partial result
@@ -205,36 +202,36 @@ l13:
 ;
 l14:
         clc
-        lda number_buffer   ;N
-        adc curntnum        ;N=N+D
+        lda number_buffer               ;N
+        adc curntnum                    ;N=N+D
         sta number_buffer
         ldx #1
         ldy #s_fac-1
 ;
 l15:
         lda number_buffer,x
-        adc #0                  ;account for carry
+        adc #0                          ;account for carry
         sta number_buffer,x
         inx
         dey
         bne l15
 ;
-        bcs l17                 ;overflow
+        bcs l17                         ;overflow
 ;
 ;    ----------------------
 ;    ready for next numeral
 ;    ----------------------
 ;
-        ldy stridx      ;string index
-        bpl l06         ;get another numeral
+        ldy stridx                      ;string index
+        bpl l06                         ;get another numeral
 ;
 ;    ----------------------------------------------
 ;    if string length > 127 fall through with error
 ;    ----------------------------------------------
 ;
 l16:
-        sec             ;flag an error
+        sec                             ;flag an error
 ;
 l17:
-        rts             ;done
+        rts                             ;done
         .pend
