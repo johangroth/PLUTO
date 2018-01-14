@@ -289,6 +289,28 @@ done:
         .pend
 
 ;;;
+;; SPACE4 subroutine: Send four space characters to terminal.
+;;;
+space4: .proc
+        jsr space2
+        .pend
+;;;
+;; SPACE2 subroutine: Send two space characters to terminal.
+;;;
+space2: .proc
+        jsr space
+        .pend
+;; SPACE subroutine: Send a space character to terminal.
+;;;
+space: .proc
+        pha
+        lda #' '
+        jsr chout
+        pla
+        rts
+        .pend
+
+;;;
 ;; DOLLAR subroutine: Send dollar sign to terminal.
 ;;      Preparation:
 ;;              none
@@ -487,27 +509,15 @@ l2:
         sta index_high
         jsr prout
 
-        ;test code
-        ldx #5
-        jsr input_dec
-        jsr crout
-        smb 0,control_flags     ;Dec output
-        rmb 1,control_flags
-        jsr binary_to_ascii
-        stx index_low
-        sty index_high
-        jsr prout
-        jsr cr2
-again:
-        jsr chin
-        cmp #$0d
-        bne notcr
-        jsr chout
-        lda #$0a
-notcr:
-        jsr chout
-        bra again
-        ; jmp monitor_init
+;;;
+;; Initialise monitor (cold start of monitor).
+;;;
+        jsr monitor_initialiser
+;;;
+;; Monitor main loop
+;;;
+        jmp monitor_main_loop
+
         .bend
 
 ;;;
@@ -581,15 +591,23 @@ via2_irq:  .block
         .bend
 
         * = $ff00
-jmp_table:
-        jmp input_hex
-        jmp read_line
-        jmp chout
-        jmp chin
-        jmp crout
-        jmp cr2
-        jmp prout
-        jmp bell
+;;;
+;; BIOS jump table.
+;; This table is the official API to the BIOS. Ideally no other routines should be used.
+;;;
+b_input_hex:    jmp input_hex
+b_input_dec:    jmp input_dec
+b_read_line:    jmp read_line
+b_bin_to_asc:   jmp binary_to_ascii
+b_chout:        jmp chout
+b_chin:         jmp chin
+b_crout:        jmp crout
+b_cr2:          jmp cr2
+b_prout:        jmp prout
+b_bell:         jmp bell
+b_space:        jmp space
+b_space2:       jmp space2
+b_space4:       jmp space4
 
         * = $fffa
         .word   nmi         ;NMI

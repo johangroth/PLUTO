@@ -47,7 +47,7 @@
 .include "sound.asm"
 
 ; =============================================================================
-; utils subroutines (bcd->bin>bcd and out)
+; utils subroutines (bcd->bin->bcd and out)
 ;.include "utils.asm"
 
 ; =============================================================================

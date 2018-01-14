@@ -203,7 +203,9 @@ l15:
         stz strbuf,x                    ;terminate string
         txa
         ldx #<strbuf                    ;converted string LSB
+        stx index_low
         ldy #>strbuf                    ;converted string MSB
+        sty index_high
         clc                             ;all okay
         rts
 ;

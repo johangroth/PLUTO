@@ -29,3 +29,12 @@ clear_screen:
 
 destructive_backspace:
         .null a_bs, " ", a_bs
+
+prompt_text:
+        .null "M-"
+
+;;;
+;; Help text for all the monitor commands.
+;;;
+help_text:
+        .null "D Dump memory"
