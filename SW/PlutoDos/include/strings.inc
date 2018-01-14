@@ -19,8 +19,7 @@ welcome:
         .text "Hardware Version  "
         .text "1.0"
         .text " (13/06/2017)"
-        #cup "0","36"
-        .text "$ "
+        #cup "0","36" ;Move cursor to last line as supported by Geoff Graham's VT100 terminal 
         .byte 0
 
 clear_screen:

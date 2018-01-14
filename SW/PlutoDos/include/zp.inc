@@ -58,4 +58,7 @@
         radix  = wrkspc02+s_wrkspc      ;radix index
         strbuf = radix + 1              ;conversion string buffer
 
+        temp1 = strbuf + $10
+        temp2 = temp1 + $1
+
         stack_page  = $100

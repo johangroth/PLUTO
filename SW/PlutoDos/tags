@@ -109,13 +109,18 @@ b_chin	bios.asm	/^b_chin:         jmp chin$/;"	l
 b_chout	bios.asm	/^b_chout:        jmp chout$/;"	l
 b_cr2	bios.asm	/^b_cr2:          jmp cr2$/;"	l
 b_crout	bios.asm	/^b_crout:        jmp crout$/;"	l
+b_dollar	bios.asm	/^b_dollar:       jmp dollar$/;"	l
+b_hex_address	bios.asm	/^b_hex_address:  jmp hex_address       ;Print a hex address with leading zeroes. Address should be stored in index_low and index_high.$/;"	l
+b_hex_byte	bios.asm	/^b_hex_byte:     jmp hex_byte          ;Print a hex byte with leading zeroes. Byte should be stored in temp.$/;"	l
 b_input_dec	bios.asm	/^b_input_dec:    jmp input_dec$/;"	l
 b_input_hex	bios.asm	/^b_input_hex:    jmp input_hex$/;"	l
 b_prout	bios.asm	/^b_prout:        jmp prout$/;"	l
+b_read_char	bios.asm	/^b_read_char:    jmp read_character      ;Read character and convert to uppercase.$/;"	l
 b_read_line	bios.asm	/^b_read_line:    jmp read_line$/;"	l
 b_space	bios.asm	/^b_space:        jmp space$/;"	l
 b_space2	bios.asm	/^b_space2:       jmp space2$/;"	l
 b_space4	bios.asm	/^b_space4:       jmp space4$/;"	l
+b_spacex	bios.asm	/^b_spacex:       jmp spacex$/;"	l
 backspace	bios.asm	/^backspace: .proc$/;"	l
 basetab	ascii_to_bin.asm	/^basetab: .byte 16,10,2                  ;number bases per radix, HEX, DEC, BIN$/;"	l
 bcdouta	time_first_row.asm	/^        bcdouta = $80ff$/;"	d
@@ -134,6 +139,7 @@ chin	time_first_row.asm	/^        chin = $815a$/;"	d
 chin_no_wait	bios.asm	/^chin_no_wait: .proc$/;"	l
 chout	bios.asm	/^chout:   .proc$/;"	l
 clear_entire_screen	time_first_row.asm	/^clear_entire_screen .null "[2J"$/;"	l
+clear_number_buffer	bios.asm	/^clear_number_buffer: .proc$/;"	l
 coldstart	bios.asm	/^coldstart: .block$/;"	l
 coldstart	time_first_row.asm	/^        coldstart = $8613$/;"	d
 command_not_supported	monitor.asm	/^command_not_supported:$/;"	l
@@ -190,6 +196,9 @@ get_char	bios.asm	/^get_char:$/;"	l
 get_date_and_time	rtc.asm	/^get_date_and_time: .proc$/;"	l
 get_date_and_time	time_first_row.asm	/^        get_date_and_time  = $8072$/;"	d
 get_system_up_time	rtc.asm	/^get_system_up_time: .proc$/;"	l
+hex_address	bios.asm	/^hex_address: .proc$/;"	l
+hex_byte	bios.asm	/^hex_byte: .proc$/;"	l
+hex_mode	bios.asm	/^hex_mode: .proc$/;"	l
 hexin	time_first_row.asm	/^        hexin = $81bc$/;"	d
 hexin2	time_first_row.asm	/^        hexin2 = $81b6$/;"	d
 hexin4	time_first_row.asm	/^        hexin4 = $81ba$/;"	d
@@ -270,6 +279,9 @@ l2	bios.asm	/^l2:$/;"	l
 l2	rtc.asm	/^l2:$/;"	l
 l3	bios.asm	/^l3:$/;"	l
 lastblk	xmodem.asm	/^        lastblk = $a5       ; flag for last block$/;"	d
+leading_zeroes	bios.asm	/^leading_zeroes: .proc$/;"	l
+loop	bios.asm	/^loop:$/;"	l
+loop	monitor.asm	/^loop:$/;"	l
 loop	via.asm	/^loop:$/;"	l
 lzsttab	bin_to_ascii.asm	/^lzsttab: .byte 3,2,9                    ;leading zero suppression thresholds$/;"	l
 m_bits	bin_to_ascii.asm	/^m_bits: = 32                            ;operand bit size$/;"	d
@@ -282,6 +294,8 @@ move_cursor_to_screen_location_v_h	time_first_row.asm	/^move_cursor_to_screen_lo
 n_radix	ascii_to_bin.asm	/^n_radix: = 3                            ;number of supported radixes$/;"	d
 n_rtcreg	rtc.asm	/^n_rtcreg =*-rtcreg$/;"	l
 next	via.asm	/^next:$/;"	l
+next_address	monitor.asm	/^next_address:$/;"	l
+next_byte	monitor.asm	/^next_byte:$/;"	l
 nmi	bios.asm	/^nmi:$/;"	l
 nmon	time_first_row.asm	/^        nmon = $867d$/;"	d
 notdone	ide_routines.asm	/^notdone:$/;"	l
@@ -292,9 +306,9 @@ prasc	time_first_row.asm	/^        prasc = $82ee$/;"	d
 prbyte	time_first_row.asm	/^        prbyte = $82fb$/;"	d
 prindx	time_first_row.asm	/^        prindx = $830c$/;"	d
 print_byte_line	monitor.asm	/^print_byte_line: .proc$/;"	l
+print_colon_dollar	monitor.asm	/^print_colon_dollar: .proc$/;"	l
 print_date_and_time	rtc.asm	/^print_date_and_time: .proc$/;"	l
 print_date_and_time	time_first_row.asm	/^        print_date_and_time = $801f$/;"	d
-print_space	bios.asm	/^print_space:    .proc$/;"	l
 print_squiggly_line	monitor.asm	/^print_squiggly_line: .proc$/;"	l
 prompt	monitor.asm	/^prompt: .proc$/;"	l
 prompt	time_first_row.asm	/^        prompt = $8319$/;"	d
@@ -334,6 +348,7 @@ sound_init	sound.asm	/^sound_init:  .proc$/;"	l
 space	bios.asm	/^space: .proc$/;"	l
 space2	bios.asm	/^space2: .proc$/;"	l
 space4	bios.asm	/^space4: .proc$/;"	l
+spacex	bios.asm	/^spacex: .proc$/;"	l
 spc2	time_first_row.asm	/^        spc2 = $83e9$/;"	d
 spc4	time_first_row.asm	/^        spc4 = $83e6$/;"	d
 store_character	bios.asm	/^store_character:$/;"	l

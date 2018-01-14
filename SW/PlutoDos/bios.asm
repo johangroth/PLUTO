@@ -3,28 +3,6 @@
         .include "include/strings.inc"
 
 ;;;
-;;  PRINT_SPACE: Send a space character to terminal.
-;;
-;;       Preparation:
-;;
-;;   Returned Values: a: entry value
-;;                    x: entry value
-;;                    y: entry value
-;;
-;;
-;;   Examples:
-;;             jsr print_space  ;call subroutine
-;;
-;;;
-print_space:    .proc
-        pha
-        lda #' '
-        jsr chout
-        pla
-        rts
-        .pend
-
-;;;
 ;;  INPUT_DEC: Request 1-8 ASCII decimal numbers and convert to binary.
 ;;
 ;;       Preparation:
@@ -236,7 +214,7 @@ exit:
 ;;;
 read_character: .proc
         jsr chin
-        and #extended_ascii_mask        ;Remove all ASCII codes over $7f
+        and #extended_ascii_mask        ;Remove all ASCII codes above $7f
         cmp #'a'                        ;Is character less 'a'
         bcc exit                        ;branch if yes, ie number, symbol, uppercase or control character
         sbc #$20                        ;Otherwise substract $20 to convert character to uppercase
@@ -289,17 +267,31 @@ done:
         .pend
 
 ;;;
+;; SPACEX subroutine: Send X space characters to terminal.
+;;;
+spacex: .proc
+loop:
+        jsr space
+        dex
+        bne loop
+        rts
+        .pend
+
+;;;
 ;; SPACE4 subroutine: Send four space characters to terminal.
 ;;;
 space4: .proc
         jsr space2
         .pend
+
 ;;;
 ;; SPACE2 subroutine: Send two space characters to terminal.
 ;;;
 space2: .proc
         jsr space
         .pend
+
+;;;
 ;; SPACE subroutine: Send a space character to terminal.
 ;;;
 space: .proc
@@ -417,6 +409,151 @@ l1:
         bra l1                      ;Loop back
 exit:
         pla                         ;Restore A
+        rts
+        .pend
+
+;;;
+;; HEX_ADDRESS subroutine: Send an ASCII hex address to terminal.
+;;      Preparation:
+;;              index_low:  low byte to send to terminal
+;;              index_high: high byte to send to terminal
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;                  lda #$fc
+;;                  sta index_low
+;;                  lda #$ab
+;;                  sta index_high
+;;                  jsr hex_address
+;;
+;;      Terminal will show:
+;;                  ABFC
+;;;
+hex_address: .proc
+        pha
+        phx
+        phy
+        jsr hex_mode
+        jsr clear_number_buffer
+        lda index_low
+        sta number_buffer
+        lda index_high
+        sta number_buffer+1
+        jsr binary_to_ascii
+        jsr prout
+        ply
+        plx
+        pla
+        rts
+        .pend
+
+;;;
+;; HEX_BYTE subroutine: Send an ASCII hex byte to terminal.
+;;      Preparation:
+;;              temp:  byte to send to terminal
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;                  lda #12
+;;                  sta temp
+;;                  jsr hex_byte
+;;
+;;      Terminal will show:
+;;                  0C
+;;;
+hex_byte: .proc
+        pha
+        phy
+        phx
+        jsr hex_mode
+        jsr clear_number_buffer
+        lda temp1
+        sta number_buffer
+        jsr binary_to_ascii
+        jsr prout                   ;send hex character(s) to terminal
+        plx
+        ply
+        pla
+        rts
+        .pend
+
+;;;
+;; HEX_MODE subroutine: Set control_flags to hex conversion.
+;;      Preparation:
+;;              none
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;                  jsr hex_mode
+;;;
+hex_mode: .proc
+        rmb 0,control_flags
+        rmb 1,control_flags
+        rts
+        .pend
+
+;;;
+;; LEADING_ZEROES subroutine: Send ASCII '0' to terminal.
+;;      Preparation:
+;;              x - number of zeroes to print
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;                  ldx #2
+;;                  jsr leading_zeroes
+;;;
+leading_zeroes: .proc
+        pha
+        sta temp2       ;Store number of characters to print
+        txa             ;Transfer maximum number of leading zeroes to A
+        sec
+        sbc temp2       ;Maximum number of zeroes substracted with number of characters to print (ie X - A)
+        tax             ;Number of leading zeroes in X
+        lda #'0'
+l1:
+        jsr chout
+        dex
+        bne l1
+        pla
+        rts
+        .pend
+
+;;;
+;; CLEAR_NUMBER_BUFFER subroutine: Clear the number buffer.
+;;      Preparation:
+;;              none
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;                  jsr clear_number_buffer
+;;;
+clear_number_buffer: .proc
+        phx
+        ldx #3
+l1:
+        stz number_buffer,x
+        dex
+        bpl l1
+        plx
         rts
         .pend
 
@@ -593,12 +730,14 @@ via2_irq:  .block
         * = $ff00
 ;;;
 ;; BIOS jump table.
-;; This table is the official API to the BIOS. Ideally no other routines should be used.
+;; This table is the official API of the BIOS. Ideally no other routines should be used.
 ;;;
 b_input_hex:    jmp input_hex
 b_input_dec:    jmp input_dec
+b_read_char:    jmp read_character      ;Read character and convert to uppercase.
 b_read_line:    jmp read_line
 b_bin_to_asc:   jmp binary_to_ascii
+b_dollar:       jmp dollar
 b_chout:        jmp chout
 b_chin:         jmp chin
 b_crout:        jmp crout
@@ -608,6 +747,9 @@ b_bell:         jmp bell
 b_space:        jmp space
 b_space2:       jmp space2
 b_space4:       jmp space4
+b_spacex:       jmp spacex
+b_hex_byte:     jmp hex_byte          ;Print a hex byte with leading zeroes. Byte should be stored in temp.
+b_hex_address:  jmp hex_address       ;Print a hex address with leading zeroes. Address should be stored in index_low and index_high.
 
         * = $fffa
         .word   nmi         ;NMI

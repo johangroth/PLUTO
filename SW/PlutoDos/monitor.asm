@@ -10,7 +10,7 @@ monitor_initialiser: .proc
 ;; Monitor main loop
 ;;;
 monitor_main_loop: .proc
-        jsr b_chin                    ;Get char from terminal
+        jsr b_read_char             ;Get char in uppercase from terminal
         ldx #0
 l1:
         cmp command_table,x
@@ -21,6 +21,7 @@ l1:
         bra l1
 
 execute_command:
+        jsr b_chout                 ;Echo command
         txa                         ;Transfer index in command table to A
         asl                         ;Muliply with two to find the command pointer
         tax                         ;Transfer a to the index pointer
@@ -40,13 +41,35 @@ command_not_supported:
 ;; [D] Dumps 256 bytes of memory
 ;;;
 dump_memory: .proc
-        lda #'D'
-        jsr b_chout
+        jsr print_colon_dollar
         ldx #4                      ;Ask for up to 4...
         jsr b_input_hex             ;...characters
+        lda number_buffer           ;Address ends up in number_buffer
+        sta index_low               ;so store it in index
+        lda number_buffer+1
+        sta index_high
         jsr print_squiggly_line     ;Print the squiggly line ('~')
+        jsr b_crout                 ;next line
         ldx #$10
         jsr print_byte_line         ;print $10 hex numbers starting with $00
+        jsr b_crout
+        ldx #$10
+next_address:
+        ldy #$10
+        jsr b_hex_address           ;print the address
+next_byte:
+        lda (index_low)             ;get datum at address
+        sta temp1
+        jsr b_hex_byte              ;print byte as hex
+        jsr b_space                 ;print a space
+        jsr inc_index               ;next byte
+        dey
+        bpl next_byte
+        jsr b_crout
+        dex
+        bne next_address
+        jsr print_squiggly_line
+        jsr b_crout
         rts
         .pend
 
@@ -60,13 +83,39 @@ dump_memory: .proc
 ;;;
 print_squiggly_line: .proc
         pha
-        jsr b_crout
+        phx
         lda #'~'
         ldx #80
 again:
         jsr b_chout
         dex
         bne again
+        plx
+        pla
+        rts
+        .pend
+
+
+;;;
+;; Print a colon followed by a dollar
+;;      Preparation:
+;;              none
+;;      Register usage:
+;;              a:  entry value
+;;              x:  entry value
+;;              y:  entry value
+;;
+;;          Example:
+;;              jsr print_colon_dollar
+;;
+;;          Terminal output
+;;                  :$
+;;;
+print_colon_dollar: .proc
+        pha
+        lda #':'
+        jsr b_chout
+        jsr b_dollar
         pla
         rts
         .pend
@@ -89,22 +138,19 @@ again:
 ;;;
 print_byte_line: .proc
         pha
-        phy
-        jsr b_space4
-        lda #0
-        ;sta temp
-again:
-        lda #'0'
-        jsr b_chout
-        ;lda temp
-
-        jsr b_chout
-        ;inc temp
+        txa             ;protect X
+        ldx #5          ;six spaces
+        jsr b_spacex    ;send to terminal
+        tax             ;restore number of bytes to X
+        stz temp1
+loop:
+        jsr b_hex_byte  ;print temp1 as HEX ASCII
+        jsr b_space     ;a space char
+        inc temp1       ;next number
         dex
-        bne again
-        ply
-        pla
-        rts
+        bne loop        ;branch if not done
+        pla             ;restore calling value
+        rts             ;"return to sender"
         .pend
 
 ;;;
@@ -112,9 +158,9 @@ again:
 ;;;
 prompt: .proc
         jsr b_crout
-        lda #<help_text
+        lda #<prompt_text
         sta index_low
-        lda #>help_text
+        lda #>prompt_text
         sta index_high
         jmp b_prout
         .pend
