@@ -99,7 +99,7 @@ s_pfac: = m_bits/8                      ;primary accumulator size
 s_ptr:  = 2                             ;pointer size
 s_wrkspc: = m_cbits/8                   ;conversion workspace size
 ;
-;================================================================================ 
+;================================================================================
 ;
 ;ZERO PAGE ASSIGNMENTS
 ;All ZP assignments are in include/zp.inc.
@@ -210,7 +210,18 @@ l15:
 ;================================================================================
 ;
 ;CONVERT number_buffer into BCD using the double/dabble algorithm.
-;
+;We can use this method to convert base two numerals to base 10.
+;When we see a 1 we dabble: that is we double and add 1.
+;When we see a 0 we double: that is we double the number we have.
+;Try: 1 1 0 0 1 1 1 0 1
+; We start with the first 1. The next 1 means we dabble, so 1 x 2 + 1 = 3.
+; Next we have a 0 so we double: 3 x 2 = 6.
+; Again we have a 0, so we double: 2 x 6 = 12.
+; Now we have a 1, so we dabble 2 x 12 + 1 = 25.
+; Another 1, another dabble: 2 x 25 + 1 = 51.
+; Another 1, another dabble: 2 x 51 + 1 = 103.
+; Next we have a 0, so we double: 2 x 103 = 206.
+; Lastly, we have a 1 so we dabble: 2 x 206 + 1 = 413.
 facbcd:
         ldx #s_pfac-1                   ;primary accumulator size -1
 facbcd01:

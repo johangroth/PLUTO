@@ -437,6 +437,8 @@ out_buffer_full:
         inc out_buffer_tail         ; Increment the buffer index
         rmb 7,out_buffer_tail       ; Reset bit 7 as buffer is only 128 bytes
         inc out_buffer_counter      ; Increment the counter
+        ;lda #rec_xmit_irq_enabled  ; Enable transmit interrupt (have noticed that transmit IRQ just stops working)
+        ;sta siocom                 ; floobydust on 6502.org fixed this by turning on transmit interrupt here and off in ISR
         ply                         ; Restore Y register
         rts
         .pend

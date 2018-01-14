@@ -12,13 +12,14 @@
         program_counter_high    = zp_start + $8
 
         ; 65C51 IRQ handler buffer pointers and counters
-        in_buffer_counter   = zp_start + $9      ; Keeps track of how many characters in the input buffer
+        in_buffer_counter   = zp_start + $9     ; Keeps track of how many characters there are in the input buffer
         in_buffer_head      = zp_start + $a     ; Keeps track of where in the input buffer an incoming char should be placed
         in_buffer_tail      = zp_start + $b     ; Keeps track of where in the input buffer an incoming char should be taken from
-        out_buffer_counter  = zp_start + $c     ; Keeps track of how many characters in the output buffer
+        out_buffer_counter  = zp_start + $c     ; Keeps track of how many characters there are in the output buffer
         out_buffer_head     = zp_start + $d     ; Keeps track of where in the output buffer an outgoing char should be taken from
         out_buffer_tail     = zp_start + $e     ; Keeps track of where in the output buffer an outgoing char should be placed
 
+        ; Address pointer for various routines.
         index_low = zp_start + $f
         index_high = zp_start + $10
 

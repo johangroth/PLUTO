@@ -262,7 +262,7 @@ m_bits	bin_to_ascii.asm	/^m_bits: = 32                            ;operand bit s
 m_cbits	bin_to_ascii.asm	/^m_cbits: = 48                           ;workspace bit size$/;"	d
 m_strlen	bin_to_ascii.asm	/^m_strlen: = m_bits+1                    ;maximum printable string length$/;"	d
 master_slave_select	ide_routines.asm	/^master_slave_select: .proc$/;"	l
-monitor_initialise	monitor.asm	/^monitor_initialise: .proc$/;"	l
+monitor_initialiser	monitor.asm	/^monitor_initialiser: .proc$/;"	l
 monitor_main_loop	monitor.asm	/^monitor_main_loop: .proc$/;"	l
 move_cursor_to_screen_location_v_h	time_first_row.asm	/^move_cursor_to_screen_location_v_h  .null "[<V>;<H>H"$/;"	l
 n_radix	ascii_to_bin.asm	/^n_radix: = 3                            ;number of supported radixes$/;"	d

@@ -1,7 +1,7 @@
 ;;;
 ;; Initialise the monitor.
 ;;;
-monitor_initialise: .proc
+monitor_initialiser: .proc
         nop
         .pend
 
@@ -12,20 +12,27 @@ monitor_main_loop: .proc
         nop
         .pend
 
-;;;
-;; Table of all commands
-;;;
 dump_memory: .proc
         jsr prout
         nop
         rts
         .pend
 
+;;;
+;; Table of all commands
+;;;
 command_table:
         .text "D"
 
-help_text:
-        .null "Dump memory"
 
+;;;
+;; Help text for all the monitor commands.
+;;;
+help_text:
+        .null "D Dump memory"
+
+;;;
+;; Pointers to monitor commands
+;;;
 command_pointers:
         .word dump_memory

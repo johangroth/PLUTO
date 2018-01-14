@@ -55,7 +55,7 @@ l1:
 
 transmit_char:
         lda out_buffer_counter  ; Get output buffer counter
-        beq exit                ; If nothing to transmit branch
+        beq exit                ; Branch if there is nothing to transmit
         ldy out_buffer_head     ; Get pointer in output buffer
         lda out_buffer,y        ; Get character to transmit from output buffer
         sta siodat              ; Send character
@@ -65,6 +65,8 @@ transmit_char:
 l2:
         sty out_buffer_head     ; Update output buffer head pointer
         dec out_buffer_counter  ; Decrement character count
+        ;rmb 2,siocom            ; Disable transmit irq
+        ;smb 3,siocom            ; Make sure BRK isn't transmitted
 exit:
         jmp (via1_soft_vector)  ; Jump to next ISR
         .bend
