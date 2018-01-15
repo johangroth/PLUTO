@@ -171,6 +171,7 @@ dollar	time_first_row.asm	/^        dollar = $8192$/;"	d
 done	bios.asm	/^done:$/;"	l
 done	cfs.asm	/^done:$/;"	l
 done	ide_routines.asm	/^done:$/;"	l
+done	monitor.asm	/^done:$/;"	l
 ds1511	time_first_row.asm	/^        ds1511 = $7fa0$/;"	d
 dump_memory	monitor.asm	/^dump_memory: .proc$/;"	l
 eofp	xmodem.asm	/^        eofp = TEMP2        ; end of file address pointer (2 bytes)$/;"	d
@@ -237,6 +238,7 @@ ide_write_sector	ide_routines.asm	/^ide_write_sector: .proc$/;"	l
 ide_write_sector_cmd	ide_routines.asm	/^		ide_write_sector_cmd = $30$/;"	d
 idebufrd	ide_routines.asm	/^idebufrd:$/;"	l
 idebufwt	ide_routines.asm	/^idebufwt:$/;"	l
+inc_address	monitor.asm	/^inc_address: .proc$/;"	l
 inc_index	bios.asm	/^inc_index:  .proc$/;"	l
 incindex	time_first_row.asm	/^        incindex = $824e$/;"	d
 init	bios.asm	/^init:$/;"	l
