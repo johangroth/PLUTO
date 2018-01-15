@@ -45,9 +45,9 @@ dump_memory: .proc
         ldx #4                      ;Ask for up to 4...
         jsr b_input_hex             ;...characters
         lda number_buffer           ;Address ends up in number_buffer
-        sta index_low               ;so store it in index
+        sta address_low               ;so store it in index
         lda number_buffer+1
-        sta index_high
+        sta address_high
         jsr print_squiggly_line     ;Print the squiggly line ('~')
         jsr b_crout                 ;next line
         ldx #$10
@@ -58,11 +58,11 @@ next_address:
         ldy #$10
         jsr b_hex_address           ;print the address
 next_byte:
-        lda (index_low)             ;get datum at address
+        lda (address_low)           ;get datum at address
         sta temp1
         jsr b_hex_byte              ;print byte as hex
         jsr b_space                 ;print a space
-        jsr inc_index               ;next byte
+        jsr inc_address             ;next byte
         dey
         bpl next_byte
         jsr b_crout
@@ -165,6 +165,16 @@ prompt: .proc
         jmp b_prout
         .pend
 
+;;;
+;; Increment address with one.
+;;;
+inc_address: .proc
+        inc address_low
+        bne done
+        inc address_high
+done:
+        rts
+        .pend
 ;;;
 ;; Table of all commands
 ;;;

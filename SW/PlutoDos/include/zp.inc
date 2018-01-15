@@ -60,7 +60,7 @@
 
         temp1 = strbuf + $10
         temp2 = temp1 + $1
-        address_low = $temp2 + $1
+        address_low = temp2 + $1
         address_high = address_low + $1
 
         stack_page  = $100

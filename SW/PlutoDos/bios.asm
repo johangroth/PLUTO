@@ -438,9 +438,9 @@ hex_address: .proc
         phy
         jsr hex_mode
         jsr clear_number_buffer
-        lda index_low
+        lda address_low
         sta number_buffer
-        lda index_high
+        lda address_high
         sta number_buffer+1
         jsr binary_to_ascii
         jsr prout
