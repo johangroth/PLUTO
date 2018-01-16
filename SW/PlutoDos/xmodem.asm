@@ -47,7 +47,7 @@
 ; non-zero page variables and buffers
 ;
 ;
-Rbuff  =    $037e                      ; temp 132 byte receive buffer
+Rbuff  =    $037c                      ; temp 132 byte receive buffer
         ;(place anywhere, page aligned)
 ;
 ;
@@ -344,52 +344,42 @@ GetByte1:
         .pend
 ;
 Flush: .proc
+FlushBuffer:
         lda    #$70                     ; flush receive buffer
         sta    retry2                   ; flush until empty for ~1 sec.
 Flush1:
         jsr    GetByte                  ; read the port
-        bcs    Flush                    ; if chr recvd, wait for another
+        bcs    FlushBuffer              ; if chr recvd, wait for another
         rts                             ; else done
         .pend
 ;
 PrintMsg: .proc
-        ldx    #$00                     ; PRINT starting message
-PrtMsg1:
-        lda    Msg,x
-        beq    PrtMsg2
-        jsr    b_chout
-        inx
-        bne    PrtMsg1
-PrtMsg2:
-        rts
+        lda #<msg
+        sta index_low
+        lda #>msg
+        sta index_high
+        jmp b_prout
 Msg:
         .null   "Begin XMODEM/CRC transfer.  Press <Esc> to abort...", CR, LF
         .pend
+
 ;
 Print_Err: .proc
-        ldx    #$00                     ; PRINT Error message
-PrtErr1:
-        lda    ErrMsg,x
-        beq    PrtErr2
-        jsr    b_chout
-        inx
-        bne    PrtErr1
-PrtErr2:
-        rts
+        lda #<ErrMsg
+        sta index_low
+        lda #>ErrMsg
+        sta index_high
+        jmp b_prout
 ErrMsg:
         .null     "Transfer Error!", CR, LF
         .pend
 ;
 Print_Good: .proc
-        ldx    #$00                     ; PRINT Good Transfer message
-Prtgood1:
-        lda       GoodMsg,x
-        beq    Prtgood2
-        jsr    b_chout
-        inx
-        bne    Prtgood1
-Prtgood2:
-        rts
+        lda #<GoodMsg
+        sta index_low
+        lda #>GoodMsg
+        sta index_high
+        jmp b_prout
 GoodMsg:
         .byte   EOT,CR,LF,EOT,CR,LF,EOT,CR,LF,CR,LF
         .null   "Transfer Successful!", CR, LF

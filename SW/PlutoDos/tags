@@ -35,6 +35,7 @@ ESC	xmodem.asm	/^ESC    =    $1b                        ; ESC to exit$/;"	d
 ErrMsg	xmodem.asm	/^ErrMsg:$/;"	l
 Flush	xmodem.asm	/^Flush: .proc$/;"	l
 Flush1	xmodem.asm	/^Flush1:$/;"	l
+FlushBuffer	xmodem.asm	/^FlushBuffer:$/;"	l
 GetBlk	xmodem.asm	/^GetBlk:$/;"	l
 GetBlk1	xmodem.asm	/^GetBlk1:$/;"	l
 GetBlk2	xmodem.asm	/^GetBlk2:$/;"	l
@@ -73,16 +74,10 @@ PrintMsg	xmodem.asm	/^PrintMsg: .proc$/;"	l
 Print_Err	xmodem.asm	/^Print_Err: .proc$/;"	l
 Print_Good	xmodem.asm	/^Print_Good: .proc$/;"	l
 PrtAbort	xmodem.asm	/^PrtAbort:$/;"	l
-PrtErr1	xmodem.asm	/^PrtErr1:$/;"	l
-PrtErr2	xmodem.asm	/^PrtErr2:$/;"	l
-PrtMsg1	xmodem.asm	/^PrtMsg1:$/;"	l
-PrtMsg2	xmodem.asm	/^PrtMsg2:$/;"	l
-Prtgood1	xmodem.asm	/^Prtgood1:$/;"	l
-Prtgood2	xmodem.asm	/^Prtgood2:$/;"	l
 RDLINE	settime.asm	/^        RDLINE = $835C$/;"	d
 RDone	xmodem.asm	/^RDone:$/;"	l
 RESREGS	settime.asm	/^        RESREGS = $83C4$/;"	d
-Rbuff	xmodem.asm	/^Rbuff  =    $037e                      ; temp 132 byte receive buffer$/;"	d
+Rbuff	xmodem.asm	/^Rbuff  =    $037c                      ; temp 132 byte receive buffer$/;"	d
 Resend	xmodem.asm	/^Resend:$/;"	l
 SAVREGS	settime.asm	/^        SAVREGS = $83BD$/;"	d
 SCalcCRC	xmodem.asm	/^SCalcCRC:$/;"	l
@@ -101,6 +96,7 @@ VIA	settime.asm	/^        VIA = $7FC0$/;"	d
 Wait4CRC	xmodem.asm	/^Wait4CRC:$/;"	l
 a_hexdec	bin_to_ascii.asm	/^a_hexdec: = 'A'-'9'-2                   ;hex to decimal difference$/;"	d
 a_hexnum	ascii_to_bin.asm	/^a_hexnum: = 'A'-'9'-1                   ;hex to decimal difference$/;"	d
+abort_command	monitor.asm	/^abort_command: .proc$/;"	l
 acia	time_first_row.asm	/^        acia = $7fe0$/;"	d
 acia6551	time_first_row.asm	/^        acia6551 = $7fe0$/;"	d
 acia_init	acia.asm	/^acia_init: .proc$/;"	l
@@ -119,8 +115,8 @@ b_crout	bios.asm	/^b_crout:        jmp crout$/;"	l
 b_dollar	bios.asm	/^b_dollar:       jmp dollar$/;"	l
 b_hex_address	bios.asm	/^b_hex_address:  jmp hex_address       ;Print a hex address with leading zeroes. Address should be stored in index_low and index_high.$/;"	l
 b_hex_byte	bios.asm	/^b_hex_byte:     jmp hex_byte          ;Print a hex byte with leading zeroes. Byte should be stored in temp.$/;"	l
-b_input_dec	bios.asm	/^b_input_dec:    jmp input_dec$/;"	l
-b_input_hex	bios.asm	/^b_input_hex:    jmp input_hex$/;"	l
+b_input_dec	bios.asm	/^b_input_dec:    jmp input_dec           ;Binary number in number_buffer$/;"	l
+b_input_hex	bios.asm	/^b_input_hex:    jmp input_hex           ;Binary number in number_buffer$/;"	l
 b_prout	bios.asm	/^b_prout:        jmp prout$/;"	l
 b_read_char	bios.asm	/^b_read_char:    jmp read_character      ;Read character and convert to uppercase.$/;"	l
 b_read_line	bios.asm	/^b_read_line:    jmp read_line$/;"	l
@@ -177,13 +173,16 @@ done	bios.asm	/^done:$/;"	l
 done	cfs.asm	/^done:$/;"	l
 done	ide_routines.asm	/^done:$/;"	l
 done	monitor.asm	/^done:$/;"	l
+dont_echo	monitor.asm	/^dont_echo:$/;"	l
 download	xmodem.asm	/^download: .proc$/;"	l
 ds1511	time_first_row.asm	/^        ds1511 = $7fa0$/;"	d
+dump_as_ascii	monitor.asm	/^dump_as_ascii: .proc$/;"	l
 dump_memory	monitor.asm	/^dump_memory: .proc$/;"	l
 error	ide_routines.asm	/^error:$/;"	l
 execute_command	monitor.asm	/^execute_command:$/;"	l
 exit	acia.asm	/^exit:$/;"	l
 exit	bios.asm	/^exit:$/;"	l
+exit	monitor.asm	/^exit:$/;"	l
 exit	via.asm	/^exit:$/;"	l
 exit_read_line	bios.asm	/^exit_read_line:$/;"	l
 facbcd	bin_to_ascii.asm	/^facbcd:$/;"	l
@@ -195,7 +194,9 @@ facbcd05	bin_to_ascii.asm	/^facbcd05:$/;"	l
 facbcd06	bin_to_ascii.asm	/^facbcd06:$/;"	l
 facbcd07	bin_to_ascii.asm	/^facbcd07:$/;"	l
 facbcd08	bin_to_ascii.asm	/^facbcd08:$/;"	l
+fill_memory	monitor.asm	/^fill_memory: .proc$/;"	l
 find_boot_sector	cfs.asm	/^find_boot_sector: 	.proc$/;"	l
+full_page	monitor.asm	/^full_page:$/;"	l
 get_char	bios.asm	/^get_char:$/;"	l
 get_date_and_time	rtc.asm	/^get_date_and_time: .proc$/;"	l
 get_date_and_time	time_first_row.asm	/^        get_date_and_time  = $8072$/;"	d
@@ -301,15 +302,19 @@ n_rtcreg	rtc.asm	/^n_rtcreg =*-rtcreg$/;"	l
 next	via.asm	/^next:$/;"	l
 next_address	monitor.asm	/^next_address:$/;"	l
 next_byte	monitor.asm	/^next_byte:$/;"	l
+next_char	monitor.asm	/^next_char:$/;"	l
 nmi	bios.asm	/^nmi:$/;"	l
 nmon	time_first_row.asm	/^        nmon = $867d$/;"	d
+non_printable	monitor.asm	/^non_printable:$/;"	l
 notdone	ide_routines.asm	/^notdone:$/;"	l
 numstab	bin_to_ascii.asm	/^numstab: .byte 12,12,48                 ;maximum numerals$/;"	l
 ok	ide_routines.asm	/^ok:$/;"	l
 out_buffer_full	bios.asm	/^out_buffer_full:$/;"	l
+partial_page	monitor.asm	/^partial_page:$/;"	l
 prasc	time_first_row.asm	/^        prasc = $82ee$/;"	d
 prbyte	time_first_row.asm	/^        prbyte = $82fb$/;"	d
 prindx	time_first_row.asm	/^        prindx = $830c$/;"	d
+print_all_commands	monitor.asm	/^print_all_commands: .proc$/;"	l
 print_byte_line	monitor.asm	/^print_byte_line: .proc$/;"	l
 print_colon_dollar	monitor.asm	/^print_colon_dollar: .proc$/;"	l
 print_date_and_time	rtc.asm	/^print_date_and_time: .proc$/;"	l

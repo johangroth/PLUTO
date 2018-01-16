@@ -19,7 +19,7 @@ welcome:
         .text "Hardware Version  "
         .text "1.0"
         .text " (13/06/2017)"
-        #cup "0","36" ;Move cursor to last line as supported by Geoff Graham's VT100 terminal 
+        #cup "0","34" ;Move cursor to last line -1 that is supported by Geoff Graham's VT100 terminal
         .byte 0
 
 clear_screen:
@@ -32,8 +32,55 @@ destructive_backspace:
 prompt_text:
         .null "M-"
 
+inverted_question_mark:
+        #sgr7
+        .text '?'
+        #sgr0
+        .byte 0
+
+crlf:   .macro
+        .byte a_cr, a_lf
+        .endm
+
+print_text: .macro
+        lda #<\1
+        sta index_low
+        lda #>\1
+        sta index_high
+        jsr b_prout
+        .endm
+
+print_text_rts: .macro
+        lda #<\1
+        sta index_low
+        lda #>\1
+        sta index_high
+        jmp b_prout
+        .endm
+
 ;;;
 ;; Help text for all the monitor commands.
 ;;;
 help_text:
-        .null "D Dump memory"
+        .text "D Dump memory"
+        #crlf
+        .text "CTRL-D Download file"
+        #crlf
+        .text "F Fill memory"
+        #crlf
+        .text "H This text"
+        #crlf
+        .byte $00
+
+abort_command_text:
+        .null "[ESC] to abort, any other to proceed"
+
+;;;
+;;  Fill prompts
+;;;
+fill_start:
+        .null "Fill start: $"
+fill_length:
+        .null "Len: $"
+fill_byte:
+        .null "Value: $"

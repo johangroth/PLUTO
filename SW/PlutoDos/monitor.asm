@@ -26,7 +26,10 @@ l1:
         bra l1
 
 execute_command:
+        cmp #'A'
+        bcc dont_echo               ;Branch if command is CTRL-<char>, ie non-printable
         jsr b_chout                 ;Echo command
+dont_echo:
         txa                         ;Transfer index in command table to A
         asl                         ;Muliply with two to find the command pointer
         tax                         ;Transfer a to the index pointer
@@ -58,10 +61,10 @@ dump_memory: .proc
         lda number_buffer+1
         sta address_high
 continue_dump:
-        jsr print_squiggly_line     ;Print the squiggly line ('~')
-        jsr b_crout                 ;CR LF
         ldx #$10                    ;16 hex numbers to print
         jsr print_byte_line         ;print $10 hex numbers starting with $00
+        jsr b_crout                 ;CR LF
+        jsr print_squiggly_line     ;Print the squiggly line ('~')
         jsr b_crout                 ;CR LF
         ldx #$10                    ;16 lines
 next_address:
@@ -76,19 +79,114 @@ next_byte:
         jsr inc_address             ;next byte
         dey
         bne next_byte               ;next column of bytes
+        jsr dump_as_ascii           ;send printable ASCII to terminal. Non-printable are shown as inverted '?'.
         jsr b_crout                 ;next line
         dex
         bne next_address            ;next line
         jsr print_squiggly_line     ;ending squiggly line
         jsr b_crout                 ;CR LF
+        ldx #$10                    ;16 hex numbers to print
+        jsr print_byte_line         ;print $10 hex numbers starting with $00
         rts
         .pend
 
+;;;
+;; [F] Fill memory with a value
+;;;
+fill_memory: .proc
+        jsr b_crout
+        #print_text fill_start
+        ldx #4                      ;Ask for up to 4 hex chars (fill start address)
+        jsr b_input_hex             ;Address will be in number_buffer
+        lda number_buffer           ;so move it to address_low/high
+        sta address_low
+        lda number_buffer+1
+        sta address_high
+        #print_text fill_length
+        ldx #4                      ;Ask for up to 4 hex char (number of bytes to fill)
+        jsr b_input_hex             ;Length will be in number_buffer
+        lda number_buffer           ;so move it to index_low/high
+        sta index_low
+        lda number_buffer+1
+        sta index_high
+        #print_text fill_byte
+        ldx #2                      ;Ask for up to 2 hex chars (byte to fill memory with)
+        jsr b_input_hex
+        jsr abort_command           ;Check if user wants to abort
+        cmp #a_esc
+        beq exit
+        lda number_buffer           ;Get value for fill
+        ldx index_high              ;Get number of full pages to fill
+        beq partial_page            ;Branch if number of pages is 0.
+        ldy #0
+full_page:
+        sta (address_low),y
+        iny                         ;Next byte
+        bne full_page               ;Branch if not done with this page
+        inc index_high              ;Advance to next page
+        dex                         ;
+        bne full_page               ;Branch if not done with full pages
+partial_page:
+        ldx index_low               ;Get the reminding number of bytes
+        beq exit                    ;Branch if no reminding bytes
+        ldy #0
+l1:
+        sta (address_low),y         ;Store value
+        iny                         ;Increment index
+        dex                         ;Decrement counter
+        bne l1                      ;Branch if partial page is not done
+exit:
+        rts
+        .pend
 
+;;;
+;; [H] Print all commands
+;;;
+print_all_commands: .proc
+        jsr b_crout
+        #print_text help_text
+        rts
+        .pend
 ;;;
 ;; Monitor support routines
 ;;;
 
+;;;
+;; Dump as ASCII, non-printable characters (ie <32 and >126)
+;; are printed as inverted '?'
+;;;
+dump_as_ascii: .proc
+        phy
+        jsr b_space
+        sec
+        lda address_low
+        sbc #$10                ;start from the beginning of the line
+        sta address_low
+        lda address_high
+        sbc #0
+        sta address_high
+        ldy #$10
+loop:
+        lda (address_low)
+        cmp #' '
+        bcc non_printable       ;Less than space, branch
+        cmp #$7f
+        bcs non_printable       ;Greater or equal to DEL, branch
+        jsr b_chout
+        bra next_char
+non_printable:
+        lda #<inverted_question_mark
+        sta index_low
+        lda #>inverted_question_mark
+        sta index_high
+        jsr b_prout
+next_char:
+        jsr inc_address
+        dey
+        bne loop
+        ply
+        rts
+        .pend
 ;;;
 ;; Print a row of '~'
 ;;;
@@ -169,13 +267,13 @@ loop:
 ;;;
 prompt: .proc
         jsr b_crout
-        lda #<prompt_text
-        sta index_low
-        lda #>prompt_text
-        sta index_high
-        jmp b_prout
+        #print_text_rts prompt_text
         .pend
 
+abort_command: .proc
+        #print_text abort_command_text
+        jmp b_chin
+        .pend
 ;;;
 ;; Increment address with one.
 ;;;
@@ -190,7 +288,10 @@ done:
 ;; Table of all commands
 ;;;
 command_table:
-        .text "D"
+        .text "D"   ;[D] Dump 256 bytes memory
+        .byte $04   ;[CTRL-D] Download file with XMODEM/CRC
+        .text "F"   ;[F] Fill memory
+        .text "H"   ;[H] Print all commands
         .byte $ff   ;end of table
 
 ;;;
@@ -198,3 +299,6 @@ command_table:
 ;;;
 command_pointers:
         .word dump_memory
+        .word download
+        .word fill_memory
+        .word print_all_commands

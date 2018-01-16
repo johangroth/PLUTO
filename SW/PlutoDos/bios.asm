@@ -738,8 +738,8 @@ via2_irq:  .block
 ;; BIOS jump table.
 ;; This table is the official API of the BIOS. Ideally no other routines should be used.
 ;;;
-b_input_hex:    jmp input_hex
-b_input_dec:    jmp input_dec
+b_input_hex:    jmp input_hex           ;Binary number in number_buffer
+b_input_dec:    jmp input_dec           ;Binary number in number_buffer
 b_read_char:    jmp read_character      ;Read character and convert to uppercase.
 b_read_line:    jmp read_line
 b_chin_no_wait: jmp chin_no_wait        ;Used by XMODEM
