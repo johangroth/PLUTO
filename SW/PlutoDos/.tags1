@@ -4,3 +4,67 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Rbuff	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Rbuff  =    $037e                      ; temp 132 byte receive buffer$/;"	define	line:50
+SOH	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^SOH    =    $01                        ; start block$/;"	define	line:69
+EOT	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^EOT    =    $04                        ; end of text marker$/;"	define	line:70
+ACK	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^ACK    =    $06                        ; good block acknowledged$/;"	define	line:71
+NAK	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^NAK    =    $15                        ; bad block acknowledged$/;"	define	line:72
+CAN	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CAN    =    $18                        ; cancel (not standard, not supported)$/;"	define	line:73
+CR	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CR     =    $0d                        ; carriage return$/;"	define	line:74
+LF	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LF     =    $0a                        ; line feed$/;"	define	line:75
+ESC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^ESC    =    $1b                        ; ESC to exit$/;"	define	line:76
+upload	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^upload: .proc$/;"	label	line:95
+Wait4CRC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Wait4CRC:$/;"	label	line:102
+SetstAddr	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^SetstAddr:$/;"	label	line:112
+LdBuffer	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuffer:$/;"	label	line:125
+LdBuff0	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff0:$/;"	label	line:129
+LdBuff1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff1:$/;"	label	line:138
+LdBuff2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff2:$/;"	label	line:141
+LdBuff3	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff3:$/;"	label	line:150
+LdBuff4	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff4:$/;"	label	line:158
+LdBuff5	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff5:$/;"	label	line:162
+SCalcCRC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^SCalcCRC:$/;"	label	line:166
+Resend	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Resend:$/;"	label	line:173
+SendBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^SendBlk:$/;"	label	line:177
+Seterror	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Seterror:$/;"	label	line:194
+PrtAbort	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrtAbort:$/;"	label	line:199
+Done	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Done:   jmp    Print_Good               ; All Done..Print msg and exit$/;"	label	line:202
+download	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^download: .proc$/;"	label	line:208
+StartCrc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^StartCrc:$/;"	label	line:213
+StartBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^StartBlk:$/;"	label	line:225
+GotByte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GotByte:$/;"	label	line:230
+GotByte1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GotByte1:$/;"	label	line:235
+BegBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^BegBlk:$/;"	label	line:241
+GetBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GetBlk:$/;"	label	line:243
+GetBlk1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GetBlk1:$/;"	label	line:246
+GetBlk2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GetBlk2:$/;"	label	line:249
+GoodBlk1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GoodBlk1:$/;"	label	line:262
+GoodBlk2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GoodBlk2:$/;"	label	line:271
+BadCrc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^BadCrc:$/;"	label	line:280
+GoodCrc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GoodCrc:$/;"	label	line:285
+CopyBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CopyBlk:$/;"	label	line:299
+CopyBlk3	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CopyBlk3:$/;"	label	line:301
+CopyBlk4	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CopyBlk4:$/;"	label	line:307
+IncBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^IncBlk:$/;"	label	line:311
+RDone	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^RDone:$/;"	label	line:317
+GetByte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GetByte: .proc$/;"	label	line:331
+StartCrcLp	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^StartCrcLp:$/;"	label	line:334
+GetByte1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GetByte1:$/;"	label	line:342
+Flush	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Flush: .proc$/;"	label	line:346
+Flush1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Flush1:$/;"	label	line:349
+PrintMsg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrintMsg: .proc$/;"	label	line:355
+PrtMsg1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrtMsg1:$/;"	label	line:357
+PrtMsg2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrtMsg2:$/;"	label	line:363
+Msg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Msg:$/;"	label	line:365
+Print_Err	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Print_Err: .proc$/;"	label	line:369
+PrtErr1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrtErr1:$/;"	label	line:371
+PrtErr2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrtErr2:$/;"	label	line:377
+ErrMsg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^ErrMsg:$/;"	label	line:379
+Print_Good	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Print_Good: .proc$/;"	label	line:383
+Prtgood1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Prtgood1:$/;"	label	line:385
+Prtgood2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Prtgood2:$/;"	label	line:391
+GoodMsg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GoodMsg:$/;"	label	line:393
+CalcCRC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CalcCRC: .proc$/;"	label	line:405
+CalcCRC1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CalcCRC1:$/;"	label	line:410
+crclo	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^crclo:$/;"	label	line:467
+crchi	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^crchi:$/;"	label	line:487

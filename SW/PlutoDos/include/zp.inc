@@ -63,4 +63,27 @@
         address_low = temp2 + $1
         address_high = address_low + $1
 
+        ;===============================================================================
+        ;XMODEM
+        ; zero page variables (adjust these to suit your needs)
+        ;
+        ;
+        lastblk =   address_high + $1                       ; flag for last block
+        blkno  =    address_high + $2                        ; block number
+        errcnt =    address_high + $3                        ; error counter 10 is the limit
+        bflag  =    address_high + $4                        ; block flag
+
+        crc    =    address_high + $5                        ; CRC lo byte  (two byte variable)
+        crch   =    address_high + $6                        ; CRC hi byte
+
+        ptr    =    address_high + $7                        ; data pointer (two byte variable)
+        ptrh   =    address_high + $8                        ;   "    "
+
+        eofp   =    address_high + $9                        ; end of file address pointer (2 bytes)
+        eofph  =    address_high + $a                        ;  "    "    "    "
+
+        retry  =    address_high + $b                        ; retry counter
+        retry2 =    address_high + $c                        ; 2nd counter
+
+
         stack_page  = $100

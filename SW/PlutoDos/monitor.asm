@@ -2,7 +2,7 @@
 ;; Initialise the monitor.
 ;;;
 monitor_initialiser: .proc
-        jsr prompt
+        ;jsr prompt
         rts
         .pend
 
@@ -10,13 +10,18 @@ monitor_initialiser: .proc
 ;; Monitor main loop
 ;;;
 monitor_main_loop: .proc
+        jsr prompt
+l2:
         jsr b_read_char             ;Get char in uppercase from terminal
+        tay                         ;Protect read character
         ldx #0
 l1:
         cmp command_table,x
         beq execute_command
+        lda command_table,x
         cmp #$ff                    ;End of table?
         beq command_not_supported
+        tya
         inx
         bra l1
 
@@ -25,12 +30,14 @@ execute_command:
         txa                         ;Transfer index in command table to A
         asl                         ;Muliply with two to find the command pointer
         tax                         ;Transfer a to the index pointer
-        jmp (command_pointers,x)    ;execute command (command must do an rts)
+        jsr do_command              ;Execute command as a subroutine
         bra monitor_main_loop       ;Wait for next command
+do_command:
+        jmp (command_pointers,x)    ;execute command (command must do an rts)
 
 command_not_supported:
         jsr b_bell
-        bra monitor_main_loop
+        bra l2
         .pend
 
 ;;;
@@ -44,32 +51,36 @@ dump_memory: .proc
         jsr print_colon_dollar
         ldx #4                      ;Ask for up to 4...
         jsr b_input_hex             ;...characters
+        lda temp1                   ;if temp1 is zero
+        beq continue_dump           ;branch as we want to continue where we left off
         lda number_buffer           ;Address ends up in number_buffer
-        sta address_low               ;so store it in index
+        sta address_low             ;so store it in address
         lda number_buffer+1
         sta address_high
+continue_dump:
         jsr print_squiggly_line     ;Print the squiggly line ('~')
-        jsr b_crout                 ;next line
-        ldx #$10
+        jsr b_crout                 ;CR LF
+        ldx #$10                    ;16 hex numbers to print
         jsr print_byte_line         ;print $10 hex numbers starting with $00
-        jsr b_crout
-        ldx #$10
+        jsr b_crout                 ;CR LF
+        ldx #$10                    ;16 lines
 next_address:
-        ldy #$10
+        ldy #$10                    ;16 bytes / line
         jsr b_hex_address           ;print the address
+        jsr b_space
 next_byte:
         lda (address_low)           ;get datum at address
-        sta temp1
+        sta temp1                   ;temp1 is used by b_hex_byte (should probably change the name of variable)
         jsr b_hex_byte              ;print byte as hex
         jsr b_space                 ;print a space
         jsr inc_address             ;next byte
         dey
-        bpl next_byte
-        jsr b_crout
+        bne next_byte               ;next column of bytes
+        jsr b_crout                 ;next line
         dex
-        bne next_address
-        jsr print_squiggly_line
-        jsr b_crout
+        bne next_address            ;next line
+        jsr print_squiggly_line     ;ending squiggly line
+        jsr b_crout                 ;CR LF
         rts
         .pend
 

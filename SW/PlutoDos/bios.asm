@@ -363,24 +363,6 @@ sendit:
         .pend
 
 ;;;
-;; BELL subroutine: Send a bell sound to terminal.
-;;      Preparation:
-;;              none
-;;
-;;      Effect on registers:
-;;              a - used
-;;              x - entry value
-;;              y - entry value
-;;
-;;      Example:
-;;             jsr bell
-;;;
-bell:   .proc
-        lda #a_bel
-        bra chout
-        .pend
-
-;;;
 ;; PROUT subroutine: Send a zero terminated string to terminal.
 ;;      Preparation:
 ;;              index_low  low byte address to string
@@ -443,6 +425,8 @@ hex_address: .proc
         lda address_high
         sta number_buffer+1
         jsr binary_to_ascii
+        ldx #4
+        jsr leading_zeroes
         jsr prout
         ply
         plx
@@ -506,7 +490,8 @@ hex_mode: .proc
 ;;;
 ;; LEADING_ZEROES subroutine: Send ASCII '0' to terminal.
 ;;      Preparation:
-;;              x - number of zeroes to print
+;;              x - maximum number of zeroes to print
+;;              a - number of characters to print
 ;;
 ;;      Effect on registers:
 ;;              a - entry value
@@ -514,8 +499,8 @@ hex_mode: .proc
 ;;              y - entry value
 ;;
 ;;      Example:
-;;                  ldx #2
-;;                  jsr leading_zeroes
+;;              ldx #2
+;;              jsr leading_zeroes
 ;;;
 leading_zeroes: .proc
         pha
@@ -524,11 +509,13 @@ leading_zeroes: .proc
         sec
         sbc temp2       ;Maximum number of zeroes substracted with number of characters to print (ie X - A)
         tax             ;Number of leading zeroes in X
+        beq exit        ;No leading zeroes needed
         lda #'0'
 l1:
         jsr chout
         dex
         bne l1
+exit:
         pla
         rts
         .pend
@@ -556,6 +543,25 @@ l1:
         plx
         rts
         .pend
+
+;;;
+;; BELL subroutine: Send a bell sound to terminal.
+;;      Preparation:
+;;              none
+;;
+;;      Effect on registers:
+;;              a - used
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;             jsr bell
+;;;
+bell:   .proc
+        lda #a_bel
+        bra chout
+        .pend
+
 
 ;;;
 ;; chin_no_wait subroutine: Get character from buffer. If no character is available
@@ -736,6 +742,7 @@ b_input_hex:    jmp input_hex
 b_input_dec:    jmp input_dec
 b_read_char:    jmp read_character      ;Read character and convert to uppercase.
 b_read_line:    jmp read_line
+b_chin_no_wait: jmp chin_no_wait        ;Used by XMODEM
 b_bin_to_asc:   jmp binary_to_ascii
 b_dollar:       jmp dollar
 b_chout:        jmp chout

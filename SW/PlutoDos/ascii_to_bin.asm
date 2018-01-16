@@ -87,7 +87,8 @@ bits_per_digit_table: .byte 4,3,1       ;bits per digit per radix
 ascii_to_bin: .proc
         cpx #0                          ; if x != 0 then
         bne convert                     ; convert characters to binary, so branch
-        rts                             ; else no characters to convert so return to caller.
+        stz temp1                       ; else no characters to convert so return to caller.
+        rts
 
 convert:
         stz input_buffer,x              ;Zero terminate input string.
@@ -233,5 +234,7 @@ l16:
         sec                             ;flag an error
 ;
 l17:
+        lda #$ff                        ;Indicate a conversion has taken place
+        sta temp1
         rts                             ;done
         .pend

@@ -163,74 +163,6 @@ idebufwt	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ide_routines.asm	/^ideb
 ide_setup_lba	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_setup_lba:	.proc$/;"	label	line:270
 master_slave_select	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ide_routines.asm	/^master_slave_select: .proc$/;"	label	line:290
 ide_mast	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ide_routines.asm	/^ide_mast:$/;"	label	line:294
-lastblk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        lastblk = $a5       ; flag for last block$/;"	define	line:48
-blkno	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        blkno = $a6         ; block number$/;"	define	line:49
-errcnt	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        errcnt = $a7        ; error counter 10 is the limit$/;"	define	line:50
-bflag	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        bflag = $a7         ; block flag$/;"	define	line:51
-crc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        crc = $a8           ; CRC lo byte  (two byte variable)$/;"	define	line:53
-crch	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        crch = $a9          ; CRC hi byte$/;"	define	line:54
-ptr	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        ptr = INDEX         ; data pointer (two byte variable)$/;"	define	line:56
-ptrh	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        ptrh = INDEXH       ;   "    "$/;"	define	line:57
-eofp	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        eofp = TEMP2        ; end of file address pointer (2 bytes)$/;"	define	line:59
-eofph	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        eofph = TEMP2H      ;  "    "   "   "$/;"	define	line:60
-retry	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        retry = $ae         ; retry counter$/;"	define	line:61
-retry2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        retry2 = $af        ; 2nd counter$/;"	define	line:62
-Rbuff	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        Rbuff = $0300       ; temp 132 byte receive buffer$/;"	define	line:69
-SOH	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        SOH = $01       ; Start block$/;"	define	line:88
-EOT	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        EOT = $04       ; end of text marker$/;"	define	line:89
-ACK	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        ACK = $06       ; good block acknowledged$/;"	define	line:90
-NAK	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        NAK = $15       ; bad block acknowledged$/;"	define	line:91
-CAN	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        CAN = $18       ; cancel (not STAndard, not supported)$/;"	define	line:92
-CR	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        CR = $0d        ; carriage return$/;"	define	line:93
-LF	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        LF = $0a        ; line feed$/;"	define	line:94
-ESC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^        ESC = $1b       ; ESC to exit$/;"	define	line:95
-UPLOAD	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^UPLOAD  .proc$/;"	label	line:113
-XModemSend	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^XModemSend:$/;"	label	line:114
-EXITUPLOAD	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^EXITUPLOAD:$/;"	label	line:139
-DOUPLOAD	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^DOUPLOAD:$/;"	label	line:142
-Wait4CRC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Wait4CRC:$/;"	label	line:163
-SetstAddr	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^SetstAddr:$/;"	label	line:174
-LdBuffer	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuffer:$/;"	label	line:187
-LdBuff0	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff0:$/;"	label	line:192
-LdBuff1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff1:$/;"	label	line:201
-LdBuff2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff2:$/;"	label	line:205
-LdBuff3	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff3:$/;"	label	line:215
-LdBuff4	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff4:$/;"	label	line:223
-LdBuff5	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff5:$/;"	label	line:228
-SCalcCRC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^SCalcCRC:$/;"	label	line:233
-Resend	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Resend:$/;"	label	line:241
-SendBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^SendBlk:$/;"	label	line:246
-Seterror	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Seterror:$/;"	label	line:263
-PrtAbort	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrtAbort:$/;"	label	line:269
-Done	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Done:$/;"	label	line:273
-XModemReceive	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^XModemReceive .proc$/;"	label	line:281
-StartCrc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^StartCrc:$/;"	label	line:289
-GotByte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GotByte:$/;"	label	line:297
-GotByte1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GotByte1:$/;"	label	line:303
-StartBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^StartBlk:$/;"	label	line:310
-BegBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^BegBlk:$/;"	label	line:313
-GetBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GetBlk:$/;"	label	line:316
-GetBlk2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GetBlk2:$/;"	label	line:319
-GoodBlk1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GoodBlk1:$/;"	label	line:333
-GoodBlk2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GoodBlk2:$/;"	label	line:343
-BadCrc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^BadCrc:$/;"	label	line:353
-GoodCrc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GoodCrc:$/;"	label	line:359
-CopyBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CopyBlk:$/;"	label	line:374
-CopyBlk3	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CopyBlk3:$/;"	label	line:377
-CopyBlk4	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CopyBlk4:$/;"	label	line:384
-IncBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^IncBlk:$/;"	label	line:389
-RDoneNow	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^RDoneNow:$/;"	label	line:395
-Flush	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Flush   .proc$/;"	label	line:437
-PrintMsg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrintMsg    .proc$/;"	label	line:443
-Msg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Msg:$/;"	label	line:450
-Print_Err	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Print_Err   .proc$/;"	label	line:456
-ErrMsg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^ErrMsg:$/;"	label	line:464
-Print_Good	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Print_Good  .proc$/;"	label	line:470
-GoodMsg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GoodMsg:$/;"	label	line:477
-CalcCRC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CalcCRC .proc$/;"	label	line:492
-CalcCRC1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CalcCRC1:$/;"	label	line:498
-crclo	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^crclo:$/;"	label	line:520
-crchi	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^crchi:$/;"	label	line:540
 INCLUDE_SRCS	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/Makefile	/^INCLUDE_SRCS = include\/*.inc$/;"	macro	line:1
 ASM_SRCS	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/Makefile	/^ASM_SRCS = *.asm$/;"	macro	line:2
 acia_init	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/acia.asm	/^acia_init: .proc$/;"	label	line:13
@@ -270,22 +202,133 @@ facbcd08	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^facb
 bitstab	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^bitstab: .byte 4,4,1                    ;bits per numeral$/;"	label	line:286
 lzsttab	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^lzsttab: .byte 3,2,9                    ;leading zero suppression thresholds$/;"	label	line:287
 numstab	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bin_to_ascii.asm	/^numstab: .byte 12,12,48                 ;maximum numerals$/;"	label	line:288
+a_hexnum	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^a_hexnum: = 'A'-'9'-1                   ;hex to decimal difference$/;"	define	line:67
+n_radix	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^n_radix: = 3                            ;number of supported radixes$/;"	define	line:68
+radix_mask	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^radix_mask: = 3                         ;bit 0 and 1 in control_flags holds the radix$/;"	define	line:69
+s_fac	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^s_fac:  = 4                             ;binary accumulator size$/;"	define	line:70
+basetab	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^basetab: .byte 16,10,2                  ;number bases per radix, HEX, DEC, BIN$/;"	label	line:77
+bits_per_digit_table	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^bits_per_digit_table: .byte 4,3,1       ;bits per digit per radix$/;"	label	line:78
+ascii_to_bin	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^ascii_to_bin: .proc$/;"	label	line:87
+convert	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^convert:$/;"	label	line:93
+l01	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^l01:$/;"	label	line:97
+l06	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^l06:$/;"	label	line:115
+l07	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^l07:$/;"	label	line:127
+l08	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^l08:$/;"	label	line:129
+l09	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^l09:$/;"	label	line:138
+l10	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^l10:$/;"	label	line:158
+l11	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^l11:$/;"	label	line:168
+l12	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^l12:$/;"	label	line:171
+l13	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^l13:$/;"	label	line:190
+l14	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^l14:$/;"	label	line:204
+l15	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^l15:$/;"	label	line:212
+l16	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^l16:$/;"	label	line:233
+l17	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/ascii_to_bin.asm	/^l17:$/;"	label	line:236
 monitor_initialiser	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^monitor_initialiser: .proc$/;"	label	line:4
 monitor_main_loop	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^monitor_main_loop: .proc$/;"	label	line:12
-l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^l1:$/;"	label	line:15
-execute_command	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^execute_command:$/;"	label	line:23
-command_not_supported	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^command_not_supported:$/;"	label	line:31
-dump_memory	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^dump_memory: .proc$/;"	label	line:43
-next_address	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^next_address:$/;"	label	line:57
-next_byte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^next_byte:$/;"	label	line:60
-print_squiggly_line	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^print_squiggly_line: .proc$/;"	label	line:84
-again	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^again:$/;"	label	line:89
-print_colon_dollar	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^print_colon_dollar: .proc$/;"	label	line:114
-print_byte_line	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^print_byte_line: .proc$/;"	label	line:139
-loop	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^loop:$/;"	label	line:146
-prompt	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^prompt: .proc$/;"	label	line:159
-command_table	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^command_table:$/;"	label	line:171
-command_pointers	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^command_pointers:$/;"	label	line:178
+l2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^l2:$/;"	label	line:14
+l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^l1:$/;"	label	line:18
+execute_command	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^execute_command:$/;"	label	line:28
+do_command	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^do_command:$/;"	label	line:35
+command_not_supported	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^command_not_supported:$/;"	label	line:38
+dump_memory	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^dump_memory: .proc$/;"	label	line:50
+continue_dump	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^continue_dump:$/;"	label	line:60
+next_address	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^next_address:$/;"	label	line:67
+next_byte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^next_byte:$/;"	label	line:71
+print_squiggly_line	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^print_squiggly_line: .proc$/;"	label	line:95
+again	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^again:$/;"	label	line:100
+print_colon_dollar	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^print_colon_dollar: .proc$/;"	label	line:125
+print_byte_line	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^print_byte_line: .proc$/;"	label	line:150
+loop	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^loop:$/;"	label	line:157
+prompt	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^prompt: .proc$/;"	label	line:170
+inc_address	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^inc_address: .proc$/;"	label	line:182
+done	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^done:$/;"	label	line:186
+command_table	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^command_table:$/;"	label	line:192
+command_pointers	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^command_pointers:$/;"	label	line:199
+lastblk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^lastblk		=	$35		; flag for last block$/;"	define	line:48
+blkno	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^blkno		=	$36		; block number$/;"	define	line:49
+errcnt	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^errcnt		=	$37		; error counter 10 is the limit$/;"	define	line:50
+bflag	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^bflag		=	$37		; block flag$/;"	define	line:51
+crc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^crc		=	$38		; CRC lo byte  (two byte variable)$/;"	define	line:53
+crch	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^crch		=	$39		; CRC hi byte$/;"	define	line:54
+ptr	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^ptr		=	$3a		; data pointer (two byte variable)$/;"	define	line:56
+ptrh	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^ptrh		=	$3b		;   "    "$/;"	define	line:57
+eofp	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^eofp		=	$3c		; end of file address pointer (2 bytes)$/;"	define	line:59
+eofph	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^eofph		=	$3d		;  "	"	"	"$/;"	define	line:60
+retry	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^retry		=	$3e		; retry counter$/;"	define	line:62
+retry2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^retry2		=	$3f		; 2nd counter$/;"	define	line:63
+Rbuff	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Rbuff		=	$0300      	; temp 132 byte receive buffer$/;"	define	line:70
+SOH	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^SOH		=	$01		; start block$/;"	define	line:89
+EOT	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^EOT		=	$04		; end of text marker$/;"	define	line:90
+ACK	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^ACK		=	$06		; good block acknowledged$/;"	define	line:91
+NAK	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^NAK		=	$15		; bad block acknowledged$/;"	define	line:92
+CAN	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^CAN		=	$18		; cancel (not standard, not supported)$/;"	define	line:93
+CR	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^CR		=	$0d		; carriage return$/;"	define	line:94
+LF	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^LF		=	$0a		; line feed$/;"	define	line:95
+ESC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^ESC		=	$1b		; ESC to exit$/;"	define	line:96
+XModemSend	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^XModemSend	jsr	PrintMsg	; send prompt and info$/;"	label	line:115
+Wait4CRC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Wait4CRC	lda	#$ff		; 3 seconds$/;"	label	line:121
+SetstAddr	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^SetstAddr	ldy	#$00		; init data block offset to 0$/;"	label	line:130
+LdBuffer	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^LdBuffer	lda	Lastblk		; Was the last block sent?$/;"	label	line:142
+LdBuff0	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^LdBuff0		ldx	#$02		; init pointers$/;"	label	line:145
+LdBuff1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^LdBuff1		lda	(ptr),y		; save 128 bytes of data$/;"	label	line:153
+LdBuff2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^LdBuff2		sec			;$/;"	label	line:155
+LdBuff3	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^LdBuff3		inx			;$/;"	label	line:163
+LdBuff4	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^LdBuff4		inc	ptr		; Inc address pointer$/;"	label	line:170
+LdBuff5	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^LdBuff5		inx			;$/;"	label	line:173
+SCalcCRC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^SCalcCRC	jsr 	CalcCRC$/;"	label	line:176
+Resend	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Resend		ldx	#$00		;$/;"	label	line:182
+SendBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^SendBlk		lda	Rbuff,x		; Send 132 bytes in buffer to the console$/;"	label	line:185
+Seterror	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Seterror	inc	errcnt		; Inc error counter$/;"	label	line:201
+PrtAbort	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^PrtAbort	jsr	Flush		; yes, too many errors, flush buffer,$/;"	label	line:205
+Done	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Done		Jmp	Print_Good	; All Done..Print msg and exit$/;"	label	line:207
+XModemRcv	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^XModemRcv	jsr	PrintMsg	; send prompt and info$/;"	label	line:212
+StartCrc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^StartCrc	lda	#"C"		; "C" start with CRC mode$/;"	label	line:216
+StartBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^StartBlk	lda	#$FF		;$/;"	label	line:227
+GotByte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^GotByte		cmp	#ESC		; quitting?$/;"	label	line:231
+GotByte1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^GotByte1        cmp	#SOH		; start of block?$/;"	label	line:235
+BegBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^BegBlk		ldx	#$00$/;"	label	line:240
+GetBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^GetBlk		lda	#$ff		; 3 sec window to receive characters$/;"	label	line:241
+GetBlk1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^GetBlk1		jsr	GetByte		; get next character$/;"	label	line:243
+GetBlk2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^GetBlk2		sta	Rbuff,x		; good char, save it in the rcv buffer$/;"	label	line:245
+GoodBlk1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^GoodBlk1	eor	#$ff		; 1's comp of block #$/;"	label	line:257
+GoodBlk2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^GoodBlk2	jsr	CalcCRC		; calc CRC$/;"	label	line:265
+BadCrc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^BadCrc		jsr	Flush		; flush the input port$/;"	label	line:273
+GoodCrc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^GoodCrc		ldx	#$02		;$/;"	label	line:277
+CopyBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^CopyBlk		ldy	#$00		; set offset to zero$/;"	label	line:290
+CopyBlk3	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^CopyBlk3	lda	Rbuff,x		; get data byte from buffer$/;"	label	line:291
+CopyBlk4	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^CopyBlk4	inx			; point to next data byte$/;"	label	line:296
+IncBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^IncBlk		inc	blkno		; done.  Inc the block #$/;"	label	line:299
+RDone	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^RDone		lda	#ACK		; last block, send ACK and exit.$/;"	label	line:304
+ACIA_Data	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^ACIA_Data	=	$7F70		; Adjust these addresses to point$/;"	define	line:329
+ACIA_Status	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^ACIA_Status	=	$7F71		; to YOUR 6551!$/;"	define	line:330
+ACIA_Command	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^ACIA_Command	=	$7F72		;$/;"	define	line:331
+ACIA_Control	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^ACIA_Control	=	$7F73		;$/;"	define	line:332
+ACIA_Init	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^ACIA_Init      	lda	#$1F           	; 19.2K\/8\/1$/;"	label	line:334
+Get_Chr	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Get_Chr		clc			; no chr present$/;"	label	line:342
+Get_Chr2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Get_Chr2    	rts			; done$/;"	label	line:348
+Put_Chr	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Put_Chr	   	PHA                     ; save registers$/;"	label	line:352
+Put_Chr1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Put_Chr1     	lda	ACIA_Status     ; serial port status$/;"	label	line:353
+GetByte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^GetByte		lda	#$00		; wait for chr input and cycle timing loop$/;"	label	line:365
+StartCrcLp	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^StartCrcLp	jsr	Get_chr		; get chr from serial port, don't wait$/;"	label	line:367
+GetByte1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^GetByte1	rts			; with character in "A"$/;"	label	line:374
+Flush	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Flush		lda	#$70		; flush receive buffer$/;"	label	line:376
+Flush1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Flush1		jsr	GetByte		; read the port$/;"	label	line:378
+PrintMsg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^PrintMsg	ldx	#$00		; PRINT starting message$/;"	label	line:382
+PrtMsg1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^PrtMsg1		lda   	Msg,x$/;"	label	line:383
+PrtMsg2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^PrtMsg2		rts$/;"	label	line:388
+Msg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Msg		.byte	"Begin XMODEM\/CRC transfer.  Press <Esc> to abort..."$/;"	label	line:389
+Print_Err	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Print_Err	ldx	#$00		; PRINT Error message$/;"	label	line:393
+PrtErr1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^PrtErr1		lda   	ErrMsg,x$/;"	label	line:394
+PrtErr2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^PrtErr2		rts$/;"	label	line:399
+ErrMsg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^ErrMsg		.byte 	"Transfer Error!"$/;"	label	line:400
+Print_Good	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Print_Good	ldx	#$00		; PRINT Good Transfer message$/;"	label	line:404
+Prtgood1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Prtgood1	lda   	GoodMsg,x$/;"	label	line:405
+Prtgood2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^Prtgood2	rts$/;"	label	line:410
+GoodMsg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^GoodMsg		.byte	EOT,CR,LF,EOT,CR,LF,EOT,CR,LF,CR,LF$/;"	label	line:411
+CalcCRC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^CalcCRC		lda	#$00		; yes, calculate the CRC for the 128 bytes$/;"	label	line:425
+CalcCRC1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^CalcCRC1	lda	Rbuff,y		;$/;"	label	line:429
+crclo	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^crclo$/;"	label	line:483
+crchi	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem_org.asm	/^crchi$/;"	label	line:503
 input_dec	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^input_dec: .proc$/;"	label	line:21
 input_hex	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^input_hex:  .proc$/;"	label	line:43
 input	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^input:  .proc$/;"	label	line:64
@@ -318,48 +361,114 @@ dollar	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^dollar: .proc$
 cr2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^cr2:    .proc$/;"	label	line:337
 crout	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^crout:   .proc$/;"	label	line:354
 sendit	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^sendit:$/;"	label	line:359
-bell	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^bell:   .proc$/;"	label	line:378
-prout	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^prout:   .proc$/;"	label	line:402
-l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1:$/;"	label	line:404
-exit	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^exit:$/;"	label	line:410
-hex_address	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^hex_address: .proc$/;"	label	line:435
-hex_byte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^hex_byte: .proc$/;"	label	line:471
-hex_mode	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^hex_mode: .proc$/;"	label	line:500
-leading_zeroes	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^leading_zeroes: .proc$/;"	label	line:520
-l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1:$/;"	label	line:528
-clear_number_buffer	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^clear_number_buffer: .proc$/;"	label	line:549
-l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1:$/;"	label	line:552
-chin_no_wait	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^chin_no_wait: .proc$/;"	label	line:563
-chin	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^chin:    .proc$/;"	label	line:572
-get_char	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^get_char:$/;"	label	line:575
-chout	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^chout:   .proc$/;"	label	line:589
-out_buffer_full	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^out_buffer_full:$/;"	label	line:591
-nmi	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^nmi:$/;"	label	line:605
-coldstart	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^coldstart: .block$/;"	label	line:612
-l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1:$/;"	label	line:616
-l2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l2:$/;"	label	line:623
-irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^irq:$/;"	label	line:663
-do_break	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^do_break:$/;"	label	line:673
-irq_end	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^irq_end: .block$/;"	label	line:677
-brk_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^brk_irq: .block$/;"	label	line:684
-rtc_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^rtc_irq: .block$/;"	label	line:718
-via1_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^via1_irq: .block$/;"	label	line:722
-via2_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^via2_irq:  .block$/;"	label	line:726
-b_input_hex	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_input_hex:    jmp input_hex$/;"	label	line:735
-b_input_dec	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_input_dec:    jmp input_dec$/;"	label	line:736
-b_read_char	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_read_char:    jmp read_character      ;Read character and convert to uppercase.$/;"	label	line:737
-b_read_line	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_read_line:    jmp read_line$/;"	label	line:738
-b_bin_to_asc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_bin_to_asc:   jmp binary_to_ascii$/;"	label	line:739
-b_dollar	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_dollar:       jmp dollar$/;"	label	line:740
-b_chout	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_chout:        jmp chout$/;"	label	line:741
-b_chin	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_chin:         jmp chin$/;"	label	line:742
-b_crout	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_crout:        jmp crout$/;"	label	line:743
-b_cr2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_cr2:          jmp cr2$/;"	label	line:744
-b_prout	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_prout:        jmp prout$/;"	label	line:745
-b_bell	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_bell:         jmp bell$/;"	label	line:746
-b_space	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_space:        jmp space$/;"	label	line:747
-b_space2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_space2:       jmp space2$/;"	label	line:748
-b_space4	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_space4:       jmp space4$/;"	label	line:749
-b_spacex	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_spacex:       jmp spacex$/;"	label	line:750
-b_hex_byte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_hex_byte:     jmp hex_byte          ;Print a hex byte with leading zeroes. Byte should be stored in temp.$/;"	label	line:751
-b_hex_address	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_hex_address:  jmp hex_address       ;Print a hex address with leading zeroes. Address should be stored in index_low and index_high.$/;"	label	line:752
+prout	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^prout:   .proc$/;"	label	line:384
+l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1:$/;"	label	line:386
+exit	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^exit:$/;"	label	line:392
+hex_address	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^hex_address: .proc$/;"	label	line:417
+hex_byte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^hex_byte: .proc$/;"	label	line:455
+hex_mode	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^hex_mode: .proc$/;"	label	line:484
+leading_zeroes	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^leading_zeroes: .proc$/;"	label	line:505
+l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1:$/;"	label	line:514
+exit	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^exit:$/;"	label	line:518
+clear_number_buffer	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^clear_number_buffer: .proc$/;"	label	line:536
+l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1:$/;"	label	line:539
+bell	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^bell:   .proc$/;"	label	line:560
+chin_no_wait	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^chin_no_wait: .proc$/;"	label	line:569
+chin	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^chin:    .proc$/;"	label	line:578
+get_char	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^get_char:$/;"	label	line:581
+chout	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^chout:   .proc$/;"	label	line:595
+out_buffer_full	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^out_buffer_full:$/;"	label	line:597
+nmi	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^nmi:$/;"	label	line:611
+coldstart	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^coldstart: .block$/;"	label	line:618
+l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l1:$/;"	label	line:622
+l2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^l2:$/;"	label	line:629
+irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^irq:$/;"	label	line:669
+do_break	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^do_break:$/;"	label	line:679
+irq_end	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^irq_end: .block$/;"	label	line:683
+brk_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^brk_irq: .block$/;"	label	line:690
+rtc_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^rtc_irq: .block$/;"	label	line:724
+via1_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^via1_irq: .block$/;"	label	line:728
+via2_irq	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^via2_irq:  .block$/;"	label	line:732
+b_input_hex	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_input_hex:    jmp input_hex$/;"	label	line:741
+b_input_dec	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_input_dec:    jmp input_dec$/;"	label	line:742
+b_read_char	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_read_char:    jmp read_character      ;Read character and convert to uppercase.$/;"	label	line:743
+b_read_line	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_read_line:    jmp read_line$/;"	label	line:744
+b_chin_no_wait	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_chin_no_wait: jmp chin_no_wait        ;Used by XMODEM$/;"	label	line:745
+b_bin_to_asc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_bin_to_asc:   jmp binary_to_ascii$/;"	label	line:746
+b_dollar	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_dollar:       jmp dollar$/;"	label	line:747
+b_chout	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_chout:        jmp chout$/;"	label	line:748
+b_chin	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_chin:         jmp chin$/;"	label	line:749
+b_crout	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_crout:        jmp crout$/;"	label	line:750
+b_cr2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_cr2:          jmp cr2$/;"	label	line:751
+b_prout	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_prout:        jmp prout$/;"	label	line:752
+b_bell	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_bell:         jmp bell$/;"	label	line:753
+b_space	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_space:        jmp space$/;"	label	line:754
+b_space2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_space2:       jmp space2$/;"	label	line:755
+b_space4	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_space4:       jmp space4$/;"	label	line:756
+b_spacex	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_spacex:       jmp spacex$/;"	label	line:757
+b_hex_byte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_hex_byte:     jmp hex_byte          ;Print a hex byte with leading zeroes. Byte should be stored in temp.$/;"	label	line:758
+b_hex_address	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/bios.asm	/^b_hex_address:  jmp hex_address       ;Print a hex address with leading zeroes. Address should be stored in index_low and index_high.$/;"	label	line:759
+Rbuff	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Rbuff  =    $037e                      ; temp 132 byte receive buffer$/;"	define	line:50
+SOH	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^SOH    =    $01                        ; start block$/;"	define	line:69
+EOT	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^EOT    =    $04                        ; end of text marker$/;"	define	line:70
+ACK	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^ACK    =    $06                        ; good block acknowledged$/;"	define	line:71
+NAK	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^NAK    =    $15                        ; bad block acknowledged$/;"	define	line:72
+CAN	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CAN    =    $18                        ; cancel (not standard, not supported)$/;"	define	line:73
+CR	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CR     =    $0d                        ; carriage return$/;"	define	line:74
+LF	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LF     =    $0a                        ; line feed$/;"	define	line:75
+ESC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^ESC    =    $1b                        ; ESC to exit$/;"	define	line:76
+upload	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^upload: .proc$/;"	label	line:95
+Wait4CRC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Wait4CRC:$/;"	label	line:102
+SetstAddr	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^SetstAddr:$/;"	label	line:112
+LdBuffer	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuffer:$/;"	label	line:125
+LdBuff0	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff0:$/;"	label	line:129
+LdBuff1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff1:$/;"	label	line:138
+LdBuff2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff2:$/;"	label	line:141
+LdBuff3	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff3:$/;"	label	line:150
+LdBuff4	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff4:$/;"	label	line:158
+LdBuff5	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^LdBuff5:$/;"	label	line:162
+SCalcCRC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^SCalcCRC:$/;"	label	line:166
+Resend	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Resend:$/;"	label	line:173
+SendBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^SendBlk:$/;"	label	line:177
+Seterror	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Seterror:$/;"	label	line:194
+PrtAbort	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrtAbort:$/;"	label	line:199
+Done	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Done:   jmp    Print_Good               ; All Done..Print msg and exit$/;"	label	line:202
+download	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^download: .proc$/;"	label	line:208
+StartCrc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^StartCrc:$/;"	label	line:213
+StartBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^StartBlk:$/;"	label	line:225
+GotByte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GotByte:$/;"	label	line:230
+GotByte1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GotByte1:$/;"	label	line:235
+BegBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^BegBlk:$/;"	label	line:241
+GetBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GetBlk:$/;"	label	line:243
+GetBlk1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GetBlk1:$/;"	label	line:246
+GetBlk2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GetBlk2:$/;"	label	line:249
+GoodBlk1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GoodBlk1:$/;"	label	line:262
+GoodBlk2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GoodBlk2:$/;"	label	line:271
+BadCrc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^BadCrc:$/;"	label	line:280
+GoodCrc	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GoodCrc:$/;"	label	line:285
+CopyBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CopyBlk:$/;"	label	line:299
+CopyBlk3	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CopyBlk3:$/;"	label	line:301
+CopyBlk4	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CopyBlk4:$/;"	label	line:307
+IncBlk	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^IncBlk:$/;"	label	line:311
+RDone	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^RDone:$/;"	label	line:317
+GetByte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GetByte: .proc$/;"	label	line:331
+StartCrcLp	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^StartCrcLp:$/;"	label	line:334
+GetByte1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GetByte1:$/;"	label	line:342
+Flush	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Flush: .proc$/;"	label	line:346
+Flush1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Flush1:$/;"	label	line:349
+PrintMsg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrintMsg: .proc$/;"	label	line:355
+PrtMsg1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrtMsg1:$/;"	label	line:357
+PrtMsg2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrtMsg2:$/;"	label	line:363
+Msg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Msg:$/;"	label	line:365
+Print_Err	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Print_Err: .proc$/;"	label	line:369
+PrtErr1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrtErr1:$/;"	label	line:371
+PrtErr2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^PrtErr2:$/;"	label	line:377
+ErrMsg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^ErrMsg:$/;"	label	line:379
+Print_Good	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Print_Good: .proc$/;"	label	line:383
+Prtgood1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Prtgood1:$/;"	label	line:385
+Prtgood2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^Prtgood2:$/;"	label	line:391
+GoodMsg	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^GoodMsg:$/;"	label	line:393
+CalcCRC	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CalcCRC: .proc$/;"	label	line:405
+CalcCRC1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^CalcCRC1:$/;"	label	line:410
+crclo	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^crclo:$/;"	label	line:467
+crchi	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/xmodem.asm	/^crchi:$/;"	label	line:487
