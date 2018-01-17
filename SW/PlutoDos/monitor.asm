@@ -292,6 +292,7 @@ command_table:
         .byte $04   ;[CTRL-D] Download file with XMODEM/CRC
         .text "F"   ;[F] Fill memory
         .text "H"   ;[H] Print all commands
+        .text $15   ;[CTRL-U] Upload file with XMODEM/CRC
         .byte $ff   ;end of table
 
 ;;;
@@ -302,3 +303,4 @@ command_pointers:
         .word download
         .word fill_memory
         .word print_all_commands
+        .word upload
