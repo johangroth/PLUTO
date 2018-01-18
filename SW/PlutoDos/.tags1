@@ -4,36 +4,3 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-monitor_initialiser	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^monitor_initialiser: .proc$/;"	label	line:4
-monitor_main_loop	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^monitor_main_loop: .proc$/;"	label	line:12
-l2	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^l2:$/;"	label	line:14
-l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^l1:$/;"	label	line:18
-execute_command	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^execute_command:$/;"	label	line:28
-dont_echo	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^dont_echo:$/;"	label	line:32
-do_command	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^do_command:$/;"	label	line:38
-command_not_supported	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^command_not_supported:$/;"	label	line:41
-dump_memory	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^dump_memory: .proc$/;"	label	line:53
-continue_dump	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^continue_dump:$/;"	label	line:63
-next_address	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^next_address:$/;"	label	line:70
-next_byte	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^next_byte:$/;"	label	line:74
-fill_memory	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^fill_memory: .proc$/;"	label	line:96
-full_page	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^full_page:$/;"	label	line:122
-partial_page	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^partial_page:$/;"	label	line:129
-l1	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^l1:$/;"	label	line:133
-exit	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^exit:$/;"	label	line:138
-print_all_commands	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^print_all_commands: .proc$/;"	label	line:145
-dump_as_ascii	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^dump_as_ascii: .proc$/;"	label	line:158
-loop	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^loop:$/;"	label	line:169
-non_printable	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^non_printable:$/;"	label	line:177
-next_char	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^next_char:$/;"	label	line:183
-print_squiggly_line	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^print_squiggly_line: .proc$/;"	label	line:193
-again	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^again:$/;"	label	line:198
-print_colon_dollar	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^print_colon_dollar: .proc$/;"	label	line:223
-print_byte_line	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^print_byte_line: .proc$/;"	label	line:248
-loop	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^loop:$/;"	label	line:255
-prompt	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^prompt: .proc$/;"	label	line:268
-abort_command	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^abort_command: .proc$/;"	label	line:273
-inc_address	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^inc_address: .proc$/;"	label	line:280
-done	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^done:$/;"	label	line:284
-command_table	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^command_table:$/;"	label	line:290
-command_pointers	/home/jgroth/dev/repos_github/PLUTO/SW/PlutoDos/monitor.asm	/^command_pointers:$/;"	label	line:300

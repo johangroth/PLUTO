@@ -85,5 +85,7 @@
         retry  =    address_high + $b                        ; retry counter
         retry2 =    address_high + $c                        ; 2nd counter
 
+        fill_length_low = retry2 + $1
+        fill_length_high = fill_length_low +$1
 
         stack_page  = $100

@@ -105,10 +105,10 @@ fill_memory: .proc
         #print_text fill_length
         ldx #4                      ;Ask for up to 4 hex char (number of bytes to fill)
         jsr b_input_hex             ;Length will be in number_buffer
-        lda number_buffer           ;so move it to index_low/high
-        sta index_low
+        lda number_buffer           ;so move it to fill_length_low/high
+        sta fill_length_low
         lda number_buffer+1
-        sta index_high
+        sta fill_length_high
         #print_text fill_byte
         ldx #2                      ;Ask for up to 2 hex chars (byte to fill memory with)
         jsr b_input_hex
@@ -116,18 +116,18 @@ fill_memory: .proc
         cmp #a_esc
         beq exit
         lda number_buffer           ;Get value for fill
-        ldx index_high              ;Get number of full pages to fill
+        ldx fill_length_high        ;Get number of full pages to fill
         beq partial_page            ;Branch if number of pages is 0.
         ldy #0
 full_page:
         sta (address_low),y
         iny                         ;Next byte
         bne full_page               ;Branch if not done with this page
-        inc index_high              ;Advance to next page
+        inc address_high            ;Advance to next page
         dex                         ;
         bne full_page               ;Branch if not done with full pages
 partial_page:
-        ldx index_low               ;Get the reminding number of bytes
+        ldx fill_length_low         ;Get the reminding number of bytes
         beq exit                    ;Branch if no reminding bytes
         ldy #0
 l1:
