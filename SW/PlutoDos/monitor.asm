@@ -147,6 +147,30 @@ print_all_commands: .proc
         #print_text help_text
         rts
         .pend
+
+
+;;;
+;; [T] Display date and time
+;;;
+display_date_time: .proc
+        jsr b_crout
+        jsr print_date_and_time
+        rts
+        .pend
+
+;;;
+;; [CTRL-T] Set date and time
+;;;
+set_date_time: .proc
+        jsr display_date_time
+        jsr slash
+        jsr b_space
+        jsr slash
+        jsr b_space 
+        rts
+        .pend
+
+
 ;;;
 ;; Monitor support routines
 ;;;
@@ -222,12 +246,12 @@ again:
 ;;;
 print_colon_dollar: .proc
         pha
-        lda #':'
-        jsr b_chout
+        jsr b_colon
         jsr b_dollar
         pla
         rts
         .pend
+
 
 ;;;
 ;; Print a sequence of bytes starting with 00
@@ -293,6 +317,9 @@ command_table:
         .text "F"   ;[F] Fill memory
         .text "H"   ;[H] Print all commands
         .text $15   ;[CTRL-U] Upload file with XMODEM/CRC
+        .text "T"   ;[T] Display date and time
+        .byte $14   ;[CTRL-T] Set date and time
+        .text
         .byte $ff   ;end of table
 
 ;;;
@@ -304,3 +331,5 @@ command_pointers:
         .word fill_memory
         .word print_all_commands
         .word upload
+        .word display_date_time
+        .word set_date_time

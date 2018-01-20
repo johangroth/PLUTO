@@ -303,6 +303,25 @@ space: .proc
         .pend
 
 ;;;
+;; COLON subroutine: Send colon sign to terminal.
+;;      Preparation:
+;;              none
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;              jsr crout
+;;;
+colon: .proc
+        pha
+        lda #':'
+        bra crout.sendit
+        .pend
+
+;;;
 ;; DOLLAR subroutine: Send dollar sign to terminal.
 ;;      Preparation:
 ;;              none
@@ -745,6 +764,7 @@ b_read_line:    jmp read_line
 b_chin_no_wait: jmp chin_no_wait        ;Used by XMODEM
 b_bin_to_asc:   jmp binary_to_ascii
 b_dollar:       jmp dollar
+b_colon:        jmp colon
 b_chout:        jmp chout
 b_chin:         jmp chin
 b_crout:        jmp crout

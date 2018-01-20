@@ -70,6 +70,10 @@ help_text:
         #crlf
         .text "H This text"
         #crlf
+        .text "T Display time and date"
+        #crlf
+        .text "CTRL-T Set time and date"
+        #crlf
         .byte $00
 
 abort_command_text:

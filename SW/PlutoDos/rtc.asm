@@ -42,7 +42,7 @@ rtcparm:.byte wr_irqoff       ;updates on & WDT IRQs off   %10000000
             .error "!!! RTCREG & RTCPARM data tables don't match !!!"
         .endif
         .if *-rtcparm > n_rtcreg
-                .error "!!! RTCREG & RTCPARM data tables don't match !!!"
+            .error "!!! RTCREG & RTCPARM data tables don't match !!!"
         .endif
 ;
 
@@ -83,39 +83,36 @@ l10:
 ;
 print_date_and_time: .proc
         pha
-        phx
-        phy
         jsr  get_date_and_time
-        jsr  chout
         lda  todbuf+wr_datt
         jsr  bcdouta
-        lda  #'/'
-        jsr  chout
+        jsr  slash
         lda  todbuf+wr_mon
         jsr  bcdouta
-        lda  #'/'
-        jsr  chout
+        jsr  slash
         lda  todbuf+wr_yrhi
         jsr  bcdouta
         lda  todbuf+wr_yrlo
         jsr  bcdouta
-        lda  #' '
-        jsr  chout
+        jsr  b_space
         lda  todbuf+wr_hrst
         jsr  bcdouta
-        lda  #':'
-        jsr  chout
+        jsr  b_colon
         lda  todbuf+wr_mint
         jsr  bcdouta
-        lda  #':'
-        jsr  chout
+        jsr  b_colon
         lda  todbuf+wr_sect
         jsr  bcdouta
-        jsr  crout
-        ply
-        plx
         pla
         rts
+        .pend
+
+
+;;;
+;; send forward slash '/' to terminal
+slash:  .proc
+        lda #'/'
+        jmp b_chout
         .pend
 
 ;================================================================================
@@ -347,4 +344,28 @@ get_system_up_time: .proc
 ;
 ;
 utdelay: .proc
+        .pend
+
+;;;
+;; Send BCD number in A to terminal
+;;;
+bcdouta: .proc
+        pha
+        lsr             ;shift high digit to low digit, zero high digit
+        lsr
+        lsr
+        lsr
+        jsr  bcdtoasc   ;convert bcd digit to ascii decimal digit, send digit to terminal
+        pla             ;read indexed byte from bcd output buffer
+        and  #$0f       ;zero the high digit
+        jmp  bcdtoasc   ;convert bcd digit to ascii decimal digit, send digit to terminal and return
+
+;;;
+;; bcdtoasc subroutine:
+;; convert bcd digit to ascii decimal digit, send digit to terminal
+;;;
+bcdtoasc:
+        clc             ;add ascii "0" to digit: convert bcd digit to ascii decimal digit
+        adc  #$30
+        jmp  b_chout       ;send converted digit to terminal
         .pend

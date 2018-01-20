@@ -110,6 +110,7 @@ b_bin_to_asc	bios.asm	/^b_bin_to_asc:   jmp binary_to_ascii$/;"	l
 b_chin	bios.asm	/^b_chin:         jmp chin$/;"	l
 b_chin_no_wait	bios.asm	/^b_chin_no_wait: jmp chin_no_wait        ;Used by XMODEM$/;"	l
 b_chout	bios.asm	/^b_chout:        jmp chout$/;"	l
+b_colon	bios.asm	/^b_colon:        jmp colon$/;"	l
 b_cr2	bios.asm	/^b_cr2:          jmp cr2$/;"	l
 b_crout	bios.asm	/^b_crout:        jmp crout$/;"	l
 b_dollar	bios.asm	/^b_dollar:       jmp dollar$/;"	l
@@ -126,7 +127,9 @@ b_space4	bios.asm	/^b_space4:       jmp space4$/;"	l
 b_spacex	bios.asm	/^b_spacex:       jmp spacex$/;"	l
 backspace	bios.asm	/^backspace: .proc$/;"	l
 basetab	ascii_to_bin.asm	/^basetab: .byte 16,10,2                  ;number bases per radix, HEX, DEC, BIN$/;"	l
+bcdouta	rtc.asm	/^bcdouta: .proc$/;"	l
 bcdouta	time_first_row.asm	/^        bcdouta = $80ff$/;"	d
+bcdtoasc	rtc.asm	/^bcdtoasc:$/;"	l
 beep	time_first_row.asm	/^        beep = $8130$/;"	d
 bell	bios.asm	/^bell:   .proc$/;"	l
 binary_to_ascii	bin_to_ascii.asm	/^binary_to_ascii: .proc$/;"	l
@@ -143,6 +146,7 @@ clear_entire_screen	time_first_row.asm	/^clear_entire_screen .null "[2J"$/;"	l
 clear_number_buffer	bios.asm	/^clear_number_buffer: .proc$/;"	l
 coldstart	bios.asm	/^coldstart: .block$/;"	l
 coldstart	time_first_row.asm	/^        coldstart = $8613$/;"	d
+colon	bios.asm	/^colon: .proc$/;"	l
 command_not_supported	monitor.asm	/^command_not_supported:$/;"	l
 command_pointers	monitor.asm	/^command_pointers:$/;"	l
 command_table	monitor.asm	/^command_table:$/;"	l
@@ -165,6 +169,7 @@ delay1	time_first_row.asm	/^        delay1 = $81a7$/;"	d
 delay1	via.asm	/^delay1:$/;"	l
 delay2	time_first_row.asm	/^        delay2 = $81ab$/;"	d
 delay2	via.asm	/^delay2:  .proc$/;"	l
+display_date_time	monitor.asm	/^display_date_time: .proc$/;"	l
 do_break	bios.asm	/^do_break:$/;"	l
 do_command	monitor.asm	/^do_command:$/;"	l
 dollar	bios.asm	/^dollar: .proc$/;"	l
@@ -349,6 +354,8 @@ send_escape	time_first_row.asm	/^send_escape$/;"	l
 sendit	bios.asm	/^sendit:$/;"	l
 set	time_first_row.asm	/^        set = $83c1$/;"	d
 set_console_time	rtc.asm	/^set_console_time: .proc$/;"	l
+set_date_time	monitor.asm	/^set_date_time: .proc$/;"	l
+slash	rtc.asm	/^slash:  .proc$/;"	l
 sound_bell	bios.asm	/^sound_bell:$/;"	l
 sound_init	sound.asm	/^sound_init:  .proc$/;"	l
 space	bios.asm	/^space: .proc$/;"	l
