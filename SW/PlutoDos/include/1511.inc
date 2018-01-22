@@ -23,28 +23,28 @@ wr_mon   =$05                  ;month & control...
 ;
 wr_yrlo  =$06                  ;year LSB ($00-$99 BCD)
 wr_yrhi  =$07                  ;year MSB ($00-$39 BCD)
-wr_seca  =$08                  ;alarm seconds & IRQ control...
+wr_secalarm  =$08                  ;alarm seconds & IRQ control...
 ;
 ;	xxxxxxxx
 ;	||||||||
 ;	|+++++++> alarm seconds ($00-$59 BCD)
 ;	+> 1: IRQ once per second
 ;
-wr_mina  =$09                  ;alarm minutes & IRQ control...
+wr_minalarm  =$09                  ;alarm minutes & IRQ control...
 ;
 ;	xxxxxxxx
 ;	||||||||
 ;	|+++++++> alarm minutes ($00-$59 BCD)
 ;	+> 1: IRQ when TOD secs = alarm secs
 ;
-wr_hrsa  =$0a                  ;alarm hour & IRQ control...
+wr_hrsalarm  =$0a                  ;alarm hour & IRQ control...
 ;
 ;	x0xxxxxx
 ;	| ||||||
 ;	| ++++++> alarm hour ($00-$23 BCD)
 ;	+> 1: IRQ when TOD secs & mins = alarm secs & mins
 ;
-wr_dowa  =$0b                  ;alarm date/day & IRQ control...
+wr_dowalarm  =$0b                  ;alarm date/day & IRQ control...
 ;
 ;	xxxxxxxx
 ;	||||||||
@@ -54,8 +54,8 @@ wr_dowa  =$0b                  ;alarm date/day & IRQ control...
 ;	+> 0: IRQ when TOD & day/date = alarm TOD & day/date
 ;	             1: IRQ when TOD = alarm time
 ;
-wr_wdms  =$0c                  ;watchdog millisecs*10 ($00-$99 BCD)
-wr_wds   =$0d                  ;watchdog seconds ($00-$99 BCD)
+wr_watchdog_ms  =$0c                  ;watchdog millisecs*10 ($00-$99 BCD)
+wr_watchdog_s   =$0d                  ;watchdog seconds ($00-$99 BCD)
 wr_cra   =$0e                  ;control register A...
 ;
 ;	xxxxxxxx
@@ -101,12 +101,12 @@ datt_rtc =io_rtc+wr_datt       ;date
 mon_rtc  =io_rtc+wr_mon        ;month & control
 yrlo_rtc =io_rtc+wr_yrlo       ;year LSB
 yrhi_rtc =io_rtc+wr_yrhi       ;year MSB
-seca_rtc =io_rtc+wr_seca       ;alarm seconds & IRQ control
-mina_rtc =io_rtc+wr_mina       ;alarm minutes & IRQ control
-hrsa_rtc =io_rtc+wr_hrsa       ;alarm hour & IRQ control
-dowa_rtc =io_rtc+wr_dowa       ;alarm date/day & IRQ control
-wdms_rtc =io_rtc+wr_wdms       ;watchdog millisecs*10
-wds_rtc  =io_rtc+wr_wds        ;watchdog seconds
+seca_rtc =io_rtc+wr_secalarm       ;alarm seconds & IRQ control
+mina_rtc =io_rtc+wr_minalarm       ;alarm minutes & IRQ control
+hrsa_rtc =io_rtc+wr_hrsalarm       ;alarm hour & IRQ control
+dowa_rtc =io_rtc+wr_dowalarm       ;alarm date/day & IRQ control
+wdms_rtc =io_rtc+wr_watchdog_ms       ;watchdog millisecs*10
+wds_rtc  =io_rtc+wr_watchdog_s        ;watchdog seconds
 cra_rtc  =io_rtc+wr_cra        ;control register A
 crb_rtc  =io_rtc+wr_crb        ;control register B
 nvra_rtc =io_rtc+wr_nvra       ;NVRAM address port
@@ -119,8 +119,8 @@ nvrd_rtc =io_rtc+wr_nvrd       ;NVRAM data port
 ;
 ;DS1511 CONFIGURATION CONSTANTS Description Order
 ;
-wr_wdmsp =$01                  ;10 ms underflows LSB
-wr_wdsp  =$00                  ;10 ms underflows MSB
+wr_watchdog_msp =$01                  ;10 ms underflows LSB
+wr_watchdog_sp  =$00                  ;10 ms underflows MSB
 wr_dowap =%00000000            ;no alarm date/day IRQ
 wr_hrsap =%00000000            ;no alarm hour IRQ
 wr_minap =%00000000            ;no alarm min IRQ

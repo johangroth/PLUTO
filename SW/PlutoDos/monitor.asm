@@ -160,13 +160,27 @@ display_date_time: .proc
 
 ;;;
 ;; [CTRL-T] Set date and time
+;; Fills todbuf with data and calls put_date_and_time to update RTC.
+;;
+;;                    Offset  Content
+;;                    --------------
+;;                      $00   seconds     ($00-$59)
+;;                      $01   minutes     ($00-$59)
+;;                      $02   hours       ($00-$23)
+;;                      $03   day-of-week ($01-$07)
+;;                      $04   date        ($01-$31)
+;;                      $05   month       ($01-$12)
+;;                      $06   year LSB    ($00-$99)
+;;                      $07   year MSB    ($00-$39)
+;;                    --------------
+;;
+;; Input order will DDD dd mm yyyy hh MM ss
+;; Bell will ring if DDD can't be find in days_of_week table
 ;;;
 set_date_time: .proc
         jsr display_date_time
-        jsr slash
-        jsr b_space
-        jsr slash
-        jsr b_space 
+        jsr b_crout
+        jsr input_day_of_week
         rts
         .pend
 
@@ -174,6 +188,41 @@ set_date_time: .proc
 ;;;
 ;; Monitor support routines
 ;;;
+
+;;;
+;; Input day of week. BELL rings if day is not found.
+;;;
+input_day_of_week:  .proc
+        pha
+        phx
+        phy
+        smb 0,control_flags ;11 in control_flags means ASCII input
+        smb 1,control_flags
+        ldy #<input_buffer  ;low byte of where read line will place input
+        lda #>input_buffer  ;high byte of where read line will place input
+        ldx #3              ;Ask for three characters
+        jsr b_read_line
+        ;; assume three characters have been read
+        ldx #7                  ;number of days in week
+        lda #<days_of_week      ;Initialise address pointer with days of week table address
+        sta address_low
+        lda #>days_of_week
+        sta address_high
+        ldy #0                  ;reset index pointer
+        lda (address),y         ;First character in day week
+        cmp input_buffer,y      ;Same as input?
+        bne l1                  ;If not branch
+
+
+l1:
+        lda #4                  ;next string in days of week table
+        jsr add_a_to_address
+
+        ply
+        plx
+        pla
+        rts
+        .pend
 
 ;;;
 ;; Dump as ASCII, non-printable characters (ie <32 and >126)
@@ -199,11 +248,7 @@ loop:
         jsr b_chout
         bra next_char
 non_printable:
-        lda #<inverted_question_mark
-        sta index_low
-        lda #>inverted_question_mark
-        sta index_high
-        jsr b_prout
+        #print_text inverted_question_mark
 next_char:
         jsr inc_address
         dey
@@ -306,6 +351,19 @@ inc_address: .proc
         bne done
         inc address_high
 done:
+        rts
+        .pend
+
+;;;
+;; Add A to address
+;;;
+add_a_to_address: .proc
+        clc
+        adc address_low
+        sta address_low
+        lda #0
+        adc address_high
+        sta address_high
         rts
         .pend
 ;;;

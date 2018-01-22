@@ -50,6 +50,9 @@ print_text: .macro
         jsr b_prout
         .endm
 
+;;;
+;; Macro will also RTS
+;;;
 print_text_rts: .macro
         lda #<\1
         sta index_low
@@ -80,6 +83,18 @@ abort_command_text:
         .null "[ESC] to abort, any other to proceed"
 
 ;;;
+;; Date and time strings
+;;;
+;;;
+days_of_week:
+        .null "MON"
+        .null "TUE"
+        .null "WED"
+        .null "THU"
+        .null "FRI"
+        .null "SAT"
+        .null "SUN"
+
 ;;  Fill prompts
 ;;;
 fill_start:

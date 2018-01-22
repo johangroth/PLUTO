@@ -114,7 +114,7 @@ read_line:  .proc
 init:
         stz buffer_index            ;Initialise buffer index to zero
 read_loop:
-        jsr read_character          ;Read character from terminal (no echo)
+        jsr read_character          ;Read character from terminal (no echo, converted to uppercase)
         cmp #a_cr                   ;Is character CR
         beq exit_read_line          ;Exit if it is
         cmp #a_bs                   ;Is character BS
@@ -158,7 +158,7 @@ store_character:
         inc buffer_index
         bra read_loop               ;Read next character
 exit_read_line:
-        jsr crout                   ;Send CR/LF to terminal
+        ; jsr crout                   ;Send CR/LF to terminal
         ldx buffer_index            ;Exit with X containing amount of characters read
         rts
         .pend
@@ -185,11 +185,7 @@ backspace: .proc
         lda buffer_index            ;Check for empty buffer
         beq sound_bell              ;If no characters in buffer, branch
         dec buffer_index            ;Decrement the buffer index
-        lda #<destructive_backspace ;Get low byte of BS string
-        sta index_low               ;Store it in index_low
-        lda #>destructive_backspace ;Get high byte of BS string
-        sta index_high              ;Store it in index_high
-        jsr prout                   ;Send string to terminal
+        #print_text destructive_backspace
         bra exit
 sound_bell:
         jsr bell

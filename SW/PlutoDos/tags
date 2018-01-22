@@ -101,6 +101,7 @@ acia	time_first_row.asm	/^        acia = $7fe0$/;"	d
 acia6551	time_first_row.asm	/^        acia6551 = $7fe0$/;"	d
 acia_init	acia.asm	/^acia_init: .proc$/;"	l
 acia_irq	acia.asm	/^acia_irq: .block$/;"	l
+add_a_to_address	monitor.asm	/^add_a_to_address: .proc$/;"	l
 again	monitor.asm	/^again:$/;"	l
 alarm	rtc.asm	/^alarm:  .proc$/;"	l
 asc2bn	time_first_row.asm	/^        asc2bn = $8114$/;"	d
@@ -252,6 +253,7 @@ inc_index	bios.asm	/^inc_index:  .proc$/;"	l
 incindex	time_first_row.asm	/^        incindex = $824e$/;"	d
 init	bios.asm	/^init:$/;"	l
 input	bios.asm	/^input:  .proc$/;"	l
+input_day_of_week	monitor.asm	/^input_day_of_week:  .proc$/;"	l
 input_dec	bios.asm	/^input_dec: .proc$/;"	l
 input_hex	bios.asm	/^input_hex:  .proc$/;"	l
 interrupt	time_first_row.asm	/^        interrupt = $876d$/;"	d

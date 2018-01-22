@@ -62,6 +62,7 @@
         temp2 = temp1 + $1
         address_low = temp2 + $1
         address_high = address_low + $1
+        address = address_low
 
         ;===============================================================================
         ;XMODEM

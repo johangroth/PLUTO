@@ -17,12 +17,12 @@
 ;       registers...
 ;
 rtcreg: .byte wr_crb          ;control B               $0f
-        .byte wr_seca         ;alarm sec               $08
-        .byte wr_mina         ;alarm min               $09
-        .byte wr_hrsa         ;alarm hour              $0a
-        .byte wr_dowa         ;alarm date/day          $0b
-        .byte wr_wdms         ;watchdog msecs * 10     $0c
-        .byte wr_wds          ;watchdog secs           $0d
+        .byte wr_secalarm         ;alarm sec               $08
+        .byte wr_minalarm         ;alarm min               $09
+        .byte wr_hrsalarm         ;alarm hour              $0a
+        .byte wr_dowalarm         ;alarm date/day          $0b
+        .byte wr_watchdog_ms         ;watchdog msecs * 10     $0c
+        .byte wr_watchdog_s          ;watchdog secs           $0d
         .byte wr_crb          ;control B               $0f
 n_rtcreg =*-rtcreg
 ;
@@ -34,8 +34,8 @@ rtcparm:.byte wr_irqoff       ;updates on & WDT IRQs off   %10000000
         .byte wr_minap        ;no alarm min IRQ            %00000000
         .byte wr_hrsap        ;no alarm hour IRQ           %00000000
         .byte wr_dowap        ;no alarm date/day IRQ       %00000000
-        .byte wr_wdmsp        ;10 ms underflows LSB        %00000001
-        .byte wr_wdsp         ;10 ms underflows MSB        %00000000
+        .byte wr_watchdog_msp        ;10 ms underflows LSB        %00000001
+        .byte wr_watchdog_sp         ;10 ms underflows MSB        %00000000
         .byte wr_crbpa        ;updates & WDT IRQs off      %00000000
 ;
         .if *-rtcparm < n_rtcreg
@@ -66,43 +66,57 @@ l10:
         jsr  delay2         ;$5b8 will be a ~366µs delay if system clock is 4MHz
         rts
        .pend
-;
-;================================================================================
-;
-;print_date_and_time: print rtc date & time registers
-;
-;
-;   preparatory ops: none
-;
-;   returned values: a: entry value
-;                    x: entry value
-;                    y: entry value
-;
-;   example: jsr print_date_and_time
-;
-;
+;;;
+;;print_date_and_time: print rtc date & time registers
+;;
+;;
+;;   preparatory ops: none
+;;
+;;   returned values: a: entry value
+;;                    x: entry value
+;;                    y: entry value
+;;
+;;   example: jsr print_date_and_time
+;;
+;;;
 print_date_and_time: .proc
         pha
-        jsr  get_date_and_time
-        lda  todbuf+wr_datt
-        jsr  bcdouta
-        jsr  slash
-        lda  todbuf+wr_mon
-        jsr  bcdouta
-        jsr  slash
-        lda  todbuf+wr_yrhi
-        jsr  bcdouta
-        lda  todbuf+wr_yrlo
-        jsr  bcdouta
-        jsr  b_space
-        lda  todbuf+wr_hrst
-        jsr  bcdouta
-        jsr  b_colon
-        lda  todbuf+wr_mint
-        jsr  bcdouta
-        jsr  b_colon
-        lda  todbuf+wr_sect
-        jsr  bcdouta
+        jsr get_date_and_time
+        stz index_high
+        lda todbuf+wr_dowt  ;load day 1-7
+        dea                 ;substract one as index in day_of_week table is zero based
+        asl                 ;Muliply by...
+        asl                 ;four to find right index day Mon = 0, Tue = 1, and so on.
+        sta index_low       ;partial address in index_low
+        lda #<days_of_week  ;low address of day of week table
+        adc index_low       ;add partial address to get index in day of week table (carry set to 0 by asl above)
+        sta index_low
+        lda #>days_of_week
+        adc index_high
+        sta index_high
+        jsr b_prout
+        lda #','
+        jsr b_chout
+        jsr b_space
+        lda todbuf+wr_datt
+        jsr bcdouta
+        jsr slash
+        lda todbuf+wr_mon
+        jsr bcdouta
+        jsr slash
+        lda todbuf+wr_yrhi
+        jsr bcdouta
+        lda todbuf+wr_yrlo
+        jsr bcdouta
+        jsr b_space
+        lda todbuf+wr_hrst
+        jsr bcdouta
+        jsr b_colon
+        lda todbuf+wr_mint
+        jsr bcdouta
+        jsr b_colon
+        lda todbuf+wr_sect
+        jsr bcdouta
         pla
         rts
         .pend
@@ -110,6 +124,7 @@ print_date_and_time: .proc
 
 ;;;
 ;; send forward slash '/' to terminal
+;;;
 slash:  .proc
         lda #'/'
         jmp b_chout
@@ -224,7 +239,7 @@ l2:
 ;
 ;================================================================================
 ;
-;PUT_DATE_AND_TIME: WRITE RTC DATE & TIME REGISTERS
+;PUT_DATE_AND_TIME: Write rtc date & time registers
 ;
 ;
 ;   Preparatory Ops: Fill TODBUF with data
