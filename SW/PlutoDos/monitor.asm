@@ -54,6 +54,7 @@ dump_memory: .proc
         jsr print_colon_dollar
         ldx #4                      ;Ask for up to 4...
         jsr b_input_hex             ;...characters
+        jsr b_crout
         lda temp1                   ;if temp1 is zero
         beq continue_dump           ;branch as we want to continue where we left off
         lda number_buffer           ;Address ends up in number_buffer
@@ -102,6 +103,7 @@ fill_memory: .proc
         sta address_low
         lda number_buffer+1
         sta address_high
+        jsr b_crout
         #print_text fill_length
         ldx #4                      ;Ask for up to 4 hex char (number of bytes to fill)
         jsr b_input_hex             ;Length will be in number_buffer
@@ -109,9 +111,11 @@ fill_memory: .proc
         sta fill_length_low
         lda number_buffer+1
         sta fill_length_high
+        jsr b_crout
         #print_text fill_byte
         ldx #2                      ;Ask for up to 2 hex chars (byte to fill memory with)
         jsr b_input_hex
+        jsr b_crout
         jsr abort_command           ;Check if user wants to abort
         cmp #a_esc
         beq exit
@@ -196,11 +200,11 @@ input_day_of_week:  .proc
         pha
         phx
         phy
-        smb 0,control_flags ;11 in control_flags means ASCII input
+        smb 0,control_flags     ;11 in control_flags means ASCII input
         smb 1,control_flags
-        ldy #<input_buffer  ;low byte of where read line will place input
-        lda #>input_buffer  ;high byte of where read line will place input
-        ldx #3              ;Ask for three characters
+        ldy #<input_buffer      ;low byte of where read line will place input
+        lda #>input_buffer      ;high byte of where read line will place input
+        ldx #3                  ;Ask for three characters
         jsr b_read_line
         ;; assume three characters have been read
         ldx #7                  ;number of days in week
@@ -208,16 +212,20 @@ input_day_of_week:  .proc
         sta address_low
         lda #>days_of_week
         sta address_high
+next_day_of_week:
         ldy #0                  ;reset index pointer
+next_char:
         lda (address),y         ;First character in day week
         cmp input_buffer,y      ;Same as input?
-        bne l1                  ;If not branch
-
-
+        beq l1                  ;If yes branch
+        iny                     ;next char
+        cpy #4                  ;if checked all characters
+        bne next_char
 l1:
         lda #4                  ;next string in days of week table
         jsr add_a_to_address
-
+        dex
+        bne next_day_of_week
         ply
         plx
         pla

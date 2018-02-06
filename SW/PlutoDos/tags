@@ -310,6 +310,7 @@ next	via.asm	/^next:$/;"	l
 next_address	monitor.asm	/^next_address:$/;"	l
 next_byte	monitor.asm	/^next_byte:$/;"	l
 next_char	monitor.asm	/^next_char:$/;"	l
+next_day_of_week	monitor.asm	/^next_day_of_week:$/;"	l
 nmi	bios.asm	/^nmi:$/;"	l
 nmon	time_first_row.asm	/^        nmon = $867d$/;"	d
 non_printable	monitor.asm	/^non_printable:$/;"	l
