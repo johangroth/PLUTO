@@ -154,6 +154,7 @@ command_table	monitor.asm	/^command_table:$/;"	l
 compress	cfs.asm	/^compress:    .proc$/;"	l
 continue_dump	monitor.asm	/^continue_dump:$/;"	l
 convert	ascii_to_bin.asm	/^convert:$/;"	l
+correct	monitor.asm	/^correct:$/;"	l
 cout	time_first_row.asm	/^        cout = $817c$/;"	d
 cout2	time_first_row.asm	/^        cout2 = $8179$/;"	d
 cr2	bios.asm	/^cr2:    .proc$/;"	l
@@ -339,6 +340,7 @@ rdline	time_first_row.asm	/^        rdline = $8352$/;"	d
 read_character	bios.asm	/^read_character: .proc$/;"	l
 read_line	bios.asm	/^read_line:  .proc$/;"	l
 read_loop	bios.asm	/^read_loop:$/;"	l
+read_week_day_again	monitor.asm	/^read_week_day_again:$/;"	l
 receive_char	acia.asm	/^receive_char:$/;"	l
 resregs	time_first_row.asm	/^        resregs = $83ba$/;"	d
 restore_cursor_position_and_attributes	time_first_row.asm	/^restore_cursor_position_and_attributes .text "8"$/;"	l

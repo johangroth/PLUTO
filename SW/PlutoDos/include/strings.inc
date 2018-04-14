@@ -103,3 +103,7 @@ fill_length:
         .null "Len: $"
 fill_byte:
         .null "Value: $"
+
+clear_line:
+        #el2
+        .byte $00

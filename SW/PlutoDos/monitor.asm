@@ -179,7 +179,7 @@ display_date_time: .proc
 ;;                    --------------
 ;;
 ;; Input order will DDD dd mm yyyy hh MM ss
-;; Bell will ring if DDD can't be find in days_of_week table
+;; Ring bell if DDD can't be found in days_of_week table
 ;;;
 set_date_time: .proc
         jsr display_date_time
@@ -200,13 +200,21 @@ input_day_of_week:  .proc
         pha
         phx
         phy
-        smb 0,control_flags     ;11 in control_flags means ASCII input
+        smb 0,control_flags     ;%11 in control_flags means ASCII input
         smb 1,control_flags
+read_week_day_again:
         ldy #<input_buffer      ;low byte of where read line will place input
         lda #>input_buffer      ;high byte of where read line will place input
         ldx #3                  ;Ask for three characters
         jsr b_read_line
-        ;; assume three characters have been read
+        cpx #3                  ;Have we read three characters
+        beq correct             ;Yes, Branch
+        jsr b_bell              ;No, sound bell and clear line
+        #print_text clear_line
+        bra read_week_day_again
+
+        ;; three characters have been read
+correct:
         ldx #7                  ;number of days in week
         lda #<days_of_week      ;Initialise address pointer with days of week table address
         sta address_low
