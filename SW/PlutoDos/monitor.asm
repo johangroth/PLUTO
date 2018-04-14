@@ -195,9 +195,9 @@ set_date_time: .proc
 
 ;;;
 ;; Input day of week. BELL rings if day is not found.
+;; Register A will hold day of week 1 being Monday
 ;;;
 input_day_of_week:  .proc
-        pha
         phx
         phy
         smb 0,control_flags     ;%11 in control_flags means ASCII input
@@ -220,23 +220,18 @@ correct:
         sta address_low
         lda #>days_of_week
         sta address_high
-next_day_of_week:
-        ldy #0                  ;reset index pointer
-next_char:
-        lda (address),y         ;First character in day week
-        cmp input_buffer,y      ;Same as input?
-        beq l1                  ;If yes branch
-        iny                     ;next char
-        cpy #4                  ;if checked all characters
-        bne next_char
-l1:
-        lda #4                  ;next string in days of week table
-        jsr add_a_to_address
-        dex
-        bne next_day_of_week
+
+; Search for week day in table
+
+        jsr strcmp
+        beq exit
+        jsr next_entry_in_week_day_table
+        bra check_next_entry
+
+exit:
+        txa                     ;Day of week 1-7, 1 being Monday
         ply
         plx
-        pla
         rts
         .pend
 
@@ -393,7 +388,6 @@ command_table:
         .text $15   ;[CTRL-U] Upload file with XMODEM/CRC
         .text "T"   ;[T] Display date and time
         .byte $14   ;[CTRL-T] Set date and time
-        .text
         .byte $ff   ;end of table
 
 ;;;
