@@ -771,7 +771,7 @@ b_space:        jmp space
 b_space2:       jmp space2
 b_space4:       jmp space4
 b_spacex:       jmp spacex
-b_hex_byte:     jmp hex_byte          ;Print a hex byte with leading zeroes. Byte should be stored in temp.
+b_hex_byte:     jmp hex_byte          ;Print a hex byte with leading zeroes. Byte should be stored in temp1.
 b_hex_address:  jmp hex_address       ;Print a hex address with leading zeroes. Address should be stored in index_low and index_high.
 
         * = $fffa

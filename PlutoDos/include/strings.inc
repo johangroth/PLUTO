@@ -42,6 +42,10 @@ crlf:   .macro
         .byte a_cr, a_lf
         .endm
 
+beginning_of_line:
+        #cub '3'
+        .byte 0
+
 print_text: .macro
         lda #<\1
         sta index_low
@@ -59,6 +63,21 @@ print_text_rts: .macro
         lda #>\1
         sta index_high
         jmp b_prout
+        .endm
+
+print_a:    .macro
+        sta temp1
+        jsr b_hex_byte
+        .endm
+
+print_x:    .macro
+        stx temp1
+        jsr b_hex_byte
+        .endm
+
+print_y:    .macro
+        sty temp1
+        jsr b_hex_byte
         .endm
 
 ;;;

@@ -116,7 +116,7 @@ b_cr2	bios.asm	/^b_cr2:          jmp cr2$/;"	l
 b_crout	bios.asm	/^b_crout:        jmp crout$/;"	l
 b_dollar	bios.asm	/^b_dollar:       jmp dollar$/;"	l
 b_hex_address	bios.asm	/^b_hex_address:  jmp hex_address       ;Print a hex address with leading zeroes. Address should be stored in index_low and index_high.$/;"	l
-b_hex_byte	bios.asm	/^b_hex_byte:     jmp hex_byte          ;Print a hex byte with leading zeroes. Byte should be stored in temp.$/;"	l
+b_hex_byte	bios.asm	/^b_hex_byte:     jmp hex_byte          ;Print a hex byte with leading zeroes. Byte should be stored in temp1.$/;"	l
 b_input_dec	bios.asm	/^b_input_dec:    jmp input_dec           ;Binary number in number_buffer$/;"	l
 b_input_hex	bios.asm	/^b_input_hex:    jmp input_hex           ;Binary number in number_buffer$/;"	l
 b_prout	bios.asm	/^b_prout:        jmp prout$/;"	l
@@ -139,6 +139,7 @@ bitstab	bin_to_ascii.asm	/^bitstab: .byte 4,4,1                    ;bits per num
 bn2asc	time_first_row.asm	/^        bn2asc = $8138$/;"	d
 brk_irq	bios.asm	/^brk_irq: .block$/;"	l
 check_buffer	bios.asm	/^check_buffer:$/;"	l
+check_next_entry	monitor.asm	/^check_next_entry:$/;"	l
 chin	bios.asm	/^chin:    .proc$/;"	l
 chin	time_first_row.asm	/^        chin = $815a$/;"	d
 chin_no_wait	bios.asm	/^chin_no_wait: .proc$/;"	l
@@ -214,7 +215,9 @@ hex_mode	bios.asm	/^hex_mode: .proc$/;"	l
 hexin	time_first_row.asm	/^        hexin = $81bc$/;"	d
 hexin2	time_first_row.asm	/^        hexin2 = $81b6$/;"	d
 hexin4	time_first_row.asm	/^        hexin4 = $81ba$/;"	d
+ide_blp	ide_core_v4_20_org_z80_code.asm	/^ide_blp	djnz ide_blp$/;"	l
 ide_blp	ide_routines.asm	/^ide_blp:$/;"	l
+ide_dlp	ide_core_v4_20_org_z80_code.asm	/^ide_dlp	djnz ide_dlp$/;"	l
 ide_dlp	ide_routines.asm	/^ide_dlp:$/;"	l
 ide_drive_data_port	ide_routines.asm	/^		ide_drive_data_port = ide_io			; IDE data port$/;"	d
 ide_drive_error_code	ide_routines.asm	/^		ide_drive_error_code = ide_io + 1		; Read: Error code$/;"	d
@@ -223,32 +226,60 @@ ide_drive_lba1	ide_routines.asm	/^		ide_drive_lba1 = ide_io + 4				; lba 8:15$/;
 ide_drive_lba2	ide_routines.asm	/^		ide_drive_lba2 = ide_io + 5				; lba 16:23$/;"	d
 ide_drive_lba3_ms_lbamd	ide_routines.asm	/^		ide_drive_lba3_ms_lbamd = ide_io + 6 	; 0:3 lba 24:27, 4 master (0) slave (1), 6 = 1 for lba access$/;"	d
 ide_drive_rdstatus_wrcmd	ide_routines.asm	/^		ide_drive_rdstatus_wrcmd = ide_io + 7	; Read -> status, Write -> command$/;"	d
+ide_err	ide_core_v4_20_org_z80_code.asm	/^ide_err	or a			;make carry flag zero = error!$/;"	l
 ide_err	ide_routines.asm	/^ide_err:$/;"	l
+ide_get_id	ide_core_v4_20_org_z80_code.asm	/^ide_get_id$/;"	l
 ide_get_id	ide_routines.asm	/^ide_get_id:	.proc$/;"	l
+ide_high_byte	ide_core_v4_20_org_z80_code.asm	/^ide_high_byte equ $48$/;"	d
 ide_high_byte	ide_routines.asm	/^		ide_high_byte = ide_io + 8				; Control for read or write latch$/;"	d
 ide_id_drive_cmd	ide_routines.asm	/^		ide_id_drive_cmd = $ec$/;"	d
 ide_init_devices	ide_routines.asm	/^ide_init_devices: .proc$/;"	l
 ide_init_status	ide_routines.asm	/^ide_init_status: .proc$/;"	l
 ide_io	ide_routines.asm	/^		ide_io = $7f60							; Change this to $7f60 when pcb arrives.$/;"	d
+ide_mast	ide_core_v4_20_org_z80_code.asm	/^ide_mast:	pop hl$/;"	l
 ide_mast	ide_routines.asm	/^ide_mast:$/;"	l
+ide_read_buffer	ide_core_v4_20_org_z80_code.asm	/^ide_read_buffer$/;"	l
 ide_read_buffer	ide_routines.asm	/^ide_read_buffer:	.proc$/;"	l
+ide_read_sector	ide_core_v4_20_org_z80_code.asm	/^ide_read_sector$/;"	l
 ide_read_sector	ide_routines.asm	/^ide_read_sector: .proc$/;"	l
 ide_read_sector_cmd	ide_routines.asm	/^		ide_read_sector_cmd = $20$/;"	d
+ide_register0	ide_core_v4_20_org_z80_code.asm	/^ide_register0 equ $40		; Z80 IN\/OUT addresses for IDE port$/;"	d
+ide_register1	ide_core_v4_20_org_z80_code.asm	/^ide_register1 equ $41$/;"	d
+ide_register2	ide_core_v4_20_org_z80_code.asm	/^ide_register2 equ $42$/;"	d
+ide_register3	ide_core_v4_20_org_z80_code.asm	/^ide_register3 equ $43$/;"	d
+ide_register4	ide_core_v4_20_org_z80_code.asm	/^ide_register4 equ $44$/;"	d
+ide_register5	ide_core_v4_20_org_z80_code.asm	/^ide_register5 equ $45$/;"	d
+ide_register6	ide_core_v4_20_org_z80_code.asm	/^ide_register6 equ $46$/;"	d
+ide_register7	ide_core_v4_20_org_z80_code.asm	/^ide_register7 equ $47$/;"	d
 ide_sector_count	ide_routines.asm	/^		ide_sector_count = ide_io + 2			; number of sectors to transfer$/;"	d
+ide_setup_lba	ide_core_v4_20_org_z80_code.asm	/^ide_setup_lba$/;"	l
 ide_setup_lba	ide_routines.asm	/^ide_setup_lba:	.proc$/;"	l
+ide_srex	ide_core_v4_20_org_z80_code.asm	/^ide_srex	call ide_wait_busy_ready	;make sure drive is ready to proceed$/;"	l
 ide_srex	ide_routines.asm	/^ide_srex:$/;"	l
+ide_test_error	ide_core_v4_20_org_z80_code.asm	/^ide_test_error$/;"	l
 ide_test_error	ide_routines.asm	/^ide_test_error:	.proc$/;"	l
 ide_time_out	ide_routines.asm	/^ide_time_out:$/;"	l
+ide_to	ide_core_v4_20_org_z80_code.asm	/^ide_to	xor a			;carry 0 = timed out$/;"	l
+ide_to2	ide_core_v4_20_org_z80_code.asm	/^ide_to2	xor a			;carry 0 = timed out$/;"	l
 ide_to2	ide_routines.asm	/^ide_to2:$/;"	l
+ide_wait_buffer	ide_core_v4_20_org_z80_code.asm	/^ide_wait_buffer$/;"	l
 ide_wait_buffer	ide_routines.asm	/^ide_wait_buffer: .proc$/;"	l
+ide_wait_busy_ready	ide_core_v4_20_org_z80_code.asm	/^ide_wait_busy_ready$/;"	l
 ide_wait_busy_ready	ide_routines.asm	/^ide_wait_busy_ready:	.proc$/;"	l
+ide_wbsy	ide_core_v4_20_org_z80_code.asm	/^ide_wbsy	ld b,50			;ide times out after ~5 seconds if disk(s) not$/;"	l
 ide_wbsy	ide_routines.asm	/^ide_wbsy:$/;"	l
+ide_wdrq	ide_core_v4_20_org_z80_code.asm	/^ide_wdrq	ld b,50			;wait 5 seconds approx$/;"	l
 ide_wdrq	ide_routines.asm	/^ide_wdrq:$/;"	l
+ide_write_buffer	ide_core_v4_20_org_z80_code.asm	/^ide_write_buffer$/;"	l
 ide_write_buffer	ide_routines.asm	/^ide_write_buffer:	.proc$/;"	l
+ide_write_sector	ide_core_v4_20_org_z80_code.asm	/^ide_write_sector$/;"	l
 ide_write_sector	ide_routines.asm	/^ide_write_sector: .proc$/;"	l
 ide_write_sector_cmd	ide_routines.asm	/^		ide_write_sector_cmd = $30$/;"	d
+idebufrd	ide_core_v4_20_org_z80_code.asm	/^idebufrd	in a,(ide_register0)	;get low byte of ide data word first	$/;"	l
 idebufrd	ide_routines.asm	/^idebufrd:$/;"	l
+idebufwt	ide_core_v4_20_org_z80_code.asm	/^idebufwt	ld a,(hl)			$/;"	l
 idebufwt	ide_routines.asm	/^idebufwt:$/;"	l
+inc	ide_core_v4_20_org_z80_code.asm	/^	inc de$/;"	d
 inc_address	monitor.asm	/^inc_address: .proc$/;"	l
 inc_index	bios.asm	/^inc_index:  .proc$/;"	l
 incindex	time_first_row.asm	/^        incindex = $824e$/;"	d
@@ -301,7 +332,9 @@ lzsttab	bin_to_ascii.asm	/^lzsttab: .byte 3,2,9                    ;leading zero
 m_bits	bin_to_ascii.asm	/^m_bits: = 32                            ;operand bit size$/;"	d
 m_cbits	bin_to_ascii.asm	/^m_cbits: = 48                           ;workspace bit size$/;"	d
 m_strlen	bin_to_ascii.asm	/^m_strlen: = m_bits+1                    ;maximum printable string length$/;"	d
+master_slave_select	ide_core_v4_20_org_z80_code.asm	/^master_slave_select$/;"	l
 master_slave_select	ide_routines.asm	/^master_slave_select: .proc$/;"	l
+match	monitor.asm	/^match:$/;"	l
 monitor_initialiser	monitor.asm	/^monitor_initialiser: .proc$/;"	l
 monitor_main_loop	monitor.asm	/^monitor_main_loop: .proc$/;"	l
 move_cursor_to_screen_location_v_h	time_first_row.asm	/^move_cursor_to_screen_location_v_h  .null "[<V>;<H>H"$/;"	l
@@ -311,9 +344,10 @@ next	via.asm	/^next:$/;"	l
 next_address	monitor.asm	/^next_address:$/;"	l
 next_byte	monitor.asm	/^next_byte:$/;"	l
 next_char	monitor.asm	/^next_char:$/;"	l
-next_day_of_week	monitor.asm	/^next_day_of_week:$/;"	l
+next_entry_in_week_day_table	monitor.asm	/^next_entry_in_week_day_table: .proc$/;"	l
 nmi	bios.asm	/^nmi:$/;"	l
 nmon	time_first_row.asm	/^        nmon = $867d$/;"	d
+no_match	monitor.asm	/^no_match:$/;"	l
 non_printable	monitor.asm	/^non_printable:$/;"	l
 notdone	ide_routines.asm	/^notdone:$/;"	l
 numstab	bin_to_ascii.asm	/^numstab: .byte 12,12,48                 ;maximum numerals$/;"	l
@@ -361,6 +395,7 @@ set	time_first_row.asm	/^        set = $83c1$/;"	d
 set_console_time	rtc.asm	/^set_console_time: .proc$/;"	l
 set_date_time	monitor.asm	/^set_date_time: .proc$/;"	l
 slash	rtc.asm	/^slash:  .proc$/;"	l
+some_text	monitor.asm	/^some_text:  .null "hello world"$/;"	l
 sound_bell	bios.asm	/^sound_bell:$/;"	l
 sound_init	sound.asm	/^sound_init:  .proc$/;"	l
 space	bios.asm	/^space: .proc$/;"	l
@@ -370,6 +405,7 @@ spacex	bios.asm	/^spacex: .proc$/;"	l
 spc2	time_first_row.asm	/^        spc2 = $83e9$/;"	d
 spc4	time_first_row.asm	/^        spc4 = $83e6$/;"	d
 store_character	bios.asm	/^store_character:$/;"	l
+strcmp	monitor.asm	/^strcmp: .proc$/;"	l
 timer	time_first_row.asm	/^        timer = $83c3$/;"	d
 timer1_interrupt	time_first_row.asm	/^timer1_interrupt$/;"	l
 tmp	ide_routines.asm	/^		tmp = $70$/;"	d

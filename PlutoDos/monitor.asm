@@ -181,10 +181,14 @@ display_date_time: .proc
 ;; Input order will DDD dd mm yyyy hh MM ss
 ;; Ring bell if DDD can't be found in days_of_week table
 ;;;
+some_text:  .null "hello world"
 set_date_time: .proc
         jsr display_date_time
         jsr b_crout
         jsr input_day_of_week
+        #print_text some_text
+        ; adc #'0'
+        ; jsr b_chout
         rts
         .pend
 
@@ -203,6 +207,8 @@ input_day_of_week:  .proc
         smb 0,control_flags     ;%11 in control_flags means ASCII input
         smb 1,control_flags
 read_week_day_again:
+        #print_text clear_line
+        #print_text beginning_of_line
         ldy #<input_buffer      ;low byte of where read line will place input
         lda #>input_buffer      ;high byte of where read line will place input
         ldx #3                  ;Ask for three characters
@@ -210,28 +216,76 @@ read_week_day_again:
         cpx #3                  ;Have we read three characters
         beq correct             ;Yes, Branch
         jsr b_bell              ;No, sound bell and clear line
-        #print_text clear_line
         bra read_week_day_again
 
         ;; three characters have been read
 correct:
-        ldx #7                  ;number of days in week
+        ldx #1                  ;Day of week, 1 being Monday
         lda #<days_of_week      ;Initialise address pointer with days of week table address
         sta address_low
+        sta tmp                 ;Holds the index in the table
         lda #>days_of_week
         sta address_high
+        sta tmp+1
 
 ; Search for week day in table
-
+check_next_entry:
         jsr strcmp
-        beq exit
+        bcs exit
         jsr next_entry_in_week_day_table
-        bra check_next_entry
-
+        inx
+        cpx #8
+        bne check_next_entry
+        jsr b_bell
+        bra read_week_day_again
 exit:
         txa                     ;Day of week 1-7, 1 being Monday
         ply
         plx
+        rts
+        .pend
+
+next_entry_in_week_day_table: .proc
+        ldy #4
+l1:
+        inc tmp
+        bne done
+        inc tmp+1
+done:
+        dey
+        bne l1
+        lda tmp
+        sta address_low
+        lda tmp+1
+        sta address_high
+        rts
+        .pend
+check_next_entry:
+
+;;;
+;; strcmp
+;;;
+
+strcmp: .proc
+        pha
+        phy
+        ldy #0
+l2:
+        lda (address_low),y
+        cmp input_buffer,y
+        bne no_match            ;Exit when characters doesn't match
+        cmp #0                  ;Has end of string been reached
+        beq match               ;Yes, strings match
+        iny                     ;character
+        bra l2
+no_match:
+        clc                     ;Carry cleared == strings are not matching
+        bra exit
+match:
+        sec                     ;Set carry to indicate strings match
+exit:
+        ply
+        pla
         rts
         .pend
 
@@ -310,7 +364,7 @@ print_colon_dollar: .proc
 
 
 ;;;
-;; Print a sequence of bytes starting with 00
+;; Print a sequence of bytes starting with 00 as HEX
 ;;      Preparation:
 ;;              x:  number of bytes to write to terminal
 ;;      Register usage:
