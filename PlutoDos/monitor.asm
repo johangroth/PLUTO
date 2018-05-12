@@ -63,7 +63,7 @@ dump_memory: .proc
         sta address_high
 continue_dump:
         ldx #$10                    ;16 hex numbers to print
-        jsr print_byte_line         ;print $10 hex numbers starting with $00
+        jsr print_byte_line         ;print numbers $01 to $10
         jsr b_crout                 ;CR LF
         jsr print_squiggly_line     ;Print the squiggly line ('~')
         jsr b_crout                 ;CR LF
@@ -181,14 +181,49 @@ display_date_time: .proc
 ;; Input order will DDD dd mm yyyy hh MM ss
 ;; Ring bell if DDD can't be found in days_of_week table
 ;;;
-some_text:  .null "hello world"
 set_date_time: .proc
         jsr display_date_time
         jsr b_crout
+        ; input day of week
         jsr input_day_of_week
-        #print_text some_text
-        ; adc #'0'
-        ; jsr b_chout
+        sta todbuf+3                ;Store day of week
+        jsr b_space2
+        ; input day of month
+        lda #32                     ;No date is bigger than 31
+        sta temp3
+        lda #2                      ;Input of two characters
+        sta temp2
+        smb 2,control_flags         ;1 in bit 2 means value can't be zero
+        jsr input_time_date_info
+        sta todbuf+4                ;Store day in month
+        #print_char '/'
+        ; input month
+        lda #13                     ;Month must less than 13
+        sta temp3
+        lda #2
+        sta temp2
+        jsr input_time_date_info
+        sta todbuf+5
+        #print_char '/'
+        ; input year, no validation
+        lda #99
+        sta temp3
+        lda #4
+        sta temp2
+        jsr input_time_date_info
+        sta todbuf+6
+        sty todbuf+7
+        ; input hour
+        jsr b_space
+        rmb 2,control_flags         ;0 in bit 2 means value can be zero
+        lda #24                     ;Hours must be less than 24
+        sta temp3
+        lda #2                      ;Input of two characters
+        sta temp2
+        jsr input_time_date_info
+        sta todbuf+2
+        jsr set_date_and_time
+
         rts
         .pend
 
@@ -196,6 +231,45 @@ set_date_time: .proc
 ;;;
 ;; Monitor support routines
 ;;;
+
+;;;
+;; Input date and time. BELL rings if input value if error.
+;; No check is made if month has less days than 31.
+;;;
+input_time_date_info: .proc
+        smb 0,control_flags     ;%01 in control_flags means decimal input.
+        rmb 1,control_flags
+read_date_again:
+        ldy #<input_buffer
+        lda #>input_buffer
+        ldx temp2               ;The amount of characters that should be read
+        jsr b_read_line         ;Read .X decimal numbers
+        phx                     ;Preserve number of characters read
+        jsr ascii_to_bin        ;Convert to binary
+        plx                     ;Restore number of characters read
+        ldy number_buffer+1     ;High byte, only used for year input
+        lda number_buffer
+        bbr 2,control_flags,l2  ;Zero value accpeted for time values
+        beq l1                  ;Dates however can't be zero
+l2:
+        cmp temp3               ;Less than wanted value
+        bcc correct             ; branch
+
+;Not correct, so delete input
+l1:
+        #print_text destructive_backspace
+        dex                     ;Decrease number of characters
+        bne l1                  ;Repeat until all input characters have been erased
+        jsr bell                ;BELL
+        bra read_date_again     ;Let's try again
+correct:
+        sta bin
+        sty bin+1
+        jsr bin_to_bcd16
+        lda bcd
+        ldy bcd+1
+        rts
+        .pend
 
 ;;;
 ;; Input day of week. BELL rings if day is not found.

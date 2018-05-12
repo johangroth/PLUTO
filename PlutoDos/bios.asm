@@ -158,7 +158,6 @@ store_character:
         inc buffer_index
         bra read_loop               ;Read next character
 exit_read_line:
-        ; jsr crout                   ;Send CR/LF to terminal
         ldx buffer_index            ;Exit with X containing amount of characters read
         rts
         .pend
@@ -647,9 +646,8 @@ l2:
         dex
         bne l2
         jsr acia_init
-        jsr via_init
         jsr rtc_init
-        jsr sound_init
+        jsr via_init
         cli
 
 ;;;

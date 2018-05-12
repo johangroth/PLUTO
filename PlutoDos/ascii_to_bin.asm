@@ -98,7 +98,7 @@ l01:
         stz number_buffer,x             ;clear the result buffer
         dex
         bpl l01
-        stz stridx                      ;save string index
+        stz stridx                      ;clear string index
 ;
 ;
         lda control_flags               ;0=>HEX, 1=>DEC, 2=>BIN

@@ -60,6 +60,7 @@
 
         temp1 = strbuf + $10
         temp2 = temp1 + $1
+        temp3 = temp2 + $1
         address_low = temp2 + $1
         address_high = address_low + $1
         address = address_low
@@ -88,5 +89,6 @@
 
         fill_length_low = retry2 + $1
         fill_length_high = fill_length_low +$1
-
+        bcd = fill_length_high + $1
+        bin = bcd + $4
         stack_page  = $100

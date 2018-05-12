@@ -1,5 +1,5 @@
 ;;; via1 device addresses:
-        via1base = $7fc0 ;write output register b, read input register b
+        via1base = $7fc0
         via1rb   = via1base+0     ; write output register b, read input register b
         via1ra   = via1base+1     ; write output register a, read input register a
         via1ddrb = via1base+2     ; data direction register b
@@ -42,7 +42,7 @@ via1_init_table
 n_via1_registers=*-via1_init_table-1
 
 ;;; via2 device addresses:
-        via2base = $7fa0 ;write output register b, read input register b
+        via2base = $7fa0
         via2rb   = via2base+0     ; write output register b, read input register b
         via2ra   = via2base+1     ; write output register a, read input register a
         via2ddrb = via2base+2     ; data direction register b

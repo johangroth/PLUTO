@@ -80,6 +80,10 @@ print_y:    .macro
         jsr b_hex_byte
         .endm
 
+print_char: .macro
+        lda #\1
+        jsr b_chout
+        .endm
 ;;;
 ;; Help text for all the monitor commands.
 ;;;

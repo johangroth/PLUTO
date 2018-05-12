@@ -17,26 +17,26 @@
 ;       registers...
 ;
 rtcreg: .byte wr_crb          ;control B               $0f
-        .byte wr_secalarm         ;alarm sec               $08
-        .byte wr_minalarm         ;alarm min               $09
-        .byte wr_hrsalarm         ;alarm hour              $0a
-        .byte wr_dowalarm         ;alarm date/day          $0b
-        .byte wr_watchdog_ms         ;watchdog msecs * 10     $0c
-        .byte wr_watchdog_s          ;watchdog secs           $0d
+        .byte wr_secalarm     ;alarm sec               $08
+        .byte wr_minalarm     ;alarm min               $09
+        .byte wr_hrsalarm     ;alarm hour              $0a
+        .byte wr_dowalarm     ;alarm date/day          $0b
+        .byte wr_watchdog_ms  ;watchdog msecs * 10     $0c
+        .byte wr_watchdog_s   ;watchdog secs           $0d
         .byte wr_crb          ;control B               $0f
 n_rtcreg =*-rtcreg
 ;
 ;
 ;       parameters...
 ;
-rtcparm:.byte wr_irqoff       ;updates on & WDT IRQs off   %10000000
-        .byte wr_secap        ;no alarm secs IRQ           %00000000
-        .byte wr_minap        ;no alarm min IRQ            %00000000
-        .byte wr_hrsap        ;no alarm hour IRQ           %00000000
-        .byte wr_dowap        ;no alarm date/day IRQ       %00000000
-        .byte wr_watchdog_msp        ;10 ms underflows LSB        %00000001
-        .byte wr_watchdog_sp         ;10 ms underflows MSB        %00000000
-        .byte wr_crbpa        ;updates & WDT IRQs off      %00000000
+rtcparm:.byte wr_irqoff         ;updates on & WDT IRQs off   %10000000
+        .byte wr_secap          ;no alarm secs IRQ           %00000000
+        .byte wr_minap          ;no alarm min IRQ            %00000000
+        .byte wr_hrsap          ;no alarm hour IRQ           %00000000
+        .byte wr_dowap          ;no alarm date/day IRQ       %00000000
+        .byte wr_watchdog_msp   ;10 ms underflows LSB        %00000001
+        .byte wr_watchdog_sp    ;10 ms underflows MSB        %00000000
+        .byte wr_crbpa          ;updates & WDT IRQs off      %00000000
 ;
         .if *-rtcparm < n_rtcreg
             .error "!!! RTCREG & RTCPARM data tables don't match !!!"
@@ -63,7 +63,7 @@ l10:
         sta  delay_high
         lda  #$b8
         sta  delay_low      ;to ensure a user register update
-        jsr  delay2         ;$5b8 will be a ~366µs delay if system clock is 4MHz
+        jsr  delay          ;$5b8 will be a ~366µs delay if system clock is 4MHz
         rts
        .pend
 ;;;
@@ -208,8 +208,8 @@ set_console_time: .proc
 ;   Returned Values: .A: entry value
 ;                    .X: entry value
 ;                    .Y: entry value
-;
 ;   Example: JSR GET_DATE_AND_TIME
+;
 ;
 ;
 get_date_and_time: .proc
@@ -239,7 +239,7 @@ l2:
 ;
 ;================================================================================
 ;
-;PUT_DATE_AND_TIME: Write rtc date & time registers
+;SET_DATE_AND_TIME: Write rtc date & time registers
 ;
 ;
 ;   Preparatory Ops: Fill TODBUF with data
@@ -268,8 +268,7 @@ l2:
 ;              ++++++++> entry values
 ;
 ;
-put_date_and_time:  .proc
-        php
+set_date_and_time:  .proc
         pha
         phx
         phy             ;delay routine use y so preserve it
@@ -291,13 +290,14 @@ l2:
         bpl  l1         ;take care of next register
         pla             ;restore control register b
         sta  crb_rtc    ;turn on update of registers
-        lda  #$5a       ;a delay of 366us is needed
-        sta  dello      ;to ensure a user register update
-        jsr  delay1     ;$5a in dello will be a ~370us delay
+        lda  #$b8       ;a delay of 366us is needed
+        sta  delay_low  ;to ensure a user register update
+        lda  #$5
+        sta  delay_high
+        jsr  delay      ;$5b8 in delay_high/low will be a 366us delay
         ply
         plx
         pla
-        plp
         rts
         .pend
 
@@ -359,28 +359,4 @@ get_system_up_time: .proc
 ;
 ;
 utdelay: .proc
-        .pend
-
-;;;
-;; Send BCD number in A to terminal
-;;;
-bcdouta: .proc
-        pha
-        lsr             ;shift high digit to low digit, zero high digit
-        lsr
-        lsr
-        lsr
-        jsr  bcdtoasc   ;convert bcd digit to ascii decimal digit, send digit to terminal
-        pla             ;read indexed byte from bcd output buffer
-        and  #$0f       ;zero the high digit
-        jmp  bcdtoasc   ;convert bcd digit to ascii decimal digit, send digit to terminal and return
-
-;;;
-;; bcdtoasc subroutine:
-;; convert bcd digit to ascii decimal digit, send digit to terminal
-;;;
-bcdtoasc:
-        clc             ;add ascii "0" to digit: convert bcd digit to ascii decimal digit
-        adc  #$30
-        jmp  b_chout       ;send converted digit to terminal
         .pend
