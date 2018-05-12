@@ -667,38 +667,35 @@ exit	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^exit:$/;"	label	
 print_all_commands	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^print_all_commands: .proc$/;"	label	line:149
 display_date_time	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^display_date_time: .proc$/;"	label	line:159
 set_date_time	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^set_date_time: .proc$/;"	label	line:184
-input_time_date_info	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^input_time_date_info: .proc$/;"	label	line:239
-read_date_again	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^read_date_again:$/;"	label	line:242
-l2	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^l2:$/;"	label	line:254
-l1	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^l1:$/;"	label	line:259
-correct	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^correct:$/;"	label	line:265
-input_day_of_week	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^input_day_of_week:  .proc$/;"	label	line:278
-read_week_day_again	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^read_week_day_again:$/;"	label	line:283
-correct	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^correct:$/;"	label	line:296
-check_next_entry	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^check_next_entry:$/;"	label	line:306
-exit	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^exit:$/;"	label	line:315
-next_entry_in_week_day_table	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^next_entry_in_week_day_table: .proc$/;"	label	line:322
-l1	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^l1:$/;"	label	line:324
-done	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^done:$/;"	label	line:328
-check_next_entry	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^check_next_entry:$/;"	label	line:337
-strcmp	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^strcmp: .proc$/;"	label	line:343
-l2	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^l2:$/;"	label	line:347
-no_match	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^no_match:$/;"	label	line:355
-match	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^match:$/;"	label	line:358
-exit	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^exit:$/;"	label	line:360
-dump_as_ascii	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^dump_as_ascii: .proc$/;"	label	line:370
-loop	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^loop:$/;"	label	line:381
-non_printable	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^non_printable:$/;"	label	line:389
-next_char	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^next_char:$/;"	label	line:391
-print_squiggly_line	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^print_squiggly_line: .proc$/;"	label	line:401
-again	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^again:$/;"	label	line:406
-print_colon_dollar	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^print_colon_dollar: .proc$/;"	label	line:431
-print_byte_line	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^print_byte_line: .proc$/;"	label	line:456
-loop	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^loop:$/;"	label	line:463
-prompt	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^prompt: .proc$/;"	label	line:476
-abort_command	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^abort_command: .proc$/;"	label	line:481
-inc_address	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^inc_address: .proc$/;"	label	line:488
-done	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^done:$/;"	label	line:492
-add_a_to_address	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^add_a_to_address: .proc$/;"	label	line:499
-command_table	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^command_table:$/;"	label	line:511
-command_pointers	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^command_pointers:$/;"	label	line:524
+input_time_date_info	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^input_time_date_info: .proc$/;"	label	line:242
+read_date_again	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^read_date_again:$/;"	label	line:245
+input_day_of_week	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^input_day_of_week:  .proc$/;"	label	line:267
+read_week_day_again	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^read_week_day_again:$/;"	label	line:272
+correct	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^correct:$/;"	label	line:285
+check_next_entry	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^check_next_entry:$/;"	label	line:295
+exit	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^exit:$/;"	label	line:304
+next_entry_in_week_day_table	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^next_entry_in_week_day_table: .proc$/;"	label	line:311
+l1	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^l1:$/;"	label	line:313
+done	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^done:$/;"	label	line:317
+check_next_entry	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^check_next_entry:$/;"	label	line:326
+strcmp	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^strcmp: .proc$/;"	label	line:332
+l2	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^l2:$/;"	label	line:336
+no_match	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^no_match:$/;"	label	line:344
+match	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^match:$/;"	label	line:347
+exit	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^exit:$/;"	label	line:349
+dump_as_ascii	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^dump_as_ascii: .proc$/;"	label	line:359
+loop	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^loop:$/;"	label	line:370
+non_printable	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^non_printable:$/;"	label	line:378
+next_char	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^next_char:$/;"	label	line:380
+print_squiggly_line	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^print_squiggly_line: .proc$/;"	label	line:390
+again	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^again:$/;"	label	line:395
+print_colon_dollar	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^print_colon_dollar: .proc$/;"	label	line:420
+print_byte_line	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^print_byte_line: .proc$/;"	label	line:445
+loop	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^loop:$/;"	label	line:452
+prompt	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^prompt: .proc$/;"	label	line:465
+abort_command	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^abort_command: .proc$/;"	label	line:470
+inc_address	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^inc_address: .proc$/;"	label	line:477
+done	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^done:$/;"	label	line:481
+add_a_to_address	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^add_a_to_address: .proc$/;"	label	line:488
+command_table	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^command_table:$/;"	label	line:500
+command_pointers	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^command_pointers:$/;"	label	line:513

@@ -189,25 +189,18 @@ set_date_time: .proc
         sta todbuf+3                ;Store day of week
         jsr b_space2
         ; input day of month
-        lda #32                     ;No date is bigger than 31
-        sta temp3
         lda #2                      ;Input of two characters
         sta temp2
-        smb 2,control_flags         ;1 in bit 2 means value can't be zero
         jsr input_time_date_info
         sta todbuf+4                ;Store day in month
         #print_char '/'
         ; input month
-        lda #13                     ;Month must less than 13
-        sta temp3
         lda #2
         sta temp2
         jsr input_time_date_info
         sta todbuf+5
         #print_char '/'
         ; input year, no validation
-        lda #99
-        sta temp3
         lda #4
         sta temp2
         jsr input_time_date_info
@@ -215,15 +208,25 @@ set_date_time: .proc
         sty todbuf+7
         ; input hour
         jsr b_space
-        rmb 2,control_flags         ;0 in bit 2 means value can be zero
-        lda #24                     ;Hours must be less than 24
-        sta temp3
         lda #2                      ;Input of two characters
         sta temp2
         jsr input_time_date_info
         sta todbuf+2
         jsr set_date_and_time
-
+        ; input minutes
+        #print_char ':'
+        lda #2                      ;Input of two characters
+        sta temp2
+        jsr input_time_date_info
+        sta todbuf+1
+        jsr set_date_and_time
+        ; input seconds
+        #print_char ':'
+        lda #2                      ;Input of two characters
+        sta temp2
+        jsr input_time_date_info
+        sta todbuf
+        jsr set_date_and_time
         rts
         .pend
 
@@ -233,8 +236,8 @@ set_date_time: .proc
 ;;;
 
 ;;;
-;; Input date and time. BELL rings if input value if error.
-;; No check is made if month has less days than 31.
+;; Input date and time.
+;; No validations are made whether values are correct
 ;;;
 input_time_date_info: .proc
         smb 0,control_flags     ;%01 in control_flags means decimal input.
@@ -247,24 +250,10 @@ read_date_again:
         phx                     ;Preserve number of characters read
         jsr ascii_to_bin        ;Convert to binary
         plx                     ;Restore number of characters read
-        ldy number_buffer+1     ;High byte, only used for year input
+        lda number_buffer+1     ;High byte, only used for year input
+        sta bin+1
         lda number_buffer
-        bbr 2,control_flags,l2  ;Zero value accpeted for time values
-        beq l1                  ;Dates however can't be zero
-l2:
-        cmp temp3               ;Less than wanted value
-        bcc correct             ; branch
-
-;Not correct, so delete input
-l1:
-        #print_text destructive_backspace
-        dex                     ;Decrease number of characters
-        bne l1                  ;Repeat until all input characters have been erased
-        jsr bell                ;BELL
-        bra read_date_again     ;Let's try again
-correct:
         sta bin
-        sty bin+1
         jsr bin_to_bcd16
         lda bcd
         ldy bcd+1
