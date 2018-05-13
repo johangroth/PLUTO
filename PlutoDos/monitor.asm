@@ -189,7 +189,7 @@ set_date_time: .proc
         sta todbuf+3                ;Store day of week
         jsr b_space2
         ; input day of month
-        lda #2                      ;Input of two characters
+        lda #2                      ;Input of two numbers
         sta temp2
         jsr input_time_date_info
         sta todbuf+4                ;Store day in month
@@ -201,28 +201,28 @@ set_date_time: .proc
         sta todbuf+5
         #print_char '/'
         ; input year, no validation
-        lda #4
+        lda #4                      ;Input of four numbers
         sta temp2
         jsr input_time_date_info
         sta todbuf+6
         sty todbuf+7
         ; input hour
         jsr b_space
-        lda #2                      ;Input of two characters
+        lda #2                      ;Input of two numbers
         sta temp2
         jsr input_time_date_info
         sta todbuf+2
         jsr set_date_and_time
         ; input minutes
         #print_char ':'
-        lda #2                      ;Input of two characters
+        lda #2                      ;Input of two numbers
         sta temp2
         jsr input_time_date_info
         sta todbuf+1
         jsr set_date_and_time
         ; input seconds
         #print_char ':'
-        lda #2                      ;Input of two characters
+        lda #2                      ;Input of two numbers
         sta temp2
         jsr input_time_date_info
         sta todbuf
@@ -323,7 +323,6 @@ done:
         sta address_high
         rts
         .pend
-check_next_entry:
 
 ;;;
 ;; strcmp

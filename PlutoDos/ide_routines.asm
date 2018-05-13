@@ -290,7 +290,7 @@ ide_setup_lba:	.proc
 master_slave_select: .proc
 		lda ide_status
 		bbr 0, ide_status, ide_mast
-		ora #16
+		ora #%00010000
 ide_mast:
 		rts
 		.pend
