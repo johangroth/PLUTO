@@ -172,8 +172,8 @@ bcdouta: .proc
         jsr  bcdtoasc   ;convert bcd digit to ascii decimal digit, send digit to terminal
         pla             ;read indexed byte from bcd output buffer
         and  #$0f       ;zero the high digit
-        jsr  bcdtoasc   ;convert bcd digit to ascii decimal digit, send digit to terminal
-        rts             ;done bcdout subroutine, return
+        jmp  bcdtoasc   ;convert bcd digit to ascii decimal digit, send digit to terminal
+
 
 ;bcdtoasc subroutine:
 ; convert bcd digit to ascii decimal digit, send digit to terminal
