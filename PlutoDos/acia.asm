@@ -65,8 +65,6 @@ transmit_char:
 l2:
         sty out_buffer_head     ; Update output buffer head pointer
         dec out_buffer_counter  ; Decrement character count
-        ;rmb 2,siocom            ; Disable transmit irq
-        ;smb 3,siocom            ; Make sure BRK isn't transmitted
 exit:
         jmp (via1_soft_vector)  ; Jump to next ISR
         .bend

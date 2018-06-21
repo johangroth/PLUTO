@@ -588,22 +588,6 @@ via2_init	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/via.asm	/^via2_init: .pro
 next	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/via.asm	/^next:$/;"	label	line:20
 delay	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/via.asm	/^delay:  .proc$/;"	label	line:30
 loop	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/via.asm	/^loop:$/;"	label	line:38
-rtcreg	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^rtcreg: .byte wr_crb          ;control B               $0f$/;"	label	line:19
-n_rtcreg	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^n_rtcreg =*-rtcreg$/;"	label	line:27
-rtc_init	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^rtc_init: .proc$/;"	label	line:53
-l10	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^l10:$/;"	label	line:56
-print_date_and_time	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^print_date_and_time: .proc$/;"	label	line:82
-slash	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^slash:  .proc$/;"	label	line:128
-alarm	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^alarm:  .proc$/;"	label	line:174
-set_console_time	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^set_console_time: .proc$/;"	label	line:182
-get_date_and_time	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^get_date_and_time: .proc$/;"	label	line:215
-l1	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^l1:$/;"	label	line:223
-l2	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^l2:$/;"	label	line:228
-set_date_and_time	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^set_date_and_time:  .proc$/;"	label	line:271
-l1	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^l1:$/;"	label	line:280
-l2	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^l2:$/;"	label	line:287
-get_system_up_time	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^get_system_up_time: .proc$/;"	label	line:324
-utdelay	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^utdelay: .proc$/;"	label	line:361
 a_hexnum	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/ascii_to_bin.asm	/^a_hexnum: = 'A'-'9'-1                   ;hex to decimal difference$/;"	define	line:67
 n_radix	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/ascii_to_bin.asm	/^n_radix: = 3                            ;number of supported radixes$/;"	define	line:68
 radix_mask	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/ascii_to_bin.asm	/^radix_mask: = 3                         ;bit 0 and 1 in control_flags holds the radix$/;"	define	line:69
@@ -699,3 +683,28 @@ done	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^done:$/;"	label	
 add_a_to_address	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^add_a_to_address: .proc$/;"	label	line:488
 command_table	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^command_table:$/;"	label	line:500
 command_pointers	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/monitor.asm	/^command_pointers:$/;"	label	line:513
+rtcreg	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^rtcreg: .byte wr_crb          ;control B               $0f$/;"	label	line:19
+n_rtcreg	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^n_rtcreg =*-rtcreg$/;"	label	line:27
+rtc_init	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^rtc_init: .proc$/;"	label	line:53
+l10	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^l10:$/;"	label	line:56
+print_date_and_time	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^print_date_and_time: .proc$/;"	label	line:82
+slash	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^slash:  .proc$/;"	label	line:128
+alarm	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^alarm:  .proc$/;"	label	line:174
+set_console_time	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^set_console_time: .proc$/;"	label	line:182
+get_date_and_time	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^get_date_and_time: .proc$/;"	label	line:215
+l1	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^l1:$/;"	label	line:223
+l2	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^l2:$/;"	label	line:228
+set_date_and_time	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^set_date_and_time:  .proc$/;"	label	line:271
+l1	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^l1:$/;"	label	line:280
+l2	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^l2:$/;"	label	line:287
+get_system_up_time	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^get_system_up_time: .proc$/;"	label	line:324
+utdelay	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/rtc.asm	/^utdelay: .proc$/;"	label	line:361
+acia_init	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/acia.asm	/^acia_init: .proc$/;"	label	line:13
+acia_irq	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/acia.asm	/^acia_irq: .block$/;"	label	line:31
+receive_char	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/acia.asm	/^receive_char:$/;"	label	line:40
+l1	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/acia.asm	/^l1:$/;"	label	line:49
+transmit_char	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/acia.asm	/^transmit_char:$/;"	label	line:56
+l2	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/acia.asm	/^l2:$/;"	label	line:65
+exit	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/acia.asm	/^exit:$/;"	label	line:68
+duart_init	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/duart_sc28l92.asm	/^duart_init: .proc$/;"	label	line:13
+duart_irq	/home/jgroth/dev/repos_github/PLUTO/PlutoDos/duart_sc28l92.asm	/^duart_irq: .block$/;"	label	line:28
