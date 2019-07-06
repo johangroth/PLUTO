@@ -48,6 +48,25 @@ command_not_supported:
 ;;;
 
 ;;;
+;; [L] Lists (disassembles) 20 lines
+;;;
+disassemble: .proc
+        jsr print_colon_dollar
+        ldx #4
+        jsr b_input_hex
+        jsr b_crout
+        lda temp1                   ;if temp1 is zero
+        beq continue_list           ;branch as we want to continue where we left off
+        lda number_buffer           ;Address ends up in number_buffer
+        sta pc_low             ;so store it in address
+        lda number_buffer+1
+        sta pc_high
+continue_list:
+        jsr disass
+        rts
+        .pend
+
+;;;
 ;; [D] Dumps 256 bytes of memory
 ;;;
 dump_memory: .proc
@@ -504,6 +523,7 @@ command_table:
         .text $15   ;[CTRL-U] Upload file with XMODEM/CRC
         .text "T"   ;[T] Display date and time
         .byte $14   ;[CTRL-T] Set date and time
+        .text "L"   ;[L] List (disassemble).Disassemble 20 lines
         .byte $ff   ;end of table
 
 ;;;
@@ -517,3 +537,4 @@ command_pointers:
         .word upload
         .word display_date_time
         .word set_date_time
+        .word disassemble

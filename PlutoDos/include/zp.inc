@@ -8,8 +8,9 @@
         y_register              = zp_start + $4
         mpu_status_register     = zp_start + $5
         stack_pointer           = zp_start + $6
-        program_counter_low     = zp_start + $7
-        program_counter_high    = zp_start + $8
+        pc_low                  = zp_start + $7
+        pc_high                 = zp_start + $8
+        pc                      = pc_low
 
         ; 65C51 IRQ handler buffer pointers and counters
         in_buffer_counter   = zp_start + $9     ; Keeps track of how many characters there are in the input buffer
@@ -91,4 +92,18 @@
         fill_length_high = fill_length_low +$1
         bcd = fill_length_high + $1
         bin = bcd + $4
+
+        ;===============================================================================
+        ;16-bit
+        ; zero page variables
+        ;
+        ;
+        scratch_low = bin + $1
+        scratch_high = scratch_low + $1
+        scratch = scratch_low
+
+        ;===============================================================================
+        ; Start of stack
+        ;
+        ;
         stack_page  = $100

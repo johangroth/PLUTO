@@ -712,10 +712,10 @@ brk_irq: .block
         tsx
         stx stack_pointer
         plx                     ;Pull low byte of return address
-        stx program_counter_low
+        stx pc_low
         stx index_low           ;For disassemble line
         plx
-        stx program_counter_high
+        stx pc_high
         stx index_high          ;For disassemble line
 ;
 ; The following 3 subroutines are contained in the base Monitor and S/O/S code

@@ -100,7 +100,9 @@ abort_command	monitor.asm	/^abort_command: .proc$/;"	l
 acia_init	acia.asm	/^acia_init: .proc$/;"	l
 acia_irq	acia.asm	/^acia_irq: .block$/;"	l
 add_a_to_address	monitor.asm	/^add_a_to_address: .proc$/;"	l
+address_out	miniassembler.asm	/^address_out:$/;"	l
 again	bcd_bin_utils.asm	/^again:$/;"	l
+again	miniassembler.asm	/^again:$/;"	l
 again	monitor.asm	/^again:$/;"	l
 alarm	rtc.asm	/^alarm:  .proc$/;"	l
 arnd	bcd_bin_utils.asm	/^arnd:$/;"	l
@@ -140,8 +142,23 @@ bits_per_digit_table	ascii_to_bin.asm	/^bits_per_digit_table: .byte 4,3,1       
 bitstab	bin_to_ascii.asm	/^bitstab: .byte 4,4,1                    ;bits per numeral$/;"	l
 brk_irq	bios.asm	/^brk_irq: .block$/;"	l
 byte	bcd_bin_utils.asm	/^        byte = $fe$/;"	d
+check_absolute	miniassembler.asm	/^check_absolute:$/;"	l
+check_ai	miniassembler.asm	/^check_ai:$/;"	l
+check_aii	miniassembler.asm	/^check_aii:$/;"	l
+check_aix	miniassembler.asm	/^check_aix:$/;"	l
+check_aiy	miniassembler.asm	/^check_aiy:$/;"	l
+check_bbr_bbs	miniassembler.asm	/^check_bbr_bbs:$/;"	l
 check_buffer	bios.asm	/^check_buffer:$/;"	l
+check_immediate	miniassembler.asm	/^check_immediate:$/;"	l
 check_next_entry	monitor.asm	/^check_next_entry:$/;"	l
+check_pc_relative	miniassembler.asm	/^check_pc_relative:$/;"	l
+check_rmb_smb	miniassembler.asm	/^check_rmb_smb:$/;"	l
+check_zero_page	miniassembler.asm	/^check_zero_page:$/;"	l
+check_zp_i	miniassembler.asm	/^check_zp_i:$/;"	l
+check_zp_ii	miniassembler.asm	/^check_zp_ii:$/;"	l
+check_zp_iiy	miniassembler.asm	/^check_zp_iiy:$/;"	l
+check_zp_ix	miniassembler.asm	/^check_zp_ix:$/;"	l
+check_zp_iy	miniassembler.asm	/^check_zp_iy:$/;"	l
 chin	bios.asm	/^chin:    .proc$/;"	l
 chin_no_wait	bios.asm	/^chin_no_wait: .proc$/;"	l
 chout	bios.asm	/^chout:   .proc$/;"	l
@@ -154,6 +171,7 @@ command_pointers	monitor.asm	/^command_pointers:$/;"	l
 command_table	monitor.asm	/^command_table:$/;"	l
 compress	cfs.asm	/^compress:    .proc$/;"	l
 continue_dump	monitor.asm	/^continue_dump:$/;"	l
+continue_list	monitor.asm	/^continue_list:$/;"	l
 convert	ascii_to_bin.asm	/^convert:$/;"	l
 convert_bit	bcd_bin_utils.asm	/^convert_bit:$/;"	l
 correct	monitor.asm	/^correct:$/;"	l
@@ -164,6 +182,8 @@ crout	bios.asm	/^crout:   .proc$/;"	l
 dec_index	bios.asm	/^dec_index:  .proc$/;"	l
 decimal_input	bios.asm	/^decimal_input:$/;"	l
 delay	via.asm	/^delay:  .proc$/;"	l
+disass	miniassembler.asm	/^disass: .proc$/;"	l
+disassemble	monitor.asm	/^disassemble: .proc$/;"	l
 display_date_time	monitor.asm	/^display_date_time: .proc$/;"	l
 do_break	bios.asm	/^do_break:$/;"	l
 do_command	monitor.asm	/^do_command:$/;"	l
@@ -171,6 +191,7 @@ dollar	bios.asm	/^dollar: .proc$/;"	l
 done	bios.asm	/^done:$/;"	l
 done	cfs.asm	/^done:$/;"	l
 done	ide_routines.asm	/^done:$/;"	l
+done	miniassembler.asm	/^done:$/;"	l
 done	monitor.asm	/^done:$/;"	l
 dont_echo	monitor.asm	/^dont_echo:$/;"	l
 download	xmodem.asm	/^download: .proc$/;"	l
@@ -180,6 +201,7 @@ error	ide_routines.asm	/^error:$/;"	l
 execute_command	monitor.asm	/^execute_command:$/;"	l
 exit	acia.asm	/^exit:$/;"	l
 exit	bios.asm	/^exit:$/;"	l
+exit	miniassembler.asm	/^exit:$/;"	l
 exit	monitor.asm	/^exit:$/;"	l
 exit_read_line	bios.asm	/^exit_read_line:$/;"	l
 facbcd	bin_to_ascii.asm	/^facbcd:$/;"	l
@@ -268,6 +290,8 @@ idebufwt	ide_routines.asm	/^idebufwt:$/;"	l
 inc	ide_core_v4_20_org_z80_code.asm	/^	inc de$/;"	d
 inc_address	monitor.asm	/^inc_address: .proc$/;"	l
 inc_index	bios.asm	/^inc_index:  .proc$/;"	l
+inc_pc	miniassembler.asm	/^inc_pc: .proc$/;"	l
+inc_scratch	miniassembler.asm	/^inc_scratch: .proc$/;"	l
 init	bios.asm	/^init:$/;"	l
 input	bios.asm	/^input:  .proc$/;"	l
 input_day_of_week	monitor.asm	/^input_day_of_week:  .proc$/;"	l
@@ -327,25 +351,39 @@ monitor_initialiser	monitor.asm	/^monitor_initialiser: .proc$/;"	l
 monitor_main_loop	monitor.asm	/^monitor_main_loop: .proc$/;"	l
 n_radix	ascii_to_bin.asm	/^n_radix: = 3                            ;number of supported radixes$/;"	d
 n_rtcreg	rtc.asm	/^n_rtcreg =*-rtcreg$/;"	l
+negative_address	miniassembler.asm	/^negative_address:$/;"	l
+next	miniassembler.asm	/^next:$/;"	l
 next	via.asm	/^next:$/;"	l
 next_address	monitor.asm	/^next_address:$/;"	l
 next_byte	monitor.asm	/^next_byte:$/;"	l
 next_char	monitor.asm	/^next_char:$/;"	l
 next_entry_in_week_day_table	monitor.asm	/^next_entry_in_week_day_table: .proc$/;"	l
+next_line	miniassembler.asm	/^next_line:$/;"	l
+next_three_bytes_token	miniassembler.asm	/^next_three_bytes_token:$/;"	l
+next_two_bytes_token	miniassembler.asm	/^next_two_bytes_token:$/;"	l
 nmi	bios.asm	/^nmi:$/;"	l
 no_match	monitor.asm	/^no_match:$/;"	l
 non_printable	monitor.asm	/^non_printable:$/;"	l
 notdone	ide_routines.asm	/^notdone:$/;"	l
 numstab	bin_to_ascii.asm	/^numstab: .byte 12,12,48                 ;maximum numerals$/;"	l
 ok	ide_routines.asm	/^ok:$/;"	l
+one_byte	miniassembler.asm	/^one_byte:$/;"	l
 out	bcd_bin_utils.asm	/^out:$/;"	l
 out_buffer_full	bios.asm	/^out_buffer_full:$/;"	l
 partial_page	monitor.asm	/^partial_page:$/;"	l
+print_address_mode	miniassembler.asm	/^print_address_mode: .proc$/;"	l
 print_all_commands	monitor.asm	/^print_all_commands: .proc$/;"	l
 print_byte_line	monitor.asm	/^print_byte_line: .proc$/;"	l
 print_colon_dollar	monitor.asm	/^print_colon_dollar: .proc$/;"	l
 print_date_and_time	rtc.asm	/^print_date_and_time: .proc$/;"	l
+print_indexed_with_x	miniassembler.asm	/^print_indexed_with_x: .proc$/;"	l
+print_indexed_with_y	miniassembler.asm	/^print_indexed_with_y: .proc$/;"	l
+print_machine_code_store_address_mode_as_text	miniassembler.asm	/^print_machine_code_store_address_mode_as_text: .proc$/;"	l
+print_mnemonic	miniassembler.asm	/^print_mnemonic .proc$/;"	l
+print_one_byte	miniassembler.asm	/^print_one_byte: .proc$/;"	l
 print_squiggly_line	monitor.asm	/^print_squiggly_line: .proc$/;"	l
+print_three_bytes	miniassembler.asm	/^print_three_bytes: .proc$/;"	l
+print_two_bytes	miniassembler.asm	/^print_two_bytes: .proc$/;"	l
 prompt	monitor.asm	/^prompt: .proc$/;"	l
 prout	bios.asm	/^prout:   .proc$/;"	l
 radix_mask	ascii_to_bin.asm	/^radix_mask: = 3                         ;bit 0 and 1 in control_flags holds the radix$/;"	d
@@ -356,6 +394,7 @@ read_loop	bios.asm	/^read_loop:$/;"	l
 read_week_day_again	monitor.asm	/^read_week_day_again:$/;"	l
 receive_char	acia.asm	/^receive_char:$/;"	l
 return	bcd_bin_utils.asm	/^return:$/;"	l
+return	miniassembler.asm	/^return:$/;"	l
 ring_bell	bios.asm	/^ring_bell:$/;"	l
 rtc_init	rtc.asm	/^rtc_init: .proc$/;"	l
 rtc_irq	bios.asm	/^rtc_irq: .block$/;"	l
@@ -386,6 +425,7 @@ tmp1	ide_routines.asm	/^		tmp1 = tmp+1$/;"	d
 tmp2	ide_routines.asm	/^		tmp2 = tmp+2$/;"	d
 tmp3	ide_routines.asm	/^		tmp3 = tmp+3$/;"	d
 transmit_char	acia.asm	/^transmit_char:$/;"	l
+two_bytes	miniassembler.asm	/^two_bytes:$/;"	l
 upload	xmodem.asm	/^upload: .proc$/;"	l
 utdelay	rtc.asm	/^utdelay: .proc$/;"	l
 via1_init	via.asm	/^via1_init: .proc$/;"	l

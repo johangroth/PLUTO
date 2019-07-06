@@ -14,7 +14,7 @@ welcome:
         #cup "1", "6"
         .text "Main Processor    WDC W65C02S-14 (ticking at 4MHz)"
         #cup "1", "7"
-        .text "Serial port       19200 baud, 8-N-1"
+        .text "Serial port       65C51, 19200 baud, 8-N-1"
         #cup "1", "8"
         .text "Hardware Version  "
         .text "1.0"
