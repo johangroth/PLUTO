@@ -96,6 +96,8 @@ help_text:
         #crlf
         .text "H This text"
         #crlf
+        .text "L Disassemble"
+        #crlf
         .text "T Display time and date"
         #crlf
         .text "CTRL-T Set time and date"

@@ -67,7 +67,8 @@
 ;               Decimal  11
 ;            $  Hex       9
 ;
-;    .X/.Y   The LSB/MSB address at which the null-terminated conversion
+;    index_low/index_high
+;            The LSB/MSB address at which the null-terminated conversion
 ;            string will be located.  The string will be assembled into a
 ;            statically allocated buffer and should be promptly copied to
 ;            user-defined safe storage.

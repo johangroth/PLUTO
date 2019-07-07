@@ -411,8 +411,8 @@ exit:
 ;;;
 ;; HEX_ADDRESS subroutine: Send an ASCII hex address to terminal.
 ;;      Preparation:
-;;              index_low:  low byte to send to terminal
-;;              index_high: high byte to send to terminal
+;;              address_low:  low byte to send to terminal
+;;              address_high: high byte to send to terminal
 ;;      Effect on registers:
 ;;              a - entry value
 ;;              x - entry value
@@ -420,12 +420,12 @@ exit:
 ;;
 ;;      Example:
 ;;                  lda #$fc
-;;                  sta index_low
+;;                  sta address_low
 ;;                  lda #$ab
-;;                  sta index_high
+;;                  sta address_high
 ;;                  jsr hex_address
 ;;
-;;      Terminal will show:
+;;      Terminal will show as:
 ;;                  ABFC
 ;;;
 hex_address: .proc
@@ -467,15 +467,57 @@ hex_address: .proc
 ;;                  0C
 ;;;
 hex_byte: .proc
+        jsr hex_mode
+        jsr print_byte
+        rts
+        .pend
+
+;;;
+;; DEC_BYTE subroutine: Send an ASCII decimal byte to terminal.
+;;      Preparation:
+;;              temp:  byte to send to terminal
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;                  lda #12
+;;                  sta temp
+;;                  jsr hex_byte
+;;
+;;      Terminal will show:
+;;                  12
+;;;
+dec_byte: .proc
+        jsr dec_mode
+        jsr print_byte
+        rts
+        .pend
+
+;;;
+;; PRINT_BYTE subroutine: Send an ASCII byte to terminal.
+;;                        NOTE: should not be used directly. Help subroutne for
+;;                        hex_byte and dec_byte
+;;      Preparation:
+;;              temp:  byte to send to terminal
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;;
+print_byte: .proc
         pha
         phy
         phx
-        jsr hex_mode
         jsr clear_number_buffer
         lda temp1
         sta number_buffer
         jsr binary_to_ascii
-        jsr prout                   ;send hex character(s) to terminal
+        jsr prout                   ;send character(s) to terminal
         plx
         ply
         pla
@@ -498,6 +540,25 @@ hex_byte: .proc
 hex_mode: .proc
         rmb 0,control_flags
         rmb 1,control_flags
+        rts
+        .pend
+
+;;;
+;; DEC_MODE subroutine: Set control_flags to decimal conversion.
+;;      Preparation:
+;;              none
+;;
+;;      Effect on registers:
+;;              a - entry value
+;;              x - entry value
+;;              y - entry value
+;;
+;;      Example:
+;;                  jsr dec_mode
+;;;
+dec_mode: .proc
+        rmb 0,control_flags
+        smb 1,control_flags
         rts
         .pend
 
@@ -770,8 +831,8 @@ b_space2:       jmp space2
 b_space4:       jmp space4
 b_spacex:       jmp spacex
 b_hex_byte:     jmp hex_byte          ;Print a hex byte with leading zeroes. Byte should be stored in temp1.
-b_hex_address:  jmp hex_address       ;Print a hex address with leading zeroes. Address should be stored in index_low and index_high.
-
+b_hex_address:  jmp hex_address       ;Print a hex address with leading zeroes. Address should be stored in address_low and address_high.
+b_dec_byte:     jmp dec_byte          ;Print a decimal byte. Byte should be stored in temp1.
         * = $fffa
         .word   nmi         ;NMI
         .word   coldstart   ;RESET
